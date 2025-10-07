@@ -1,0 +1,363 @@
+{
+  "active": false,
+  "connections": {
+    "Daily Backup - 2 AM": {
+      "main": [
+        [
+          {
+            "node": "Get All Credentials",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Organize by Tags",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get many workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Credentials": {
+      "main": [
+        [
+          {
+            "node": "Process Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Organize by Tags": {
+      "main": [
+        [
+          {
+            "node": "Split Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Credentials": {
+      "main": [
+        [
+          {
+            "node": "Merge All Data",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Split Workflows": {
+      "main": [
+        [
+          {
+            "node": "Get Workflow Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Workflow Details": {
+      "main": [
+        [
+          {
+            "node": "Format Workflow File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Workflow File": {
+      "main": [
+        [
+          {
+            "node": "Merge All Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge All Data": {
+      "main": [
+        [
+          {
+            "node": "Prepare GitHub Commit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare GitHub Commit": {
+      "main": [
+        [
+          {
+            "node": "Split Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Files": {
+      "main": [
+        [
+          {
+            "node": "Upload to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many workflows": {
+      "main": [
+        [
+          {
+            "node": "Organize by Tags",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-07T12:27:54.518Z",
+  "id": "c9HTlQnVcMcQg0UE",
+  "isArchived": false,
+  "meta": null,
+  "name": "🔄 AUTO-BACKUP-TO-GITHUB",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 2 * * *"
+            }
+          ]
+        }
+      },
+      "id": "5b2701d2-4de7-417b-a80a-5f0ff3b3a26c",
+      "name": "Daily Backup - 2 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.N8N_HOST || 'http://localhost:5678' }}/api/v1/credentials",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "6604ee40-32f3-4dd0-8a87-db9633e640ba",
+      "name": "Get All Credentials",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        672,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const allWorkflows = $input.item.json.data;\nconst structure = {};\nconst workflowDetails = [];\n\n// First, organize workflows by tags\nfor (const wf of allWorkflows) {\n  const tags = wf.tags || [];\n  const folderName = tags.length > 0 ? tags[0].name : 'Uncategorized';\n  \n  if (!structure[folderName]) {\n    structure[folderName] = [];\n  }\n  structure[folderName].push(wf.id);\n  workflowDetails.push({ id: wf.id, folder: folderName });\n}\n\nreturn [{ json: { structure, workflowDetails, totalCount: allWorkflows.length } }];"
+      },
+      "id": "94d40422-ed1f-4df1-a4bd-0f576286adb8",
+      "name": "Organize by Tags",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const credentials = $input.item.json.data;\n\nconst credList = credentials.map(c => ({\n  id: c.id,\n  name: c.name,\n  type: c.type,\n  createdAt: c.createdAt,\n  updatedAt: c.updatedAt\n}));\n\nconst credData = {\n  credentials: credList,\n  count: credList.length,\n  backupDate: new Date().toISOString()\n};\n\nreturn [{ json: credData }];"
+      },
+      "id": "a26bbcb6-5a4f-4dd5-a26d-97ebb24f4523",
+      "name": "Process Credentials",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "workflowDetails",
+        "options": {}
+      },
+      "id": "0f917acb-36f4-4b28-8c33-e050cd3b7cea",
+      "name": "Split Workflows",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.N8N_HOST || 'http://localhost:5678' }}/api/v1/workflows/{{ $json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "8fb4ebbc-97d7-4675-9dbe-5c0395c06442",
+      "name": "Get Workflow Details",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        672,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const folder = $input.item.json.folder;\nconst workflow = $input.item.json;\n\nconst cleanWorkflow = {\n  id: workflow.id,\n  name: workflow.name,\n  nodes: workflow.nodes,\n  connections: workflow.connections,\n  settings: workflow.settings,\n  active: workflow.active,\n  tags: workflow.tags,\n  createdAt: workflow.createdAt,\n  updatedAt: workflow.updatedAt\n};\n\nconst fileName = `${workflow.name.replace(/[^a-zA-Z0-9]/g, '_')}_${workflow.id}.json`;\n\nreturn [{\n  json: {\n    folder,\n    fileName,\n    content: JSON.stringify(cleanWorkflow, null, 2)\n  }\n}];"
+      },
+      "id": "fe8ac6c9-d75a-43de-981f-ac606dd8c513",
+      "name": "Format Workflow File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "66bebc44-9a48-4602-9ef7-61022f839a09",
+      "name": "Merge All Data",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect all workflow files\nconst workflowFiles = $input.all().filter(item => item.json.folder && item.json.fileName);\n\n// Get credentials data\nconst credData = $input.all().find(item => item.json.credentials);\n\n// Group workflows by folder\nconst folderStructure = {};\nfor (const file of workflowFiles) {\n  if (!folderStructure[file.json.folder]) {\n    folderStructure[file.json.folder] = [];\n  }\n  folderStructure[file.json.folder].push(file.json);\n}\n\n// Create README content\nconst folders = Object.keys(folderStructure).sort();\nconst totalWorkflows = workflowFiles.length;\nconst readmeContent = `# n8n Workflows Backup\\n\\n**Last Updated:** ${new Date().toISOString()}\\n**Total Workflows:** ${totalWorkflows}\\n**Total Folders:** ${folders.length}\\n**Total Credentials:** ${credData ? credData.json.count : 0}\\n\\n## Folder Structure\\n\\n${folders.map(f => `- **${f}**: ${folderStructure[f].length} workflows`).join('\\n')}\\n\\n## How to Import\\n\\n1. Navigate to the workflow folder you want to import\\n2. Copy the JSON content\\n3. In n8n, go to Workflows > Import from File\\n4. Paste the JSON content\\n\\n## Credentials\\n\\nCredentials are listed in \\`credentials/credentials_list.json\\` (without sensitive data).\\nYou'll need to manually recreate credentials in your n8n instance.\\n\\n---\\n*Auto-generated by n8n backup workflow*  \\n*Schedule: Daily at 2:00 AM*\\n`;\n\n// Prepare all files for commit\nconst allFiles = [];\n\n// Add README\nallFiles.push({\n  path: 'README.md',\n  content: readmeContent\n});\n\n// Add workflow files\nfor (const folder of folders) {\n  for (const file of folderStructure[folder]) {\n    allFiles.push({\n      path: `workflows/${folder}/${file.fileName}`,\n      content: file.content\n    });\n  }\n}\n\n// Add credentials file\nif (credData) {\n  allFiles.push({\n    path: 'credentials/credentials_list.json',\n    content: JSON.stringify(credData.json, null, 2)\n  });\n}\n\nreturn [{ json: { files: allFiles, summary: { totalWorkflows, totalFolders: folders.length, folders } } }];"
+      },
+      "id": "b1cfed83-acae-408b-8336-9d38959236b8",
+      "name": "Prepare GitHub Commit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "files",
+        "options": {}
+      },
+      "id": "4aa76c43-1969-4054-a9ca-267da92eceb8",
+      "name": "Split Files",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "YOUR_GITHUB_USERNAME",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-workflows-backup",
+          "mode": "name"
+        },
+        "filePath": "={{ $json.path }}",
+        "fileContent": "={{ $json.content }}",
+        "commitMessage": "🔄 Auto backup - {{ $now.toISO() }}"
+      },
+      "id": "d0f9b123-d94d-462e-b7b2-b384285d6e1c",
+      "name": "Upload to GitHub",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1792,
+        96
+      ],
+      "webhookId": "54ade6b6-a378-4cc7-9ead-fb14eade3a88",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "filters": {
+          "activeWorkflows": false
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        32,
+        -16
+      ],
+      "id": "b001ace6-7f2d-4cf9-a655-627e025e5195",
+      "name": "Get many workflows",
+      "credentials": {
+        "n8nApi": {
+          "id": "RfDro0nrraMWVEpJ",
+          "name": "n8n account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-07T12:27:54.521Z",
+      "updatedAt": "2025-10-07T12:27:54.521Z",
+      "role": "workflow:owner",
+      "workflowId": "c9HTlQnVcMcQg0UE",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-07T12:32:46.000Z",
+  "versionId": "c943eef3-92c4-4906-958f-0ae552fec5b2"
+}

@@ -1,0 +1,933 @@
+{
+  "active": false,
+  "connections": {
+    "Set Config5": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate (ensure rows)4": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — Read Rows4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — Read Rows4": {
+      "main": [
+        [
+          {
+            "node": "Select One To Process4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select One To Process4": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config1": {
+      "main": [
+        [
+          {
+            "node": "IG Create Container1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Finished?1": {
+      "main": [
+        [
+          {
+            "node": "IG Publish1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Error?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Publish1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Publish Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Error?1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Cancel Update",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Inc Attempts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inc Attempts1": {
+      "main": [
+        [
+          {
+            "node": "IF More Polls?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF More Polls?1": {
+      "main": [
+        [
+          {
+            "node": "Wait (loop)1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Cancel Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait (loop)1": {
+      "main": [
+        [
+          {
+            "node": "IG Check Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "USERNAME",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP": {
+      "main": [
+        [
+          {
+            "node": "getFileLinks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getFileLinks": {
+      "main": [
+        [
+          {
+            "node": "BuildRowObjectForExcel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BuildRowObjectForExcel": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate (ensure rows)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Publish Update": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Cancel Update": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Poll Vars": {
+      "main": [
+        [
+          {
+            "node": "IG Check Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "USERNAME": {
+      "main": [
+        [
+          {
+            "node": "Set Config5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Create Container1": {
+      "main": [
+        [
+          {
+            "node": "Init Poll Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Check Status1": {
+      "main": [
+        [
+          {
+            "node": "IF Finished?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Set Config1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-13T04:42:50.711Z",
+  "id": "yInyC41ZO2Sc6T3q",
+  "isArchived": true,
+  "meta": null,
+  "name": "KnowSparkz-INSTAGRAM-ffmpeg2",
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "GOOGLE_DRIVE_FOLDER_ID",
+              "value": "1KHv4wZAzt_OaWETkhzbxz37fF27VOkmN"
+            },
+            {
+              "name": "GOOGLE_SHEET_ID",
+              "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE"
+            },
+            {
+              "name": "SHEET_NAME",
+              "value": "0"
+            },
+            {
+              "name": "FILES_DIR",
+              "value": "=/upload/{{ $json.UNAME }}"
+            },
+            {
+              "name": "FILES_URL",
+              "value": "=https://files.mohdasif.net/{{ $json.UNAME }}/"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e00ea7c9-8fb5-4001-8682-bd26810bcfcc",
+      "name": "Set Config5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -6944,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "e112192f-1815-4820-b4ef-f7c3e39d3ed9",
+      "name": "Google Sheets — AppendOrUpdate (ensure rows)4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -6048,
+        -304
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "d86e000c-e128-4ec0-a86b-6b5ad4b533f0",
+      "name": "Google Sheets — Read Rows4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -5824,
+        -304
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Select One To Process (fixed)\n// Mode: Run Once for All Items\nconst rows = $input.all().map(i => i.json || {});\n\n// helper: safe access to other nodes\nfunction safeNodeFirstValue(nodeName) {\n  try {\n    if (typeof $node === 'undefined') return null;\n    const n = $node[nodeName];\n    if (!n) return null;\n    const first = (typeof n.first === 'function') ? n.first() : (n.items && n.items[0]);\n    return first && first.json ? first.json : null;\n  } catch (err) {\n    return null;\n  }\n}\n\n// statuses that mean \"already processed\" (do NOT pick)\nconst SKIP_STATUSES = new Set([\n  'PUBLISHED',\n  'DOWNLOADED',\n  'PROCESSING',\n  'ERROR',\n  'CANCELLED'\n]);\n\nfunction isAvailable(row) {\n  if (!row) return false;\n\n  // If you have a boolean 'published' column, respect it\n  if (row.published === true || String(row.published).toLowerCase() === 'true') return false;\n\n  const s = row.status;\n  if (s === undefined || s === null) return true;\n  if (typeof s === 'string') {\n    const t = s.trim().toUpperCase();\n    if (t === '') return true;            // blank = available\n    if (SKIP_STATUSES.has(t)) return false; // skip known processed states\n    // treat all other strings as available (you can tighten this list if needed)\n    return true;\n  }\n  // non-string status -> treat falsy as available\n  return !s;\n}\n\n// debug info (optional)\nconst debug = {\n  rowsCount: rows.length,\n  sampleRows: rows.slice(0,5),\n  SetConfig5_first: safeNodeFirstValue('Set Config5'),\n};\nconsole.log('Select One To Process - debug:', debug);\n\n// pick first available row\nlet chosen = rows.find(isAvailable) || null;\n\nif (!chosen) {\n  return [{\n    json: {\n      debug: 'NO_ROW_SELECTED',\n      reason: 'no rows matched the availability criteria',\n      rowsCount: debug.rowsCount,\n      sampleRows: debug.sampleRows\n    }\n  }];\n}\n\n// resolve filename (fallbacks kept from your original)\nlet filename = (chosen.filename || chosen.original_name || '').toString().trim();\nif (!filename) {\n  const code3First = safeNodeFirstValue('Code3');\n  if (code3First && code3First.filename) filename = String(code3First.filename).trim();\n}\n\n// files dir fallback from Set Config5\nlet filesDir = '/files';\nconst setCfg = safeNodeFirstValue('Set Config5');\nif (setCfg && setCfg.FILES_DIR) {\n  const trimmed = String(setCfg.FILES_DIR).trim();\n  if (trimmed) filesDir = trimmed;\n}\n\nconst baseDir = (filesDir || '/files').replace(/\\/+$/, '') || '/files';\nconst local_path = filename ? `${baseDir}/${filename}` : `${baseDir}/`;\n\n// mark chosen as processing so subsequent runs don't pick it\nchosen.local_path = local_path;\nchosen.status = 'PROCESSING';\n\nreturn [{ json: chosen }];\n"
+      },
+      "id": "49e23cef-acb3-4fc9-8434-657175167fd4",
+      "name": "Select One To Process4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -5600,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "IG_USER_ID",
+              "value": "17841454629202811"
+            },
+            {
+              "name": "IG_ACCESS_TOKEN",
+              "value": "EAAZAD11ycW5IBPV1rV8L7ZBbRkCO1eSuetnxe68A2AyEqZCgMq8XLuOK5UgNZAzcxZBjzZA1mugbPEAIkZAus6slHugD355ESkJCIJOVU2E7KXxjg1tjZCCdaR4sazaGbpbNDpTAkmieMJTRQsm471ZBI7d7vdumx3w4hz4kZCSwuA2ZAGJpgZBXMaEkXZCHoMsxf"
+            },
+            {
+              "name": "DirectUrl",
+              "value": "=https://files.mohdasif.net/extra/video_with_views.mp4"
+            },
+            {
+              "name": "CAPTION",
+              "value": ".#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送🌍微信、支付寶收款 國外配送約2週左右 因天氣、不可控因素可能延誤 能接受再下單🗳️可詢問客服配送進度."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b608e9c2-3bbf-4d9e-b726-d18fd84b3301",
+      "name": "Set Config1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -5152,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "da04b258-3bd1-45b4-8dca-ce86ec95b04b",
+              "leftValue": "={{$json.status_code}}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "29e25672-65fd-41d2-9402-ac4b87081f2c",
+      "name": "IF Finished?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -4256,
+        -376
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://graph.facebook.com/v21.0/' + $items('Set Config1')[0].json.IG_USER_ID + '/media_publish'}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{$items('Init Poll Vars')[0].json.creation_id}}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{$items('Set Config1')[0].json.IG_ACCESS_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9dd58f0a-9c2e-47d9-8daf-c0b07aced006",
+      "name": "IG Publish1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -3584,
+        -496
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "4qua9PnedvSfPjwM",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "={{$json.status_code}}",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "469a9882-a7a3-48ac-b5fc-f377c8d0ae48",
+              "leftValue": "={{$json.status_code}}",
+              "rightValue": "ERROR",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "95c0e498-a93a-4c4a-a0db-c2472870ea58",
+      "name": "IF Error?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -4032,
+        -280
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "/* Increment attempts from persistent Init Poll Vars so creation_id is preserved */\nconst prev = $items('Init Poll Vars')[0].json || {};\nreturn [{\n  json: {\n    creation_id: prev.creation_id,\n    attempts: (prev.attempts || 0) + 1,\n    max_attempts: prev.max_attempts || 20,\n    sleep_sec: prev.sleep_sec || 6\n  }\n}];"
+      },
+      "id": "f623b2cf-9a80-40f2-8c75-744de6a00f8d",
+      "name": "Inc Attempts1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3808,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.attempts}}",
+              "operation": "smaller",
+              "value2": "={{$json.max_attempts}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "382e4aca-63fc-4547-8b87-020b834e28c1",
+      "name": "IF More Polls?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -3584,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "id": "41188f3b-c313-4b17-85e6-72afed93a9fd",
+      "name": "Wait (loop)1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -3360,
+        -304
+      ],
+      "webhookId": "75eecd2b-c87e-4e06-892b-affec957fb53"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 30,55 7,13,19 * * *"
+            }
+          ]
+        }
+      },
+      "id": "08840369-3564-401c-86e1-f28f949bd59f",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -7392,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "list",
+        "path": "={{ $json.FILES_DIR }}"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -6720,
+        -304
+      ],
+      "id": "7d18f416-c733-4e33-90fc-a7df3e11ae45",
+      "name": "FTP",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// GetFileLinks (Function) - normalizes input from SFTP list node\nconst out = [];\n\nfor (const item of $input.all()) {\n  const rawName = item.json.name || item.json.filename || '';\n  const name = rawName.replace(/\\r?\\n/g, '').trim();\n\n  const path = item.json.path || `/upload/${name}`;\n  const fileid = name;            // unique id per file (your filename)\n  const filename = name;\n  const remote_path = path;\n  const created_at = item.json.modifyTime || new Date().toISOString();\n  const size = item.json.size || null;\n\n  out.push({\n    json: {\n      fileid,\n      original_name: name,\n      filename,\n      remote_path,\n      created_at,\n      size\n      // keep minimal; BuildRowObjectForExcel will build the DirectUrl and status\n    }\n  });\n}\n\nreturn out;\n"
+      },
+      "id": "884269a5-7ce9-46ab-a729-2a2fe2b764d1",
+      "name": "getFileLinks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -6496,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect output rows here\nconst output = [];\n\n// Loop over all incoming items\nfor (let i = 0; i < items.length; i++) {\n  const item = items[i];        // <-- define `item`\n  const data = item.json || {}; // actual JSON payload\n\n  // Read UNAME: prefer the current item, else fallback to Set Config5 node\n  // Note: replace \"Set Config5\" with your node name if different\n  const uname =\n    (data.UNAME && String(data.UNAME).trim()) ||\n    ($node && $node[\"Set Config5\"] && $node[\"Set Config5\"].json && $node[\"Set Config5\"].json.UNAME) ||\n    '';\n\n  // Read file fields safely\n  const fileid = data.fileid || data.filename || '';\n  const filename = data.filename || fileid || '';\n  const encodedFilename = encodeURIComponent(filename || '');\n\n  // Build the direct URL & remote path using uname\n  const direct_url = `https://files.mohdasif.net/${uname}/${encodedFilename}`;\n  const remote_path = data.remote_path || `/upload/${uname}/${filename}`;\n\n  // Compose the row object — keys should match your Excel/Sheet column headers\n  const row = {\n    fileid,\n    original_name: filename,\n    DirectUrl: direct_url,\n    remote_path,\n    created_at: data.created_at || new Date().toISOString(),\n    size: data.size || null,\n    status: data.status || 'unknown',\n    published: data.published || false\n  };\n\n  // Push as a proper n8n return item\n  output.push({ json: row });\n}\n\n// Return the final array of items\nreturn output;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -6272,
+        -304
+      ],
+      "id": "7df5e0b3-58f3-4fad-9bcd-4ad14efcf8ea",
+      "name": "BuildRowObjectForExcel"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    DirectUrl: $items('Select One To Process4')[0]?.json?.DirectUrl || $json.DirectUrl || null,\n    status: 'PUBLISHED',\n    published_meta: { when: new Date().toISOString() }\n  }\n}];"
+      },
+      "id": "4c6e3278-831b-4053-82c1-d92a8017cf01",
+      "name": "Prepare Publish Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3360,
+        -496
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare Cancel/Error Update\n// This node now handles both timeouts and API errors.\n\nconst selectNode = $items('Select One To Process4')[0]?.json;\nconst checkStatusNode = $items('IG Check Status1')[0]?.json;\nconst incAttemptsNode = $items('Inc Attempts1')[0]?.json;\n\nlet status = 'CANCELLED - attempts exceeded';\nlet reason = 'max_attempts_reached';\n\n// Check if this path came from an API error\nif (checkStatusNode?.status_code === 'ERROR') {\n  status = 'ERROR';\n  reason = checkStatusNode.status || 'API error during upload';\n}\n\nreturn [{\n  json: {\n    DirectUrl: selectNode?.DirectUrl || null,\n    status: status,\n    cancel_meta: {\n      attempts: incAttemptsNode?.attempts || null,\n      reason: reason\n    }\n  }\n}];\n"
+      },
+      "id": "fc96442f-ce26-443a-84af-f88640446d74",
+      "name": "Prepare Cancel Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3360,
+        -88
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "={{ $json.status }}",
+            "DirectUrl": "={{ $json.DirectUrl }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2c20d89c-b61b-40b4-a9c9-045155e557e5",
+      "name": "Update Sheet — SetStatus",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -3136,
+        -280
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    creation_id: $item(0).$node['IG Create Container1'].json.id,\n    attempts: 0,\n    max_attempts: 5,\n    sleep_sec: 6\n  }\n}];\n"
+      },
+      "id": "86adfd44-feb2-412d-9a1c-b56840f8fd9d",
+      "name": "Init Poll Vars",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -4704,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "UNAME",
+              "value": "KnowSparkz"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "414fb021-1dfa-4214-8de5-30f8bd5ab8bd",
+      "name": "USERNAME",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -7168,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://graph.facebook.com/v21.0/' + $json.IG_USER_ID + '/media'}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.DirectUrl }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{$json.CAPTION}}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{$json.IG_ACCESS_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c7b79f6b-56d3-4585-9b94-370050654d9a",
+      "name": "IG Create Container1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -4928,
+        -304
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "CmDYlZ89za45GZVg",
+          "name": "reactsaga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $items('Init Poll Vars')[0].json.creation_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code,status"
+            },
+            {
+              "name": "access_token",
+              "value": "={{$items('Set Config1')[0].json.IG_ACCESS_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cc054bf1-11d9-4715-8071-f64664f6ccdf",
+      "name": "IG Check Status1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -4480,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=INPUT_URL=\"{{ $json.DirectUrl }}\"\nREL_PATH=$(echo \"$INPUT_URL\" | sed -E 's@https?://[^/]+/@@')\nINPUT_FILE=\"/files/$REL_PATH\"\n\n# ---------- Configurable variables (change these) ----------\nASSETS_DIR=\"/files/extra\"\nFONT_FILE=\"ARIALBD 1.TTF\"        # place any TTF you upload into /files/extra and set the filename here\n\n# Where screenshot will be placed on final video (overlay anchor)\nPLACEMENT=\"top-right\"            # top-right, top-left, bottom-right, bottom-left\n\n# Screenshot icon + views placement (used to draw screenshot; separate from PLACEMENT)\nICON_SIZE=64\nICON_OFFSET_X=24                 # distance from left of screenshot (when creating screenshot)\nICON_OFFSET_Y=2400                 # distance from top/bottom for the icon when creating screenshot\nTEXT_GAP=5                       # gap between icon and views text inside screenshot\nFONTSIZE=48                      # font size for the views number in screenshot\nTEXT_OFFSET_X=0\nTEXT_OFFSET_Y=-10\nRAND_MIN=1\nRAND_MAX=100\n\n# Overlay (screenshot) scaling + offset for final video\nOVERLAY_W=520\nOVERLAY_H=680\nOVERLAY_OFFSET_X=20              # distance from chosen corner (final video)\nOVERLAY_OFFSET_Y=120              # distance from chosen corner (final video)\n\n# Caption bar + emoji settings (exposed)\nBAR_HEIGHT=110                   # caption background height (pixels)\nBAR_OFFSET_Y=0                   # distance from TOP of video to the caption bar (px)\nBAR_BG_OPACITY=150               # 0..255 (0 transparent, 255 opaque) for caption background\nCAPTION_FONT_SIZE=64\n\nEMOJI_PNG=\"${ASSETS_DIR}/emoji.png\"   # optional emoji path (transparent PNG)\nEMOJI_SIZE=74\nEMOJI_OFFSET_X=260               # distance from LEFT edge of video for emoji\nEMOJI_OFFSET_Y=20               # distance from TOP edge of video for emoji\n\n# Show overlay from first frame by default\nFRAME_DELAY_START=0\n\nOUT_VIDEO=\"${ASSETS_DIR}/video_with_views.mp4\"\nFPS=30\n\n# Safety defaults\nDURATION_FALLBACK=300\nTIMEOUT_PADDING=8\n# ---------- End configurable ----------\n\n# ---------- Derived / paths ----------\nmkdir -p \"$ASSETS_DIR\"\nFONT=\"${ASSETS_DIR}/${FONT_FILE}\"\nEYE_ICON=\"${ASSETS_DIR}/eye.png\"\nSCREENSHOT_PNG=\"${ASSETS_DIR}/frame_with_views.png\"\nTMP_FRAME=\"${ASSETS_DIR}/_tmp_frame.png\"\nVIEWS_IMG=\"${ASSETS_DIR}/_views_text.png\"\nCAPTION_PNG=\"${ASSETS_DIR}/caption_canvas.png\"\n# ---------- End derived ----------\n\nVIEWS=\"$(shuf -i${RAND_MIN}-${RAND_MAX} -n1)M\"\n\necho \"INPUT_FILE: $INPUT_FILE\"\necho \"FONT: $FONT\"\necho \"VIEWS: $VIEWS\"\necho \"OUT_VIDEO: $OUT_VIDEO\"\necho \"ASSETS_DIR: $ASSETS_DIR\"\necho \"PLACEMENT: $PLACEMENT\"\necho \"FRAME_DELAY_START: $FRAME_DELAY_START\"\n\n# sanity check\nif [ ! -f \"$INPUT_FILE\" ]; then\n  echo \"ERR: input not found: $INPUT_FILE\" >&2\n  exit 1\nfi\n\n# ensure eye icon exists (transparent fallback)\nif [ ! -f \"$EYE_ICON\" ]; then\n  echo \"Note: eye icon missing at $EYE_ICON — creating transparent placeholder\"\n  ffmpeg -f lavfi -i \"color=rgba(0,0,0,0):s=${ICON_SIZE}x${ICON_SIZE}:d=1\" -frames:v 1 -y \"$EYE_ICON\"\nfi\n\n# 1) extract a single frame (at 2s) -> single png\necho \"1/6: extracting frame at 2s -> $TMP_FRAME\"\nffmpeg -ss 2 -i \"$INPUT_FILE\" -frames:v 1 -q:v 2 -y \"$TMP_FRAME\"\n\n# compute video dimensions for placement math\nVID_H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 \"$INPUT_FILE\" 2>/dev/null || echo 1080)\nVID_W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width  -of csv=p=0 \"$INPUT_FILE\" 2>/dev/null || echo 1080)\nVID_H=${VID_H:-1080}\nVID_W=${VID_W:-1080}\n\n# For the screenshot placement: default behavior uses ICON_OFFSET from left and ICON_OFFSET_Y from top/bottom.\nICON_X=${ICON_OFFSET_X}\nif [ \"${PLACEMENT%%-*}\" = \"top\" ]; then\n  # NOTE: icon placement inside screenshot is independent from final overlay PLACEMENT,\n  # but using the same PLACEMENT var here preserves your original bottom-left default if PLACEMENT=bottom-*\n  ICON_Y=${ICON_OFFSET_Y}\nelse\n  ICON_Y=$(( VID_H - ICON_OFFSET_Y - ICON_SIZE ))\nfi\n\n# Text inside screenshot (to the right of the icon by default)\nTEXT_X=$(( ICON_X + ICON_SIZE + TEXT_GAP + TEXT_OFFSET_X ))\nTEXT_Y=$(( ICON_Y + ICON_SIZE/2 - FONTSIZE/2 + TEXT_OFFSET_Y ))\nif [ \"$TEXT_Y\" -lt 0 ]; then TEXT_Y=0; fi\n\necho \"Computed screenshot ICON at (${ICON_X},${ICON_Y}), TEXT at (${TEXT_X},${TEXT_Y}), VID_W=${VID_W}, VID_H=${VID_H}\"\n\n# 2) Build screenshot image (icon + views) using Pillow (consistent and portable)\necho \"2/6: Creating screenshot image (Pillow)\"\n\n# export values for python env access\nexport TMP_FRAME SCREENSHOT_PNG EYE_ICON VIEWS VIEWS_IMG FONT ICON_X ICON_Y ICON_SIZE TEXT_X TEXT_Y FONTSIZE\n\npython3 - <<'PY'\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\ntmp_frame = os.environ[\"TMP_FRAME\"]\nout_png = os.environ[\"SCREENSHOT_PNG\"]\neye_icon = os.environ[\"EYE_ICON\"]\nv = os.environ[\"VIEWS\"]\nviews_img = os.environ[\"VIEWS_IMG\"]\nfontpath = os.environ.get(\"FONT\", \"\")\nICON_X = int(os.environ.get(\"ICON_X\", \"24\"))\nICON_Y = int(os.environ.get(\"ICON_Y\", \"84\"))\nICON_SIZE = int(os.environ.get(\"ICON_SIZE\", \"64\"))\nTEXT_X = int(os.environ.get(\"TEXT_X\", str(ICON_X + ICON_SIZE + 5)))\nTEXT_Y = int(os.environ.get(\"TEXT_Y\", str(ICON_Y)))\nFONTSIZE = int(os.environ.get(\"FONTSIZE\", \"48\"))\n\n# open base frame\nbg = Image.open(tmp_frame).convert(\"RGBA\")\n\n# open icon\nicon = Image.open(eye_icon).convert(\"RGBA\").resize((ICON_SIZE, ICON_SIZE))\nbg.paste(icon, (ICON_X, ICON_Y), icon)\n\n# pick font\ncandidates = [\n    fontpath,\n    \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n    \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\",\n    \"/Library/Fonts/Arial.ttf\",\n    \"/System/Library/Fonts/Supplemental/Arial.ttf\"\n]\nfont = None\nfor p in candidates:\n    if p and os.path.isfile(p):\n        try:\n            font = ImageFont.truetype(p, FONTSIZE)\n            break\n        except Exception:\n            font = None\nif font is None:\n    font = ImageFont.load_default()\n\ndraw = ImageDraw.Draw(bg)\ndraw.text((TEXT_X, TEXT_Y), v, font=font, fill=(255,255,255,255))\n\nbg.save(out_png)\nprint(out_png)\nPY\n\nchmod 644 \"$SCREENSHOT_PNG\"\necho \"WROTE screenshot $SCREENSHOT_PNG\"\n\nif [ ! -f \"$SCREENSHOT_PNG\" ]; then\n  echo \"ERR: screenshot image not created: $SCREENSHOT_PNG\" >&2\n  exit 1\nfi\n\n# 3) Build caption canvas (transparent PNG) \"Thank you for ${VIEWS} views\"\necho \"3/6: Building caption PNG -> $CAPTION_PNG\"\nexport CAPTION_PNG VID_W BAR_HEIGHT CAPTION_FONT_SIZE BAR_BG_OPACITY VIEWS FONT\n\npython3 - <<'PY'\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\nout = os.environ[\"CAPTION_PNG\"]\nvidw = int(os.environ.get(\"VID_W\", \"1080\"))\nbarh = int(os.environ.get(\"BAR_HEIGHT\", \"110\"))\ntxt = f\"Thank you for {os.environ.get('VIEWS','0M')} views\"\nfontsize = int(os.environ.get(\"CAPTION_FONT_SIZE\", \"64\"))\nbar_opacity = int(os.environ.get(\"BAR_BG_OPACITY\", \"80\"))\nfontpath = os.environ.get(\"FONT\", \"\")\n\ncandidates = [\n    fontpath,\n    \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n    \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\",\n    \"/Library/Fonts/Arial.ttf\",\n    \"/System/Library/Fonts/Supplemental/Arial.ttf\"\n]\nfont = None\nfor p in candidates:\n    if p and os.path.isfile(p):\n        try:\n            font = ImageFont.truetype(p, fontsize)\n            break\n        except Exception:\n            font = None\nif font is None:\n    font = ImageFont.load_default()\n    fontsize = 16\n\ntmp = Image.new(\"RGBA\", (10,10), (0,0,0,0))\ndraw = ImageDraw.Draw(tmp)\ntry:\n    bbox = draw.textbbox((0,0), txt, font=font)\n    w = bbox[2]-bbox[0]; h = bbox[3]-bbox[1]\nexcept Exception:\n    w,h = draw.textsize(txt, font=font)\n\nimg = Image.new(\"RGBA\", (vidw, barh), (0,0,0,0))\nd = ImageDraw.Draw(img)\n\n# semi-transparent black bar background - bar_opacity (0..255)\nd.rectangle([(0,0),(vidw,barh)], fill=(0,0,0,bar_opacity))\n\n# center text\ntx = (vidw - w) // 2\nty = (barh - h) // 2\nd.text((tx,ty), txt, font=font, fill=(255,255,255,255))\n\nimg.save(out)\nprint(out)\nPY\n\nchmod 644 \"$CAPTION_PNG\"\necho \"WROTE caption PNG $CAPTION_PNG\"\n\nif [ ! -f \"$CAPTION_PNG\" ]; then\n  echo \"ERR: caption png not created\" >&2\n  exit 1\nfi\n\n# 4) Final composition — overlay screenshot (scaled) to chosen corner, draw caption bar at top center\necho \"4/6: composing final video -> $OUT_VIDEO\"\n\n# compute overlay anchor depending on PLACEMENT\ncase \"$PLACEMENT\" in\n  top-right)\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\n  top-left)\n    OV_X_EXPR=\"${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\n  bottom-right)\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"H-h-${OVERLAY_OFFSET_Y}\"\n    ;;\n  bottom-left)\n    OV_X_EXPR=\"${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"H-h-${OVERLAY_OFFSET_Y}\"\n    ;;\n  *)\n    echo \"Unknown PLACEMENT '$PLACEMENT' — defaulting to top-right\"\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\nesac\n\n# build filter_complex.  Place caption at BAR_OFFSET_Y from top; show screenshot overlay starting at FRAME_DELAY_START\n# include emoji overlay only if file exists\nif [ -f \"${EMOJI_PNG}\" ]; then\n  # compute y offset for emoji over the caption bar (to vertically center inside bar if desired)\n  EMOJI_Y_IN_BAR=$(( BAR_OFFSET_Y + (BAR_HEIGHT - EMOJI_SIZE) / 2 ))\n  ffmpeg -y -i \"$INPUT_FILE\" -i \"$SCREENSHOT_PNG\" -i \"$CAPTION_PNG\" -i \"${EMOJI_PNG}\" -filter_complex \"\\\n[1:v]scale=${OVERLAY_W}:${OVERLAY_H}[ov]; \\\n[0:v][ov]overlay=x=${OV_X_EXPR}:y=${OV_Y_EXPR}:enable='gte(t,${FRAME_DELAY_START})'[step1]; \\\n[step1][2:v]overlay=x=(main_w-overlay_w)/2:y=${BAR_OFFSET_Y}[step2]; \\\n[3:v]scale=${EMOJI_SIZE}:${EMOJI_SIZE}[emoji]; \\\n[step2][emoji]overlay=x=${EMOJI_OFFSET_X}:y=${EMOJI_OFFSET_Y}\" \\\n  -r ${FPS} -c:v libx264 -preset veryfast -c:a copy -y \"$OUT_VIDEO\"\nelse\n  ffmpeg -y -i \"$INPUT_FILE\" -i \"$SCREENSHOT_PNG\" -i \"$CAPTION_PNG\" -filter_complex \"\\\n[1:v]scale=${OVERLAY_W}:${OVERLAY_H}[ov]; \\\n[0:v][ov]overlay=x=${OV_X_EXPR}:y=${OV_Y_EXPR}:enable='gte(t,${FRAME_DELAY_START})'[step1]; \\\n[step1][2:v]overlay=x=(main_w-overlay_w)/2:y=${BAR_OFFSET_Y}\" \\\n  -r ${FPS} -c:v libx264 -preset veryfast -c:a copy -y \"$OUT_VIDEO\"\nfi\n\nif [ $? -eq 0 ] && [ -f \"$OUT_VIDEO\" ]; then\n  echo \"WROTE final video -> $OUT_VIDEO\"\n  exit 0\nelse\n  echo \"ERR: final ffmpeg compose failed\" >&2\n  exit 1\nfi\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -5376,
+        -304
+      ],
+      "id": "332fbc7d-e753-4b81-b2d5-d6bdfdd3ba1f",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "command": "=INPUT_URL=\"{{ $json.DirectUrl }}\"\nREL_PATH=$(echo \"$INPUT_URL\" | sed -E 's@https?://[^/]+/@@')\nINPUT_FILE=\"/files/$REL_PATH\"\nOUTPUT_FILE=\"/files/$REL_PATH\"\nTMP_FILE=\"${OUTPUT_FILE}.tmp.mp4\"\nmkdir -p \"$(dirname \"$OUTPUT_FILE\")\"\n\nASSETS_DIR=\"/files/extra\"\nEYE_ICON=\"${ASSETS_DIR}/eye.png\"\nEMOJI_IMG=\"${ASSETS_DIR}/emoji.png\"\nFRAME_PNG=\"${ASSETS_DIR}/frame_with_views.png\"\nCAPTION_PNG=\"${ASSETS_DIR}/caption_canvas.png\"\nTMP_TEXT_PNG=\"${ASSETS_DIR}/_caption_text.png\"\n\n# font fallback\nif [ -f \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\" ]; then\n  FONT=\"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\"\nelse\n  FONT=\"/usr/share/fonts/truetype/freefont/FreeSansBold.ttf\"\nfi\n\n# random views 1..100M\nVNUM=$(( (RANDOM % 100) + 1 ))\nVIEWS=\"${VNUM}M\"\n\n# build frame_with_views.png in /files/extra\nICON_SIZE=64\nOFFSET_X=24\nOFFSET_Y=24\nFONTSIZE=48\nffmpeg -ss 2 -i \"$INPUT_FILE\" -i \"$EYE_ICON\" -frames:v 1 -filter_complex \"\\\n[1:v]scale=${ICON_SIZE}:${ICON_SIZE}[icon]; \\\n[0:v][icon]overlay=x=${OFFSET_X}:y=H-${OFFSET_Y}-${ICON_SIZE}[with_icon]; \\\n[with_icon]drawtext=fontfile='${FONT}':text='${VIEWS}':x=${OFFSET_X}+${ICON_SIZE}+10:y=H-${OFFSET_Y}-${ICON_SIZE}/2-text_h/2:fontsize=${FONTSIZE}:fontcolor=white:borderw=2:bordercolor=black\" \\\n -y \"$FRAME_PNG\"\n\n# build caption_canvas.png in /files/extra\nVID_W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 \"$INPUT_FILE\" || echo 1080)\nBAR_HEIGHT=110\nFONTSIZE_CAP=64\nEMOJI_SIZE=64\nTITLE=\"Thank you for ${VIEWS} views\"\nconvert -background none -font \"${FONT}\" -pointsize \"${FONTSIZE_CAP}\" label:\"${TITLE}\" \"${TMP_TEXT_PNG}\"\nTEXT_W=$(identify -format \"%w\" \"${TMP_TEXT_PNG}\")\nTEXT_H=$(identify -format \"%h\" \"${TMP_TEXT_PNG}\")\nTEXT_X=$(( (VID_W - TEXT_W) / 2 ))\nTEXT_Y=$(( (BAR_HEIGHT - TEXT_H) / 2 ))\nEMOJI_X=$(( TEXT_X + TEXT_W + 12 ))\nEMOJI_Y=$(( (BAR_HEIGHT - EMOJI_SIZE) / 2 ))\nffmpeg -f lavfi -i \"color=rgba(0,0,0,0):s=${VID_W}x${BAR_HEIGHT}:d=1\" -i \"${TMP_TEXT_PNG}\" -i \"${EMOJI_IMG}\" -filter_complex \"\\\n[2:v]scale=${EMOJI_SIZE}:${EMOJI_SIZE}[e]; \\\n[0:v][1:v]overlay=x=${TEXT_X}:y=${TEXT_Y}[t1]; \\\n[t1][e]overlay=x=${EMOJI_X}:y=${EMOJI_Y}\" -frames:v 1 -y \"${CAPTION_PNG}\"\n\n# final composition (video + /files/extra/frame_with_views.png + caption)\nffmpeg -y -i \"$INPUT_FILE\" -i \"$FRAME_PNG\" -i \"$CAPTION_PNG\" -filter_complex \"\\\n[1:v]scale=300:480[ov]; \\\n[0:v][ov]overlay=W-w-20:20[step1]; \\\n[step1]drawbox=x=0:y=0:w=iw:h=${BAR_HEIGHT}:color=black@0.3:t=fill[step2]; \\\n[step2][2:v]overlay=x=(main_w-overlay_w)/2:y=0\" \\\n-r 30 -c:v libx264 -preset veryfast -c:a copy \"$TMP_FILE\"\n\nif [ $? -eq 0 ]; then\n  mv -f \"$TMP_FILE\" \"$OUTPUT_FILE\"\n  chmod 644 \"$OUTPUT_FILE\" || true\n  echo \"DONE: $OUTPUT_FILE (views=${VIEWS})\"\nelse\n  echo \"ERR: ffmpeg failed\"\n  [ -f \"$TMP_FILE\" ] && rm -f \"$TMP_FILE\"\n  exit 1\nfi\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -7392,
+        136
+      ],
+      "id": "3eade23d-e0f3-4203-8d4d-a3a869a23885",
+      "name": "Execute Command1",
+      "disabled": true
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-13T04:42:50.717Z",
+      "updatedAt": "2025-09-13T04:42:50.717Z",
+      "role": "workflow:owner",
+      "workflowId": "yInyC41ZO2Sc6T3q",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-09-28T11:31:09.000Z",
+  "versionId": "9e52f10e-4d3a-456c-b597-fd3457f5fa99"
+}

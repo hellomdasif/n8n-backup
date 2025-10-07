@@ -1,0 +1,545 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Daily": {
+      "main": [
+        [
+          {
+            "node": "Get Reel URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Reel URLs": {
+      "main": [
+        [
+          {
+            "node": "Parse URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse URLs": {
+      "main": [
+        [
+          {
+            "node": "If row exists",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If row does not exist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Download Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row exists": {
+      "main": [
+        [
+          {
+            "node": "download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "insert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insert": {
+      "main": [
+        [
+          {
+            "node": "download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-02T11:39:53.179Z",
+  "id": "7M8m9buH1atJAsFI",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "DOWNLOAD INSTA REELS - CLEAN",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "c020e454-ab54-4593-9fd7-6f056ca97a4d",
+      "name": "Schedule Daily",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -624,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 -m gallery_dl --range 1-10 --get-urls https://www.instagram.com/dnzioyt/reels/"
+      },
+      "id": "030f6ca5-78d3-40c8-af17-88761ac74fe9",
+      "name": "Get Reel URLs",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Assuming 'stdout' is a string with URLs separated by newlines\nconst stdout = $input.first().json.stdout;\n\n// Split into lines and filter out any empty lines\nconst urls = stdout.split('\\n').filter(line => line.trim().length > 0);\n\nconst items = urls.map(url => {\n  const cleanUrl = url.trim();\n  let videoId = '';\n\n  // 1. First, try to match the specific /name.mp4 pattern\n  const mp4Match = cleanUrl.match(/\\/([A-Za-z0-9_-]+)\\.mp4/);\n  \n  if (mp4Match && mp4Match[1]) {\n    videoId = mp4Match[1];\n  } else {\n    // 2. As a fallback, get the last part of the URL path before any query parameters\n    const path = cleanUrl.split('?')[0]; // Remove query string\n    const pathSegments = path.split('/');\n    videoId = pathSegments.pop() || pathSegments.pop(); // Get the last non-empty segment\n  }\n  \n  // Clean the final extracted ID by removing ALL invalid characters\n  const cleanVideoId = videoId.replace(/[^A-Za-z0-9_-]/g, '');\n\n  return {\n    json: {\n      url: cleanUrl,\n      video_id: cleanVideoId,\n      filename: `${cleanVideoId}.mp4`,\n      timestamp: new Date().toISOString(),\n      status: 'pending'\n    }\n  };\n});\n\nconsole.log(`Parsed ${items.length} URLs`);\nif (items.length > 0) {\n  console.log(`First video_id: \"${items[0].json.video_id}\"`);\n  console.log(`Last video_id: \"${items[items.length-1].json.video_id}\"`);\n}\n\nreturn items;"
+      },
+      "id": "a50c1718-8e8f-42ea-9326-330be03f9c96",
+      "name": "Parse URLs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "01cdb875-ce20-4901-97d4-9c47d0ffd7c2",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        720,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "rowExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "49ufELFP9Hrzyapn",
+          "mode": "list",
+          "cachedResultName": "new",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/49ufELFP9Hrzyapn"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $json.filename }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        272,
+        224
+      ],
+      "id": "0b66913c-058c-41f8-953b-ad723c06dc64",
+      "name": "If row exists",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "49ufELFP9Hrzyapn",
+          "mode": "list",
+          "cachedResultName": "new",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/49ufELFP9Hrzyapn"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $json.filename }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        48,
+        416
+      ],
+      "id": "23ba5778-8da7-426f-8215-e8be84d2829a",
+      "name": "If row does not exist"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "49ufELFP9Hrzyapn",
+          "mode": "list",
+          "cachedResultName": "new",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/49ufELFP9Hrzyapn"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ $('Parse URLs').item.json.url }}",
+            "videoId": "={{ $('Parse URLs').item.json.video_id }}",
+            "filename": "={{ $('Parse URLs').item.json.filename }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "videoId",
+              "displayName": "videoId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        272,
+        416
+      ],
+      "id": "95c1b9ae-708d-4994-9cbf-5b399a14e793",
+      "name": "insert",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "49ufELFP9Hrzyapn",
+          "mode": "list",
+          "cachedResultName": "new",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/49ufELFP9Hrzyapn"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "download",
+              "keyValue": "="
+            },
+            {
+              "keyName": "download",
+              "condition": "isEmpty"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        496,
+        320
+      ],
+      "id": "1182fa30-650b-4095-bed4-160fbb9c927e",
+      "name": "download",
+      "alwaysOutputData": false,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "b16ac3b1-292e-4e20-9503-c90fa84013a3",
+      "name": "Download Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        944,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/node/shared/INSTAGRAM/dnzioyt/{{ $json.videoId }}.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1168,
+        256
+      ],
+      "id": "cb44af54-faa3-4a13-bc37-a5c51050d48d",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1392,
+        320
+      ],
+      "id": "f41cc176-ce3d-4617-8ada-6ab533342770",
+      "name": "Wait2",
+      "webhookId": "dc3b2daa-8b98-4ffd-879b-003fd9c4fac3"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "49ufELFP9Hrzyapn",
+          "mode": "list",
+          "cachedResultName": "new",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/49ufELFP9Hrzyapn"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Split In Batches').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "download": "DONE"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "videoId",
+              "displayName": "videoId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "download",
+              "displayName": "download",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        160
+      ],
+      "id": "e9a8d004-d800-4616-8711-876f51a8c4eb",
+      "name": "update",
+      "alwaysOutputData": false,
+      "executeOnce": true
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-02T11:39:53.184Z",
+      "updatedAt": "2025-10-02T11:39:53.184Z",
+      "role": "workflow:owner",
+      "workflowId": "7M8m9buH1atJAsFI",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Daily": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:15:07.051Z",
+      "updatedAt": "2025-10-07T12:15:07.051Z",
+      "id": "hJoZWD17L6LHczTa",
+      "name": "TO_CHECK"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:15:19.000Z",
+  "versionId": "3499ee4d-6296-45b0-b6d5-0c9344a3bc05"
+}

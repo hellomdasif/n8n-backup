@@ -1,0 +1,603 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Parameters": {
+      "main": [
+        [
+          {
+            "node": "Create IG Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create IG Container": {
+      "main": [
+        [
+          {
+            "node": "Set Container ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Return Container Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Container ID": {
+      "main": [
+        [
+          {
+            "node": "Initial Processing Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initial Processing Wait": {
+      "main": [
+        [
+          {
+            "node": "Check IG Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check IG Status": {
+      "main": [
+        [
+          {
+            "node": "Is Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Ready?": {
+      "main": [
+        [
+          {
+            "node": "Publish IG Reel",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Error?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish IG Reel": {
+      "main": [
+        [
+          {
+            "node": "Return Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Error?": {
+      "main": [
+        [
+          {
+            "node": "Check Retry Limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Continue Waiting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Retry Limit": {
+      "main": [
+        [
+          {
+            "node": "Increment Retry",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Max Retries Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Retry": {
+      "main": [
+        [
+          {
+            "node": "Wait Before Retry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Before Retry": {
+      "main": [
+        [
+          {
+            "node": "Check IG Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Continue Waiting": {
+      "main": [
+        [
+          {
+            "node": "Check IG Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-28T07:32:59.266Z",
+  "id": "skGQa0hR5yAxvQrV",
+  "isArchived": true,
+  "meta": null,
+  "name": "instagram_posting_module_test",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "extractParams",
+      "name": "Extract Parameters",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Extract input parameters\nconst input = $input.first().json;\n\n// Validate required parameters\nif (!input.node_id || !input.credential_id || !input.video_url || !input.caption) {\n  throw new Error('Missing required parameters: node_id, credential_id, video_url, caption');\n}\n\nreturn [{\n  json: {\n    node_id: input.node_id,\n    credential_id: input.credential_id,\n    video_url: input.video_url,\n    caption: input.caption,\n    max_retries: input.max_retries || 3,\n    retry_count: 1,\n    initial_wait: input.initial_wait || 30,\n    retry_wait: input.retry_wait || 60\n  }\n}];"
+      }
+    },
+    {
+      "id": "createContainer",
+      "name": "Create IG Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        300
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $json.node_id }}/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.video_url }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "setContainerID",
+      "name": "Set Container ID",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        700,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "container_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "initialWait",
+      "name": "Initial Processing Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "amount": "={{ $('Extract Parameters').item.json.initial_wait }}"
+      }
+    },
+    {
+      "id": "checkStatus",
+      "name": "Check IG Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        300
+      ],
+      "parameters": {
+        "url": "=https://graph.facebook.com/v22.0/{{ $('Set Container ID').item.json.container_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "isReady",
+      "name": "Is Ready?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1300,
+        250
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "publish",
+      "name": "Publish IG Reel",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1500,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('Extract Parameters').item.json.node_id }}/media_publish",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $('Set Container ID').item.json.container_id }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "success",
+      "name": "Return Success",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1700,
+        200
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "status",
+              "value": "DONE",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "post_id",
+              "value": "={{ $('Publish IG Reel').item.json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "message",
+              "value": "Successfully published to Instagram",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "retry_count",
+              "value": "={{ $('Extract Parameters').item.json.retry_count }}",
+              "type": "number"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "isError",
+      "name": "Is Error?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1300,
+        350
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "ERROR",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "checkRetryLimit",
+      "name": "Check Retry Limit",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1500,
+        350
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $('Extract Parameters').item.json.retry_count }}",
+              "rightValue": "={{ $('Extract Parameters').item.json.max_retries }}",
+              "operator": {
+                "type": "number",
+                "operation": "smaller"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "incrementRetry",
+      "name": "Increment Retry",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1700,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "retry_count",
+              "value": "={{ $('Extract Parameters').item.json.retry_count + 1 }}",
+              "type": "number"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "retryWait",
+      "name": "Wait Before Retry",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1900,
+        300
+      ],
+      "parameters": {
+        "amount": "={{ $('Extract Parameters').item.json.retry_wait }}",
+        "unit": "seconds"
+      }
+    },
+    {
+      "id": "maxRetriesReached",
+      "name": "Return Max Retries Error",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1700,
+        400
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "status",
+              "value": "ERROR",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "error",
+              "value": "Max retries reached - Instagram container failed",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "retry_count",
+              "value": "={{ $('Extract Parameters').item.json.retry_count }}",
+              "type": "number"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "continueWaiting",
+      "name": "Continue Waiting",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1500,
+        450
+      ],
+      "parameters": {
+        "amount": "={{ $('Extract Parameters').item.json.retry_wait }}",
+        "unit": "seconds"
+      }
+    },
+    {
+      "id": "containerError",
+      "name": "Return Container Error",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        900,
+        400
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "status",
+              "value": "ERROR",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "error",
+              "value": "Failed to create Instagram container",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "retry_count",
+              "value": "0",
+              "type": "number"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": null,
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-28T07:32:59.268Z",
+      "updatedAt": "2025-09-28T07:32:59.268Z",
+      "role": "workflow:owner",
+      "workflowId": "skGQa0hR5yAxvQrV",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-28T11:30:49.000Z",
+  "versionId": "2a0ce583-9755-4137-a950-dcb6554d56fd"
+}

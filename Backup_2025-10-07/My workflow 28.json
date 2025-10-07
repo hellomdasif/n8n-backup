@@ -1,0 +1,75 @@
+{
+  "createdAt": "2025-10-02T17:19:28.171Z",
+  "updatedAt": "2025-10-05T02:42:00.000Z",
+  "id": "afRhXaOH1XxlYTWm",
+  "name": "My workflow 28",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f78f1c0c-ae0b-4b19-aaf2-9caa7f3c2ca8",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS accounts (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    account_name VARCHAR(100) NOT NULL,\n    email VARCHAR(255) UNIQUE NOT NULL,\n    phone VARCHAR(20),\n    account_type VARCHAR(50),\n    balance DECIMAL(10,2) DEFAULT 0.00,\n    status VARCHAR(20) DEFAULT 'active',\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n);",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        208,
+        0
+      ],
+      "id": "82ca9684-f328-4c30-8ff3-22c20c42dcb0",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "0f8ed775-ab72-4184-92ef-1a6f16251043",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-10-02T17:19:28.174Z",
+      "updatedAt": "2025-10-02T17:19:28.174Z",
+      "role": "workflow:owner",
+      "workflowId": "afRhXaOH1XxlYTWm",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,92 @@
+{
+  "createdAt": "2025-09-05T12:35:07.983Z",
+  "updatedAt": "2025-09-07T02:12:36.000Z",
+  "id": "sijsr5TDkRq8GZhf",
+  "name": "My workflow",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://drive.google.com/uc?export=download&id=1CW-1crPY_wB8QzTAKP8jnzQaZakI0fJS",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "id": "20e843b5-b41e-4c31-8932-c289d95276f4",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        -368,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "fileName": "/files/test.mp4",
+        "options": {}
+      },
+      "id": "5d20cd86-b9e7-49b1-9fef-303451764898",
+      "name": "Write Binary File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -160
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -128
+      ],
+      "id": "1f19f710-0074-441c-92c8-59d4989ce469",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "0f0000c1-8372-463a-9508-60e33a840a88",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-05T12:35:07.987Z",
+      "updatedAt": "2025-09-05T12:35:07.987Z",
+      "role": "workflow:owner",
+      "workflowId": "sijsr5TDkRq8GZhf",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

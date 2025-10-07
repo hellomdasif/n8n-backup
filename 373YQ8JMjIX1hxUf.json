@@ -1,0 +1,340 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-24T04:45:30.815Z",
+  "id": "373YQ8JMjIX1hxUf",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "GEMINI-DEMO",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -416,
+        -96
+      ],
+      "id": "3ccadd04-51cc-4c41-9443-dda448437d7b",
+      "name": "When chat message received",
+      "webhookId": "650e309c-547a-44cc-bad7-d8d69ddf45da"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a text writer tool who writes amazing, short, sweet text. Only text, no helping text. \nExample:\nInput: How to speak.\noutput: Speak less, mean more. Pause to breathe, think, and connect. Let your tone carry your truth. Listen twice, answer once."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        -96
+      ],
+      "id": "b18d86d9-7b2a-4576-8251-d8dc8ae6008f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-lite-preview-06-17",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        80
+      ],
+      "id": "7d6ddd5f-94b8-45ee-9da0-8fc1967d98c0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "AL9agYKyRP8YQsaj",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://qwen-qwen-tts-demo.hf.space/gradio_api/call/predict",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"data\": [\n    \"{{ $json.output }}\",\n    \"Sunny\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        144,
+        -96
+      ],
+      "id": "d180bf00-895d-4d71-84e2-7c3683cec359",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "url": "=https://qwen-qwen-tts-demo.hf.space/gradio_api/call/predict/{{ $json.event_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        352,
+        -96
+      ],
+      "id": "bfb40d22-cacf-4cf1-a796-d60d5ea81469",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}",
+        "options": {
+          "systemMessage": "Your job is to extract audio url only from given text. return only url no other word."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        -96
+      ],
+      "id": "e7719fd0-5607-4a0e-a9d2-8228a0d95f37",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-lite-preview-06-17",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        560,
+        80
+      ],
+      "id": "b01bd0d2-4500-43c0-a262-980d9dde295d",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "AL9agYKyRP8YQsaj",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.output }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        -96
+      ],
+      "id": "973f50be-d40f-4614-a8c0-86f638051a6f",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the text (replace with your actual input or get from item)\nconst text = $input.first().json.data;\n\n// Extract the event: complete JSON part\nconst match = text.match(/event: complete[\\s\\S]*?data: (.+)/);\nif (!match) {\n  throw new Error('No complete event found.');\n}\n\nconst jsonStr = match[1].trim();\nconst data = JSON.parse(jsonStr);\n\n// Get the first URL\nconst audioUrl = data[0]?.url || null;\n\nreturn [\n  {\n    json: {\n      audioUrl: audioUrl\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        -96
+      ],
+      "id": "89405205-62f8-4170-b732-165e79b96400",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "content": "### Idea to Script writing",
+        "height": 432,
+        "width": 592
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -496,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "e3710016-b8eb-4dc2-9028-44e35ef41467",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "### Text 2 Speech Model API calls",
+        "height": 432,
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        128,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "e6336d70-0df9-42f7-866d-8a2a0c406743",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "### Extract URL using AI Model",
+        "height": 432,
+        "width": 352
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        512,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "8544e45e-165b-4922-aa34-e1f03192267d",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "### Download audio file from URL",
+        "height": 432,
+        "width": 192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        912,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "181fdc98-9e6c-4e1d-8f56-9e33898a158f",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "### Extract URL using Code",
+        "height": 304,
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1200,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "37d3ecc9-b37f-4039-9f27-8d20ede3738b",
+      "name": "Sticky Note4"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-24T04:45:30.821Z",
+      "updatedAt": "2025-09-24T04:45:30.821Z",
+      "role": "workflow:owner",
+      "workflowId": "373YQ8JMjIX1hxUf",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-30T11:43:51.000Z",
+  "versionId": "8ad1924f-5a69-4bdd-b388-c5177b116d05"
+}

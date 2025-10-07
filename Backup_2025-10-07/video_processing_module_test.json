@@ -1,0 +1,279 @@
+{
+  "createdAt": "2025-09-28T07:33:31.439Z",
+  "updatedAt": "2025-09-28T11:30:46.000Z",
+  "id": "eaLho7dP7lIJB8G3",
+  "name": "video_processing_module_test",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "extractParams",
+      "name": "Extract Parameters",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Extract input parameters for video processing\nconst input = $input.first().json;\n\n// Validate required parameters\nif (!input.video_filename || !input.source_url) {\n  throw new Error('Missing required parameters: video_filename, source_url');\n}\n\nconst config = input.processing_config || {};\n\nreturn [{\n  json: {\n    video_filename: input.video_filename,\n    source_url: input.source_url,\n    output_url: input.output_url || 'https://files.mohdasif.net/sh/output/',\n    overlay_script: config.overlay_script || '/files/sh/overlay_with_views.sh',\n    assets_dir: config.assets_dir || '/files/extra',\n    output_dir: config.output_dir || '/files/sh/output',\n    processing_required: input.processing_required || true\n  }\n}];"
+      }
+    },
+    {
+      "id": "checkProcessingRequired",
+      "name": "Processing Required?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        500,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.processing_required }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "executeProcessing",
+      "name": "Execute Video Processing",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        700,
+        250
+      ],
+      "parameters": {
+        "command": "={{ $json.overlay_script }} \\\n  --assets-dir {{ $json.assets_dir }} \\\n  --output-dir {{ $json.output_dir }} \\\n  \"{{ $json.source_url }}{{ $json.video_filename }}\" \\\n  \"{{ $json.video_filename }}\""
+      }
+    },
+    {
+      "id": "returnProcessedURL",
+      "name": "Return Processed URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        900,
+        250
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "status",
+              "value": "SUCCESS",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "processed_video_url",
+              "value": "={{ $('Extract Parameters').item.json.output_url }}{{ $json.stdout }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "original_filename",
+              "value": "={{ $('Extract Parameters').item.json.video_filename }}",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "processed_filename",
+              "value": "={{ $json.stdout }}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "returnOriginalURL",
+      "name": "Return Original URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        700,
+        350
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "status",
+              "value": "SUCCESS",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "processed_video_url",
+              "value": "={{ $json.source_url }}{{ $json.video_filename }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "original_filename",
+              "value": "={{ $json.video_filename }}",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "processed_filename",
+              "value": "={{ $json.video_filename }}",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "message",
+              "value": "No processing required - using original video",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "processingError",
+      "name": "Return Processing Error",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        900,
+        350
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "status",
+              "value": "ERROR",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "error",
+              "value": "Video processing failed",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "original_filename",
+              "value": "={{ $('Extract Parameters').item.json.video_filename }}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Parameters": {
+      "main": [
+        [
+          {
+            "node": "Processing Required?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Processing Required?": {
+      "main": [
+        [
+          {
+            "node": "Execute Video Processing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Original URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Video Processing": {
+      "main": [
+        [
+          {
+            "node": "Return Processed URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Return Processing Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "0989f6e3-775c-4aa8-8abd-af27375e18cc",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-28T07:33:31.441Z",
+      "updatedAt": "2025-09-28T07:33:31.441Z",
+      "role": "workflow:owner",
+      "workflowId": "eaLho7dP7lIJB8G3",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,174 @@
+{
+  "createdAt": "2025-09-11T04:17:37.078Z",
+  "updatedAt": "2025-09-11T04:59:59.000Z",
+  "id": "TQWzfX9jjb1RFPvG",
+  "name": "My workflow 13",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "DirectUrl",
+              "value": "https://www.nhc.noaa.gov/video/DOLLY.mp4"
+            },
+            {
+              "name": "IG_USER_ID",
+              "value": "17841454629202811"
+            },
+            {
+              "name": "IG_ACCESS_TOKEN",
+              "value": "EAAZAD11ycW5IBPV1rV8L7ZBbRkCO1eSuetnxe68A2AyEqZCgMq8XLuOK5UgNZAzcxZBjzZA1mugbPEAIkZAus6slHugD355ESkJCIJOVU2E7KXxjg1tjZCCdaR4sazaGbpbNDpTAkmieMJTRQsm471ZBI7d7vdumx3w4hz4kZCSwuA2ZAGJpgZBXMaEkXZCHoMsxf"
+            },
+            {
+              "name": "CAPTION",
+              "value": "your caption here"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "CONFIG",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        128,
+        -128
+      ],
+      "id": "afe5c63b-0152-4698-bbdf-f737aa5932be"
+    },
+    {
+      "parameters": {
+        "url": "=https://files.mohdasif.net/KnowSparkz/zz1.mp4",
+        "options": {}
+      },
+      "name": "DOWNLOAD_FILE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        352,
+        -64
+      ],
+      "id": "8614482c-6790-4e5b-90ee-bc35a76ef2a2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// single-item flow\nif ($input.all().length === 0) {\n  throw new Error('No input items');\n}\nconst input = $input.all()[0];\nconst cfg = input.json || {};\n\n// Use IG credentials from CONFIG\nconst IG_USER_ID = cfg.IG_USER_ID;\nconst IG_ACCESS_TOKEN = cfg.IG_ACCESS_TOKEN;\nconst CAPTION = cfg.CAPTION || '';\n\n// Get binary data from the previous node\nconst binaryPropertyName = 'data';\nif (!input.binary || !input.binary[binaryPropertyName]) {\n  throw new Error(`Binary data not found on item.binary.${binaryPropertyName}`);\n}\n\n// Create a buffer directly from the binary data (in memory)\nconst bin = input.binary[binaryPropertyName];\nconst fullBuffer = Buffer.from(bin.data, 'base64');\nconst totalSize = fullBuffer.length;\n\n// Chunk size (8 MB)\nconst CHUNK_SIZE = 8 * 1024 * 1024;\n\n// Graph API version to use\nconst graphVersion = 'v21.0';\n\n// 1) Create a resumable session (create container)\nconst createUrl = `https://graph.facebook.com/${graphVersion}/${IG_USER_ID}/media`;\nlet createRes;\ntry {\n  createRes = await this.helpers.request({\n    method: 'POST',\n    uri: createUrl,\n    form: {\n      media_type: 'REELS', // UPDATED from 'VIDEO' to 'REELS'\n      access_token: IG_ACCESS_TOKEN,\n      resumable: true,\n      caption: CAPTION\n    },\n    json: true\n  });\n} catch (err) {\n  throw new Error(`Create container failed: ${err.message} ${JSON.stringify(err.error || {}, null,2)}`);\n}\n\n// Extract creation_id and upload_url\nlet creation_id = createRes.id || createRes.creation_id || null;\nlet upload_url = createRes.upload_url;\nif (!upload_url) {\n  throw new Error(\"Could not get upload_url from create container response.\");\n}\n\n// 2) Upload chunks from the in-memory buffer\nlet uploaded = 0;\nlet parts = 0;\n\nwhile (uploaded < totalSize) {\n  const start = uploaded;\n  const end = Math.min(uploaded + CHUNK_SIZE, totalSize);\n  const chunkBuffer = fullBuffer.slice(start, end);\n  const len = chunkBuffer.length;\n  const contentRangeEnd = start + len - 1;\n\n  const headers = {\n    'Content-Type': 'application/octet-stream',\n    'Content-Range': `bytes ${start}-${contentRangeEnd}/${totalSize}`,\n    'Content-Length': `${len}`\n  };\n\n  try {\n    await this.helpers.request({\n      method: 'POST',\n      uri: upload_url,\n      body: chunkBuffer,\n      headers,\n      encoding: null,\n      resolveWithFullResponse: true,\n    });\n  } catch (errPost) {\n    throw new Error(`Chunk upload failed for bytes ${start}-${contentRangeEnd}: ${errPost.message}`);\n  }\n\n  uploaded = end;\n  parts++;\n}\n\n// 3) Return creation_id and metadata, merged with input json\nconst outputJson = { ...cfg };\noutputJson.creation_id = creation_id;\noutputJson.create_response = createRes;\noutputJson.upload_url_used = upload_url;\noutputJson.total_bytes = totalSize;\noutputJson.parts_uploaded = parts;\nreturn [{ json: outputJson }];"
+      },
+      "name": "RESUMABLE_UPLOAD_TO_IG",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        0
+      ],
+      "id": "bbe7bdce-b700-444c-8ac5-0901b482fd72"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://graph.facebook.com/v21.0/' + $json.IG_USER_ID + '/media_publish'}}",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.creation_id || $json.create_response && $json.create_response.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.IG_ACCESS_TOKEN || $items('CONFIG')[0].json.IG_ACCESS_TOKEN || 'EAAZAD11ycW5IBPV1rV8L7ZBbRkCO1eSuetnxe68A2AyEqZCgMq8XLuOK5UgNZAzcxZBjzZA1mugbPEAIkZAus6slHugD355ESkJCIJOVU2E7KXxjg1tjZCCdaR4sazaGbpbNDpTAkmieMJTRQsm471ZBI7d7vdumx3w4hz4kZCSwuA2ZAGJpgZBXMaEkXZCHoMsxf' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "IG_PUBLISH",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        768,
+        0
+      ],
+      "id": "5e192d26-fede-4ef0-8e67-f47c6fd73c48"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -48
+      ],
+      "id": "8d797f18-e5cc-49aa-8855-9f6b59e56a74",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "connections": {
+    "CONFIG": {
+      "main": [
+        [
+          {
+            "node": "DOWNLOAD_FILE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DOWNLOAD_FILE": {
+      "main": [
+        [
+          {
+            "node": "RESUMABLE_UPLOAD_TO_IG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RESUMABLE_UPLOAD_TO_IG": {
+      "main": [
+        [
+          {
+            "node": "IG_PUBLISH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "CONFIG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "da6ebcc8-7883-4f61-af99-75bbdc4e6a70",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-11T04:17:37.085Z",
+      "updatedAt": "2025-09-11T04:17:37.085Z",
+      "role": "workflow:owner",
+      "workflowId": "TQWzfX9jjb1RFPvG",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

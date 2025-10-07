@@ -1,0 +1,408 @@
+{
+  "active": false,
+  "connections": {
+    "getLink": {
+      "main": [
+        [
+          {
+            "node": "download_to_binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download_to_binary": {
+      "main": [
+        [
+          {
+            "node": "upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "upload": {
+      "main": [
+        [
+          {
+            "node": "update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TrendingTitle": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "TrendingTitle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)1": {
+      "main": [
+        [
+          {
+            "node": "getLink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-20T19:36:58.337Z",
+  "id": "SNSVCGO5z16AoTMA",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "YOUTUBE - React & Roll",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## nrahulverma0323e@gmail.com\n\n2 HOURS LATER {{ new Date(Date.now() + \n 2*60*60*1000).toISOString() }}\n",
+        "height": 176,
+        "width": 416
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1600,
+        -1008
+      ],
+      "typeVersion": 1,
+      "id": "43eddfd8-0d24-46ac-90cb-c21802714f9e",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('Get row(s)1').item.json.database }}",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "youtube",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1488,
+        -752
+      ],
+      "id": "718347f5-5bba-4bd4-b4ff-3f17e901b1d2",
+      "name": "getLink"
+    },
+    {
+      "parameters": {
+        "url": "=https://files.mohdasif.net/{{ $('Get row(s)1').item.json.folder }}{{ $json.filename }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "18441bc6-f8ab-4d78-a7ed-94d878202c25",
+      "name": "download_to_binary",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -1264,
+        -752
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('TrendingTitle').item.json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $('TrendingTitle').item.json.title }} {{ $json.id }}",
+          "privacyStatus": "={{ $('Get row(s)1').item.json.Privacy }}",
+          "publishAt": "={{ new Date(Date.now() + 2*60*60*1000).toISOString() }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "={{ $('Get row(s)1').item.json.tags }}"
+        }
+      },
+      "name": "upload",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        -752
+      ],
+      "id": "4c5eb150-2111-49fa-a6cc-95d1afb69b51",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "bJrAr4Py04jWEIZT",
+          "name": "React_Roll_01-rahulverma0323e@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "RQniz2m6XHsilRNT",
+          "mode": "list",
+          "cachedResultName": "TrendingTitle",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/RQniz2m6XHsilRNT"
+        },
+        "matchType": "allConditions"
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1936,
+        -752
+      ],
+      "id": "652ac61f-f8d8-4ee9-9a28-0b6e5cd478bf",
+      "name": "TrendingTitle"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('Get row(s)1').item.json.database }}",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('getLink').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "youtube": "DONE"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "videoId",
+              "displayName": "videoId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "download",
+              "displayName": "download",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        -752
+      ],
+      "id": "9d7f7a36-668d-41ab-98a3-51e036bd9f8a",
+      "name": "update"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 20,
+              "triggerAtMinute": 30
+            },
+            {
+              "triggerAtHour": 23,
+              "triggerAtMinute": 30
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2160,
+        -752
+      ],
+      "id": "55691eaf-4075-4623-ab5e-29978951c2e3",
+      "name": "Schedule Trigger1",
+      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "65s10TCHjuQpvOcn",
+          "mode": "list",
+          "cachedResultName": "accounts",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/65s10TCHjuQpvOcn"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "username",
+              "keyValue": "React_Roll_01"
+            },
+            {
+              "keyName": "type",
+              "keyValue": "youtube"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1712,
+        -752
+      ],
+      "id": "b78567ab-47d6-4347-9141-985d25ce4698",
+      "name": "Get row(s)1"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-20T19:36:58.344Z",
+      "updatedAt": "2025-09-20T19:36:58.344Z",
+      "role": "workflow:owner",
+      "workflowId": "SNSVCGO5z16AoTMA",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-09-20T04:39:43.575Z",
+      "updatedAt": "2025-09-20T04:39:43.575Z",
+      "id": "BV8GBwIqmK0QIGLr",
+      "name": "YOUTUBE"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:04:47.000Z",
+  "versionId": "4f3a546a-a136-4c00-9d21-c6a1c2852b1f"
+}

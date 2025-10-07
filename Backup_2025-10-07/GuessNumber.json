@@ -1,0 +1,65 @@
+{
+  "createdAt": "2025-09-17T19:25:03.780Z",
+  "updatedAt": "2025-10-06T11:25:54.000Z",
+  "id": "ZUpG5KPaD0LfUwGo",
+  "name": "GuessNumber",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "947e51e5-3d9b-48d6-b011-deb183707e6f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "/files/guess/make_guess_video.sh $((RANDOM % 500 + 1))"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "25cf5514-8835-4a97-a0aa-0289e6edc3ad",
+      "name": "Execute Command"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "186ca42d-4591-4eb9-9b7b-acc50777017f",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-17T19:25:03.787Z",
+      "updatedAt": "2025-09-17T19:25:03.787Z",
+      "role": "workflow:owner",
+      "workflowId": "ZUpG5KPaD0LfUwGo",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

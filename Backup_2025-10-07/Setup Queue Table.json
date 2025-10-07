@@ -1,0 +1,70 @@
+{
+  "createdAt": "2025-10-05T15:48:05.531Z",
+  "updatedAt": "2025-10-06T11:25:08.000Z",
+  "id": "YptWi3JFM3aTVI2x",
+  "name": "Setup Queue Table",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "id": "start",
+      "name": "When clicking 'Test workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "mysql1",
+      "name": "Create Queue Table",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS request_queue (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  name VARCHAR(255) NOT NULL,\n  status ENUM('pending', 'processing', 'completed') DEFAULT 'pending',\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  processed_at TIMESTAMP NULL\n)"
+      }
+    }
+  ],
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Create Queue Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "a146a978-1330-421c-8521-8d49c5db89cf",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-10-05T15:48:05.535Z",
+      "updatedAt": "2025-10-05T15:48:05.535Z",
+      "role": "workflow:owner",
+      "workflowId": "YptWi3JFM3aTVI2x",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

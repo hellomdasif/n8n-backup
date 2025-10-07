@@ -1,0 +1,566 @@
+{
+  "active": false,
+  "connections": {
+    "⚙️ Configure Post Settings": {
+      "main": [
+        [
+          {
+            "node": "🔀 Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — Read Rows4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Google Sheets — Read Rows4": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output video file without watermark": {
+      "main": [
+        [
+          {
+            "node": "Upload Short2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Short2": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Output video file without watermark",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet — SetStatus2": {
+      "main": [
+        [
+          {
+            "node": "FTP1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP1": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Call 'YOUTUBE-TAGS'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'YOUTUBE-TAGS'": {
+      "main": [
+        [
+          {
+            "node": "⚙️ Configure Post Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-19T07:09:46.264Z",
+  "id": "hEQfyUpyNikRFnBA",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "YOUTUBE - GyaanManch-fix",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "217b69e3-98ec-49a2-8fde-372dd1bc1848",
+              "name": "node",
+              "value": "17841416753691295",
+              "type": "string"
+            },
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "value": "http_reel",
+              "type": "string"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5",
+              "name": "image_url",
+              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "type": "string"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "value": "https://files.mohdasif.net/meow1/upload.mp4",
+              "type": "string"
+            },
+            {
+              "id": "c6485101-488b-43db-8708-1a1136292956",
+              "name": "cover_image",
+              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "type": "string"
+            },
+            {
+              "id": "d3c29a01-de2f-4487-a8d1-b6ef691fd2ff",
+              "name": "default_description",
+              "value": "Introducing the \"VitaWear SmartBand,\" a next-generation wearable gadget🎉 that combines health monitoring, productivity tools, and entertainment features in a sleek, minimalist design. It features a flexible OLED display that wraps around the wrist, providing a comfortable fit and immersive visual experience. The SmartBand tracks vital signs like heart rate, blood oxygen levels, and body temperature in real-time, using advanced sensors and AI algorithms to provide personalized health insights and alerts. Beyond health tracking, the VitaWear SmartBand integrates with your digital life, offering seamless notifications, voice assistant support, and quick access to your schedule, reminders, and messages. It also includes a built-in mini projector that can display images or presentations on any flat surface, perfect for on-the-go professionals. Additionally, the SmartBand supports wireless charging and has a battery life of up to 10 days, making it a versatile and essential gadget for modern life.",
+              "type": "string"
+            },
+            {
+              "id": "b97e9319-6f06-4e85-af3b-ce904f6b221c",
+              "name": "default_tags",
+              "value": "#shortsvideo #youtubeshorts",
+              "type": "string"
+            },
+            {
+              "id": "54a57124-b253-4e90-a3d3-e9181acb0a89",
+              "name": "privacyStatus",
+              "value": "private",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2800,
+        -848
+      ],
+      "id": "4eed687f-e5d0-452a-b7e3-2c0182b60aac",
+      "name": "⚙️ Configure Post Settings"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "25e31619-4116-46e0-bfcb-a8d8a030fa68",
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP - Reels"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cf34e931-f798-4c70-af29-9aec7aab8f6c",
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Reels"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2576,
+        -848
+      ],
+      "id": "c9610d4b-2ed7-4461-8e92-d0b0d6a2dd38",
+      "name": "🔀 Smart Content Router"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU",
+          "mode": "list",
+          "cachedResultName": "gyan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "status"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "15f055ae-b837-4de6-961d-82cb50c34133",
+      "name": "Google Sheets — Read Rows4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -2352,
+        -848
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://files.mohdasif.net/extra/{{ $('Google Sheets — Read Rows4').item.json.row_number }}.mp4",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "39432ad7-1946-4eea-9dc0-7b5608f77296",
+      "name": "Output video file without watermark",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -1904,
+        -848
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU",
+          "mode": "list",
+          "cachedResultName": "gyan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XSgMPYZQRAT_KKVECOa_4hn6HEkat3dzcZlmuIEjNq4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $('Google Sheets — Read Rows4').item.json.DirectUrl }}",
+            "status": "published"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "580d16f9-9c4a-4e3f-876d-f0eddfe24939",
+      "name": "Update Sheet — SetStatus2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1456,
+        -848
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('Call \\'YOUTUBE-TAGS\\'').item.json.Title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $('Call \\'YOUTUBE-TAGS\\'').item.json.description }} {{ $('Call \\'YOUTUBE-TAGS\\'').item.json.randomLines }}",
+          "privacyStatus": "={{ $('⚙️ Configure Post Settings').item.json.privacyStatus }}",
+          "publishAt": "={{ new Date(Date.now() + 30*60*1000).toISOString() }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "="
+        }
+      },
+      "name": "Upload Short2",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        -1680,
+        -848
+      ],
+      "id": "222a6161-de94-4299-a47c-3d8723574aae",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "e5vbfdIvggIbG7b0",
+          "name": "POST GyaanManch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "command": "=\nINPUT_URL=\"https://files.mohdasif.net/GyaanManch/{{ $json.DirectUrl.split('/').pop().split('?')[0] }}.mp4\n\"\nREL_PATH=$(echo \"$INPUT_URL\" | sed -E 's@https?://[^/]+/@@')\nINPUT_FILE=\"/files/$REL_PATH\"\n\n# ---------- Configurable variables (change these) ----------\nASSETS_DIR=\"/files/extra\"\nFONT_FILE=\"ARIALBD 1.TTF\"        # place any TTF you upload into /files/extra and set the filename here\n\n# Final overlay placement on final video\nPLACEMENT=\"${PLACEMENT:-top-right}\"   # top-right, top-left, bottom-right, bottom-left\n\n# ICON inside screenshot (DEFAULT ANCHOR bottom-left)\nICON_ANCHOR=\"${ICON_ANCHOR:-bottom-left}\"  # bottom-left, bottom-right, top-left, top-right\nICON_SIZE=${ICON_SIZE:-94}\nICON_OFFSET_X=\"${ICON_OFFSET_X:-4%}\"   # px or percent of frame width (distance from left/right depending on anchor)\nICON_OFFSET_Y=\"${ICON_OFFSET_Y:-4%}\"   # px or percent of frame height (distance from bottom/top depending on anchor)\nTEXT_GAP=${TEXT_GAP:-6}                # gap between icon and text inside screenshot\nFONTSIZE=${FONTSIZE:-78}\nTEXT_OFFSET_X=${TEXT_OFFSET_X:-0}\nTEXT_OFFSET_Y=${TEXT_OFFSET_Y:-0}\nRAND_MIN=${RAND_MIN:-1}\nRAND_MAX=${RAND_MAX:-100}\n\n# Overlay (screenshot) scaling + offset for final video\nOVERLAY_W=\"${OVERLAY_W:-30%}\"   # px or percent of final video width\nOVERLAY_H=\"${OVERLAY_H:-25%}\"   # px or percent of final video height\nOVERLAY_OFFSET_X=${OVERLAY_OFFSET_X:-20}  # px from chosen corner on final video\nOVERLAY_OFFSET_Y=${OVERLAY_OFFSET_Y:-110}  # px from chosen corner on final video\n\n# Caption bar + emoji settings\nBAR_HEIGHT=${BAR_HEIGHT:-110}\nBAR_OFFSET_Y=${BAR_OFFSET_Y:-0}\nBAR_BG_OPACITY=${BAR_BG_OPACITY:-150}\nCAPTION_FONT_SIZE=${CAPTION_FONT_SIZE:-40}\n\nEMOJI_PNG=\"${ASSETS_DIR}/emoji.png\"\nEMOJI_SIZE=${EMOJI_SIZE:-74}\nEMOJI_OFFSET_X=${EMOJI_OFFSET_X:-50}\nEMOJI_OFFSET_Y=${EMOJI_OFFSET_Y:-20}\n\n# Show overlay from first frame by default\nFRAME_DELAY_START=${FRAME_DELAY_START:-0}\n\nOUT_VIDEO=\"${ASSETS_DIR}/{{ $json.row_number }}.mp4\"\nFPS=${FPS:-30}\n\n# Safety defaults\nDURATION_FALLBACK=${DURATION_FALLBACK:-600}  # 10 minutes max\n# ---------- End configurable ----------\n\n# ---------- Derived / paths ----------\nmkdir -p \"$ASSETS_DIR\"\nFONT=\"${ASSETS_DIR}/${FONT_FILE}\"\nEYE_ICON=\"${ASSETS_DIR}/eye.png\"\nSCREENSHOT_PNG=\"${ASSETS_DIR}/frame_with_views.png\"\nTMP_FRAME=\"${ASSETS_DIR}/_tmp_frame.png\"\nCAPTION_PNG=\"${ASSETS_DIR}/caption_canvas.png\"\n# ---------- End derived ----------\n\nVIEWS=\"$(shuf -i${RAND_MIN}-${RAND_MAX} -n1)M\"\n\necho \"INPUT_FILE: $INPUT_FILE\"\necho \"FONT: $FONT\"\necho \"VIEWS: $VIEWS\"\necho \"OUT_VIDEO: $OUT_VIDEO\"\necho \"ASSETS_DIR: $ASSETS_DIR\"\necho \"PLACEMENT: $PLACEMENT\"\necho \"ICON_ANCHOR: $ICON_ANCHOR\"\necho \"ICON_OFFSET_X: $ICON_OFFSET_X ICON_OFFSET_Y: $ICON_OFFSET_Y\"\necho \"OVERLAY_W: $OVERLAY_W OVERLAY_H: $OVERLAY_H\"\necho \"FRAME_DELAY_START: $FRAME_DELAY_START\"\necho \"MAX DURATION (s): $DURATION_FALLBACK\"\n\n# sanity check\nif [ ! -f \"$INPUT_FILE\" ]; then\n  echo \"ERR: input not found: $INPUT_FILE\" >&2\n  exit 1\nfi\n\n# ensure eye icon exists (transparent fallback)\nif [ ! -f \"$EYE_ICON\" ]; then\n  echo \"Note: eye icon missing at $EYE_ICON — creating transparent placeholder\"\n  ffmpeg -f lavfi -i \"color=rgba(0,0,0,0):s=${ICON_SIZE}x${ICON_SIZE}:d=1\" -frames:v 1 -y \"$EYE_ICON\"\nfi\n\n# helper: convert percent like \"5%\" to px given dim; otherwise return integer value\npct_to_px() {\n  val=\"$1\"\n  dim=\"$2\"\n  if printf '%s' \"$val\" | grep -qE '^[0-9]+%$'; then\n    p=${val%\\%}\n    echo $(( (p * dim) / 100 ))\n  else\n    # assume plain integer px\n    if [ -z \"$val\" ]; then\n      echo 0\n    else\n      echo \"$val\"\n    fi\n  fi\n}\n\n# ---------------- 1) extract a single frame ----------------\necho \"1/6: extracting frame at 2s -> $TMP_FRAME\"\nffmpeg -ss 2 -i \"$INPUT_FILE\" -frames:v 1 -q:v 2 -y \"$TMP_FRAME\"\n\n# compute video/frame dimensions\nVID_H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 \"$INPUT_FILE\" 2>/dev/null || echo 1080)\nVID_W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width  -of csv=p=0 \"$INPUT_FILE\" 2>/dev/null || echo 1080)\nVID_H=${VID_H:-1080}\nVID_W=${VID_W:-1080}\n\nFRAME_H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 \"$TMP_FRAME\" 2>/dev/null || echo \"$VID_H\")\nFRAME_W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width  -of csv=p=0 \"$TMP_FRAME\" 2>/dev/null || echo \"$VID_W\")\nFRAME_H=${FRAME_H:-$VID_H}\nFRAME_W=${FRAME_W:-$VID_W}\n\n# compute ICON X/Y inside the screenshot (supports px or percent)\n# anchor logic: icon anchor defines which edges offsets apply to\n# ICON_OFFSET_X measured from left when anchor contains 'left', otherwise from right\n# ICON_OFFSET_Y measured from top when anchor contains 'top', otherwise from bottom\nOFS_X_PX=$(pct_to_px \"${ICON_OFFSET_X}\" \"$FRAME_W\")\nOFS_Y_PX=$(pct_to_px \"${ICON_OFFSET_Y}\" \"$FRAME_H\")\n\ncase \"$ICON_ANCHOR\" in\n  bottom-left)\n    ICON_X=$OFS_X_PX\n    ICON_Y=$(( FRAME_H - OFS_Y_PX - ICON_SIZE ))\n    ;;\n  bottom-right)\n    ICON_X=$(( FRAME_W - OFS_X_PX - ICON_SIZE ))\n    ICON_Y=$(( FRAME_H - OFS_Y_PX - ICON_SIZE ))\n    ;;\n  top-left)\n    ICON_X=$OFS_X_PX\n    ICON_Y=$OFS_Y_PX\n    ;;\n  top-right)\n    ICON_X=$(( FRAME_W - OFS_X_PX - ICON_SIZE ))\n    ICON_Y=$OFS_Y_PX\n    ;;\n  *)\n    ICON_X=$OFS_X_PX\n    ICON_Y=$(( FRAME_H - OFS_Y_PX - ICON_SIZE ))\n    ;;\nesac\n\n# clamp inside frame\n[ \"$ICON_X\" -lt 0 ] && ICON_X=0\n[ \"$ICON_Y\" -lt 0 ] && ICON_Y=0\n[ \"$ICON_X\" -gt $((FRAME_W - ICON_SIZE)) ] && ICON_X=$((FRAME_W - ICON_SIZE))\n[ \"$ICON_Y\" -gt $((FRAME_H - ICON_SIZE)) ] && ICON_Y=$((FRAME_H - ICON_SIZE))\n\nTEXT_X=$(( ICON_X + ICON_SIZE + TEXT_GAP + TEXT_OFFSET_X ))\nTEXT_Y=$(( ICON_Y + ICON_SIZE/2 - FONTSIZE/2 + TEXT_OFFSET_Y ))\nif [ \"$TEXT_Y\" -lt 0 ]; then TEXT_Y=0; fi\n\necho \"Computed screenshot ICON at (${ICON_X},${ICON_Y}), TEXT at (${TEXT_X},${TEXT_Y}), FRAME=${FRAME_W}x${FRAME_H}, VIDEO=${VID_W}x${VID_H}\"\n\n# 2) Build screenshot image (icon + views) using Pillow\necho \"2/6: Creating screenshot image (Pillow)\"\nexport TMP_FRAME SCREENSHOT_PNG EYE_ICON VIEWS FONT ICON_X ICON_Y ICON_SIZE TEXT_X TEXT_Y FONTSIZE\n\npython3 - <<'PY'\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\ntmp_frame = os.environ[\"TMP_FRAME\"]\nout_png = os.environ[\"SCREENSHOT_PNG\"]\neye_icon = os.environ[\"EYE_ICON\"]\nv = os.environ[\"VIEWS\"]\nICON_X = int(os.environ.get(\"ICON_X\", \"24\"))\nICON_Y = int(os.environ.get(\"ICON_Y\", \"84\"))\nICON_SIZE = int(os.environ.get(\"ICON_SIZE\", \"64\"))\nTEXT_X = int(os.environ.get(\"TEXT_X\", str(ICON_X + ICON_SIZE + 5)))\nTEXT_Y = int(os.environ.get(\"TEXT_Y\", str(ICON_Y)))\nFONTSIZE = int(os.environ.get(\"FONTSIZE\", \"48\"))\nfontpath = os.environ.get(\"FONT\", \"\")\n\nbg = Image.open(tmp_frame).convert(\"RGBA\")\n\n# icon may be missing - handle gracefully\ntry:\n    icon = Image.open(eye_icon).convert(\"RGBA\").resize((ICON_SIZE, ICON_SIZE))\n    bg.paste(icon, (ICON_X, ICON_Y), icon)\nexcept Exception:\n    pass\n\n# pick font\ncandidates = [\n    fontpath,\n    \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n    \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\",\n    \"/Library/Fonts/Arial.ttf\",\n    \"/System/Library/Fonts/Supplemental/Arial.ttf\"\n]\nfont = None\nfor p in candidates:\n    if p and os.path.isfile(p):\n        try:\n            font = ImageFont.truetype(p, FONTSIZE)\n            break\n        except Exception:\n            font = None\nif font is None:\n    font = ImageFont.load_default()\n\ndraw = ImageDraw.Draw(bg)\ndraw.text((TEXT_X, TEXT_Y), v, font=font, fill=(255,255,255,255))\n\nbg.save(out_png)\nprint(out_png)\nPY\n\nchmod 644 \"$SCREENSHOT_PNG\"\necho \"WROTE screenshot $SCREENSHOT_PNG\"\n\nif [ ! -f \"$SCREENSHOT_PNG\" ]; then\n  echo \"ERR: screenshot image not created: $SCREENSHOT_PNG\" >&2\n  exit 1\nfi\n\n# 3) Build caption canvas PNG\necho \"3/6: Building caption PNG -> $CAPTION_PNG\"\nexport CAPTION_PNG VID_W BAR_HEIGHT CAPTION_FONT_SIZE BAR_BG_OPACITY VIEWS FONT\n\npython3 - <<'PY'\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\nout = os.environ[\"CAPTION_PNG\"]\nvidw = int(os.environ.get(\"VID_W\", \"1080\"))\nbarh = int(os.environ.get(\"BAR_HEIGHT\", \"110\"))\ntxt = f\" THANK YOU FOR {os.environ.get('VIEWS','0M')} VIEWS [TRICK AT END]\"\nfontsize = int(os.environ.get(\"CAPTION_FONT_SIZE\", \"64\"))\nbar_opacity = int(os.environ.get(\"BAR_BG_OPACITY\", \"80\"))\nfontpath = os.environ.get(\"FONT\", \"\")\n\ncandidates = [\n    fontpath,\n    \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n    \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\",\n    \"/Library/Fonts/Arial.ttf\",\n    \"/System/Library/Fonts/Supplemental/Arial.ttf\"\n]\nfont = None\nfor p in candidates:\n    if p and os.path.isfile(p):\n        try:\n            font = ImageFont.truetype(p, fontsize)\n            break\n        except Exception:\n            font = None\nif font is None:\n    font = ImageFont.load_default()\n    fontsize = 16\n\ntmp = Image.new(\"RGBA\", (10,10), (0,0,0,0))\ndraw = ImageDraw.Draw(tmp)\ntry:\n    bbox = draw.textbbox((0,0), txt, font=font)\n    w = bbox[2]-bbox[0]; h = bbox[3]-bbox[1]\nexcept Exception:\n    w,h = draw.textsize(txt, font=font)\n\nimg = Image.new(\"RGBA\", (vidw, barh), (0,0,0,0))\nd = ImageDraw.Draw(img)\nd.rectangle([(0,0),(vidw,barh)], fill=(0,0,0,bar_opacity))\n\ntx = (vidw - w) // 2\nty = (barh - h) // 2\nd.text((tx,ty), txt, font=font, fill=(255,255,255,255))\n\nimg.save(out)\nprint(out)\nPY\n\nchmod 644 \"$CAPTION_PNG\"\necho \"WROTE caption PNG $CAPTION_PNG\"\n\n# ---------------- Compute overlay pixel sizes (OVERLAY_W / OVERLAY_H may be percent) ----------------\nOVERLAY_W_PX=$(pct_to_px \"${OVERLAY_W}\" \"$VID_W\")\nOVERLAY_H_PX=$(pct_to_px \"${OVERLAY_H}\" \"$VID_H\")\n\n# Sanity clamp\nif [ \"$OVERLAY_W_PX\" -le 0 ] || [ \"$OVERLAY_W_PX\" -gt \"$VID_W\" ]; then\n  OVERLAY_W_PX=$(( VID_W / 5 ))\nfi\nif [ \"$OVERLAY_H_PX\" -le 0 ] || [ \"$OVERLAY_H_PX\" -gt \"$VID_H\" ]; then\n  OVERLAY_H_PX=$(( VID_H / 3 ))\nfi\n\necho \"Overlay final size = ${OVERLAY_W_PX}px x ${OVERLAY_H_PX}px (computed from ${OVERLAY_W} x ${OVERLAY_H})\"\n\n# 4) Compose final video\necho \"4/6: composing final video -> $OUT_VIDEO\"\n\ncase \"$PLACEMENT\" in\n  top-right)\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\n  top-left)\n    OV_X_EXPR=\"${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\n  bottom-right)\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"H-h-${OVERLAY_OFFSET_Y}\"\n    ;;\n  bottom-left)\n    OV_X_EXPR=\"${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"H-h-${OVERLAY_OFFSET_Y}\"\n    ;;\n  *)\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\nesac\n\n# include emoji overlay if available\nif [ -f \"${EMOJI_PNG}\" ]; then\n  ffmpeg -y -i \"$INPUT_FILE\" -i \"$SCREENSHOT_PNG\" -i \"$CAPTION_PNG\" -i \"${EMOJI_PNG}\" \\\n    -t \"${DURATION_FALLBACK}\" \\\n    -filter_complex \"\\\n[1:v]scale=${OVERLAY_W_PX}:${OVERLAY_H_PX}[ov]; \\\n[0:v][ov]overlay=x=${OV_X_EXPR}:y=${OV_Y_EXPR}:enable='gte(t,${FRAME_DELAY_START})'[step1]; \\\n[step1][2:v]overlay=x=(main_w-overlay_w)/2:y=${BAR_OFFSET_Y}[step2]; \\\n[3:v]scale=${EMOJI_SIZE}:${EMOJI_SIZE}[emoji]; \\\n[step2][emoji]overlay=x=${EMOJI_OFFSET_X}:y=${EMOJI_OFFSET_Y}\" \\\n    -r ${FPS} -c:v libx264 -preset veryfast -c:a copy -y \"$OUT_VIDEO\"\nelse\n  ffmpeg -y -i \"$INPUT_FILE\" -i \"$SCREENSHOT_PNG\" -i \"$CAPTION_PNG\" \\\n    -t \"${DURATION_FALLBACK}\" \\\n    -filter_complex \"\\\n[1:v]scale=${OVERLAY_W_PX}:${OVERLAY_H_PX}[ov]; \\\n[0:v][ov]overlay=x=${OV_X_EXPR}:y=${OV_Y_EXPR}:enable='gte(t,${FRAME_DELAY_START})'[step1]; \\\n[step1][2:v]overlay=x=(main_w-overlay_w)/2:y=${BAR_OFFSET_Y}\" \\\n    -r ${FPS} -c:v libx264 -preset veryfast -c:a copy -y \"$OUT_VIDEO\"\nfi\n\nif [ $? -eq 0 ] && [ -f \"$OUT_VIDEO\" ]; then\n  echo \"WROTE final video -> $OUT_VIDEO\"\n  exit 0\nelse\n  echo \"ERR: final ffmpeg compose failed\" >&2\n  exit 1\nfi\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2128,
+        -848
+      ],
+      "id": "edc1b7cf-62cb-449f-84c5-a28b39fe3917",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "delete",
+        "path": "=/upload/extra/{{ $('Google Sheets — Read Rows4').item.json.row_number }}.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -1232,
+        -848
+      ],
+      "id": "87ff813d-4bcf-4767-b6f8-5c2dee2ff5e8",
+      "name": "FTP1",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## aryankhan696968@gmail.com\n\n",
+        "height": 96,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2576,
+        -1008
+      ],
+      "typeVersion": 1,
+      "id": "1a10d70d-dc92-4f03-b511-ebd8039dd780",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 5
+            },
+            {
+              "triggerAtHour": 19
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3248,
+        -848
+      ],
+      "id": "e706e642-e12f-443a-a199-df1a85aa450e",
+      "name": "Schedule Trigger",
+      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "xQgmnRkUXwhBIh3l",
+          "mode": "list",
+          "cachedResultName": "YOUTUBE-TAGS"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -3024,
+        -848
+      ],
+      "id": "30010efd-5496-4ce0-a59d-28d2da0c531f",
+      "name": "Call 'YOUTUBE-TAGS'"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-19T07:09:46.271Z",
+      "updatedAt": "2025-09-19T07:09:46.271Z",
+      "role": "workflow:owner",
+      "workflowId": "hEQfyUpyNikRFnBA",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-09-20T04:39:43.575Z",
+      "updatedAt": "2025-09-20T04:39:43.575Z",
+      "id": "BV8GBwIqmK0QIGLr",
+      "name": "YOUTUBE"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-09-30T12:12:21.000Z",
+  "versionId": "e0ae9002-5fd0-475a-ac59-9c4542cd92e3"
+}

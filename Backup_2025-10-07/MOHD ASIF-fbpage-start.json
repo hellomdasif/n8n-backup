@@ -1,0 +1,144 @@
+{
+  "createdAt": "2025-10-07T05:31:17.665Z",
+  "updatedAt": "2025-10-07T07:30:33.000Z",
+  "id": "cFMRpMqtn6VRn5Fl",
+  "name": "MOHD ASIF-fbpage-start",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -400,
+        -16
+      ],
+      "id": "c0398efb-a7ea-467a-a31a-49b561f383dd",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "638acc1e-78f9-49fb-9988-2fbc39c24bcf",
+              "name": "username",
+              "value": "iammohdasifx",
+              "type": "string"
+            },
+            {
+              "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
+              "name": "type",
+              "value": "fb",
+              "type": "string"
+            },
+            {
+              "id": "4f3f62ed-6e89-4784-b883-1ccd3e6eb844",
+              "name": "title",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -176,
+        -16
+      ],
+      "id": "cff657ab-395d-4c2b-ad8b-589458fb24eb",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Kci6PSZkQ4DDd0qm",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/Kci6PSZkQ4DDd0qm",
+          "cachedResultName": "build_data_fb_insta (GOD MOD)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        -16
+      ],
+      "id": "e6854229-c6c1-4258-a8a1-2ba8d8889771",
+      "name": "BUILD"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "BUILD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUILD": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        14
+      ]
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "versionId": "3fbd0c0a-eea5-4d38-ad43-44354d3fe2cf",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-10-07T05:31:17.674Z",
+      "updatedAt": "2025-10-07T05:31:17.674Z",
+      "role": "workflow:owner",
+      "workflowId": "cFMRpMqtn6VRn5Fl",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

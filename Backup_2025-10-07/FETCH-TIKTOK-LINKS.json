@@ -1,0 +1,472 @@
+{
+  "createdAt": "2025-09-11T19:38:25.457Z",
+  "updatedAt": "2025-10-06T13:01:54.000Z",
+  "id": "soBd8zWGdeMf5Y6D",
+  "name": "FETCH-TIKTOK-LINKS",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "// Define the two user IDs you want to process\nconst userIds = [\n  \"7352806711759701025\", // pawsofhopes\n\n  \"7457078389226112032\" // babyquest66\n];\n\n// This will create two separate items for the next nodes to process\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));"
+      },
+      "id": "7e8640a8-3190-4868-8893-5a1c71aa944f",
+      "name": "1. Set User IDs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1920,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://tiktok-scraper7.p.rapidapi.com/user/posts?user_id=' + $json.userId + '&count=5&cursor=0'}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "tiktok-scraper7.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c12ea9cc-95f4-4bb0-8970-d8c08c4be6b3",
+      "name": "3. Get 5 Latest Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1472,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Extract URLs (robust) - outputs { json: { DirectUrl: \"...\", title: \"...\", status: \"\" } }\n\n// helper to normalize and push an URL if not seen\nfunction pushUrl(u, out, seen, title) {\n  if (!u) return;\n  const url = String(u).trim();\n  if (!url) return;\n  if (!seen.has(url)) {\n    seen.add(url);\n    out.push({ json: { DirectUrl: url, title: String(title || '').trim(), status: '' } });\n  }\n}\n\n// try a few common places where URLs live\nconst out = [];\nconst seen = new Set();\n\n// 1) data.videos (new API sample)\nconst videos = items[0]?.json?.data?.videos || [];\nif (Array.isArray(videos) && videos.length > 0) {\n  for (let i = 0; i < Math.min(5, videos.length); i++) {\n    const v = videos[i];\n    if (!v) continue;\n    const videoTitle = v.title || v.caption || '';\n    // prefer explicit video link fields if present (play / wmplay / origin_cover fallback)\n    // but most stable: construct tiktok page URL using author unique_id and video_id\n    const videoId = v.video_id || v.aweme_id || v.id || v.videoId;\n    let username = v.author?.unique_id || v.author?.uniqueId || v.author?.uniqueIdStr || v.author?.id || v.author?.nickname || '';\n    username = String(username || '').trim().replace(/^@+/, '');\n    if (username && videoId) {\n      pushUrl(`https://www.tiktok.com/@${username}/video/${videoId}`, out, seen, videoTitle);\n    } else {\n      // if no username, try to use a direct play link present in the object\n      if (v.play) pushUrl(v.play, out, seen, videoTitle);\n      else if (v.wmplay) pushUrl(v.wmplay, out, seen, videoTitle);\n      else if (v.origin_cover) pushUrl(v.origin_cover, out, seen, videoTitle);\n    }\n    if (out.length >= 5) break;\n  }\n}\n\n// 2) video.UrlList (your screenshot shows this)\nif (out.length < 5) {\n  const urlList = items[0]?.json?.video?.UrlList || items[0]?.json?.video?.UrlListV2 || [];\n  if (Array.isArray(urlList) && urlList.length > 0) {\n    for (let i = 0; i < urlList.length && out.length < 5; i++) {\n      const u = urlList[i];\n      // UrlList entries may be strings or objects with Uri/Url fields\n      if (typeof u === 'string') pushUrl(u, out, seen, '');\n      else if (u && typeof u === 'object') {\n        pushUrl(u.Uri || u.Url || u.url || u.UrI || u.play || u.playUrl, out, seen, u.title || '');\n      }\n    }\n  }\n}\n\n// 3) data.itemList (older endpoint shape)\nif (out.length < 5) {\n  const itemList = items[0]?.json?.data?.itemList || [];\n  if (Array.isArray(itemList) && itemList.length > 0) {\n    for (let i = 0; i < Math.min(5, itemList.length) && out.length < 5; i++) {\n      const it = itemList[i];\n      const v = it || {};\n      const videoId = v.id || v.video?.id || v.aweme_id;\n      const username = v.author?.uniqueId || v.author?.unique_id || v.author?.unique_id_str || v.author?.uniqueIdStr || v.author?.unique_id || v.author?.uniqueId || '';\n      const title = v.title || v.caption || v.video?.title || '';\n      if (videoId && username) pushUrl(`https://www.tiktok.com/@${String(username).replace(/^@+/,'')}/video/${videoId}`, out, seen, title);\n      // fallback to any direct url\n      else if (v.play_url) pushUrl(v.play_url, out, seen, title);\n    }\n  }\n}\n\n// 4) fallback: items that already contain url fields (e.g., earlier Extract outputs)\nif (out.length < 5) {\n  for (const it of items) {\n    if (!it || !it.json) continue;\n    if (typeof it.json.url === 'string') pushUrl(it.json.url, out, seen, it.json.title || it.json.description || '');\n    if (typeof it.json.DirectUrl === 'string') pushUrl(it.json.DirectUrl, out, seen, it.json.title || it.json.TITLE || '');\n    if (out.length >= 5) break;\n  }\n}\n\n// return (may be 0..5 items)\nreturn out;\n"
+      },
+      "id": "5a05afce-c1c9-4725-bc9e-726e1279a294",
+      "name": "4. Extract URLs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1248,
+        176
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "1fc8a7ee-c395-4935-bca8-c9e9c55ed835",
+      "name": "6. Wait 2 Seconds",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -352,
+        256
+      ],
+      "webhookId": "22e38965-cc93-44c0-b608-e54e50ac6257"
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "832ad924-acec-435d-891b-78859ca74b50",
+      "name": "2. Process One by One",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -1696,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {},
+            {
+              "field": "hours",
+              "hoursInterval": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2144,
+        256
+      ],
+      "id": "126d2aa7-affc-4b4a-baf1-b2e91a0d7eda",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8",
+          "mode": "list",
+          "cachedResultName": "morph.tales1-instagram",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}",
+            "title": "={{ $json.title }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "40073b5b-0601-4075-9b65-15ec24b8bb08",
+      "name": "5. Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -1024,
+        176
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1XSgMPYZQRAT_KKVECOa_4hn6HEkat3dzcZlmuIEjNq4",
+          "mode": "list",
+          "cachedResultName": "morph.tales1-youtube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XSgMPYZQRAT_KKVECOa_4hn6HEkat3dzcZlmuIEjNq4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}",
+            "title": "={{ $json.title }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "5660cee5-8470-4845-906e-0edb9f6340ca",
+      "name": "5. Google Sheets1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -800,
+        176
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1MvKhvcHT1GZUIhb0CmbLjYXw7vJIzC8morHJrHH1KP8",
+          "mode": "list",
+          "cachedResultName": "morph.tales1-facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MvKhvcHT1GZUIhb0CmbLjYXw7vJIzC8morHJrHH1KP8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}",
+            "title": "={{ $json.title }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "916ac446-9543-45f0-aba4-ea3931a769ad",
+      "name": "5. Google Sheets2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -576,
+        176
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "1. Set User IDs": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts": {
+      "main": [
+        [
+          {
+            "node": "4. Extract URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Extract URLs": {
+      "main": [
+        [
+          {
+            "node": "5. Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Wait 2 Seconds": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Process One by One": {
+      "main": [
+        [
+          {
+            "node": "3. Get 5 Latest Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "1. Set User IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "5. Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "5. Google Sheets2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Google Sheets2": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 2 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        null,
+        8
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "23f2abaa-2f92-4b35-a965-d7ae3d36d251",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-11T19:38:25.462Z",
+      "updatedAt": "2025-09-11T19:38:25.462Z",
+      "role": "workflow:owner",
+      "workflowId": "soBd8zWGdeMf5Y6D",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-10T07:49:32.166Z",
+      "updatedAt": "2025-09-10T07:49:32.166Z",
+      "id": "kmJ9RrYGObSkXZT9",
+      "name": "tiktok"
+    }
+  ]
+}

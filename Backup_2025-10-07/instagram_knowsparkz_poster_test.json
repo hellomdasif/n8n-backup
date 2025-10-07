@@ -1,0 +1,294 @@
+{
+  "createdAt": "2025-09-28T07:36:34.346Z",
+  "updatedAt": "2025-09-28T11:30:41.000Z",
+  "id": "Bj80fyMp5H0en5K2",
+  "name": "instagram_knowsparkz_poster_test",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        200
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "get-config",
+      "name": "Get Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        200
+      ],
+      "parameters": {
+        "language": "javaScript",
+        "jsCode": "// KnowSparkz account configuration\nconst config = {\n  \"account_name\": \"knowsparkz_test\",\n  \"node_id\": \"17841454629202811\",\n  \"credential_id\": \"XkFi9HSVhe9e5VV8\",\n  \"data_table_id\": \"YpfR5PAwNwDkmpbe\",\n  \"status_column\": \"ks_insta_status\",\n  \"video_base_url\": \"https://files.mohdasif.net/knowsparkz/\",\n  \"processing_required\": true,\n  \"processing_config\": {\n    \"overlay_script\": \"/files/sh/overlay_with_views.sh\"\n  },\n  \"hashtags\": \"#knowledge #education #learning #growth #knowsparkz #motivation #success #tips #wisdom #inspiration\"\n};\n\nreturn { config };"
+      }
+    },
+    {
+      "id": "get-content",
+      "name": "Get Content from Data Table",
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        500,
+        200
+      ],
+      "parameters": {
+        "operation": "getAll",
+        "datastore": "={{$node['Get Config'].json.config.data_table_id}}",
+        "options": {
+          "where": {
+            "conditions": [
+              {
+                "key": "={{$node['Get Config'].json.config.status_column}}",
+                "value": "pending"
+              }
+            ]
+          },
+          "limit": 1,
+          "sort": {
+            "field": "id",
+            "direction": "ASC"
+          }
+        }
+      }
+    },
+    {
+      "id": "check-content",
+      "name": "Check if Content Available",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        700,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "content-exists",
+              "leftValue": "={{$json.length}}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "no-content-stop",
+      "name": "No Content - Stop",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        900,
+        100
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "extract-content",
+      "name": "Extract Content Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "language": "javaScript",
+        "jsCode": "const contentItem = $input.all()[0].json[0];\nconst config = $('Get Config').first().json.config;\n\n// Build video URL\nconst videoUrl = config.video_base_url + contentItem.filename;\n\n// Build caption with hashtags\nconst caption = `${contentItem.caption}\\n\\n${config.hashtags}`;\n\nreturn {\n  content_id: contentItem.id,\n  video_url: videoUrl,\n  caption: caption,\n  config: config\n};"
+      }
+    },
+    {
+      "id": "video-processing",
+      "name": "Video Processing Module",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        300
+      ],
+      "parameters": {
+        "workflowId": "eaLho7dP7lIJB8G3",
+        "waitForSubWorkflow": true,
+        "source": "database"
+      }
+    },
+    {
+      "id": "instagram-posting",
+      "name": "Instagram Posting Module",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        300
+      ],
+      "parameters": {
+        "workflowId": "skGQa0hR5yAxvQrV",
+        "waitForSubWorkflow": true,
+        "source": "database"
+      }
+    },
+    {
+      "id": "update-status",
+      "name": "Update Status in Data Table",
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        300
+      ],
+      "parameters": {
+        "operation": "update",
+        "datastore": "={{$node['Extract Content Data'].json.config.data_table_id}}",
+        "keyName": "id",
+        "keyValue": "={{$node['Extract Content Data'].json.content_id}}",
+        "fieldsToSet": {
+          "fields": [
+            {
+              "fieldName": "={{$node['Extract Content Data'].json.config.status_column}}",
+              "fieldValue": "={{$node['Instagram Posting Module'].json.status}}"
+            },
+            {
+              "fieldName": "knowsparkz_post_id",
+              "fieldValue": "={{$node['Instagram Posting Module'].json.post_id || 'N/A'}}"
+            },
+            {
+              "fieldName": "knowsparkz_processed_at",
+              "fieldValue": "={{new Date().toISOString()}}"
+            },
+            {
+              "fieldName": "knowsparkz_error",
+              "fieldValue": "={{$node['Instagram Posting Module'].json.error || ''}}"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Config": {
+      "main": [
+        [
+          {
+            "node": "Get Content from Data Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Content from Data Table": {
+      "main": [
+        [
+          {
+            "node": "Check if Content Available",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Content Available": {
+      "main": [
+        [
+          {
+            "node": "No Content - Stop",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Content Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Content Data": {
+      "main": [
+        [
+          {
+            "node": "Video Processing Module",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Video Processing Module": {
+      "main": [
+        [
+          {
+            "node": "Instagram Posting Module",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram Posting Module": {
+      "main": [
+        [
+          {
+            "node": "Update Status in Data Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "bdcd17fe-0c6e-481a-80b5-da7fc6651f1a",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-28T07:36:34.348Z",
+      "updatedAt": "2025-09-28T07:36:34.348Z",
+      "role": "workflow:owner",
+      "workflowId": "Bj80fyMp5H0en5K2",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

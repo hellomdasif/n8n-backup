@@ -729,7 +729,7 @@
           "interval": [
             {
               "field": "minutes",
-              "minutesInterval": 10
+              "minutesInterval": 15
             }
           ]
         }
@@ -1166,25 +1166,7 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {
-    "Schedule Trigger": [
-      {
-        "json": {
-          "timestamp": "2025-10-07T13:50:02.007+05:30",
-          "Readable date": "October 7th 2025, 1:50:02 pm",
-          "Readable time": "1:50:02 pm",
-          "Day of week": "Tuesday",
-          "Year": "2025",
-          "Month": "October",
-          "Day of month": "07",
-          "Hour": "13",
-          "Minute": "50",
-          "Second": "02",
-          "Timezone": "Asia/Kolkata (UTC+05:30)"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -1227,6 +1209,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T12:13:50.000Z",
-  "versionId": "93350b12-123b-47ae-827e-7fc5495a6007"
+  "updatedAt": "2025-10-07T17:45:18.000Z",
+  "versionId": "17d54622-5e26-4694-9e16-5e9706a10a3f"
 }

@@ -1,0 +1,615 @@
+{
+  "active": false,
+  "connections": {
+    "⚙️ Configure Post Settings": {
+      "main": [
+        [
+          {
+            "node": "🔀 Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Container HTTP Reels",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Container FB Reels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container HTTP Reels": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container FB Reels": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Check Processing Status": {
+      "main": [
+        [
+          {
+            "node": "⏰ Initial Processing Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "⚙️ Configure Post Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✅ Is Container Ready?": {
+      "main": [
+        [
+          {
+            "node": "🔀 HTTP vs FB API Router",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "⏰ Retry Wait Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 HTTP vs FB API Router": {
+      "main": [
+        [
+          {
+            "node": "📤 Publish via HTTP API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📤 Publish via Facebook SDK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Initial Processing Wait": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Retry Wait Loop": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Check Processing Status1": {
+      "main": [
+        [
+          {
+            "node": "✅ Is Container Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-11T09:57:32.713Z",
+  "id": "jLK1sgntxlpIlyBZ",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "NEW-INSTA-REEL-UPLOAD",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "217b69e3-98ec-49a2-8fde-372dd1bc1848",
+              "name": "node",
+              "value": "17841416753691295",
+              "type": "string"
+            },
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "value": "http_reel",
+              "type": "string"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5",
+              "name": "image_url",
+              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "type": "string"
+            },
+            {
+              "id": "6e2c9c54-ce2c-4ea5-8bb2-ae2ae4712427",
+              "name": "caption",
+              "value": "Automated Post",
+              "type": "string"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "value": "https://files.mohdasif.net/meow1/upload.mp4",
+              "type": "string"
+            },
+            {
+              "id": "c6485101-488b-43db-8708-1a1136292956",
+              "name": "cover_image",
+              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2144,
+        224
+      ],
+      "id": "df1eb3c5-704a-4042-a673-498d312ec723",
+      "name": "⚙️ Configure Post Settings"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "25e31619-4116-46e0-bfcb-a8d8a030fa68",
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP - Reels"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cf34e931-f798-4c70-af29-9aec7aab8f6c",
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Reels"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1920,
+        224
+      ],
+      "id": "f5796d1a-49b1-4a18-a632-3f8f8c058e67",
+      "name": "🔀 Smart Content Router"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $json.node }}/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "=REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.video_url }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            },
+            {
+              "name": "cover_url",
+              "value": "={{ $json.cover_image }}"
+            },
+            {
+              "name": "audio_name",
+              "value": "Monody (feat. Laura Brehm)"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1696,
+        128
+      ],
+      "id": "3764ce6a-295f-429b-9949-7eb7e1b75267",
+      "name": "Container HTTP Reels",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IoWNonuo3DCqxU0n",
+          "name": "tiny.moew.diary-instagram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "=17841456545908024",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $json.caption }}"
+              },
+              {
+                "name": "video_url",
+                "value": "={{ $json.video_url }}"
+              },
+              {
+                "name": "media_type",
+                "value": "REELS"
+              },
+              {
+                "name": "cover_url",
+                "value": "={{ $json.cover_image }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -1696,
+        320
+      ],
+      "id": "7e0192cf-93e0-4df4-ab84-2df33eb5f8db",
+      "name": "Container FB Reels",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IoWNonuo3DCqxU0n",
+          "name": "tiny.moew.diary-instagram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "37f96da8-a8b6-417b-b5cf-7a4df5b4610c",
+              "name": "container_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1472,
+        224
+      ],
+      "id": "fe087204-c2d7-45cf-bd9a-f8b01a23104a",
+      "name": "🔍 Check Processing Status"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2368,
+        224
+      ],
+      "id": "d5d9ca66-4fa6-40c0-afb9-51000ea01246",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -800,
+        144
+      ],
+      "id": "1bcdf864-b6d4-4b7f-9fa4-d40ca55bacc3",
+      "name": "✅ Is Container Ready?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "da6bcb63-632a-443a-b5b3-a8b6e1c62871",
+              "leftValue": "={{ $('🔀 Smart Content Router').item.json.post_type.split(\"_\")[0] }}",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -576,
+        96
+      ],
+      "id": "3e83853e-2762-4e13-a8a4-ffe956f80fc7",
+      "name": "🔀 HTTP vs FB API Router"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('🔀 Smart Content Router').item.json.node }}/media_publish",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -352,
+        0
+      ],
+      "id": "7ac940e3-fb10-45b8-abcb-fbf54f7789ba",
+      "name": "📤 Publish via HTTP API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IoWNonuo3DCqxU0n",
+          "name": "tiny.moew.diary-instagram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $('🔀 Smart Content Router').item.json.node }}",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        192
+      ],
+      "id": "4f8db886-45e8-4f42-b1ad-91ed002f8b4e",
+      "name": "📤 Publish via Facebook SDK",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IoWNonuo3DCqxU0n",
+          "name": "tiny.moew.diary-instagram"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1248,
+        224
+      ],
+      "id": "10f1b72b-fcd6-43e0-8868-86c8b8a8a62f",
+      "name": "⏰ Initial Processing Wait",
+      "webhookId": "443f84eb-1e9d-4c77-9a9a-c70290333dca"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -576,
+        320
+      ],
+      "id": "a80ef1d5-ed7e-4420-85c2-0957ec499f6f",
+      "name": "⏰ Retry Wait Loop",
+      "webhookId": "e9ac0c1d-b415-4160-a6b1-908d2310cb23"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v22.0/{{ $('🔍 Check Processing Status').item.json.container_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1024,
+        224
+      ],
+      "id": "046b97f4-d7a6-493f-a077-0024a6628840",
+      "name": "🔍 Check Processing Status1",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IoWNonuo3DCqxU0n",
+          "name": "tiny.moew.diary-instagram"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-11T09:57:32.716Z",
+      "updatedAt": "2025-09-11T09:57:32.716Z",
+      "role": "workflow:owner",
+      "workflowId": "jLK1sgntxlpIlyBZ",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-14T12:48:57.000Z",
+  "versionId": "883ee1f9-caa3-4623-b547-aca2f9462814"
+}

@@ -1,0 +1,718 @@
+{
+  "active": false,
+  "connections": {
+    "6. Wait 1 Second": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Set User IDs1": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Process One by One1": {
+      "main": [
+        [
+          {
+            "node": "3. Get 5 Latest Posts1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "todownload1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "CONFIG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 1 Second",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download1": {
+      "main": [
+        [
+          {
+            "node": "SaveToFtp1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "status1": {
+      "main": [
+        [
+          {
+            "node": "Wait 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch URLs": {
+      "main": [
+        [
+          {
+            "node": "Download1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "SaveToFtp1": {
+      "main": [
+        [
+          {
+            "node": "status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONFIG": {
+      "main": [
+        [
+          {
+            "node": "1. Set User IDs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 3": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "todownload1": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "5. Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-24T16:05:20.647Z",
+  "id": "spnWTYmyybEexvG2",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "fetch सचिन कुमार दयालचक- OB",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "dba2978e-d8ec-4b54-af31-9aa9897363c5",
+      "name": "6. Wait 1 Second",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1632,
+        48
+      ],
+      "webhookId": "a482ffac-aec9-434d-bf68-f7da4c4fe5fc"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Define the two user IDs you want to process\nconst userIds = [\n  \"YXBwX2NvbGxlY3Rpb246cGZiaWQwaG56bXJCWmlINlRld0tIdXZOVnJDWmFhVjVYa0JOeFlIb0RiNjQ3MXpuR3pRSG9nVFkyZzUzbmtmR01LV3ZSalkxY0pIMjN0elFRS3JnZmFnZ2lEQWo4Z25lQjhzNXpLNEtmc3Rs\"\n];\n\n// This will create two separate items for the next nodes to process\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));\n"
+      },
+      "id": "5c765922-efb6-47a0-8c3f-bc017926441e",
+      "name": "1. Set User IDs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -2752,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://facebook-scraper3.p.rapidapi.com/page/reels?reels_page_id={{ $json.userId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "facebook-scraper3.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "553ed6fc-16eb-4d9c-b85d-5476da4ef43b",
+      "name": "3. Get 5 Latest Posts1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -2336,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "87fcf7bb-285d-4498-a2f8-82c0d626e71f",
+      "name": "2. Process One by One1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -2528,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3200,
+        320
+      ],
+      "id": "ee48e6f8-108e-41f7-8e8c-145d3cecabf2",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw",
+          "mode": "list",
+          "cachedResultName": "sachin-kumar-fetch",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ $json.url }}",
+            "video_id": "={{ $json.video_id }}",
+            "browser_native_hd_url": "={{ $json.browser_native_hd_url }}",
+            "description": "={{ $json.description }}"
+          },
+          "matchingColumns": [
+            "url"
+          ],
+          "schema": [
+            {
+              "id": "video_id",
+              "displayName": "video_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "browser_native_hd_url",
+              "displayName": "browser_native_hd_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Downloaded",
+              "displayName": "Downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "76288afc-a384-410e-a924-d6544611bd75",
+      "name": "5. Google Sheets1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -1856,
+        48
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.browser_native_hd_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "timeout": 120000
+        }
+      },
+      "id": "a5875f56-0a9c-4155-87fc-39213873f506",
+      "name": "Download1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -1856,
+        240
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw",
+          "mode": "list",
+          "cachedResultName": "sachin-kumar-fetch",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ZP5dTFoMoQI0iVQZjPe3hilnvlc9q8kUvkov6STAwLU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ $('Batch URLs').item.json.url }}",
+            "public": "={{ $('CONFIG').item.json.main_url }}/{{ $json.video_id }}.mp4",
+            "downloaded": "DONE"
+          },
+          "matchingColumns": [
+            "url"
+          ],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_id",
+              "displayName": "video_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "browser_native_hd_url",
+              "displayName": "browser_native_hd_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "43867fda-ab3b-416c-9914-ea64a632705a",
+      "name": "status1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -1408,
+        240
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "d998817e-5021-4a4d-ad23-9045429d9e96",
+      "name": "Batch URLs",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -2096,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "upload",
+        "path": "={{ $('CONFIG').item.json.dir }}/{{ $('Batch URLs').item.json.video_id }}.mp4"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -1632,
+        240
+      ],
+      "id": "49d33962-15da-4835-bac7-4d3eb2245091",
+      "name": "SaveToFtp1",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44e39d3e-3738-48b3-89b8-c22bca4772a4",
+              "name": "dir",
+              "value": "/upload/fb/Tanvi",
+              "type": "string"
+            },
+            {
+              "id": "937e8788-ad7c-49e9-acbe-ba635a51c704",
+              "name": "main_url",
+              "value": "https://files.mohdasif.net/fb/Tanvi",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2976,
+        320
+      ],
+      "id": "433842b6-d9dc-4256-b9ee-584e1366a7e1",
+      "name": "CONFIG"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1184,
+        320
+      ],
+      "id": "42274d5d-4c47-4400-887b-6a5fb96db34b",
+      "name": "Wait 3",
+      "webhookId": "b960f88a-933e-4369-8fa4-132845578639"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw",
+          "mode": "list",
+          "cachedResultName": "sachin-kumar-fetch",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "downloaded"
+            }
+          ]
+        },
+        "options": {
+          "returnAllMatches": "returnAllMatches"
+        }
+      },
+      "id": "b46e0c62-5a2c-428c-be89-d7b8fdf484c7",
+      "name": "todownload1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -2336,
+        48
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Keep ONLY items that are real videos (must have video_id)\n\nconst inputs = items.map(i => i.json);\n\n// Flatten and collect only video objects\nlet videos = [];\nfor (const input of inputs) {\n  if (input.results) {\n    videos.push(...input.results);\n  }\n}\n\n// Filter + map only the required keys\nreturn videos\n  .filter(v => v.video_id) // ensures only real video entries\n  .map(v => ({\n    json: {\n      video_id: v.video_id,\n      url: v.url,\n      description: v.description,\n      browser_native_hd_url: v.browser_native_hd_url\n    }\n  }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2080,
+        48
+      ],
+      "id": "8aa7b06b-4f63-4b20-bbbf-ca64821d9eb9",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-24T16:05:20.654Z",
+      "updatedAt": "2025-09-24T16:05:20.654Z",
+      "role": "workflow:owner",
+      "workflowId": "spnWTYmyybEexvG2",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        6,
+        8
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": [
+        270
+      ]
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-09-10T07:49:32.166Z",
+      "updatedAt": "2025-09-10T07:49:32.166Z",
+      "id": "kmJ9RrYGObSkXZT9",
+      "name": "tiktok"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:04:17.000Z",
+  "versionId": "132e5ceb-8d73-4690-aae2-431988c45cb7"
+}

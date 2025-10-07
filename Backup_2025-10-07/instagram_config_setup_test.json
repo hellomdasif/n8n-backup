@@ -1,0 +1,65 @@
+{
+  "createdAt": "2025-09-28T07:32:16.210Z",
+  "updatedAt": "2025-09-28T11:30:53.000Z",
+  "id": "nXyXF4nz6ZWum3sk",
+  "name": "instagram_config_setup_test",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "setupConfig",
+      "name": "Setup Config Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Configuration for both Instagram accounts\nconst configData = [\n  {\n    \"account_name\": \"successblueprint_test\",\n    \"platform\": \"instagram\", \n    \"node_id\": \"17841474258007414\",\n    \"credential_id\": \"Z5gcDf7MQd9HXjHU\",\n    \"data_table_id\": \"YpfR5PAwNwDkmpbe\",\n    \"status_column\": \"sb_insta_status\",\n    \"video_base_url\": \"https://files.mohdasif.net/successblueprint/\",\n    \"processing_required\": false,\n    \"processing_config\": {},\n    \"active\": true,\n    \"max_retries\": 3,\n    \"initial_wait\": 30,\n    \"retry_wait\": 60\n  },\n  {\n    \"account_name\": \"knowsparkz_test\",\n    \"platform\": \"instagram\",\n    \"node_id\": \"17841454629202811\", \n    \"credential_id\": \"XkFi9HSVhe9e5VV8\",\n    \"data_table_id\": \"YpfR5PAwNwDkmpbe\",\n    \"status_column\": \"ks_insta_status\",\n    \"video_base_url\": \"https://files.mohdasif.net/sh/output/\",\n    \"processing_required\": true,\n    \"processing_config\": {\n      \"overlay_script\": \"/files/sh/overlay_with_views.sh\",\n      \"assets_dir\": \"/files/extra\",\n      \"output_dir\": \"/files/sh/output\"\n    },\n    \"active\": true,\n    \"max_retries\": 3,\n    \"initial_wait\": 30, \n    \"retry_wait\": 60\n  }\n];\n\nreturn configData.map(config => ({ json: config }));"
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Setup Config Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "3347ee88-c578-495d-8b56-37ef160e563f",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-28T07:32:16.214Z",
+      "updatedAt": "2025-09-28T07:32:16.214Z",
+      "role": "workflow:owner",
+      "workflowId": "nXyXF4nz6ZWum3sk",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

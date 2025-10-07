@@ -1,0 +1,461 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config": {
+      "main": [
+        [
+          {
+            "node": "Download Video (binary)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video (binary)": {
+      "main": [
+        [
+          {
+            "node": "Prepare Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Upload": {
+      "main": [
+        [
+          {
+            "node": "IG Upload Start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Upload Start": {
+      "main": [
+        [
+          {
+            "node": "IG Upload Transfer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Upload Transfer": {
+      "main": [
+        [
+          {
+            "node": "IG Upload Finish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Upload Finish": {
+      "main": [
+        [
+          {
+            "node": "Init Poll Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Poll Vars": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "IG Check Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Check Status": {
+      "main": [
+        [
+          {
+            "node": "IF Finished?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Finished?": {
+      "main": [
+        [
+          {
+            "node": "IG Publish",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Inc Attempts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inc Attempts": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-10T20:31:54.812Z",
+  "id": "2i6Cd3VwsveyKsL2",
+  "isArchived": true,
+  "meta": null,
+  "name": "My workflow 12",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "402705da-40c3-450c-9c3e-634b22e9a538",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2432,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "IG_USER_ID",
+              "value": "822222874300149"
+            },
+            {
+              "name": "IG_ACCESS_TOKEN",
+              "value": "EAATU432GSC8BPfLX5BcbT91LlyWUB7KiuZBVAZCWlDV96W7C0dbhGD0NXVpS42gxlXZCzneZB0HZC2mauzfZASFBDP7XHMheXi77g7Uy81erZACtbcvHZADreUoQ2rB1txzyfgAVQqfOzPkpMi1jZAZAEIo584ZAGFhNcvMYa2Q9a3YuiWVZAwLKWe8GPZBADdoZCZAJKbLJVpG"
+            },
+            {
+              "name": "CAPTION",
+              "value": "Posted via n8n binary upload"
+            },
+            {
+              "name": "DOWNLOAD_URL",
+              "value": "https://files.mohdasif.net/KnowSparkz/zz1.mp4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a03a45b9-1b26-4820-8393-e3d30ae382eb",
+      "name": "Set Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -2224,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.DOWNLOAD_URL }}",
+        "options": {}
+      },
+      "id": "c10e828d-5fdb-4c2f-b08c-2848071c2604",
+      "name": "Download Video (binary)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -2032,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract the binary info from previous node (Download Video)\nconst binKeys = Object.keys(items[0].binary || {});\nif (binKeys.length === 0) {\n  throw new Error('No binary data found in incoming item');\n}\n\nconst binKey = binKeys[0];\nconst meta = items[0].binary[binKey];\n\n// File size (already provided by n8n binary object)\nconst size = meta.fileSize || 0;\n\n// Return JSON with binary intact\nreturn [\n  {\n    json: {\n      upload_size: size,\n      binaryPropertyName: binKey,\n      originalFileName: meta.fileName || \"video.mp4\",\n      mimeType: meta.mimeType || \"video/mp4\",\n      IG_USER_ID: $items(\"Set Config\")[0].json.IG_USER_ID,\n      IG_ACCESS_TOKEN: $items(\"Set Config\")[0].json.IG_ACCESS_TOKEN,\n      CAPTION: $items(\"Set Config\")[0].json.CAPTION\n    },\n    binary: {\n      [binKey]: meta\n    }\n  }\n];\n"
+      },
+      "id": "7dd2c499-748e-4b6e-b604-985ab7ed5ec5",
+      "name": "Prepare Upload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1824,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $json.IG_USER_ID + '/videos' }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "upload_phase",
+              "value": "start"
+            },
+            {
+              "name": "file_size",
+              "value": "=47"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.IG_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9eb9a22a-c15c-40f8-949f-dfae0789381f",
+      "name": "IG Upload Start",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -1632,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $items('Prepare Upload')[0].json.IG_USER_ID + '/videos' }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "upload_phase",
+              "value": "transfer"
+            },
+            {
+              "name": "start_offset",
+              "value": "={{ $json.start_offset || 0 }}"
+            },
+            {
+              "name": "video_file_chunk"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $items('Prepare Upload')[0].json.IG_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "305a7d5a-3141-4806-b6e1-71b9918c1d94",
+      "name": "IG Upload Transfer",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -1424,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $items('Prepare Upload')[0].json.IG_USER_ID + '/videos' }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "upload_phase",
+              "value": "finish"
+            },
+            {
+              "name": "upload_session_id",
+              "value": "={{ $items('IG Upload Start')[0].json.upload_session_id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $items('Prepare Upload')[0].json.IG_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "820f0ba9-94a9-4e26-a216-b9a790ccc609",
+      "name": "IG Upload Finish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -1232,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "language": "JavaScript"
+      },
+      "id": "52139d6e-49ab-42fa-9385-e3af3acf038d",
+      "name": "Init Poll Vars",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1024,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "amount": "={{ $json.sleep_sec }}"
+      },
+      "id": "6f9dcefd-837b-4227-91a6-ce64467bc3c7",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        80
+      ],
+      "webhookId": "66967120-69b0-46f9-b909-7b6e5904c707"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $json.creation_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code,status"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.IG_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "915cfcaa-4215-4f57-bb7d-46c49c30b6f4",
+      "name": "IG Check Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -624,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{ $json.status_code }}",
+              "operation": "equal",
+              "rightValue": "FINISHED"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b6916e19-53f4-488f-86d9-b153e653a441",
+      "name": "IF Finished?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -432,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $items('Prepare Upload')[0].json.IG_USER_ID + '/media_publish' }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $items('Init Poll Vars')[0].json.creation_id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $items('Prepare Upload')[0].json.IG_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "89fc0ee5-157a-4fe4-ae63-45f056e467ae",
+      "name": "IG Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "language": "JavaScript"
+      },
+      "id": "8cc63c02-6d2b-40fc-9cd1-7539796f2cb5",
+      "name": "Inc Attempts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        160
+      ]
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-10T20:31:54.819Z",
+      "updatedAt": "2025-09-10T20:31:54.819Z",
+      "role": "workflow:owner",
+      "workflowId": "2i6Cd3VwsveyKsL2",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-11T05:00:06.000Z",
+  "versionId": "f6ac4b42-4edf-416d-956b-7731752ec89c"
+}

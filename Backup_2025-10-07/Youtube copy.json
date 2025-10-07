@@ -1,0 +1,413 @@
+{
+  "createdAt": "2025-09-06T12:25:26.535Z",
+  "updatedAt": "2025-09-11T05:03:10.000Z",
+  "id": "iILGYvJC2N9fhFVQ",
+  "name": "Youtube copy",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -368
+      ],
+      "id": "0a50df2f-7eb7-494c-9f88-3c5d94bedf26"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "title",
+              "value": "My Awesome #Shorts Video"
+            },
+            {
+              "name": "description",
+              "value": "Check out this cool short video!\n\n#Shorts #YouTubeShorts"
+            },
+            {
+              "name": "tags",
+              "value": "shorts,cool,video"
+            },
+            {
+              "name": "privacyStatus",
+              "value": "private"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        96,
+        -368
+      ],
+      "id": "2d0d6da4-9098-49f4-a711-3b5a5ca58cbc"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{$json[\"title\"]}}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {}
+      },
+      "name": "Upload Short",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        320,
+        -368
+      ],
+      "id": "48b84b8c-e95d-4620-af46-d1b98930a1f2",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "53V5EXwtYZRfT2WN",
+          "name": "YouTube account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://files.mohdasif.net/89720.mp4",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "name": "Download Video1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -592
+      ],
+      "id": "7d35301e-f925-4a1c-9add-58e8b45c1955"
+    },
+    {
+      "parameters": {
+        "url": "https://www.tiktok.com/@catmeow3694/video/7546049890850213151",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/91.0.4472.124"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "6ae51931-e9d7-4fe0-ae2b-865ef6d84771",
+      "name": "Get TikTok Video Page Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -400,
+        -848
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = $input.first().json.data;\nconst headers = $input.first().json.headers || {};\nconst cookies = headers['set-cookie'] || [];\n\nif (!html) {\n  throw new Error(\"HTML body is undefined. Check the previous node's output.\");\n}\nconst regex = /<script id=\"__UNIVERSAL_DATA_FOR_REHYDRATION__\" type=\"application\\/json\">([\\s\\S]*?)<\\/script>/;\nconst match = html.match(regex);\n\nif (match) {\n  const jsonStr = match[1];\n  const data = JSON.parse(jsonStr);\n  const videoUrl = data?.__DEFAULT_SCOPE__?.[\"webapp.video-detail\"]?.itemInfo?.itemStruct?.video?.playAddr;\n  if (!videoUrl) {\n    throw new Error(\"Could not find video URL in the JSON data.\");\n  }\n  return [{ json: { videoUrl, cookies: cookies.join('; ') } }];\n} else {\n  throw new Error(\"Could not find __UNIVERSAL_DATA_FOR_REHYDRATION__ script in the HTML.\");\n}"
+      },
+      "id": "17ee771a-72b1-49d1-b3c3-15e40bffde37",
+      "name": "Scrape raw video URL",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        48,
+        -848
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "url": "=https://files.mohdasif.net/KnowSparkz/a33.mp4",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Cookie",
+              "value": "={{ $json.cookies }}"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "0c0fc00a-873b-4a96-acb7-cc9e5860d202",
+      "name": "Output video file without watermark",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        464,
+        -848
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "content": "## 1. Load the video page\nOpen this node and replace the URL with the one of the video you want to download without a watermark.\n\nA Tiktok video URL looks like: https://www.tiktok.com/@Username_here/video/Video_ID_Here\n\nOutputs the returned page HTML along with the session cookies\n\n",
+        "height": 360,
+        "width": 460,
+        "color": 6
+      },
+      "id": "d5e226d9-8feb-4e90-8287-5f36024c7fe1",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -576,
+        -1040
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 2. Find the raw video URL\nParses through all of the HTML and finds the section containing the video URL before the watermark is applied",
+        "height": 360,
+        "width": 380,
+        "color": 5
+      },
+      "id": "e3d70136-7f2c-4951-a65b-256525d80eb5",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        -1040
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 3. Output video file without watermark\nUsing the cookies from step 1, a request is made to access the original video file as shown on TikTok",
+        "height": 360,
+        "width": 400,
+        "color": 4
+      },
+      "id": "f74c7e19-3b9a-44d8-8cd6-0354657096c6",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        304,
+        -1040
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "https://tiktok-api123.p.rapidapi.com/user/posts",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "unique_id",
+              "value": "={{ $json.username }}"
+            },
+            {
+              "name": "count",
+              "value": "50"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "tiktok-api123.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bf4e4ff2-9819-4009-9f31-5d126779c1c7",
+      "name": "Get TikTok Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        112,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "username",
+              "value": "catmeow3694"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "be1263ae-99d4-4502-b406-267eaac4987b",
+      "name": "Set TikTok Username",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const username = $('Set TikTok Username').item.json.username;\n// Note: The path to the video list might be different for this API.\n// If it fails, check the output of the previous node and adjust 'data.videos'.\nconst posts = $input.item.json.data.videos;\n\nif (!posts || posts.length === 0) {\n  // Try another common path if the first one fails\n  const alternativePosts = $input.item.json.aweme_list;\n  if (alternativePosts && alternativePosts.length > 0) {\n    const links = alternativePosts.map(post => {\n        return {\n            json: {\n                post_url: `https://www.tiktok.com/@${username}/video/${post.aweme_id}`\n            }\n        };\n    });\n    return links;\n  } else {\n      return [{ json: { error: \"No posts found. Check the API response format.\" } }];\n  }\n}\n\nconst links = posts.map(post => {\n  return {\n    json: {\n      // This API might use 'aweme_id' or just 'id'. 'id' is used here.\n      post_url: `https://www.tiktok.com/@${username}/video/${post.id}`\n    }\n  };\n});\n\nreturn links;"
+      },
+      "id": "951ffe17-f8dd-4fec-900c-755bb33b1e8d",
+      "name": "Extract Post Links",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        336,
+        96
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Get TikTok Video Page Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Metadata": {
+      "main": [
+        [
+          {
+            "node": "Upload Short",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video1": {
+      "main": [
+        []
+      ]
+    },
+    "Scrape raw video URL": {
+      "main": [
+        [
+          {
+            "node": "Output video file without watermark",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get TikTok Video Page Data": {
+      "main": [
+        [
+          {
+            "node": "Scrape raw video URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output video file without watermark": {
+      "main": [
+        [
+          {
+            "node": "Set Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get TikTok Posts": {
+      "main": [
+        [
+          {
+            "node": "Extract Post Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set TikTok Username": {
+      "main": [
+        [
+          {
+            "node": "Get TikTok Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "ea9a5051-4742-48e6-8b9b-c7172510ec57",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-06T12:25:26.538Z",
+      "updatedAt": "2025-09-06T12:25:26.538Z",
+      "role": "workflow:owner",
+      "workflowId": "iILGYvJC2N9fhFVQ",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

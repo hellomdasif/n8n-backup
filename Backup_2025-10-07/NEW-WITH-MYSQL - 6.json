@@ -1,0 +1,970 @@
+{
+  "createdAt": "2025-10-04T13:44:34.154Z",
+  "updatedAt": "2025-10-05T17:00:47.000Z",
+  "id": "AZMuK6dcCtAsDwur",
+  "name": "NEW-WITH-MYSQL - 6",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('accounts').item.json.root_dir }}{{ $('accounts').item.json.folder }}input.jpg",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        256
+      ],
+      "id": "3463a6f5-1170-4704-a9ea-c6a871145b3e",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "={{ $('accounts').item.json.database_name }}",
+          "mode": "name"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "fb",
+              "condition": "IS NULL"
+            },
+            {
+              "column": "fb"
+            }
+          ]
+        },
+        "combineConditions": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -864,
+        256
+      ],
+      "id": "ed57c485-fbc6-474d-8c73-bd4bd812e77f",
+      "name": "pending_url",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status.video_status }}",
+              "rightValue": "upload_complete",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1152,
+        176
+      ],
+      "id": "0345155c-9e37-47d9-b312-1c068ee923ef",
+      "name": "✅ Is Container Ready?"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        704,
+        256
+      ],
+      "id": "af31802f-c44a-457c-a262-52e35a90885a",
+      "name": "⏰ Initial Processing Wait",
+      "webhookId": "b503030b-165e-4eed-88c1-dd7c9ed3adf3"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1600,
+        272
+      ],
+      "id": "49aaf22c-b668-42b9-8659-897aad3f99f5",
+      "name": "⏰ Retry Wait Loop",
+      "webhookId": "79ac50a8-5bc1-4dac-a464-4bf7f8572755"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status.video_status }}",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1376,
+        272
+      ],
+      "id": "b736b528-c9d7-46e8-a567-c03b0855e970",
+      "name": "anyError"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $('Increment Loop Var').item.json.page }}",
+              "operation": "larger",
+              "value2": "=3"
+            }
+          ]
+        }
+      },
+      "name": "Reached Max?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        464
+      ],
+      "id": "9a752c5f-6070-4971-b185-8848afa12cd3"
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "name": "Wait 2m",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        2048,
+        704
+      ],
+      "id": "7ea2f3be-1a7a-4507-9ad6-c0f5303e8c30",
+      "webhookId": "043628c6-1555-46a6-97fa-c17846357f09"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1503b89d-7f11-49fc-86ed-38ed600fc34c",
+              "name": "prevPage",
+              "value": "={{ $('Increment Loop Var').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1824,
+        640
+      ],
+      "id": "cfe03c70-56ee-4e90-88e4-66098599b2d1",
+      "name": "Forward Prev Page Num"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "32a6221a-b000-4b5f-9b93-271c44d542fd",
+              "name": "page",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "91668535-ba9c-4626-8e64-e7a20644c8e2",
+              "name": "pageCount",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "b35840da-9056-4aa4-8764-401dd7dcf3a5",
+              "name": "filename",
+              "value": "={{ String(Math.floor(Math.random() * 28) + 1).padStart(3, '0') }}.mp4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1312,
+        416
+      ],
+      "id": "fa50a2ab-19a2-4d18-b1ed-687581a3838c",
+      "name": "Vars"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a042073f-f9e7-4258-80db-360a09c549e4",
+              "name": "page",
+              "value": "={{ ($('Forward Prev Page Num').isExecuted) ? $('Forward Prev Page Num').first().json.prevPage + 1 : $('Vars').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1088,
+        416
+      ],
+      "id": "18813953-2bd8-4b01-b0ff-51fc097bf9c8",
+      "name": "Increment Loop Var"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            },
+            {
+              "triggerAtHour": 9
+            },
+            {
+              "triggerAtHour": 15
+            },
+            {
+              "triggerAtHour": 19
+            },
+            {
+              "triggerAtHour": 20
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1760,
+        416
+      ],
+      "id": "bea21466-7322-4dbc-92bf-3ee06d9322ee",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "={{ $('accounts').item.json.database_name }}",
+          "mode": "name"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "url",
+        "valueToMatchOn": "={{ $('pending_url').item.json.url }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "fb",
+              "value": "DONE"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1600,
+        80
+      ],
+      "id": "86e2275a-7d32-40cb-9ae5-e4ab1ad1023a",
+      "name": "update_sucess",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "={{ $('accounts').item.json.database_name }}",
+          "mode": "name"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "url",
+        "valueToMatchOn": "={{ $('pending_url').item.json.url }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "fb",
+              "value": "error"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1824,
+        368
+      ],
+      "id": "58aac3c8-6b98-4d38-8ac1-225b43381dbb",
+      "name": "update_ERROR",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "accounts",
+          "mode": "list",
+          "cachedResultName": "accounts"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "username",
+              "value": "=urban__raja"
+            },
+            {
+              "column": "type",
+              "value": "=fb"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -1536,
+        416
+      ],
+      "id": "af070f04-c08f-4809-b6cc-e268dd0dc3b5",
+      "name": "accounts",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('pending_url').item.json.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -416,
+        256
+      ],
+      "id": "8e24a74a-0f65-49b5-b37b-67b6e16e3ba4",
+      "name": "download"
+    },
+    {
+      "parameters": {
+        "command": "=python3  {{ $json.file }} \\\n-i  {{ $json.input_image }} \\\n-b  {{ $json.input_video }} \\\n-o  {{ $json.output__video }} \\\n--cut-percentage 40 \\\n--cut-shape random \\\n--hole-color red \\\n--movement-style random \\\n--piece-scale 1.5 \\\n--fps 30 \\\n--margin-top 45 \\\n--audio-volume 10 \\\n--audio-file {{ $json.audio }} \\\n--audio-custom-volume 100 \\\n--alignment-hold-time 10 \\\n--image-coverage 95"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        32,
+        256
+      ],
+      "id": "64a205ef-46ce-4917-b651-58cd6f0863a7",
+      "name": "command"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "235e1dfd-b7bb-40e9-a708-f495c8361968",
+              "name": "file",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}v2.py",
+              "type": "string"
+            },
+            {
+              "id": "ad67ccd6-fa0b-493f-b7f5-d3c517e7a402",
+              "name": "input_image",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}input.jpg ",
+              "type": "string"
+            },
+            {
+              "id": "53643391-bd34-45ae-92f2-b09c42d88bee",
+              "name": "input_video",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}input/{{ String(Math.floor(Math.random() * 28) + 1).padStart(3, '0') }}.mp4",
+              "type": "string"
+            },
+            {
+              "id": "ef82fb45-0b77-4793-bdca-fa5a565eb7f4",
+              "name": "output__video",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}output/{{ $json.id }}.mp4",
+              "type": "string"
+            },
+            {
+              "id": "e4456bd9-36e6-490d-8067-18c207ebf21b",
+              "name": "audio",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}audio.mp3",
+              "type": "string"
+            },
+            {
+              "id": "0e5c521a-b028-434d-8602-0d9ac00cde6d",
+              "name": "finalurl",
+              "value": "=https://files.mohdasif.net{{ $('accounts').item.json.folder }}output/{{ $('pending_url').item.json.id }}.mp4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -640,
+        256
+      ],
+      "id": "8fda514e-dc24-4003-ae50-b77409a193a3",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('accounts').item.json.acc_id }}/video_reels",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $('accounts').item.json.token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"upload_phase\":\"start\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        256,
+        256
+      ],
+      "id": "19cc8687-59ca-413c-9fb3-be15b908afd9",
+      "name": "get_container_id"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('get_container_id').item.json.upload_url }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $('accounts').item.json.token }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "={{ $('config').item.json.finalurl }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        256
+      ],
+      "id": "a814b9a6-1f73-4544-8929-9f965d92c8e9",
+      "name": "upload"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v23.0/{{ $('get_container_id').item.json.video_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('accounts').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        928,
+        256
+      ],
+      "id": "aa246dd7-ee53-4f68-abc9-6bf6d3a4d338",
+      "name": "Check_Status"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('accounts').item.json.acc_id }}/video_reels",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $('accounts').item.json.token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_id\": \"{{ $('get_container_id').item.json.video_id }}\",\n  \"upload_phase\": \"finish\",\n  \"video_state\": \"PUBLISHED\",\n  \"description\": \"{{ $('accounts').item.json.default_title }}\"\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1376,
+        80
+      ],
+      "id": "701b31e5-5090-48e9-8883-9ff19f08e09f",
+      "name": "Publish"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "DjPfvrVULqii15lX",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/DjPfvrVULqii15lX",
+          "cachedResultName": "urban__raja-insta TEST"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {
+          "waitForSubWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        2048,
+        80
+      ],
+      "id": "551050a7-713e-4cbf-a788-e870416b42be",
+      "name": "Call 'urban__raja-insta TEST'"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "934b5ab2-1a03-470f-a84c-c08bda9736f7",
+              "name": "url",
+              "value": "={{ $('config').item.json.finalurl }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1824,
+        80
+      ],
+      "id": "158a6cfc-f148-4016-92dc-dbf03aa93733",
+      "name": "SEND_URL"
+    }
+  ],
+  "connections": {
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pending_url": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✅ Is Container Ready?": {
+      "main": [
+        [
+          {
+            "node": "Publish",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "anyError",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Initial Processing Wait": {
+      "main": [
+        [
+          {
+            "node": "Check_Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Retry Wait Loop": {
+      "main": [
+        [
+          {
+            "node": "Check_Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "anyError": {
+      "main": [
+        [
+          {
+            "node": "Reached Max?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "⏰ Retry Wait Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reached Max?": {
+      "main": [
+        [
+          {
+            "node": "update_ERROR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Forward Prev Page Num",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2m": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Forward Prev Page Num": {
+      "main": [
+        [
+          {
+            "node": "Wait 2m",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vars": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Loop Var": {
+      "main": [
+        [
+          {
+            "node": "pending_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_sucess": {
+      "main": [
+        [
+          {
+            "node": "SEND_URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_ERROR": {
+      "main": [
+        []
+      ]
+    },
+    "accounts": {
+      "main": [
+        [
+          {
+            "node": "Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "command": {
+      "main": [
+        [
+          {
+            "node": "get_container_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_container_id": {
+      "main": [
+        [
+          {
+            "node": "upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "upload": {
+      "main": [
+        [
+          {
+            "node": "⏰ Initial Processing Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check_Status": {
+      "main": [
+        [
+          {
+            "node": "✅ Is Container Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish": {
+      "main": [
+        [
+          {
+            "node": "update_sucess",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'urban__raja-insta TEST'": {
+      "main": [
+        []
+      ]
+    },
+    "SEND_URL": {
+      "main": [
+        [
+          {
+            "node": "Call 'urban__raja-insta TEST'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        18
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "d37f46a2-40d8-4988-bdb9-5f54dccf24c6",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-10-04T13:44:34.159Z",
+      "updatedAt": "2025-10-04T13:44:34.159Z",
+      "role": "workflow:owner",
+      "workflowId": "AZMuK6dcCtAsDwur",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

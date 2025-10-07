@@ -243,7 +243,7 @@
       "main": [
         [
           {
-            "node": "Append or update row in sheet",
+            "node": "Execute",
             "type": "main",
             "index": 0
           }
@@ -358,6 +358,17 @@
         [
           {
             "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute": {
+      "main": [
+        [
+          {
+            "node": "Call 'POST FACEBOOK - PARALLEL'",
             "type": "main",
             "index": 0
           }
@@ -621,8 +632,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1152,
-        -1504
+        1200,
+        -1760
       ],
       "id": "3901ecdc-5c3d-4f89-8e7a-669c1f377eb7",
       "name": "Append or update row in sheet",
@@ -631,7 +642,8 @@
           "id": "H3U1X4hjIcv7PxVl",
           "name": "hellomohdasif@gmail.com"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1388,6 +1400,45 @@
       "typeVersion": 1,
       "id": "e4aaa099-dadc-4e2a-8c81-35fd0c6cf6b3",
       "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"acc_id\": \"{{ $('accounts').item.json.acc_id }}\",\n  \"username\": \"{{ $('accounts').item.json.username }}\",\n  \"public\": \"{{ ($json.final || '').replace(/^\\\"+|\\\"+$/g, '') }}\",\n  \"access_token\": \"{{ ($('accounts').item.json.token || '').replace(/[\\n\\r\\\"]/g, (m) => m === '\\n' ? '\\\\\\\\n' : m === '\\r' ? '\\\\\\\\r' : '\\\\\\\\\\\"') }}\",\n  \"database_name\": \"{{ $('accounts').item.json.database_name }}\",\n  \"status\": \"Pending\",\n  \"title\": \"{{ $('config').item.json.title || $('accounts').item.json.default_title }}\",\n  \"description\": \"{{ $('config').item.json.description || $('accounts').item.json.default_des }}\",\n  \"type\": \"{{ $('config').item.json.type }}\",\n  \"id\": \"{{ $json.id }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1184,
+        -1504
+      ],
+      "id": "4f611c67-3303-4956-aa25-19c2bb486ba7",
+      "name": "Execute"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "8s68NCy6GF9p0u8T",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/8s68NCy6GF9p0u8T",
+          "cachedResultName": "POST FACEBOOK - PARALLEL"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1344,
+        -1504
+      ],
+      "id": "bf794d56-b5a9-4a52-a291-d0c7989f2b78",
+      "name": "Call 'POST FACEBOOK - PARALLEL'"
     }
   ],
   "origin": "n8n",
@@ -1428,6 +1479,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T12:13:56.000Z",
-  "versionId": "fdf9f24a-8527-4511-b5ab-9ce6d31ab520"
+  "updatedAt": "2025-10-07T18:29:39.000Z",
+  "versionId": "d03aa6fe-2b63-495b-a4bc-fd25310969ca"
 }

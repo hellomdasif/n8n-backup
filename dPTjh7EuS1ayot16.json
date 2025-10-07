@@ -1,0 +1,92 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-04T15:22:05.389Z",
+  "id": "dPTjh7EuS1ayot16",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "webhook-N4Bhai",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "N4Bhai",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -96,
+        -128
+      ],
+      "id": "e5b5b10f-af4f-4a59-b701-fd4d0449124c",
+      "name": "Webhook",
+      "webhookId": "240608a6-91c8-45a9-8999-489e21cc3b71"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO N4Bhai (filename, title, description)\nVALUES ('{{ $json.body.filename }}', '{{ $json.body.title }}', '{{ $json.body.title }}')\nON DUPLICATE KEY UPDATE\n    title = VALUES(title),\n    description = VALUES(description);\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        160,
+        -128
+      ],
+      "id": "c40ef3eb-2d49-4062-bcd5-16f6ceebde38",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-04T15:22:05.394Z",
+      "updatedAt": "2025-10-04T15:22:05.394Z",
+      "role": "workflow:owner",
+      "workflowId": "dPTjh7EuS1ayot16",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:16:06.534Z",
+      "updatedAt": "2025-10-07T12:16:06.534Z",
+      "id": "ZIgw9D8vZ3v5ByPZ",
+      "name": "WEBHOOK"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:16:07.000Z",
+  "versionId": "2f9b9a7a-6e9b-4f45-9cce-9d24f786ae74"
+}

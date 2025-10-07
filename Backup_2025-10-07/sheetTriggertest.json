@@ -1,0 +1,109 @@
+{
+  "createdAt": "2025-10-06T04:07:39.976Z",
+  "updatedAt": "2025-10-06T05:42:50.000Z",
+  "id": "tXx2O2RMux1OjsPv",
+  "name": "sheetTriggertest",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "unit": "minutes"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k",
+          "mode": "list",
+          "cachedResultName": "Process",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k/edit#gid=0"
+        },
+        "options": {
+          "columnsToWatch": [
+            "sdsdasd",
+            "asdasd"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9f212ebc-4cf0-49dd-abce-a542c3b628ac",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "jtXLdzCwtAvQlz5T",
+          "name": "Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "eaa4b4b7-934a-4ab9-b0d7-25972e65d0ae",
+      "name": "Edit Fields"
+    }
+  ],
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Google Sheets Trigger": {
+      "documentId": "1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k",
+      "sheetId": 0,
+      "lastRevision": 54,
+      "lastRevisionLink": "https://docs.google.com/spreadsheets/export?id=1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k&revision=54&exportFormat=xlsx"
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "99ff3ea4-6ea3-4e0c-8e11-10584b909239",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-10-06T04:07:39.978Z",
+      "updatedAt": "2025-10-06T04:07:39.978Z",
+      "role": "workflow:owner",
+      "workflowId": "tXx2O2RMux1OjsPv",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

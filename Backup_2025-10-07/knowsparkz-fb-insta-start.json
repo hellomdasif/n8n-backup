@@ -1,0 +1,216 @@
+{
+  "createdAt": "2025-10-07T07:42:17.468Z",
+  "updatedAt": "2025-10-07T07:46:00.000Z",
+  "id": "29w96iOVuGOt4Csb",
+  "name": "knowsparkz-fb-insta-start",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -400,
+        -16
+      ],
+      "id": "e6ca7492-7fc2-4625-a76a-9890c1b30a9b",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "638acc1e-78f9-49fb-9988-2fbc39c24bcf",
+              "name": "username",
+              "value": "knowsparkz",
+              "type": "string"
+            },
+            {
+              "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
+              "name": "type",
+              "value": "insta",
+              "type": "string"
+            },
+            {
+              "id": "a73f80e4-ba88-4960-b644-93d8e984d890",
+              "name": "title",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -208,
+        -16
+      ],
+      "id": "8d6a4897-f75f-451f-a8e3-3c11b4c55269",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Kci6PSZkQ4DDd0qm",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/Kci6PSZkQ4DDd0qm",
+          "cachedResultName": "build_data_fb_insta (GOD MOD)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -32,
+        -16
+      ],
+      "id": "1b57626c-829c-47bf-80ad-f227f8e2ae17",
+      "name": "BUILD"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "638acc1e-78f9-49fb-9988-2fbc39c24bcf",
+              "name": "username",
+              "value": "urban__raja",
+              "type": "string"
+            },
+            {
+              "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
+              "name": "type",
+              "value": "fb",
+              "type": "string"
+            },
+            {
+              "id": "7c81a8de-742b-4d6a-a99f-bdf7c6bf146d",
+              "name": "title",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -304,
+        -240
+      ],
+      "id": "73643e90-67c1-4a75-84ea-e8ad1ba00252",
+      "name": "config1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Kci6PSZkQ4DDd0qm",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/Kci6PSZkQ4DDd0qm",
+          "cachedResultName": "build_data_fb_insta (GOD MOD)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -128,
+        -240
+      ],
+      "id": "d45d03b1-52e7-4e02-8f19-3094b5be1578",
+      "name": "BUILD1",
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "BUILD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config1": {
+      "main": [
+        [
+          {
+            "node": "BUILD1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUILD": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        14
+      ]
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "versionId": "38ac4533-0be7-4b1d-8408-ed0273d2e35d",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-10-07T07:42:17.471Z",
+      "updatedAt": "2025-10-07T07:42:17.471Z",
+      "role": "workflow:owner",
+      "workflowId": "29w96iOVuGOt4Csb",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

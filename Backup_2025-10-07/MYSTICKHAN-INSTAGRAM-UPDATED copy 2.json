@@ -1,0 +1,866 @@
+{
+  "createdAt": "2025-09-11T04:30:54.007Z",
+  "updatedAt": "2025-09-28T11:31:09.000Z",
+  "id": "ir9rlfusfWhvwfcA",
+  "name": "MYSTICKHAN-INSTAGRAM-UPDATED copy 2",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "GOOGLE_DRIVE_FOLDER_ID",
+              "value": "1KHv4wZAzt_OaWETkhzbxz37fF27VOkmN"
+            },
+            {
+              "name": "GOOGLE_SHEET_ID",
+              "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE"
+            },
+            {
+              "name": "SHEET_NAME",
+              "value": "0"
+            },
+            {
+              "name": "FILES_DIR",
+              "value": "=/upload/{{ $json.UNAME }}"
+            },
+            {
+              "name": "FILES_URL",
+              "value": "https://files.mohdasif.net/reactsaga/"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c3f29fc9-7d12-46df-95da-ac5318239906",
+      "name": "Set Config5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg",
+          "mode": "list",
+          "cachedResultName": "mystickhan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "e71d25a6-bff4-4f0f-8e13-acb056d49c79",
+      "name": "Google Sheets — AppendOrUpdate (ensure rows)4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -64,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg",
+          "mode": "list",
+          "cachedResultName": "mystickhan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "f834cb1b-4a09-4ff5-b644-34822887fe74",
+      "name": "Google Sheets — Read Rows4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        160,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Select One To Process (fixed)\n// Mode: Run Once for All Items\nconst rows = $input.all().map(i => i.json || {});\n\n// helper: safe access to other nodes\nfunction safeNodeFirstValue(nodeName) {\n  try {\n    if (typeof $node === 'undefined') return null;\n    const n = $node[nodeName];\n    if (!n) return null;\n    const first = (typeof n.first === 'function') ? n.first() : (n.items && n.items[0]);\n    return first && first.json ? first.json : null;\n  } catch (err) {\n    return null;\n  }\n}\n\n// statuses that mean \"already processed\" (do NOT pick)\nconst SKIP_STATUSES = new Set([\n  'PUBLISHED',\n  'DOWNLOADED',\n  'PROCESSING',\n  'ERROR',\n  'CANCELLED'\n]);\n\nfunction isAvailable(row) {\n  if (!row) return false;\n\n  // If you have a boolean 'published' column, respect it\n  if (row.published === true || String(row.published).toLowerCase() === 'true') return false;\n\n  const s = row.status;\n  if (s === undefined || s === null) return true;\n  if (typeof s === 'string') {\n    const t = s.trim().toUpperCase();\n    if (t === '') return true;            // blank = available\n    if (SKIP_STATUSES.has(t)) return false; // skip known processed states\n    // treat all other strings as available (you can tighten this list if needed)\n    return true;\n  }\n  // non-string status -> treat falsy as available\n  return !s;\n}\n\n// debug info (optional)\nconst debug = {\n  rowsCount: rows.length,\n  sampleRows: rows.slice(0,5),\n  SetConfig5_first: safeNodeFirstValue('Set Config5'),\n};\nconsole.log('Select One To Process - debug:', debug);\n\n// pick first available row\nlet chosen = rows.find(isAvailable) || null;\n\nif (!chosen) {\n  return [{\n    json: {\n      debug: 'NO_ROW_SELECTED',\n      reason: 'no rows matched the availability criteria',\n      rowsCount: debug.rowsCount,\n      sampleRows: debug.sampleRows\n    }\n  }];\n}\n\n// resolve filename (fallbacks kept from your original)\nlet filename = (chosen.filename || chosen.original_name || '').toString().trim();\nif (!filename) {\n  const code3First = safeNodeFirstValue('Code3');\n  if (code3First && code3First.filename) filename = String(code3First.filename).trim();\n}\n\n// files dir fallback from Set Config5\nlet filesDir = '/files';\nconst setCfg = safeNodeFirstValue('Set Config5');\nif (setCfg && setCfg.FILES_DIR) {\n  const trimmed = String(setCfg.FILES_DIR).trim();\n  if (trimmed) filesDir = trimmed;\n}\n\nconst baseDir = (filesDir || '/files').replace(/\\/+$/, '') || '/files';\nconst local_path = filename ? `${baseDir}/${filename}` : `${baseDir}/`;\n\n// mark chosen as processing so subsequent runs don't pick it\nchosen.local_path = local_path;\nchosen.status = 'PROCESSING';\n\nreturn [{ json: chosen }];\n"
+      },
+      "id": "c0b2ad48-917d-437a-bb54-746bead54849",
+      "name": "Select One To Process4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "IG_USER_ID",
+              "value": "17841468272726732"
+            },
+            {
+              "name": "IG_ACCESS_TOKEN",
+              "value": "EAAZAD11ycW5IBPV1rV8L7ZBbRkCO1eSuetnxe68A2AyEqZCgMq8XLuOK5UgNZAzcxZBjzZA1mugbPEAIkZAus6slHugD355ESkJCIJOVU2E7KXxjg1tjZCCdaR4sazaGbpbNDpTAkmieMJTRQsm471ZBI7d7vdumx3w4hz4kZCSwuA2ZAGJpgZBXMaEkXZCHoMsxf"
+            },
+            {
+              "name": "DirectUrl",
+              "value": "={{ $json.DirectUrl }}"
+            },
+            {
+              "name": "CAPTION",
+              "value": ".#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送🌍微信、支付寶收款 國外配送約2週左右 因天氣、不可控因素可能延誤 能接受再下單🗳️可詢問客服配送進度."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2e60aaf3-f60a-45ca-a9ab-f25c8396d2fd",
+      "name": "Set Config1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        608,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $items('Init Poll Vars')[0].json.creation_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code,status"
+            },
+            {
+              "name": "access_token",
+              "value": "={{$items('Set Config1')[0].json.IG_ACCESS_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "983b2a40-ec9f-415c-b527-8113ba14aa1c",
+      "name": "IG Check Status1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1504,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "da04b258-3bd1-45b4-8dca-ce86ec95b04b",
+              "leftValue": "={{$json.status_code}}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "88b14660-6f0e-45dc-82ca-5ce59c576a04",
+      "name": "IF Finished?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://graph.facebook.com/v21.0/' + $items('Set Config1')[0].json.IG_USER_ID + '/media_publish'}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{$items('Init Poll Vars')[0].json.creation_id}}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{$items('Set Config1')[0].json.IG_ACCESS_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "25485293-359f-47a0-9313-b910b541e525",
+      "name": "IG Publish1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        2400,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "={{$json.status_code}}",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "469a9882-a7a3-48ac-b5fc-f377c8d0ae48",
+              "leftValue": "={{$json.status_code}}",
+              "rightValue": "ERROR",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1a642384-e180-498a-aa73-3068a63561f2",
+      "name": "IF Error?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1952,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "/* Increment attempts from persistent Init Poll Vars so creation_id is preserved */\nconst prev = $items('Init Poll Vars')[0].json || {};\nreturn [{\n  json: {\n    creation_id: prev.creation_id,\n    attempts: (prev.attempts || 0) + 1,\n    max_attempts: prev.max_attempts || 20,\n    sleep_sec: prev.sleep_sec || 6\n  }\n}];"
+      },
+      "id": "3f17d2ce-6ecb-40f3-b31d-62816d65028d",
+      "name": "Inc Attempts1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2176,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "4db8b40d-96c9-41f6-9789-520e6e215b60",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "13b31ec5-2f0f-4637-a345-05f3941865dd",
+      "name": "IF More Polls?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2416,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "id": "a480f1b6-0590-44a3-b870-bdc9fd359852",
+      "name": "Wait (loop)1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1280,
+        272
+      ],
+      "webhookId": "79e01806-68f1-4fb6-8a07-1a709543f8a8"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 30,55 7,13,19 * * *"
+            }
+          ]
+        }
+      },
+      "id": "b2962b84-191d-4f2d-a95c-42def564fa68",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1408,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "list",
+        "path": "={{ $json.FILES_DIR }}"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        272
+      ],
+      "id": "f4a9a76e-d3a3-41e2-8610-885ec0e1f192",
+      "name": "FTP"
+    },
+    {
+      "parameters": {
+        "jsCode": "// GetFileLinks (Function) - normalizes input from SFTP list node\nconst out = [];\n\nfor (const item of $input.all()) {\n  const rawName = item.json.name || item.json.filename || '';\n  const name = rawName.replace(/\\r?\\n/g, '').trim();\n\n  const path = item.json.path || `/upload/${name}`;\n  const fileid = name;            // unique id per file (your filename)\n  const filename = name;\n  const remote_path = path;\n  const created_at = item.json.modifyTime || new Date().toISOString();\n  const size = item.json.size || null;\n\n  out.push({\n    json: {\n      fileid,\n      original_name: name,\n      filename,\n      remote_path,\n      created_at,\n      size\n      // keep minimal; BuildRowObjectForExcel will build the DirectUrl and status\n    }\n  });\n}\n\nreturn out;\n"
+      },
+      "id": "81b1f60e-d949-44e5-a213-f4d7beb14138",
+      "name": "getFileLinks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect output rows here\nconst output = [];\n\n// Loop over all incoming items\nfor (let i = 0; i < items.length; i++) {\n  const item = items[i];        // <-- define `item`\n  const data = item.json || {}; // actual JSON payload\n\n  // Read UNAME: prefer the current item, else fallback to Set Config5 node\n  // Note: replace \"Set Config5\" with your node name if different\n  const uname =\n    (data.UNAME && String(data.UNAME).trim()) ||\n    ($node && $node[\"Set Config5\"] && $node[\"Set Config5\"].json && $node[\"Set Config5\"].json.UNAME) ||\n    '';\n\n  // Read file fields safely\n  const fileid = data.fileid || data.filename || '';\n  const filename = data.filename || fileid || '';\n  const encodedFilename = encodeURIComponent(filename || '');\n\n  // Build the direct URL & remote path using uname\n  const direct_url = `https://files.mohdasif.net/${uname}/${encodedFilename}`;\n  const remote_path = data.remote_path || `/upload/${uname}/${filename}`;\n\n  // Compose the row object — keys should match your Excel/Sheet column headers\n  const row = {\n    fileid,\n    original_name: filename,\n    DirectUrl: direct_url,\n    remote_path,\n    created_at: data.created_at || new Date().toISOString(),\n    size: data.size || null,\n    status: data.status || 'unknown',\n    published: data.published || false\n  };\n\n  // Push as a proper n8n return item\n  output.push({ json: row });\n}\n\n// Return the final array of items\nreturn output;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -288,
+        272
+      ],
+      "id": "2834eced-02a8-4449-8ce0-87b9a20089cb",
+      "name": "BuildRowObjectForExcel"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    DirectUrl: $items('Select One To Process4')[0]?.json?.DirectUrl || $json.DirectUrl || null,\n    status: 'PUBLISHED',\n    published_meta: { when: new Date().toISOString() }\n  }\n}];"
+      },
+      "id": "d008f0fe-72c7-4b2f-aa86-24e8269bbebf",
+      "name": "Prepare Publish Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2624,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare Cancel/Error Update\n// This node now handles both timeouts and API errors.\n\nconst selectNode = $items('Select One To Process4')[0]?.json;\nconst checkStatusNode = $items('IG Check Status1')[0]?.json;\nconst incAttemptsNode = $items('Inc Attempts1')[0]?.json;\n\nlet status = 'CANCELLED - attempts exceeded';\nlet reason = 'max_attempts_reached';\n\n// Check if this path came from an API error\nif (checkStatusNode?.status_code === 'ERROR') {\n  status = 'ERROR';\n  reason = checkStatusNode.status || 'API error during upload';\n}\n\nreturn [{\n  json: {\n    DirectUrl: selectNode?.DirectUrl || null,\n    status: status,\n    cancel_meta: {\n      attempts: incAttemptsNode?.attempts || null,\n      reason: reason\n    }\n  }\n}];\n"
+      },
+      "id": "b9641957-cf7b-4af9-b6a2-a383ca80ac4e",
+      "name": "Prepare Cancel Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg",
+          "mode": "list",
+          "cachedResultName": "mystickhan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "={{ $json.status }}",
+            "DirectUrl": "={{ $json.DirectUrl }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "7ca77280-4546-47eb-913c-0f0e3a3c064e",
+      "name": "Update Sheet — SetStatus",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        2848,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    creation_id: $item(0).$node['IG Create Container1'].json.id,\n    attempts: 0,\n    max_attempts: 5,\n    sleep_sec: 6\n  }\n}];\n"
+      },
+      "id": "e923c25f-b26e-4d8c-aed0-bc0fa3e05400",
+      "name": "Init Poll Vars",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://graph.facebook.com/v21.0/' + $json.IG_USER_ID + '/media'}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.DirectUrl }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{$json.CAPTION}}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{$json.IG_ACCESS_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "951aa43e-25da-453b-83d6-25ba8d20b83b",
+      "name": "IG Create Container1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        832,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "UNAME",
+              "value": "mystickhan"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a5e2e439-be8c-4593-8348-231c41b2d716",
+      "name": "USERNAME",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1184,
+        272
+      ]
+    }
+  ],
+  "connections": {
+    "Set Config5": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate (ensure rows)4": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — Read Rows4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — Read Rows4": {
+      "main": [
+        [
+          {
+            "node": "Select One To Process4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select One To Process4": {
+      "main": [
+        [
+          {
+            "node": "Set Config1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config1": {
+      "main": [
+        [
+          {
+            "node": "IG Create Container1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Check Status1": {
+      "main": [
+        [
+          {
+            "node": "IF Finished?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Finished?1": {
+      "main": [
+        [
+          {
+            "node": "IG Publish1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Error?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Publish1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Publish Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Error?1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Cancel Update",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Inc Attempts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inc Attempts1": {
+      "main": [
+        [
+          {
+            "node": "IF More Polls?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF More Polls?1": {
+      "main": [
+        [
+          {
+            "node": "Wait (loop)1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Cancel Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait (loop)1": {
+      "main": [
+        [
+          {
+            "node": "IG Check Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "USERNAME",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP": {
+      "main": [
+        [
+          {
+            "node": "getFileLinks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getFileLinks": {
+      "main": [
+        [
+          {
+            "node": "BuildRowObjectForExcel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BuildRowObjectForExcel": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate (ensure rows)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Publish Update": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Cancel Update": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Poll Vars": {
+      "main": [
+        [
+          {
+            "node": "Wait (loop)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Create Container1": {
+      "main": [
+        [
+          {
+            "node": "Init Poll Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "USERNAME": {
+      "main": [
+        [
+          {
+            "node": "Set Config5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "versionId": "7c98d3fe-8b8b-4a12-9a40-2cdae3209fde",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-11T04:30:54.013Z",
+      "updatedAt": "2025-09-11T04:30:54.013Z",
+      "role": "workflow:owner",
+      "workflowId": "ir9rlfusfWhvwfcA",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

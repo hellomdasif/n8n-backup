@@ -1,0 +1,199 @@
+{
+  "active": false,
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Get 5 Latest Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get 5 Latest Posts": {
+      "main": [
+        [
+          {
+            "node": "Extract URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract URLs": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate (ensure rows)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate (ensure rows)4": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-09-10T06:22:58.736Z",
+  "id": "wv5NoZXGs3SRP7BT",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Tikttok-api-100limit",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "da6369c4-2ad2-4fae-a03e-85b46d81f800",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://tiktok-api23.p.rapidapi.com/api/user/posts?secUid=MS4wLjABAAAAdgS7F9hU5l_c7JXO9zHlK-ysAfxv5uFB_ya3MGi_JHHyFfnv3vGA1WLIoWyEelFW&count=5",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "tiktok-api23.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5a0753da-d18e-494b-b741-1af97957ef1e",
+      "name": "Get 5 Latest Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -32,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const list = (items[0]?.json?.data?.itemList) || [];\nconst max = Math.min(5, list.length);\nconst out = [];\nfor (let i = 0; i < max; i++) {\n  const v = list[i];\n  out.push({ json: { url: `https://www.tiktok.com/@${v.author.uniqueId}/video/${v.id}` } });\n}\nreturn out;"
+      },
+      "id": "b8ae0c97-bf62-428c-a99e-206d377724cb",
+      "name": "Extract URLs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        208,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8",
+          "mode": "list",
+          "cachedResultName": "tiny.moew.diary-insta-tiktok",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.url }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "0afcd4c2-5fba-4657-b116-c0c445de69c7",
+      "name": "Google Sheets — AppendOrUpdate (ensure rows)4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        416,
+        576
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-10T06:22:58.738Z",
+      "updatedAt": "2025-09-10T06:22:58.738Z",
+      "role": "workflow:owner",
+      "workflowId": "wv5NoZXGs3SRP7BT",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:16:51.255Z",
+      "updatedAt": "2025-10-07T12:16:51.255Z",
+      "id": "tTf80fwdIntIaSPQ",
+      "name": "TOOLS"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-07T12:16:55.000Z",
+  "versionId": "8fa7a616-d2dc-4712-b640-f93290d876fc"
+}

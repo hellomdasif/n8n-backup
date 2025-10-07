@@ -1,0 +1,718 @@
+{
+  "createdAt": "2025-09-24T16:26:21.153Z",
+  "updatedAt": "2025-10-02T10:43:35.000Z",
+  "id": "IvMks0SDbFmtXNEz",
+  "name": "FACEBOOK-Tanvi_Kapoor_01 FIX",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "value": "reel",
+              "type": "string"
+            },
+            {
+              "id": "f5027281-f5b9-4507-95f3-f1d8749e9028",
+              "name": "page_id",
+              "value": "100342084773599",
+              "type": "string"
+            },
+            {
+              "id": "c4578992-d24a-4666-b369-ae9f8c91aaec",
+              "name": "node_type",
+              "value": "http",
+              "type": "string"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5a",
+              "name": "image_url",
+              "value": "https://media.licdn.com/dms/image/v2/D4D03AQHf-K7ergkUwQ/profile-displayphoto-shrink_800_800/B4DZbdtDouHQAg-/0/1747476298728?e=1753920000&v=beta&t=Js1KDjpDYOgzYW4YlhwT1_ZmbggoSIxjcq3IA0rRJs0",
+              "type": "string"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "value": "https://files.mohdasif.net/meow1/upload1.mp4",
+              "type": "string"
+            },
+            {
+              "id": "383ffb11-0191-4fbc-abb1-c9183c66c71c",
+              "name": "reel_url",
+              "value": "https://videos.pexels.com/video-files/4830364/4830364-uhd_1440_2732_25fps.mp4",
+              "type": "string"
+            },
+            {
+              "id": "248743f0-e378-4be9-bb42-c2f3bc710d75",
+              "name": "download",
+              "value": "/files/fb/Tanvi/output/",
+              "type": "string"
+            },
+            {
+              "id": "221a1547-a67b-4f45-9fea-9257e231b835",
+              "name": "final",
+              "value": "/fb/Tanvi/output/",
+              "type": "string"
+            },
+            {
+              "id": "2fc56cfc-7099-4bf4-9f13-9031f4f55fda",
+              "name": "des",
+              "value": "𝐏𝐚𝐭𝐡𝐢𝐯𝐚𝐫𝐚 𝐓𝐨𝐮𝐫 𝐏𝐚𝐜𝐤𝐚𝐠𝐞 𝟒𝐍/𝟓𝐃 \n@17000𝐩𝐞𝐫 𝐏𝐞𝐫𝐬𝐨𝐧 𝐁𝐲 𝐉𝐞𝐞𝐩 \n@12000 𝐩𝐞𝐫 𝐩𝐞𝐫𝐬𝐨𝐧 𝐛𝐲 𝐁𝐮𝐬\n𝐃𝐚𝐲 𝟏: 𝐊𝐚𝐭𝐡𝐦𝐚𝐧𝐝𝐮 𝐭𝐨 𝐁𝐢𝐫𝐭𝐚𝐦𝐨𝐝𝐡\n* Depart early in the morning from your location via Sindhuli BP Highway.\n* Have lunch on the way.\n* Explore the Terai road.\n* Stay at Birtamodh.\n* Have dinner at the hotel.\n𝐃𝐚𝐲 𝟐: 𝐁𝐢𝐫𝐭𝐚𝐦𝐨𝐝𝐡 𝐭𝐨 𝐓𝐚𝐩𝐥𝐞𝐣𝐮𝐧𝐠\n* Have an early morning breakfast at the hotel and head towards Taplejung.\n* Enjoy the journey with sightseeing opportunities.\n* Explore the ways of Taplejung.\n* Have lunch on the way.\n* Stay at Taplejung.\n* Have dinner at the hotel.\n𝐃𝐚𝐲 𝟑: 𝐓𝐚𝐩𝐥𝐞𝐣𝐮𝐧𝐠 𝐭𝐨 𝐓𝐡𝐮𝐥𝐨𝐩𝐡𝐞𝐝𝐢 – 𝐏𝐚𝐭𝐡𝐢𝐯𝐚𝐫𝐚\n* Take a jeep to Thulofedi early in the morning (self-cost for jeep, which is 400 for going and 400 for coming back).\n* Trek about 5km from Thulofedi towards Pathivara.\n* After visiting Pathivara, return back to the hotel.\n* Have dinner at the hotel.\n* Stay at the hotel.\n𝐃𝐚𝐲 𝟒: 𝐓𝐚𝐩𝐥𝐞𝐣𝐮𝐧𝐠 𝐭𝐨 𝐊𝐚𝐧𝐲𝐚𝐦\n* Have an early morning breakfast at the hotel.\n* Have lunch on the way.\n* Explore Kanyam and the Ilam District.\n* Have dinner at the hotel.\n* Stay at Kanyam.\n𝐃𝐚𝐲 𝟓: 𝐊𝐚𝐧𝐲𝐚𝐦 𝐭𝐨 𝐊𝐚𝐭𝐡𝐦𝐚𝐧𝐝𝐮\n* Have breakfast at the hotel.\n* Head back to Kathmandu.\n* Have lunch on the way.\n* Reached Kathmandu \n𝐏𝐚𝐜𝐤𝐚𝐠𝐞 𝐈𝐧𝐜𝐥𝐮𝐝𝐞 :-\n✅ Lunch \n✅ Dinner \n✅ Breakfast\n✅ Room Accommodation ( sharing Basis)\n✅ Transportation ( bus or jeep as per your preference) \n𝐍𝐨𝐭 𝐈𝐧𝐜𝐥𝐮𝐝𝐞𝐝 𝐢𝐧 𝐏𝐚𝐜𝐤𝐚𝐠𝐞 😕\n𝐏𝐚𝐜𝐤𝐚𝐠𝐞 𝐧𝐨𝐭 𝐈𝐧𝐜𝐥𝐮𝐝𝐞𝐝 \n  ❌ Snacks & cuisines\n  ❌ Drinking beverages (Beer, Mineral Water)\n  ❌ Personal expenses\n  ❌ Travel Insurance\n  ❌ Overstay due to any natural calamities/strikes\n𝐅𝐨𝐫 𝐦𝐨𝐫𝐞 𝐨𝐫 𝐁𝐨𝐨𝐤𝐢𝐧𝐠 𝐂𝐨𝐧𝐭𝐚𝐜𝐭 :\n𝐒𝐚𝐧𝐬𝐡𝐫𝐞𝐞 𝐈𝐧𝐭𝐞𝐫𝐧𝐚𝐭𝐢𝐨𝐧𝐚𝐥 𝐓𝐫𝐚𝐯𝐞𝐥 𝐀𝐧𝐝 𝐓𝐨𝐮𝐫𝐬 (𝐏𝐯𝐭. 𝐋𝐭𝐝.) 𝐊𝐚𝐭𝐡𝐦𝐚𝐧𝐝𝐮\nNote: Schools and colleges are planning to go on a tour. Remember, we offer special discounts for schools and colleges. These special discounts will be provided for schools and colleges\n𝐏𝐥𝐞𝐚𝐬𝐞 𝐩𝐫𝐨𝐯𝐢𝐝𝐞 𝐭𝐡𝐞 𝐨𝐩𝐩𝐨𝐫𝐭𝐮𝐧𝐢𝐭𝐲 𝐭𝐨 𝐬𝐞𝐫𝐯𝐞, 𝐘𝐨𝐮𝐫 𝐒𝐚𝐭𝐢𝐬𝐟𝐚𝐜𝐭𝐢𝐨𝐧 𝐢𝐬 𝐨𝐮𝐫 𝐀𝐜𝐡𝐢𝐞𝐯𝐞𝐦𝐞𝐧𝐭\n#kusmainnepal #mustangtourpackage #muktinathdarshan #travelagencyforMuktinath #travelagencyforMuktinath #rebelamit #thehimalayas #Lordkrishnapainting. #lordkrishna #shivamypic #uttarakhandheaven #uttarkashidiaries #gangotridham #gomukh #trekkingindia #himalayansalt #travelgangtoktravelgangtok",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2368,
+        -1584
+      ],
+      "id": "fc3a2016-0691-4e56-8fb0-9700eedb8271",
+      "name": "Configure Post Settings"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "be8816f5-ae68-48c3-869e-bc67078298d8",
+                    "leftValue": "={{ $('Configure Post Settings').item.json.post_type }}",
+                    "rightValue": "reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reel"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2144,
+        -1584
+      ],
+      "id": "ac64fb55-de9b-495e-8627-6b5eebd33dc2",
+      "name": "Smart Content Router"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "465dee68-878c-46de-8dd8-ba29e8bb93d3",
+              "leftValue": "={{ $('Configure Post Settings').item.json.node_type }}",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1920,
+        -1584
+      ],
+      "id": "5475a963-3331-4974-b68c-7b60dd485c1d",
+      "name": "Reel if"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Configure Post Settings').item.json.page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"upload_phase\":\"start\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1024,
+        -1584
+      ],
+      "id": "0433ef44-a56e-42f9-8aeb-978c741c33e9",
+      "name": "Initialize Upload Session",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "g2XZpb1ahH2Aa6KS",
+          "name": "TANVI KAPPOR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.upload_url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "=https://files.mohdasif.net/fb/Tanvi/output/{{ $('Get row(s)').item.json.reel_id }}.mp4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -800,
+        -1584
+      ],
+      "id": "cd4f554e-a327-4baf-b2e0-a4c0eaa7445a",
+      "name": "Upload the Reel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "g2XZpb1ahH2Aa6KS",
+          "name": "TANVI KAPPOR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Initialize Upload Session').item.json.video_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -576,
+        -1584
+      ],
+      "id": "c801714c-4dec-446f-b075-ede71b4ada7f",
+      "name": "Check Status of Upload",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "g2XZpb1ahH2Aa6KS",
+          "name": "TANVI KAPPOR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Configure Post Settings').item.json.page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_id\": \"{{ $('Initialize Upload Session').item.json.video_id }}\",\n  \"upload_phase\": \"finish\",\n  \"video_state\": \"PUBLISHED\",\n  \"description\": \"{{ $json.description }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -128,
+        -1584
+      ],
+      "id": "7bddf7df-c791-483b-a0c0-ebae53d50d6c",
+      "name": "Publish Reel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "g2XZpb1ahH2Aa6KS",
+          "name": "TANVI KAPPOR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            },
+            {
+              "triggerAtHour": 10,
+              "triggerAtMinute": 30
+            },
+            {
+              "triggerAtHour": 19
+            },
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": 30
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2592,
+        -1584
+      ],
+      "id": "0d9db0f8-1fdf-4e69-bb9a-52edb3f77412",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawDescription =$('Configure Post Settings').first().json.des\n\nfunction buildDescription(rawText) {\n  return String(rawText || \"\")\n    .replace(/\\\\/g, \"\\\\\\\\\")\n    .replace(/\"/g, '\\\\\"')\n    .replace(/\\r\\n|\\r|\\n/g, \"\\\\n\");\n}\n\nconst formattedDescription = buildDescription(rawDescription);\n\n// Always return array of items for n8n\nreturn [\n  {\n    json: {\n      description: formattedDescription\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        -1584
+      ],
+      "id": "e7f51c5c-2bdb-4823-8ed9-9e0547578f1b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "delete",
+        "path": "=/upload/fb/Tanvi/output/{{ $json.reel_id }}.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        320,
+        -1584
+      ],
+      "id": "368da88e-513d-491e-8951-5b9f5d1311b2",
+      "name": "FTP",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "96tNUZnttfeSZrMt",
+          "mode": "list",
+          "cachedResultName": "religious",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/96tNUZnttfeSZrMt"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fb",
+              "condition": "isFalse"
+            },
+            {
+              "keyName": "fb",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1696,
+        -1584
+      ],
+      "id": "4b20bc81-09c0-4b14-832c-9ca14c16f85e",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "command": "=yt-dlp -o \"{{ $('Configure Post Settings').item.json.download }}%(id)s.%(ext)s\" \"{{ $json.url }}\"\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1472,
+        -1584
+      ],
+      "id": "c6b5242e-c97a-48c8-82c4-6eaed0dd66c9",
+      "name": "Execute Command1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a66deab5-3d8e-4436-a214-c520b0fd5a9f",
+              "name": "filename",
+              "value": "={{$json.public.split(\"/\").pop()}}\n",
+              "type": "string"
+            },
+            {
+              "id": "ed9f3c0c-b6f4-4a5a-9b4e-cc971ebd3770",
+              "name": "folder",
+              "value": "={{$json.public.split(\"/\").slice(-2, -1)[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "89c15434-f448-4932-a790-51157ec2436e",
+              "name": "path",
+              "value": "=/files/fb/{{$json.public.split(\"/\").slice(-2).join(\"/\")}}",
+              "type": "string"
+            },
+            {
+              "id": "5b4370a7-ff3d-4620-91fd-11bc4fc67018",
+              "name": "finalurl",
+              "value": "=/files/fb/Tanvi/output/",
+              "type": "string"
+            },
+            {
+              "id": "68bc614d-868a-479d-9d7e-52889f7d53dd",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1152,
+        -1840
+      ],
+      "id": "16f7d98d-561d-4795-88d4-7d37a87026d4",
+      "name": "inputDetails",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "command": "=/files/fb/Tanvi/make_unique_fixed_with_logo.sh \\\n  -i  {{ $json.path }} \\\n  --outdir /files/fb/Tanvi/output \\\n  --logo /files/fb/Tanvi/mylogo.png \\\n  --find-time 2 \\\n  --place right \\\n  --match /files/fb/Tanvi/match.png \\\n  --match-offx 0 \\\n  --match-offy -50 \\\n  --logo-scale 0.29 \\\n  --match-mode template \\\n  --detect-mode match \\\n  --bright-percent 10 \\\n  --border-width 10 \\\n  --border-color white \\\n  --speed 1.2"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        -1840
+      ],
+      "id": "80b2194e-4bf4-4612-9604-b543e3910135",
+      "name": "overlay-logo",
+      "disabled": true,
+      "notes": "/files/successblueprint86-script/make_unique_fixed.sh -i in.mp4 --speed 1.2 --brightness -0.05 --contrast 1.1 --saturation 1.05 --border 20"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Input: full log text is in items[0].json.data\n// Example: \"[download] /files/fb/Tanvi/output/809293264790189.mp4 has already been downloaded\"\n\nconst text =$input.first().json.stdout\n\n// Regex to capture the last part of the .mp4 filename\nconst match = text.match(/\\/([^\\/]+\\.mp4)/);\n\nreturn [\n  {\n    json: {\n      filename: match ? match[1] : null,\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1248,
+        -1584
+      ],
+      "id": "ca59204a-4fef-4af8-936c-e8f1ae93370f",
+      "name": "filename"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "96tNUZnttfeSZrMt",
+          "mode": "list",
+          "cachedResultName": "religious",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/96tNUZnttfeSZrMt"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "reel_id",
+              "keyValue": "={{ $('Get row(s)').item.json.reel_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb": true
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "reel_id",
+              "displayName": "reel_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        96,
+        -1584
+      ],
+      "id": "2b19ce50-0438-4dda-9942-ba864faecba6",
+      "name": "Update row(s)"
+    }
+  ],
+  "connections": {
+    "Configure Post Settings": {
+      "main": [
+        [
+          {
+            "node": "Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Reel if",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reel if": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Upload Session": {
+      "main": [
+        [
+          {
+            "node": "Upload the Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload the Reel": {
+      "main": [
+        [
+          {
+            "node": "Check Status of Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status of Upload": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Reel": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Configure Post Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Publish Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Execute Command1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command1": {
+      "main": [
+        [
+          {
+            "node": "filename",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "inputDetails": {
+      "main": [
+        []
+      ]
+    },
+    "overlay-logo": {
+      "main": [
+        []
+      ]
+    },
+    "filename": {
+      "main": [
+        [
+          {
+            "node": "Initialize Upload Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row(s)": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "51cca5e3-095f-4210-ba45-84fde68ea7c2",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-24T16:26:21.159Z",
+      "updatedAt": "2025-09-24T16:26:21.159Z",
+      "role": "workflow:owner",
+      "workflowId": "IvMks0SDbFmtXNEz",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-11T20:40:54.952Z",
+      "updatedAt": "2025-09-11T20:40:54.952Z",
+      "id": "KislEXiiNTebxxB8",
+      "name": "Facebook"
+    }
+  ]
+}

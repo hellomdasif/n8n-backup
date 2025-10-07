@@ -1,0 +1,76 @@
+{
+  "createdAt": "2025-09-29T19:06:30.803Z",
+  "updatedAt": "2025-09-29T19:36:09.000Z",
+  "id": "K19FYxT9419uDDDl",
+  "name": "My workflow 23",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "951e2a0a-5530-4c48-9ff3-0c8fd6a518ed",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "first",
+        "fields": "name",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "689b9138-bfb5-446e-9f70-a6207cbd2c2e",
+      "name": "Insert documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "tDZomKy4u8CAx3CG",
+          "name": "MongoDB account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "cd2a6c10-d90a-4ce1-b485-b2269eabb393",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-29T19:06:30.806Z",
+      "updatedAt": "2025-09-29T19:06:30.806Z",
+      "role": "workflow:owner",
+      "workflowId": "K19FYxT9419uDDDl",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

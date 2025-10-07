@@ -1,0 +1,661 @@
+{
+  "createdAt": "2025-09-20T12:28:21.986Z",
+  "updatedAt": "2025-10-02T10:46:16.000Z",
+  "id": "8PeZJ3klLFjGwCCR",
+  "name": "FACEBOOK-KABIR-FIX",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "value": "reel",
+              "type": "string"
+            },
+            {
+              "id": "f5027281-f5b9-4507-95f3-f1d8749e9028",
+              "name": "page_id",
+              "value": "102723221205773",
+              "type": "string"
+            },
+            {
+              "id": "c4578992-d24a-4666-b369-ae9f8c91aaec",
+              "name": "node_type",
+              "value": "http",
+              "type": "string"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5a",
+              "name": "image_url",
+              "value": "https://media.licdn.com/dms/image/v2/D4D03AQHf-K7ergkUwQ/profile-displayphoto-shrink_800_800/B4DZbdtDouHQAg-/0/1747476298728?e=1753920000&v=beta&t=Js1KDjpDYOgzYW4YlhwT1_ZmbggoSIxjcq3IA0rRJs0",
+              "type": "string"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "value": "https://files.mohdasif.net/meow1/upload1.mp4",
+              "type": "string"
+            },
+            {
+              "id": "383ffb11-0191-4fbc-abb1-c9183c66c71c",
+              "name": "reel_url",
+              "value": "https://videos.pexels.com/video-files/4830364/4830364-uhd_1440_2732_25fps.mp4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2304,
+        -768
+      ],
+      "id": "8a9374bf-aa3f-4815-aa56-baeff0d658ee",
+      "name": "Configure Post Settings"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "be8816f5-ae68-48c3-869e-bc67078298d8",
+                    "leftValue": "={{ $('Configure Post Settings').item.json.post_type }}",
+                    "rightValue": "reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reel"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2080,
+        -768
+      ],
+      "id": "2158d78b-f323-46c2-87cc-f3ce133f9307",
+      "name": "Smart Content Router"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "465dee68-878c-46de-8dd8-ba29e8bb93d3",
+              "leftValue": "={{ $('Configure Post Settings').item.json.node_type }}",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1856,
+        -768
+      ],
+      "id": "b25c09f7-afc5-48ab-964c-3d291fd8c7b4",
+      "name": "Reel if"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Configure Post Settings').item.json.page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"upload_phase\":\"start\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -960,
+        -768
+      ],
+      "id": "9e4acb26-460d-4149-8fef-7e017b17a693",
+      "name": "Initialize Upload Session",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8IfWyJAPFN69amxm",
+          "name": "knowsparkz-facebookpage"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.upload_url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "=https://files.mohdasif.net{{ $('inputDetails').item.json.finalurl }}{{ $('Execute Command').item.json.stdout }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -736,
+        -768
+      ],
+      "id": "c52f8c9a-1aa8-4cfe-ac60-9727dc99a8a1",
+      "name": "Upload the Reel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8IfWyJAPFN69amxm",
+          "name": "knowsparkz-facebookpage"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Initialize Upload Session').item.json.video_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -512,
+        -768
+      ],
+      "id": "23f5fd10-395f-46d7-9de0-8a4e4079421d",
+      "name": "Check Status of Upload",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8IfWyJAPFN69amxm",
+          "name": "knowsparkz-facebookpage"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Configure Post Settings').item.json.page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"video_id\":\"{{ $('Initialize Upload Session').item.json.video_id }}\",\n   \"upload_phase\": \"finish\",\n   \"video_state\": \"PUBLISHED\",\n   \"description\": \"{{ $('Google Sheets — Read Rows4').item.json.title }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -288,
+        -768
+      ],
+      "id": "3d296dfe-2698-4fae-b810-8f43b20e335c",
+      "name": "Publish Reel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8IfWyJAPFN69amxm",
+          "name": "knowsparkz-facebookpage"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $('Google Sheets — Read Rows4').item.json.DirectUrl }}",
+            "Facebook": "PUBLISHED"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Facebook",
+              "displayName": "Facebook",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Youtube",
+              "displayName": "Youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "12d5e887-51f7-4a09-b15d-5df84275af27",
+      "name": "Update Sheet — SetStatus1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -64,
+        -768
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Facebook"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5fe32058-b2f1-4540-a880-7363e2f81313",
+      "name": "Google Sheets — Read Rows4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1632,
+        -768
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a66deab5-3d8e-4436-a214-c520b0fd5a9f",
+              "name": "filename",
+              "value": "={{$json.DirectUrl.split(\"/\").pop()}}\n",
+              "type": "string"
+            },
+            {
+              "id": "ed9f3c0c-b6f4-4a5a-9b4e-cc971ebd3770",
+              "name": "folder",
+              "value": "={{$json.DirectUrl.split(\"/\").slice(-2, -1)[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "89c15434-f448-4932-a790-51157ec2436e",
+              "name": "path",
+              "value": "=/files/{{$json.DirectUrl.split(\"/\").slice(-2).join(\"/\")}}",
+              "type": "string"
+            },
+            {
+              "id": "5b4370a7-ff3d-4620-91fd-11bc4fc67018",
+              "name": "finalurl",
+              "value": "=/successblueprint86-script/output/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1408,
+        -768
+      ],
+      "id": "25a59145-6192-4e5f-8ea7-6f5bbb5296ef",
+      "name": "inputDetails"
+    },
+    {
+      "parameters": {
+        "command": "=/files/successblueprint86-script/make_unique_fixed.sh \\\n  -i  {{ $json.path }} \\\n  --outdir /files/successblueprint86-script/output \\\n  --speed 1.1 --brightness -0.05 --contrast 1.1 --saturation 1.05 --border 10\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1184,
+        -768
+      ],
+      "id": "d0fdf92a-fc96-4e97-8020-aa40b5ff895e",
+      "name": "Execute Command",
+      "notes": "/files/successblueprint86-script/make_unique_fixed.sh -i in.mp4 --speed 1.2 --brightness -0.05 --contrast 1.1 --saturation 1.05 --border 20"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "delete",
+        "path": "=/upload/{{ $('inputDetails').item.json.finalurl }}/{{ $('Execute Command').item.json.stdout }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -768
+      ],
+      "id": "215debdc-d5c3-476a-9fec-908105698a5a",
+      "name": "FTP",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 4
+            },
+            {
+              "triggerAtHour": 6
+            },
+            {
+              "triggerAtHour": 11
+            },
+            {
+              "triggerAtHour": 13
+            },
+            {
+              "triggerAtHour": 18
+            },
+            {
+              "triggerAtHour": 19
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2528,
+        -768
+      ],
+      "id": "eedc224f-cd8c-430e-b38b-9cc4e3d68041",
+      "name": "Schedule Trigger1"
+    }
+  ],
+  "connections": {
+    "Configure Post Settings": {
+      "main": [
+        [
+          {
+            "node": "Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Reel if",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reel if": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — Read Rows4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Upload Session": {
+      "main": [
+        [
+          {
+            "node": "Upload the Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload the Reel": {
+      "main": [
+        [
+          {
+            "node": "Check Status of Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status of Upload": {
+      "main": [
+        [
+          {
+            "node": "Publish Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — Read Rows4": {
+      "main": [
+        [
+          {
+            "node": "inputDetails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Reel": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "inputDetails": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Initialize Upload Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet — SetStatus1": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Configure Post Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "4510fef8-8717-4f0f-b996-1d8feb13ae53",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-20T12:28:21.995Z",
+      "updatedAt": "2025-09-20T12:28:21.995Z",
+      "role": "workflow:owner",
+      "workflowId": "8PeZJ3klLFjGwCCR",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-11T20:40:54.952Z",
+      "updatedAt": "2025-09-11T20:40:54.952Z",
+      "id": "KislEXiiNTebxxB8",
+      "name": "Facebook"
+    }
+  ]
+}

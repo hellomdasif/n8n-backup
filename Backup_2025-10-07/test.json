@@ -1,0 +1,910 @@
+{
+  "createdAt": "2025-09-26T12:59:02.809Z",
+  "updatedAt": "2025-09-28T04:11:38.000Z",
+  "id": "QKY068TL0HUO2DdV",
+  "name": "test",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "GOOGLE_DRIVE_FOLDER_ID",
+              "value": "1KHv4wZAzt_OaWETkhzbxz37fF27VOkmN"
+            },
+            {
+              "name": "GOOGLE_SHEET_ID",
+              "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE"
+            },
+            {
+              "name": "SHEET_NAME",
+              "value": "0"
+            },
+            {
+              "name": "FILES_DIR",
+              "value": "=/upload/{{ $json.UNAME }}"
+            },
+            {
+              "name": "FILES_URL",
+              "value": "=https://files.mohdasif.net/{{ $json.UNAME }}/"
+            },
+            {
+              "name": "videoname",
+              "value": "={{ Math.floor(1000000 + Math.random() * 9000000).toString() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "55e8ea81-f7a5-40ea-9395-05ea060477c6",
+      "name": "Set Config5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -4032,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Select One To Process (fixed)\n// Mode: Run Once for All Items\nconst rows = $input.all().map(i => i.json || {});\n\n// helper: safe access to other nodes\nfunction safeNodeFirstValue(nodeName) {\n  try {\n    if (typeof $node === 'undefined') return null;\n    const n = $node[nodeName];\n    if (!n) return null;\n    const first = (typeof n.first === 'function') ? n.first() : (n.items && n.items[0]);\n    return first && first.json ? first.json : null;\n  } catch (err) {\n    return null;\n  }\n}\n\n// statuses that mean \"already processed\" (do NOT pick)\nconst SKIP_STATUSES = new Set([\n  'PUBLISHED',\n  'DOWNLOADED',\n  'PROCESSING',\n  'ERROR',\n  'CANCELLED'\n]);\n\nfunction isAvailable(row) {\n  if (!row) return false;\n\n  // If you have a boolean 'published' column, respect it\n  if (row.published === true || String(row.published).toLowerCase() === 'true') return false;\n\n  const s = row.status;\n  if (s === undefined || s === null) return true;\n  if (typeof s === 'string') {\n    const t = s.trim().toUpperCase();\n    if (t === '') return true;            // blank = available\n    if (SKIP_STATUSES.has(t)) return false; // skip known processed states\n    // treat all other strings as available (you can tighten this list if needed)\n    return true;\n  }\n  // non-string status -> treat falsy as available\n  return !s;\n}\n\n// debug info (optional)\nconst debug = {\n  rowsCount: rows.length,\n  sampleRows: rows.slice(0,5),\n  SetConfig5_first: safeNodeFirstValue('Set Config5'),\n};\nconsole.log('Select One To Process - debug:', debug);\n\n// pick first available row\nlet chosen = rows.find(isAvailable) || null;\n\nif (!chosen) {\n  return [{\n    json: {\n      debug: 'NO_ROW_SELECTED',\n      reason: 'no rows matched the availability criteria',\n      rowsCount: debug.rowsCount,\n      sampleRows: debug.sampleRows\n    }\n  }];\n}\n\n// resolve filename (fallbacks kept from your original)\nlet filename = (chosen.filename || chosen.original_name || '').toString().trim();\nif (!filename) {\n  const code3First = safeNodeFirstValue('Code3');\n  if (code3First && code3First.filename) filename = String(code3First.filename).trim();\n}\n\n// files dir fallback from Set Config5\nlet filesDir = '/files';\nconst setCfg = safeNodeFirstValue('Set Config5');\nif (setCfg && setCfg.FILES_DIR) {\n  const trimmed = String(setCfg.FILES_DIR).trim();\n  if (trimmed) filesDir = trimmed;\n}\n\nconst baseDir = (filesDir || '/files').replace(/\\/+$/, '') || '/files';\nconst local_path = filename ? `${baseDir}/${filename}` : `${baseDir}/`;\n\n// mark chosen as processing so subsequent runs don't pick it\nchosen.local_path = local_path;\nchosen.status = 'PROCESSING';\n\nreturn [{ json: chosen }];\n"
+      },
+      "id": "8a0c8761-6716-4ae8-9f22-73b142355167",
+      "name": "Select One To Process4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2688,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "IG_USER_ID",
+              "value": "17841454629202811"
+            },
+            {
+              "name": "IG_ACCESS_TOKEN",
+              "value": "EAAZAD11ycW5IBPV1rV8L7ZBbRkCO1eSuetnxe68A2AyEqZCgMq8XLuOK5UgNZAzcxZBjzZA1mugbPEAIkZAus6slHugD355ESkJCIJOVU2E7KXxjg1tjZCCdaR4sazaGbpbNDpTAkmieMJTRQsm471ZBI7d7vdumx3w4hz4kZCSwuA2ZAGJpgZBXMaEkXZCHoMsxf"
+            },
+            {
+              "name": "DirectUrl",
+              "value": "=https://files.mohdasif.net/sh/output/{{ $json.stdout }}"
+            },
+            {
+              "name": "CAPTION",
+              "value": ".#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送🌍微信、支付寶收款 國外配送約2週左右 因天氣、不可控因素可能延誤 能接受再下單🗳️可詢問客服配送進度."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "02257b39-2a35-4e86-a8ab-da5f2b0a2897",
+      "name": "Set Config1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -2240,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "da04b258-3bd1-45b4-8dca-ce86ec95b04b",
+              "leftValue": "={{$json.status_code}}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e95e6dff-8101-400b-a86c-e04a5a519ae9",
+      "name": "IF Finished?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1344,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "={{$json.status_code}}",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "469a9882-a7a3-48ac-b5fc-f377c8d0ae48",
+              "leftValue": "={{$json.status_code}}",
+              "rightValue": "ERROR",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e6ca03df-383e-4b80-bcea-80508801a6ed",
+      "name": "IF Error?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1120,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "/* Increment attempts from persistent Init Poll Vars so creation_id is preserved */\nconst prev = $items('Init Poll Vars')[0].json || {};\nreturn [{\n  json: {\n    creation_id: prev.creation_id,\n    attempts: (prev.attempts || 0) + 1,\n    max_attempts: prev.max_attempts || 20,\n    sleep_sec: prev.sleep_sec || 6\n  }\n}];"
+      },
+      "id": "4e431caa-0c9f-4714-ad59-c25e4c1fd590",
+      "name": "Inc Attempts1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -896,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.attempts}}",
+              "operation": "smaller",
+              "value2": "={{$json.max_attempts}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f9fd514d-6bb7-4859-aa28-7c2f3dab9e8c",
+      "name": "IF More Polls?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -672,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "id": "c76bf2b3-d51f-469a-afb8-82e8ac1db3de",
+      "name": "Wait (loop)1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -448,
+        224
+      ],
+      "webhookId": "80b79c89-8b1b-4d40-8b93-f94d3cacdaad"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "list",
+        "path": "=/upload/mystickhan/downloaded"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -3808,
+        224
+      ],
+      "id": "412171a0-74cf-4c07-9c01-bb2a6d65dd8d",
+      "name": "FTP",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the input items\nconst items = $input.all();\n\nreturn items.map(item => {\n  const file = item.json;\n\n  // Remove .mp4 from the filename safely\n  const cleanName = file.name.replace(/\\.mp4$/i, '');\n\n  return {\n    json: {\n      filename: cleanName,\n      path: file.path\n    }\n  };\n});\n"
+      },
+      "id": "00a2dc92-0564-4442-82ce-5cd46a0e0840",
+      "name": "getFileLinks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -3584,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    DirectUrl: $items('Select One To Process4')[0]?.json?.DirectUrl || $json.DirectUrl || null,\n    status: 'PUBLISHED',\n    published_meta: { when: new Date().toISOString() }\n  }\n}];"
+      },
+      "id": "1a437b15-7536-4288-b388-86adef0736e6",
+      "name": "Prepare Publish Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare Cancel/Error Update\n// This node now handles both timeouts and API errors.\n\nconst selectNode = $items('Select One To Process4')[0]?.json;\nconst checkStatusNode = $items('IG Check Status1')[0]?.json;\nconst incAttemptsNode = $items('Inc Attempts1')[0]?.json;\n\nlet status = 'CANCELLED - attempts exceeded';\nlet reason = 'max_attempts_reached';\n\n// Check if this path came from an API error\nif (checkStatusNode?.status_code === 'ERROR') {\n  status = 'ERROR';\n  reason = checkStatusNode.status || 'API error during upload';\n}\n\nreturn [{\n  json: {\n    DirectUrl: selectNode?.DirectUrl || null,\n    status: status,\n    cancel_meta: {\n      attempts: incAttemptsNode?.attempts || null,\n      reason: reason\n    }\n  }\n}];\n"
+      },
+      "id": "351de4b1-c4f5-42fe-a3d9-ac351abda38f",
+      "name": "Prepare Cancel Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pnuySJfRHVB0-d8G5s0Xh5ZWw_kZlzTT5EscnbtkOzg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "={{ $json.status }}",
+            "DirectUrl": "={{ $json.DirectUrl }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "4019d5dc-7da5-40f4-af7b-069f9776871e",
+      "name": "Update Sheet — SetStatus",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -224,
+        256
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    creation_id: $item(0).$node['IG Create Container1'].json.id,\n    attempts: 0,\n    max_attempts: 5,\n    sleep_sec: 6\n  }\n}];\n"
+      },
+      "id": "eb7555d8-9795-4d04-991e-c2c6f65ec608",
+      "name": "Init Poll Vars",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1792,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "UNAME",
+              "value": "KnowSparkz"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8387f011-7b60-42f5-a00a-f4f720866b78",
+      "name": "USERNAME",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -4256,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://graph.facebook.com/v21.0/' + $json.IG_USER_ID + '/media'}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.DirectUrl }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{$json.CAPTION}}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{$json.IG_ACCESS_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "89af465a-cf3c-40ac-bfcc-8ebe12a54bdb",
+      "name": "IG Create Container1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -2016,
+        224
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "CmDYlZ89za45GZVg",
+          "name": "reactsaga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $items('Init Poll Vars')[0].json.creation_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code,status"
+            },
+            {
+              "name": "access_token",
+              "value": "={{$items('Set Config1')[0].json.IG_ACCESS_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "db9bd5ad-bbb2-440f-980c-fab6270e1960",
+      "name": "IG Check Status1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -1568,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=files/sh/overlay_with_views.sh --assets-dir /files/extra --output-dir /files/sh/output \"{{ $json.DirectUrl }}\" {{ $json.row_number }}.mp4"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2464,
+        224
+      ],
+      "id": "bbde3ddb-b3c1-4ff1-97db-178f933f1620",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 4,
+              "triggerAtMinute": 15
+            },
+            {
+              "triggerAtHour": 6
+            },
+            {
+              "triggerAtHour": 11
+            },
+            {
+              "triggerAtHour": 13
+            },
+            {
+              "triggerAtHour": 18
+            },
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -4480,
+        224
+      ],
+      "id": "7bbb6448-1212-4247-a41b-4473d4344b43",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "delete",
+        "path": "=/upload/sh/output/{{ $('Select One To Process4').item.json.row_number }}.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        0,
+        256
+      ],
+      "id": "ebdcacb1-8a2a-480a-81fa-a85e91aa6720",
+      "name": "FTP1",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $('Set Config1').item.json.IG_USER_ID }}",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $('IG Create Container1').item.json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        32
+      ],
+      "id": "78d124a1-06f3-450e-a409-901baf2661b8",
+      "name": "📤 Publish via Facebook SDK",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "XkFi9HSVhe9e5VV8",
+          "name": "knowsparkz-INSTAGRAM"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "zJ8mVC3qRDWz1XeO",
+          "mode": "list",
+          "cachedResultName": "funny-comments",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/zJ8mVC3qRDWz1XeO"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "path",
+              "keyValue": "={{ $json.path }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -3376,
+        224
+      ],
+      "id": "ca01bf88-207b-4467-bc84-784fd3920d26",
+      "name": "If row does not exist"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "zJ8mVC3qRDWz1XeO",
+          "mode": "list",
+          "cachedResultName": "funny-comments",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/zJ8mVC3qRDWz1XeO"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filename": "={{ $json.filename }}",
+            "path": "=https://files.mohdasif.net//mystickhan/downloaded/{{ $json.path.split(\"/\").pop() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -3200,
+        224
+      ],
+      "id": "5fb4792d-04f7-4db1-ba63-5e5a0e5c7f76",
+      "name": "Insert row"
+    }
+  ],
+  "connections": {
+    "Set Config5": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select One To Process4": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config1": {
+      "main": [
+        [
+          {
+            "node": "IG Create Container1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Finished?1": {
+      "main": [
+        [
+          {
+            "node": "📤 Publish via Facebook SDK",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Error?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Error?1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Cancel Update",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Inc Attempts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inc Attempts1": {
+      "main": [
+        [
+          {
+            "node": "IF More Polls?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF More Polls?1": {
+      "main": [
+        [
+          {
+            "node": "Wait (loop)1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Cancel Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait (loop)1": {
+      "main": [
+        [
+          {
+            "node": "IG Check Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP": {
+      "main": [
+        [
+          {
+            "node": "getFileLinks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getFileLinks": {
+      "main": [
+        [
+          {
+            "node": "If row does not exist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Publish Update": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Cancel Update": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Poll Vars": {
+      "main": [
+        [
+          {
+            "node": "IG Check Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "USERNAME": {
+      "main": [
+        [
+          {
+            "node": "Set Config5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Create Container1": {
+      "main": [
+        [
+          {
+            "node": "Init Poll Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Check Status1": {
+      "main": [
+        [
+          {
+            "node": "IF Finished?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Set Config1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "USERNAME",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet — SetStatus": {
+      "main": [
+        [
+          {
+            "node": "FTP1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📤 Publish via Facebook SDK": {
+      "main": [
+        [
+          {
+            "node": "Prepare Publish Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "d50b0d98-33a1-414f-984b-720bd78e77a8",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-26T12:59:02.815Z",
+      "updatedAt": "2025-09-26T12:59:02.815Z",
+      "role": "workflow:owner",
+      "workflowId": "QKY068TL0HUO2DdV",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

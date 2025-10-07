@@ -1,0 +1,244 @@
+{
+  "active": false,
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "1. Set User IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Set User IDs": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts": {
+      "main": [
+        [
+          {
+            "node": "4. Extract URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Extract URLs": {
+      "main": [
+        [
+          {
+            "node": "5. Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 2 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Process One by One": {
+      "main": [
+        [
+          {
+            "node": "3. Get 5 Latest Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Wait 2 Seconds": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-10T07:03:38.957Z",
+  "id": "UQj2cloUmf5cj44F",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Tikttok-fetch-300-monthly-multuple-userid",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "58c201a1-27a4-49f5-a5ad-fecae4931f79",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Define the two user IDs you want to process\nconst userIds = [\n  \"7498304862619419694\", // First User ID\n  \"7481624076976194606\"  // Second User ID\n];\n\n// This will create two separate items for the next nodes to process\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));"
+      },
+      "id": "fde490ae-4871-46a8-a90b-d027031ac715",
+      "name": "1. Set User IDs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://tiktok-scraper7.p.rapidapi.com/user/posts?user_id=' + $json.userId + '&count=5&cursor=0'}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "tiktok-scraper7.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b51f0928-22a0-41d0-81fd-f48ad2d78c31",
+      "name": "3. Get 5 Latest Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        16,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Extract URLs (robust) - outputs { json: { DirectUrl: \"...\", status: \"\" } }\n\n// helper to normalize and push an URL if not seen\nfunction pushUrl(u, out, seen) {\n  if (!u) return;\n  const url = String(u).trim();\n  if (!url) return;\n  if (!seen.has(url)) {\n    seen.add(url);\n    out.push({ json: { DirectUrl: url, status: '' } });\n  }\n}\n\n// try a few common places where URLs live\nconst out = [];\nconst seen = new Set();\n\n// 1) data.videos (new API sample)\nconst videos = items[0]?.json?.data?.videos || [];\nif (Array.isArray(videos) && videos.length > 0) {\n  for (let i = 0; i < Math.min(5, videos.length); i++) {\n    const v = videos[i];\n    if (!v) continue;\n    // prefer explicit video link fields if present (play / wmplay / origin_cover fallback)\n    // but most stable: construct tiktok page URL using author unique_id and video_id\n    const videoId = v.video_id || v.aweme_id || v.id || v.videoId;\n    let username = v.author?.unique_id || v.author?.uniqueId || v.author?.uniqueIdStr || v.author?.id || v.author?.nickname || '';\n    username = String(username || '').trim().replace(/^@+/, '');\n    if (username && videoId) {\n      pushUrl(`https://www.tiktok.com/@${username}/video/${videoId}`, out, seen);\n    } else {\n      // if no username, try to use a direct play link present in the object\n      if (v.play) pushUrl(v.play, out, seen);\n      else if (v.wmplay) pushUrl(v.wmplay, out, seen);\n    }\n    if (out.length >= 5) break;\n  }\n}\n\n// 2) video.UrlList (your screenshot shows this)\nif (out.length < 5) {\n  const urlList = items[0]?.json?.video?.UrlList || items[0]?.json?.video?.UrlListV2 || [];\n  if (Array.isArray(urlList) && urlList.length > 0) {\n    for (let i = 0; i < urlList.length && out.length < 5; i++) {\n      const u = urlList[i];\n      // UrlList entries may be strings or objects with Uri/Url fields\n      if (typeof u === 'string') pushUrl(u, out, seen);\n      else if (u && typeof u === 'object') {\n        pushUrl(u.Uri || u.Url || u.url || u.UrI || u.play || u.playUrl, out, seen);\n      }\n    }\n  }\n}\n\n// 3) data.itemList (older endpoint shape)\nif (out.length < 5) {\n  const itemList = items[0]?.json?.data?.itemList || [];\n  if (Array.isArray(itemList) && itemList.length > 0) {\n    for (let i = 0; i < Math.min(5, itemList.length) && out.length < 5; i++) {\n      const it = itemList[i];\n      const v = it || {};\n      const videoId = v.id || v.video?.id || v.aweme_id;\n      const username = v.author?.uniqueId || v.author?.unique_id || v.author?.unique_id_str || v.author?.uniqueIdStr || v.author?.unique_id || v.author?.uniqueId || '';\n      if (videoId && username) pushUrl(`https://www.tiktok.com/@${String(username).replace(/^@+/,'')}/video/${videoId}`, out, seen);\n      // fallback to any direct url\n      else if (v.play_url) pushUrl(v.play_url, out, seen);\n    }\n  }\n}\n\n// 4) fallback: items that already contain url fields (e.g., earlier Extract outputs)\nif (out.length < 5) {\n  for (const it of items) {\n    if (!it || !it.json) continue;\n    if (typeof it.json.url === 'string') pushUrl(it.json.url, out, seen);\n    if (typeof it.json.DirectUrl === 'string') pushUrl(it.json.DirectUrl, out, seen);\n    if (out.length >= 5) break;\n  }\n}\n\n// return (may be 0..5 items)\nreturn out;\n"
+      },
+      "id": "e4acbcd0-296a-4a26-8f7f-cf35d2502722",
+      "name": "4. Extract URLs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}",
+            "userid": "={{ $json.userId }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ]
+        },
+        "options": {}
+      },
+      "id": "e751510a-ba24-4388-8cec-60a5dee830a0",
+      "name": "5. Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        464,
+        304
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "7c0ac79d-6c7e-4ba1-a9e3-f4fbf4ce0a8f",
+      "name": "6. Wait 2 Seconds",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        304
+      ],
+      "webhookId": "445a8674-f9d6-4c2a-83e2-2529aa501ccc"
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "c9c991e2-7e73-47ad-9ab4-14b077f50d72",
+      "name": "2. Process One by One",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        304
+      ]
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-10T07:03:38.961Z",
+      "updatedAt": "2025-09-10T07:03:38.961Z",
+      "role": "workflow:owner",
+      "workflowId": "UQj2cloUmf5cj44F",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-06T13:01:54.000Z",
+  "versionId": "63249c28-9dd0-4e4e-933e-5201986a786b"
+}

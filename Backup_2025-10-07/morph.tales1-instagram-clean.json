@@ -1,0 +1,1241 @@
+{
+  "createdAt": "2025-10-02T03:41:52.162Z",
+  "updatedAt": "2025-10-06T13:01:54.000Z",
+  "id": "hG9r4QtEboJzsRSl",
+  "name": "morph.tales1-instagram-clean",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -608,
+        -400
+      ],
+      "id": "c416c0e7-5523-4ced-9489-2913d8ffde8c",
+      "name": "✅ Is Container Ready?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "da6bcb63-632a-443a-b5b3-a8b6e1c62871",
+              "leftValue": "http",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -384,
+        -496
+      ],
+      "id": "bded1d2c-e96d-49eb-b67a-9f63fb44c6ed",
+      "name": "🔀 HTTP vs FB API Router"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('getaccounts').item.json.acc_id }}/media_publish",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('getaccounts').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        -496
+      ],
+      "id": "8fd25b82-583a-41ed-bac3-349dba805731",
+      "name": "📤 Publish via HTTP API"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1056,
+        -320
+      ],
+      "id": "3a9d3624-39b4-4fb6-a7e0-0e885946e321",
+      "name": "⏰ Initial Processing Wait",
+      "webhookId": "dfa5951d-a4be-476f-84fa-8934a9ad8863"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -160,
+        -304
+      ],
+      "id": "a2fbda77-bef2-43aa-8b1f-9526846f2837",
+      "name": "⏰ Retry Wait Loop",
+      "webhookId": "30745153-4ec3-49d7-b651-af83670c1985"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v22.0/{{ $('Container HTTP Reels').item.json.id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('getaccounts').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -832,
+        -336
+      ],
+      "id": "e6c8bdb3-8b68-470d-bf3b-5e19286ae73c",
+      "name": "🔍 Check Processing Status1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -384,
+        -304
+      ],
+      "id": "af323391-7ea4-4da4-8bb0-e645dfd565a3",
+      "name": "anyError"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $('Increment Loop Var').item.json.page }}",
+              "operation": "larger",
+              "value2": "=3"
+            }
+          ]
+        }
+      },
+      "name": "Reached Max?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -112
+      ],
+      "id": "5f096aa4-f1f1-44be-b44f-be9020e03f04"
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "name": "Wait 2m",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        288,
+        128
+      ],
+      "id": "e9af4776-35a6-4fa4-8a84-417ca3eee524",
+      "webhookId": "ea386e06-fb41-4321-91f0-8767b4b46e37"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1503b89d-7f11-49fc-86ed-38ed600fc34c",
+              "name": "prevPage",
+              "value": "={{ $('Increment Loop Var').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        64
+      ],
+      "id": "0633ddd9-b599-46a6-b2f1-ca3844654937",
+      "name": "Forward Prev Page Num"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "32a6221a-b000-4b5f-9b93-271c44d542fd",
+              "name": "page",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "91668535-ba9c-4626-8e64-e7a20644c8e2",
+              "name": "pageCount",
+              "value": 3,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3520,
+        -160
+      ],
+      "id": "1cbd00ca-931c-4787-ab12-b4c56d671054",
+      "name": "Vars"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a042073f-f9e7-4258-80db-360a09c549e4",
+              "name": "page",
+              "value": "={{ ($('Forward Prev Page Num').isExecuted) ? $('Forward Prev Page Num').first().json.prevPage + 1 : $('Vars').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3296,
+        -160
+      ],
+      "id": "03ad32cb-817e-45ce-911d-8966205f0dda",
+      "name": "Increment Loop Var"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('getaccounts').item.json.acc_id }}/media",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.finalurl }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('title').item.json.title }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('getaccounts').item.json.token }}"
+            },
+            {
+              "name": "audio_name",
+              "value": "={{ $('getaccounts').item.json.username }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1280,
+        -320
+      ],
+      "id": "379bacd2-7495-4e5b-9f69-0dc488300811",
+      "name": "Container HTTP Reels"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "65s10TCHjuQpvOcn",
+          "mode": "list",
+          "cachedResultName": "accounts",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/65s10TCHjuQpvOcn"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "username",
+              "keyValue": "={{ $json.username }}"
+            },
+            {
+              "keyName": "type",
+              "keyValue": "insta"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -3744,
+        -160
+      ],
+      "id": "58b6a8f6-31eb-4757-aa58-df54661503c5",
+      "name": "getaccounts",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8248cac9-9cf1-4299-9379-cc115015ff14",
+              "name": "username",
+              "value": "morph.tales1",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3968,
+        -160
+      ],
+      "id": "3aed40bc-89bd-4a5b-abbd-61fff9ab5c07",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts').item.json.database }}",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('getUnpublished').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "insta": "ERROR"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "insta",
+              "displayName": "insta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -208
+      ],
+      "id": "8aa25bae-1dbe-44a9-baaa-2d5119269ef9",
+      "name": "Update Error",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts').item.json.database }}",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('getUnpublished').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "insta": "DONE"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "insta",
+              "displayName": "insta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -496
+      ],
+      "id": "42fdf522-e47c-4200-8eb2-96cfaaac2503",
+      "name": "update sucess",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/tweak",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "folder",
+              "value": "={{ $('getaccounts').item.json.folder }}"
+            },
+            {
+              "name": "filename",
+              "value": "={{ $('getUnpublished').item.json.filename }}"
+            },
+            {
+              "name": "root_dir",
+              "value": "={{ $('getaccounts').item.json.root_dir }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1712,
+        -320
+      ],
+      "id": "fa7873fb-38c0-415e-ba0d-56cd787cb41a",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9136f342-4777-4731-b829-a5443381b77b",
+              "name": "finalurl",
+              "value": "=https://files.mohdasif.net{{ $('getaccounts').item.json.folder }}output/{{ encodeURIComponent($json.stdout) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1504,
+        -320
+      ],
+      "id": "1eac6039-1124-46aa-b7ad-272edf221ef6",
+      "name": "finalurl"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 21,
+              "triggerAtMinute": 15
+            },
+            {
+              "triggerAtHour": 4,
+              "triggerAtMinute": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -4192,
+        -160
+      ],
+      "id": "1e07dd39-b6b3-4b1c-8286-5bf275d67ab2",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "command": "=rm -f {{ $('getaccounts').item.json.root_dir }}{{ $('getaccounts').item.json.folder }}/output/{{ $('getUnpublished').item.json.filename }}"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        288,
+        -400
+      ],
+      "id": "651ae163-0c2e-4949-ae8b-12a2b84ed791",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the stdout from previous Execute Command node\nconst jsonString = $input.first().json.stdout;\n\n// Parse the JSON string to get the array\nconst filenames = JSON.parse(jsonString);\n\n// Return each filename as a separate item\nreturn filenames.map(filename => ({ json: { filename } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2848,
+        -320
+      ],
+      "id": "a10c99d4-b983-4431-abcc-55c18a12248a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "command": "=ls  {{ $('getaccounts').item.json.root_dir }}{{ $('getaccounts').item.json.folder }} | awk 'BEGIN{printf \"[\"} {printf \"%s\\\"%s\\\"\", (NR>1?\",\":\"\"), $0} END{printf \"]\"}'"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -3072,
+        -336
+      ],
+      "id": "aef9595e-3e1c-4776-9ce2-4f1ad6f6314e",
+      "name": "Execute Command1"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts').item.json.database }}",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Code in JavaScript').item.json.filename }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2624,
+        -432
+      ],
+      "id": "40331df3-7760-461b-9806-49f781cfa0cb",
+      "name": "If row does not exist"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts').item.json.database }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filename": "={{ $('Code in JavaScript').item.json.filename }}"
+          },
+          "matchingColumns": [
+            "filename"
+          ],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2400,
+        -432
+      ],
+      "id": "d8926a5b-544a-483b-b065-c8b4e248bbd3",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "operation": "rowExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts').item.json.database }}",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Code in JavaScript').item.json.filename }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2464,
+        -192
+      ],
+      "id": "689d0fc2-61a0-4bc7-a14a-f19030f82b4f",
+      "name": "If row exists"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts').item.json.database }}",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "insta"
+            },
+            {
+              "keyName": "insta",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2176,
+        -320
+      ],
+      "id": "d638cc3c-37ac-4dff-bf8e-c5a1a3abaa91",
+      "name": "getUnpublished",
+      "alwaysOutputData": false,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "content": "\n\n# TAKE INPUT FROM DIRECTORY => CHECK FILE EXITS IN DATABASE => CHECK PENDING FILE AND SO ON\n\n# KEY NOTES\n# 1) DECODE URLS",
+        "height": 272,
+        "width": 1808
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2848,
+        -784
+      ],
+      "typeVersion": 1,
+      "id": "eaec488c-e1b0-4f82-9a2b-92162be3d8bf",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0b378951-fdd3-4c2e-bd3d-f9dc88fd356d",
+              "name": "title",
+              "value": "={{ $json.filename.split('__')[1].replace('.mp4', '') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1936,
+        -320
+      ],
+      "id": "01970623-8283-48a1-bfd5-b15347ab3547",
+      "name": "title"
+    }
+  ],
+  "connections": {
+    "✅ Is Container Ready?": {
+      "main": [
+        [
+          {
+            "node": "🔀 HTTP vs FB API Router",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "anyError",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 HTTP vs FB API Router": {
+      "main": [
+        [
+          {
+            "node": "📤 Publish via HTTP API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "⏰ Initial Processing Wait": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Retry Wait Loop": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Check Processing Status1": {
+      "main": [
+        [
+          {
+            "node": "✅ Is Container Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📤 Publish via HTTP API": {
+      "main": [
+        [
+          {
+            "node": "update sucess",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "anyError": {
+      "main": [
+        [
+          {
+            "node": "Reached Max?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "⏰ Retry Wait Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reached Max?": {
+      "main": [
+        [
+          {
+            "node": "Update Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Forward Prev Page Num",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2m": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Forward Prev Page Num": {
+      "main": [
+        [
+          {
+            "node": "Wait 2m",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vars": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Loop Var": {
+      "main": [
+        [
+          {
+            "node": "Execute Command1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container HTTP Reels": {
+      "main": [
+        [
+          {
+            "node": "⏰ Initial Processing Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getaccounts": {
+      "main": [
+        [
+          {
+            "node": "Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "getaccounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Error": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update sucess": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "finalurl",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "finalurl": {
+      "main": [
+        [
+          {
+            "node": "Container HTTP Reels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "If row does not exist",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If row exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row exists": {
+      "main": [
+        [
+          {
+            "node": "getUnpublished",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row": {
+      "main": [
+        [
+          {
+            "node": "getUnpublished",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getUnpublished": {
+      "main": [
+        [
+          {
+            "node": "title",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "title": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Kolkata",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "2f242d89-7a06-412e-b029-b80fd5ed3008",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-10-02T03:41:52.166Z",
+      "updatedAt": "2025-10-02T03:41:52.166Z",
+      "role": "workflow:owner",
+      "workflowId": "hG9r4QtEboJzsRSl",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-10-02T04:51:00.111Z",
+      "updatedAt": "2025-10-02T04:51:00.111Z",
+      "id": "EYs52kgTL2gBy5mG",
+      "name": "no api"
+    },
+    {
+      "createdAt": "2025-09-10T11:25:38.298Z",
+      "updatedAt": "2025-09-10T11:25:38.298Z",
+      "id": "r3ZdTHEV3fmr7eAz",
+      "name": "instagram"
+    },
+    {
+      "createdAt": "2025-10-02T04:51:03.617Z",
+      "updatedAt": "2025-10-02T04:51:03.617Z",
+      "id": "rghS5Ia4ewwSP7HU",
+      "name": "manual"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "active": false,
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Download Video1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Metadata": {
+      "main": [
+        [
+          {
+            "node": "Upload Short",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video1": {
+      "main": [
+        [
+          {
+            "node": "Set Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-06T11:50:50.068Z",
+  "id": "uvpupfqRedjC4Jve",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Youtube",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -528
+      ],
+      "id": "477accde-d2f8-4c16-8aae-db2c8ad20cf0"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "title",
+              "value": "My Awesome #Shorts Video"
+            },
+            {
+              "name": "description",
+              "value": "Check out this cool short video!\n\n#Shorts #YouTubeShorts"
+            },
+            {
+              "name": "tags",
+              "value": "shorts,cool,video"
+            },
+            {
+              "name": "privacyStatus",
+              "value": "private"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        48,
+        -528
+      ],
+      "id": "4cdb9e50-683d-4f51-8c67-01cdfffda9eb"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{$json[\"title\"]}}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {}
+      },
+      "name": "Upload Short",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        272,
+        -528
+      ],
+      "id": "d3e73d22-c848-47b8-bb98-fa4373e66421",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "53V5EXwtYZRfT2WN",
+          "name": "YouTube account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://files.mohdasif.net/89720.mp4",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "name": "Download Video1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -528
+      ],
+      "id": "a706938c-ebb1-4a58-990e-da645f8af9b7"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-06T11:50:50.073Z",
+      "updatedAt": "2025-09-06T11:50:50.073Z",
+      "role": "workflow:owner",
+      "workflowId": "uvpupfqRedjC4Jve",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-14T12:49:59.000Z",
+  "versionId": "3d423eb0-c10a-4232-a113-446f56ff150b"
+}

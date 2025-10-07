@@ -1,0 +1,655 @@
+{
+  "createdAt": "2025-09-25T22:18:19.495Z",
+  "updatedAt": "2025-10-01T10:39:16.000Z",
+  "id": "YrOExOQBZuqbRGKW",
+  "name": "FACEBOOK MOHD ASIF PAGE (POST REACTION VIDEOS) FINAL-FIX",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "be8816f5-ae68-48c3-869e-bc67078298d8",
+                    "leftValue": "={{ $('config').item.json.post_type }}",
+                    "rightValue": "reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reel"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2144,
+        -1920
+      ],
+      "id": "e2e418a4-a526-4abc-9258-4538db2e80ad",
+      "name": "Smart Content Router"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "465dee68-878c-46de-8dd8-ba29e8bb93d3",
+              "leftValue": "={{ $('config').item.json.node_type }}",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1920,
+        -1920
+      ],
+      "id": "9433d017-1bf3-449c-bced-57d2e02cf2ac",
+      "name": "Reel if"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('config').item.json.page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"upload_phase\":\"start\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1472,
+        -1920
+      ],
+      "id": "ce5b69c5-3450-4a8f-b6fa-2ef17a16bd99",
+      "name": "Initialize Upload Session",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "cEQLj5RRQvCzvQ2k",
+          "name": "MOHD-ASIF-PAGE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.upload_url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "={{ $('get').item.json.public }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1248,
+        -1920
+      ],
+      "id": "9bf2b37e-ec25-4d08-8030-4a1ea6778ab0",
+      "name": "Upload the Reel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "cEQLj5RRQvCzvQ2k",
+          "name": "MOHD-ASIF-PAGE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Initialize Upload Session').item.json.video_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1024,
+        -1920
+      ],
+      "id": "847fe487-3e07-428c-9454-195b5b4d5aee",
+      "name": "Check Status of Upload",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "cEQLj5RRQvCzvQ2k",
+          "name": "MOHD-ASIF-PAGE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('config').item.json.page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_id\": \"{{ $('Initialize Upload Session').item.json.video_id }}\",\n  \"upload_phase\": \"finish\",\n  \"video_state\": \"PUBLISHED\",\n  \"description\": \"{{ $json.description }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -576,
+        -1920
+      ],
+      "id": "211465b2-cdf2-4d9f-86c9-143709075cea",
+      "name": "Publish Reel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "cEQLj5RRQvCzvQ2k",
+          "name": "MOHD-ASIF-PAGE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7,
+              "triggerAtMinute": 30
+            },
+            {
+              "triggerAtHour": 8,
+              "triggerAtMinute": 15
+            },
+            {
+              "triggerAtHour": 15,
+              "triggerAtMinute": 15
+            },
+            {
+              "triggerAtHour": 16
+            },
+            {
+              "triggerAtHour": 21
+            },
+            {
+              "triggerAtHour": 22
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2592,
+        -1920
+      ],
+      "id": "37b0086e-eb6c-4ea1-bca3-b31fcba7afe1",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "jp3j25dLysLO51VR",
+          "mode": "list",
+          "cachedResultName": "FETCH INSTA LINKS FROM crazysunil02",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/jp3j25dLysLO51VR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fb",
+              "condition": "isFalse"
+            },
+            {
+              "keyName": "fb",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1696,
+        -1920
+      ],
+      "id": "a482e1ec-d94b-4e48-bf22-6c54b7f52bfa",
+      "name": "get"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "value": "reel",
+              "type": "string"
+            },
+            {
+              "id": "f5027281-f5b9-4507-95f3-f1d8749e9028",
+              "name": "page_id",
+              "value": "928910723850453",
+              "type": "string"
+            },
+            {
+              "id": "c4578992-d24a-4666-b369-ae9f8c91aaec",
+              "name": "node_type",
+              "value": "http",
+              "type": "string"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5a",
+              "name": "image_url",
+              "value": "https://media.licdn.com/dms/image/v2/D4D03AQHf-K7ergkUwQ/profile-displayphoto-shrink_800_800/B4DZbdtDouHQAg-/0/1747476298728?e=1753920000&v=beta&t=Js1KDjpDYOgzYW4YlhwT1_ZmbggoSIxjcq3IA0rRJs0",
+              "type": "string"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "value": "https://files.mohdasif.net/meow1/upload1.mp4",
+              "type": "string"
+            },
+            {
+              "id": "383ffb11-0191-4fbc-abb1-c9183c66c71c",
+              "name": "reel_url",
+              "value": "https://videos.pexels.com/video-files/4830364/4830364-uhd_1440_2732_25fps.mp4",
+              "type": "string"
+            },
+            {
+              "id": "8f86898c-b399-43e4-87bd-a4da92622a1a",
+              "name": "dir",
+              "value": "/files/fb/Asif/downloaded/",
+              "type": "string"
+            },
+            {
+              "id": "3391efb1-d236-47c5-a9b0-35c67cf25455",
+              "name": "link",
+              "value": "https://files.mohdasif.net/fb/Asif/downloaded/",
+              "type": "string"
+            },
+            {
+              "id": "fea3bb99-c9e0-4e9b-a4ff-a27c0dacf5f8",
+              "name": "dir2",
+              "value": "/fb/Asif/downloaded/",
+              "type": "string"
+            },
+            {
+              "id": "0a112c81-a5e6-401e-8402-b667ab70b2e6",
+              "name": "input",
+              "value": "/files/fb/Asif/input/input.mp4",
+              "type": "string"
+            },
+            {
+              "id": "74cd6dd1-b05a-49ad-bba9-80ae5fc3a298",
+              "name": "fontpath",
+              "value": "/files/fonts/ARIALBD.TTF",
+              "type": "string"
+            },
+            {
+              "id": "f147a5a5-21e2-492d-9408-7f5b9c9f882d",
+              "name": "output",
+              "value": "/files/fb/Asif/output",
+              "type": "string"
+            },
+            {
+              "id": "9292c731-3ac0-4c47-b190-713e52e94b9a",
+              "name": "uploadfinal",
+              "value": "https://files.mohdasif.net/fb/Asif/output/",
+              "type": "string"
+            },
+            {
+              "id": "10d8a764-bce9-457f-9503-7c559124d549",
+              "name": "delete",
+              "value": "/upload/fb/Asif/output/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2368,
+        -1920
+      ],
+      "id": "7c20d30c-88e4-449d-891b-c2bc39acc6b0",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "jp3j25dLysLO51VR",
+          "mode": "list",
+          "cachedResultName": "FETCH INSTA LINKS FROM crazysunil02",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/jp3j25dLysLO51VR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "code",
+              "keyValue": "={{ $('get').item.json.code }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb": true
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "code",
+              "displayName": "code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "download_url",
+              "displayName": "download_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "final",
+              "displayName": "final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -1920
+      ],
+      "id": "3433b470-dbe9-4793-9e40-f33def605d60",
+      "name": "update_published"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🔹 Put your description here:\nconst rawDescription = $('get').first().json.title\nfunction cleanDescription(input) {\n  let output = input;\n\n  // Remove \"Sachin Kumar\"\n  output = output.replace(/Sachin Kumar/gi, \"\");\n\n  // Remove \"#Sachin_kumar_a1\"\n  output = output.replace(/#Sachin_kumar_a1/gi, \"\");\n\n  // Trim extra spaces left behind\n  output = output.replace(/\\s{2,}/g, \" \").trim();\n\n  // Escape for JSON: backslashes, quotes, newlines, carriage returns\n  output = output\n    .replace(/\\\\/g, \"\\\\\\\\\")\n    .replace(/\"/g, '\\\\\"')\n    .replace(/\\r/g, \"\\\\r\")\n    .replace(/\\n/g, \"\\\\n\");\n\n  return output;\n}\n\n// ✅ Return one clean item for n8n\nreturn [\n  {\n    json: {\n      description: cleanDescription(rawDescription)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        -1920
+      ],
+      "id": "19e66ee0-be29-43d4-9a26-2aecd6970021",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "connections": {
+    "Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Reel if",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reel if": {
+      "main": [
+        [
+          {
+            "node": "get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Upload Session": {
+      "main": [
+        [
+          {
+            "node": "Upload the Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload the Reel": {
+      "main": [
+        [
+          {
+            "node": "Check Status of Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status of Upload": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Reel": {
+      "main": [
+        [
+          {
+            "node": "update_published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get": {
+      "main": [
+        [
+          {
+            "node": "Initialize Upload Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Publish Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_published": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "ca5659eb-d5a9-45b0-9418-9fd8e522773f",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-25T22:18:19.547Z",
+      "updatedAt": "2025-09-25T22:18:19.547Z",
+      "role": "workflow:owner",
+      "workflowId": "YrOExOQBZuqbRGKW",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-11T20:40:54.952Z",
+      "updatedAt": "2025-09-11T20:40:54.952Z",
+      "id": "KislEXiiNTebxxB8",
+      "name": "Facebook"
+    }
+  ]
+}

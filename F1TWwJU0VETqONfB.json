@@ -1,0 +1,1009 @@
+{
+  "active": false,
+  "connections": {
+    "✅ Is Container Ready?": {
+      "main": [
+        [
+          {
+            "node": "Publish Reel1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "anyError",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Initial Processing Wait": {
+      "main": [
+        [
+          {
+            "node": "Check Status of Upload1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Retry Wait Loop": {
+      "main": [
+        [
+          {
+            "node": "Check Status of Upload1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "anyError": {
+      "main": [
+        [
+          {
+            "node": "Reached Max?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "⏰ Retry Wait Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reached Max?": {
+      "main": [
+        [
+          {
+            "node": "update sucess1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Forward Prev Page Num",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2m": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Forward Prev Page Num": {
+      "main": [
+        [
+          {
+            "node": "Wait 2m",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vars": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Loop Var": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "getaccounts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update sucess": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "finalurl": {
+      "main": [
+        [
+          {
+            "node": "Container HTTP Reels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getaccounts1": {
+      "main": [
+        [
+          {
+            "node": "Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "finalurl",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container HTTP Reels": {
+      "main": [
+        [
+          {
+            "node": "Upload the Reel2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status of Upload1": {
+      "main": [
+        [
+          {
+            "node": "✅ Is Container Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload the Reel2": {
+      "main": [
+        [
+          {
+            "node": "⏰ Initial Processing Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Reel1": {
+      "main": [
+        [
+          {
+            "node": "update sucess",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update sucess1": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-01T06:31:48.867Z",
+  "id": "F1TWwJU0VETqONfB",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ShadowKhan FACEBOOK - 5",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status.video_status }}",
+              "rightValue": "upload_complete",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -608,
+        -1904
+      ],
+      "id": "8b648302-1af1-4ab8-8988-e672f554ffec",
+      "name": "✅ Is Container Ready?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1056,
+        -1840
+      ],
+      "id": "dd1b4229-df0b-4873-92b7-b24d73492a47",
+      "name": "⏰ Initial Processing Wait",
+      "webhookId": "91f92bba-9c3e-46ae-a1fd-a13e00827309"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -160,
+        -1808
+      ],
+      "id": "a3a590ff-71de-4ab3-9a1c-a50fe35e1132",
+      "name": "⏰ Retry Wait Loop",
+      "webhookId": "90a6f270-72fe-442d-bb14-caa737898514"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status.video_status }}",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -384,
+        -1808
+      ],
+      "id": "6ec8134f-c176-4025-ad2d-7ef3e49873c5",
+      "name": "anyError"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $('Increment Loop Var').item.json.page }}",
+              "operation": "larger",
+              "value2": "=3"
+            }
+          ]
+        }
+      },
+      "name": "Reached Max?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -1616
+      ],
+      "id": "273e308a-1303-45b6-80c6-4a3fd1bc7998"
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "name": "Wait 2m",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        288,
+        -1376
+      ],
+      "id": "b0ff3fc8-b094-411c-8a52-af6e62e989dc",
+      "webhookId": "5a1c781e-944d-4adb-ab2c-c31b11a6ffbf"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1503b89d-7f11-49fc-86ed-38ed600fc34c",
+              "name": "prevPage",
+              "value": "={{ $('Increment Loop Var').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -1456
+      ],
+      "id": "4b6da7fd-bfdf-448d-9581-febe6022c3ed",
+      "name": "Forward Prev Page Num"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "32a6221a-b000-4b5f-9b93-271c44d542fd",
+              "name": "page",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "91668535-ba9c-4626-8e64-e7a20644c8e2",
+              "name": "pageCount",
+              "value": 3,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2624,
+        -1664
+      ],
+      "id": "e4105ae2-9c63-4444-8d45-29c88a31ab27",
+      "name": "Vars"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a042073f-f9e7-4258-80db-360a09c549e4",
+              "name": "page",
+              "value": "={{ ($('Forward Prev Page Num').isExecuted) ? $('Forward Prev Page Num').first().json.prevPage + 1 : $('Vars').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2400,
+        -1664
+      ],
+      "id": "325b6433-8747-44d2-a0ae-148f9cc4d14f",
+      "name": "Increment Loop Var"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts1').item.json.database }}",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fb",
+              "condition": "isEmpty"
+            },
+            {
+              "keyName": "fb"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2176,
+        -1840
+      ],
+      "id": "2a564d4b-dd06-4bf6-8b38-d57f55793d76",
+      "name": "Get row(s)",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8248cac9-9cf1-4299-9379-cc115015ff14",
+              "name": "username",
+              "value": "urban__raja",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3072,
+        -1664
+      ],
+      "id": "48b15362-e060-441d-8ef6-1e250d6de226",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts1').item.json.database }}",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Get row(s)').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb": "DONE"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "insta",
+              "displayName": "insta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -2000
+      ],
+      "id": "dd410c00-6647-4533-9c6e-378b53d6f121",
+      "name": "update sucess",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9136f342-4777-4731-b829-a5443381b77b",
+              "name": "finalurl",
+              "value": "=https://files.mohdasif.net{{ $('getaccounts1').item.json.folder }}output/{{ $json.stdout }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1728,
+        -1840
+      ],
+      "id": "b29ca819-4c74-4129-985a-0deb78543275",
+      "name": "finalurl"
+    },
+    {
+      "parameters": {
+        "command": "=rm -f {{ $('getaccounts1').item.json.root_dir }}{{ $('getaccounts1').item.json.folder }}/output/{{ $('Get row(s)').item.json.filename }}"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        288,
+        -1904
+      ],
+      "id": "026fd935-c136-46e4-a117-719b016551d8",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "65s10TCHjuQpvOcn",
+          "mode": "list",
+          "cachedResultName": "accounts",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/65s10TCHjuQpvOcn"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "username",
+              "keyValue": "={{ $json.username }}"
+            },
+            {
+              "keyName": "type",
+              "keyValue": "fb"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2848,
+        -1664
+      ],
+      "id": "ad4cd4dc-2b4e-46fe-bc30-358882a2c9e6",
+      "name": "getaccounts1",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            },
+            {
+              "triggerAtHour": 15,
+              "triggerAtMinute": 15
+            },
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": 15
+            },
+            {
+              "daysInterval": 15,
+              "triggerAtHour": 20,
+              "triggerAtMinute": 15
+            },
+            {
+              "triggerAtHour": 22
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3296,
+        -1664
+      ],
+      "id": "3e4086ca-521f-4558-80a6-2ed1f75ffd43",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/reaction",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "folder",
+              "value": "={{ $('getaccounts1').item.json.folder }}"
+            },
+            {
+              "name": "filename",
+              "value": "={{ $('Get row(s)').item.json.filename }}"
+            },
+            {
+              "name": "root_dir",
+              "value": "={{ $('getaccounts1').item.json.root_dir }}"
+            },
+            {
+              "name": "OVERLAY_FILE",
+              "value": "={{ $('getaccounts1').item.json.root_dir }}tools/reaction/urbanraja/dance-funny1.mp4"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1952,
+        -1840
+      ],
+      "id": "71d2da92-4642-43af-8bf4-11feb9b6231b",
+      "name": "HTTP Request1",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Container HTTP Reels').item.json.video_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('getaccounts1').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -832,
+        -1840
+      ],
+      "id": "e3572fd8-d969-4672-9e8d-3848ba0e465e",
+      "name": "Check Status of Upload1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('getaccounts1').item.json.acc_id }}/video_reels",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $('getaccounts1').item.json.token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"upload_phase\":\"start\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1504,
+        -1840
+      ],
+      "id": "0a6bf76d-e4c7-441b-9b2a-9663c94cabbf",
+      "name": "Container HTTP Reels"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Container HTTP Reels').item.json.upload_url }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $('getaccounts1').item.json.token }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "={{ $('finalurl').item.json.finalurl }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1280,
+        -1840
+      ],
+      "id": "dbe50eaf-c2b8-4e62-b043-2d132b504715",
+      "name": "Upload the Reel2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('getaccounts1').item.json.acc_id }}/video_reels",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $('getaccounts1').item.json.token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_id\": \"{{ $('Container HTTP Reels').item.json.video_id }}\",\n  \"upload_phase\": \"finish\",\n  \"video_state\": \"PUBLISHED\",\n  \"description\": \"{{ $('Get row(s)').item.json.title }}\"\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        -2000
+      ],
+      "id": "71d4ad0f-1494-4771-909a-bf3a8dd5b49a",
+      "name": "Publish Reel1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "={{ $('getaccounts1').item.json.database }}",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Get row(s)').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb": "ERROR"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "insta",
+              "displayName": "insta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -1712
+      ],
+      "id": "3dbd811a-435f-4822-b2b5-dd1f69b17f13",
+      "name": "update sucess1",
+      "executeOnce": true
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-01T06:31:48.872Z",
+      "updatedAt": "2025-10-01T06:31:48.872Z",
+      "role": "workflow:owner",
+      "workflowId": "F1TWwJU0VETqONfB",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        null,
+        null,
+        null,
+        274
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-09-11T20:40:54.952Z",
+      "updatedAt": "2025-09-11T20:40:54.952Z",
+      "id": "KislEXiiNTebxxB8",
+      "name": "Facebook"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T09:21:16.000Z",
+  "versionId": "da34bf64-6f35-4e09-b432-bcdec93fa883"
+}

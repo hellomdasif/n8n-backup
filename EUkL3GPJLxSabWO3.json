@@ -1,0 +1,164 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat": {
+      "main": [
+        []
+      ],
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-05T12:01:57.308Z",
+  "id": "EUkL3GPJLxSabWO3",
+  "isArchived": true,
+  "meta": null,
+  "name": "🍳 AI Recipe Generator with Ollama",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "recipe-generator",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "9fd8e43d-ec75-43cd-8212-7a4395029591"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:3b",
+        "options": {}
+      },
+      "id": "ollama",
+      "name": "Ollama Chat",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        760,
+        528
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "DF35v2kgNma2Iwd8",
+          "name": "Ollama account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const ingredients = $input.item.json.ingredients || 'chicken, rice, tomatoes';\nconst cuisine = $input.item.json.cuisine || 'any';\n\nconst prompt = `You are a creative chef. Create a delicious recipe using these ingredients: ${ingredients}.\n\nCuisine style: ${cuisine}\n\nPlease provide:\n1. Recipe name\n2. Cooking time\n3. Difficulty level\n4. Step-by-step instructions\n5. Pro tips\n\nMake it creative and fun!`;\n\nreturn { json: { prompt } };"
+      },
+      "id": "code",
+      "name": "Format Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}",
+        "options": {
+          "systemMessage": "You are a helpful and creative chef assistant."
+        }
+      },
+      "id": "agent",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, recipe: $json.output, ingredients: $('Webhook').item.json.ingredients, cuisine: $('Webhook').item.json.cuisine } }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        304
+      ]
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-05T12:01:57.311Z",
+      "updatedAt": "2025-10-05T12:01:57.311Z",
+      "role": "workflow:owner",
+      "workflowId": "EUkL3GPJLxSabWO3",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-05T15:04:07.000Z",
+  "versionId": "20f4d6ae-c1db-44d2-bb2a-b031966c5b31"
+}

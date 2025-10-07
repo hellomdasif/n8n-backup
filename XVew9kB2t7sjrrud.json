@@ -1,0 +1,160 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If row does not exist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-01T07:35:04.602Z",
+  "id": "XVew9kB2t7sjrrud",
+  "isArchived": false,
+  "meta": null,
+  "name": "webhook-akashmaiti1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "akashmaiti1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        32,
+        -128
+      ],
+      "id": "e59eea6b-f66f-4622-8c1e-74cb11002175",
+      "name": "Webhook",
+      "webhookId": "bb4ef61c-e94b-4048-a554-ec94f9844b82"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "knXKTzJJpiWhaKPo",
+          "mode": "list",
+          "cachedResultName": "akashmaiti1-FORYOU-YOUTUBE",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/knXKTzJJpiWhaKPo"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filename": "={{ $json.body.filename }}",
+            "path": "={{ $json.body.title }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -128
+      ],
+      "id": "2bfed2ea-c8db-471f-8e0c-b9206452ed6b",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "knXKTzJJpiWhaKPo",
+          "mode": "list",
+          "cachedResultName": "akashmaiti1-FORYOU-YOUTUBE",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/knXKTzJJpiWhaKPo"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $json.body.filename }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -128
+      ],
+      "id": "bb620115-002f-42f1-a5af-a7fb3adf7b1c",
+      "name": "If row does not exist"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-01T07:35:04.606Z",
+      "updatedAt": "2025-10-01T07:35:04.606Z",
+      "role": "workflow:owner",
+      "workflowId": "XVew9kB2t7sjrrud",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:16:06.534Z",
+      "updatedAt": "2025-10-07T12:16:06.534Z",
+      "id": "ZIgw9D8vZ3v5ByPZ",
+      "name": "WEBHOOK"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:16:11.000Z",
+  "versionId": "c2329a3e-b33a-4dcc-8174-fcb6e6699c7b"
+}

@@ -1,0 +1,736 @@
+{
+  "active": false,
+  "connections": {
+    "6. Wait 1 Second": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Set User IDs1": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts1": {
+      "main": [
+        [
+          {
+            "node": "4. Extract URLs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Extract URLs1": {
+      "main": [
+        [
+          {
+            "node": "5. Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Process One by One1": {
+      "main": [
+        [
+          {
+            "node": "3. Get 5 Latest Posts1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "todownload1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "CONFIG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 1 Second",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download1": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "status1": {
+      "main": [
+        [
+          {
+            "node": "Wait 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch URLs": {
+      "main": [
+        [
+          {
+            "node": "Download1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "SaveToFtp1": {
+      "main": [
+        []
+      ]
+    },
+    "CONFIG": {
+      "main": [
+        [
+          {
+            "node": "1. Set User IDs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 3": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "todownload1": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-20T06:10:39.247Z",
+  "id": "LrfKqQxcZkl5vDfg",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FETCH-INSTA-USA",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "39c342db-d136-476a-b727-28b91f185956",
+      "name": "6. Wait 1 Second",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1072,
+        416
+      ],
+      "webhookId": "676c7b8f-cc4a-45b2-85a1-349fcc1de3f4"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Define the two user IDs you want to process\nconst userIds = [\n  \"bhonyongwa\",\n  \"noluthando5387\"\n];\n\n// This will create two separate items for the next nodes to process\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));\n"
+      },
+      "id": "31303b62-dfcf-47ba-8703-9e7b79034e20",
+      "name": "1. Set User IDs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -2192,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://instagram-social-api.p.rapidapi.com/v1/reels?username_or_id_or_url={{ $json.userId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "instagram-social-api.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d8a25bda-e28c-4aa5-845f-443127f3b7bf",
+      "name": "3. Get 5 Latest Posts1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1744,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Get the array of video items from the input\nconst itemsArray = items[0].json.data.items;\n\n// Map over the array to create a new, cleaner array of objects\nconst extractedData = itemsArray.map(item => {\n  return {\n    code: item.code,\n    title: item.caption?.text || \"No caption\",  // Handle missing/empty caption\n    video_url: item.video_url, // Temporary download URL\n    reel_url: `https://www.instagram.com/reel/${item.code}` // Permanent shareable URL\n  };\n});\n\n// Return the new array\nreturn extractedData;\n"
+      },
+      "id": "8d11e500-b9b9-44f0-822c-2e30dd31fccf",
+      "name": "4. Extract URLs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1520,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "e1bcd31a-7205-4fdf-8dfb-7440d38ea68b",
+      "name": "2. Process One by One1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -1968,
+        528
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2640,
+        544
+      ],
+      "id": "ae0b086c-9c6d-4720-9134-591ba0f140ed",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1dIyTlFzLd7AUDVT-RrLICVz2_tM9crrR5dV7lpbS3kU",
+          "mode": "list",
+          "cachedResultName": "INSTAGRAM-successblueprint86",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dIyTlFzLd7AUDVT-RrLICVz2_tM9crrR5dV7lpbS3kU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $json.title }}",
+            "video_url": "={{ $json.video_url }}",
+            "reel_url": "={{ $json.reel_url }}",
+            "code": "={{ $json.code }}"
+          },
+          "matchingColumns": [
+            "reel_url"
+          ],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "video_url",
+              "displayName": "video_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reel_url",
+              "displayName": "reel_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "code",
+              "displayName": "code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "published",
+              "displayName": "published",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "ef262aa4-8728-4536-b5f0-627fc55af17b",
+      "name": "5. Google Sheets1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -1296,
+        416
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.video_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "timeout": 120000
+        }
+      },
+      "id": "6e113ff0-d633-4834-833e-fd6c43d1f083",
+      "name": "Download1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -624,
+        224
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1dIyTlFzLd7AUDVT-RrLICVz2_tM9crrR5dV7lpbS3kU",
+          "mode": "list",
+          "cachedResultName": "INSTAGRAM-successblueprint86",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dIyTlFzLd7AUDVT-RrLICVz2_tM9crrR5dV7lpbS3kU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "reel_url": "={{ $json.reel_url }}",
+            "downloaded": "DONE",
+            "public": "={{ $('CONFIG').item.json.main_url }}{{ $json.code }}.mp4"
+          },
+          "matchingColumns": [
+            "reel_url"
+          ],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "video_url",
+              "displayName": "video_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "reel_url",
+              "displayName": "reel_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "code",
+              "displayName": "code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "published",
+              "displayName": "published",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "da58f609-860e-4233-807a-e8940e1ea151",
+      "name": "status1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -144,
+        192
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "62f741db-4a9a-4aa6-88c7-81f6335919e7",
+      "name": "Batch URLs",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -832,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "upload",
+        "path": "={{ $('CONFIG').item.json.dir }}/{{ $json.code }}.mp4"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        224
+      ],
+      "id": "332d4081-578b-4510-944e-662f2661b3b9",
+      "name": "SaveToFtp1",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44e39d3e-3738-48b3-89b8-c22bca4772a4",
+              "name": "dir",
+              "value": "/home/node/shared/successblueprint86/",
+              "type": "string"
+            },
+            {
+              "id": "937e8788-ad7c-49e9-acbe-ba635a51c704",
+              "name": "main_url",
+              "value": "https://files.mohdasif.net/successblueprint86/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2416,
+        544
+      ],
+      "id": "4ba838be-cca6-49e2-9aa6-728940eb18be",
+      "name": "CONFIG"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        48,
+        368
+      ],
+      "id": "c8b6de40-34fb-4d65-9a4a-3875d4c56411",
+      "name": "Wait 3",
+      "webhookId": "0df31a9a-cbf1-4cd0-9ae1-427eca02d819"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1dIyTlFzLd7AUDVT-RrLICVz2_tM9crrR5dV7lpbS3kU",
+          "mode": "list",
+          "cachedResultName": "INSTAGRAM-successblueprint86",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dIyTlFzLd7AUDVT-RrLICVz2_tM9crrR5dV7lpbS3kU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "downloaded"
+            }
+          ]
+        },
+        "options": {
+          "returnAllMatches": "returnAllMatches"
+        }
+      },
+      "id": "f17d9afe-8327-4209-8745-3ae4a6095d30",
+      "name": "todownload1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -1088,
+        64
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('CONFIG').item.json.dir }}/{{ $json.code }}.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        0
+      ],
+      "id": "7d01b4e0-3ad7-4192-9e7e-5d8e25c0a753",
+      "name": "Read/Write Files from Disk"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-20T06:10:39.254Z",
+      "updatedAt": "2025-09-20T06:10:39.254Z",
+      "role": "workflow:owner",
+      "workflowId": "LrfKqQxcZkl5vDfg",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        6,
+        8
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:15:07.051Z",
+      "updatedAt": "2025-10-07T12:15:07.051Z",
+      "id": "hJoZWD17L6LHczTa",
+      "name": "TO_CHECK"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:15:12.000Z",
+  "versionId": "e0070ec7-6525-4620-ba1f-1fe7e40e7961"
+}

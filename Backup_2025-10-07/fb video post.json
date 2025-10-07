@@ -1,0 +1,613 @@
+{
+  "createdAt": "2025-09-06T04:36:37.243Z",
+  "updatedAt": "2025-09-14T12:49:54.000Z",
+  "id": "m5g4hmI7wbxxjiwK",
+  "name": "fb video post",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -768,
+        -704
+      ],
+      "id": "268d260c-9046-49f8-a6ea-bc6ccb44a6cc",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "GOOGLE_DRIVE_FOLDER_ID",
+              "value": "1KHv4wZAzt_OaWETkhzbxz37fF27VOkmN"
+            },
+            {
+              "name": "GOOGLE_SHEET_ID",
+              "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE"
+            },
+            {
+              "name": "SHEET_NAME",
+              "value": "0"
+            },
+            {
+              "name": "FILES_DIR",
+              "value": "/files"
+            },
+            {
+              "name": "FILES_URL",
+              "value": "https://files.mohdasif.net"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "62731520-7234-42b8-8e14-748a3de19753",
+      "name": "Set Config5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        -704
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "filter": {
+          "folderId": {
+            "mode": "expression",
+            "value": "={{ $node['Set Config5'].json.GOOGLE_DRIVE_FOLDER_ID }}"
+          }
+        },
+        "options": {
+          "fields": [
+            "id",
+            "name",
+            "mimeType",
+            "createdTime"
+          ]
+        }
+      },
+      "id": "06ceb00f-c4e8-4b78-b2a2-bf3c3d242157",
+      "name": "Google Drive — List Files4",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        432,
+        -704
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "HzZikzrKPy60clC6",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().filter(item => item.json.mimeType === 'video/mp4' || (item.json.name||'').toLowerCase().endsWith('.mp4'));"
+      },
+      "id": "27909561-f98d-4f82-b55a-ce95a0fd2e6a",
+      "name": "Filter mp7",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        640,
+        -704
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = [];\nfor (const item of $input.all()) {\n  const id = item.json.id;\n  const name = item.json.name || 'video.mp4';\n  const timestamp = Date.now();\n  const safeName = name.replace(/[^a-zA-Z0-9._-]/g, '_').slice(0,240);\n  const finalName = `${timestamp}-BigCreative-${safeName}`;\n\n  out.push({ json: {\n    fileid: id,\n    original_name: name,\n    filename: finalName,\n    direct_url: `https://drive.google.com/uc?export=download&id=${id}`,\n    created_at: new Date().toISOString()\n    // NOTE: intentionally do NOT set status/downloaded_at/public_url here\n  }});\n}\nreturn out;"
+      },
+      "id": "7cb2d782-ffa7-488d-a55a-6621640ed145",
+      "name": "Build Row Object4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        -704
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "mode": "list",
+          "value": "={{ $node['Set Config5'].json.GOOGLE_SHEET_ID }}"
+        },
+        "sheetName": {
+          "mode": "list",
+          "value": "={{ $node['Set Config5'].json.SHEET_NAME }}"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "fileid"
+          ],
+          "schema": [
+            {
+              "id": "fileid",
+              "displayName": "fileid"
+            },
+            {
+              "id": "filename",
+              "displayName": "filename"
+            },
+            {
+              "id": "direct_url",
+              "displayName": "direct_url"
+            },
+            {
+              "id": "mp4_url",
+              "displayName": "mp4_url"
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at"
+            },
+            {
+              "id": "original_name",
+              "displayName": "original_name"
+            },
+            {
+              "id": "downloaded_at",
+              "displayName": "downloaded_at"
+            },
+            {
+              "id": "public_url",
+              "displayName": "public_url"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "bd2def01-cb35-4b29-926d-7c7d598168ee",
+      "name": "Google Sheets — AppendOrUpdate (ensure rows)4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1104,
+        -704
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE",
+          "mode": "list",
+          "cachedResultName": "pCloud_Instagram_Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "d20b322f-31b3-449b-bc24-1402cc166aa8",
+      "name": "Google Sheets — Read Rows4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -256,
+        -432
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node — choose one row that is NOT DOWNLOADED and prepare for processing\n// Input: items from Google Sheets — Read Rows2\nconst rows = $input.all().map(i => i.json || {});\n\n// Find first not-downloaded row\nlet chosen = rows.find(r => !r.status || (typeof r.status === 'string' && r.status.trim().toUpperCase() !== 'DOWNLOADED')) || null;\nif (!chosen) return []; // nothing to process\n\n// Ensure filename exists; if not, leave blank (the 'Code' node may generate a local filename)\nlet filename = chosen.filename || '';\n\n// If filename missing, try to use a generated name from upstream 'Code' (that node runs earlier)\nif (!filename && $node['Code3'] && $node['Code3'].first() && $node['Code3'].first().json && $node['Code3'].first().json.filename) {\n  filename = $node['Code3'].first().json.filename;\n}\n\n// Read files dir from Set Config (fallback to '/files')\nlet filesDir = '/files';\ntry{\n  if ($node['Set Config5'] && $node['Set Config5'].json && $node['Set Config5'].json.FILES_DIR) {\n    filesDir = String($node['Set Config5'].json.FILES_DIR).trim() || '/files';\n  }\n} catch(e) { filesDir = '/files'; }\n\n// build local_path\nconst local_path = (filesDir.replace(/\\/$/, '') || '/files') + '/' + (filename || '');\n\nchosen.local_path = local_path;\nchosen.status = 'PROCESSING';\n\n// ensure we return the same shape the rest of your flow expects\nreturn [{ json: chosen }];"
+      },
+      "id": "2fa7ef31-4de4-4b95-88c2-039edbe12d9a",
+      "name": "Select One To Process4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        -432
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.direct_url }}",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "id": "9116ca49-170c-413d-97c7-04e3e49de3d8",
+      "name": "HTTP Request (download)4",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        224,
+        -432
+      ]
+    },
+    {
+      "parameters": {
+        "fileName": "=/files/{{ $('Code3').first().json.filename }}",
+        "options": {}
+      },
+      "id": "ef2b5605-06b5-40b6-917f-bcccf6ce3c32",
+      "name": "Write Binary File4",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -432
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const filename = $('Code3').first().json.filename || $json.filename || '';\nconst fileid = $json.fileid || '';\nconst direct_url = $json.direct_url || '';\nconst now = new Date().toISOString();\n\n// Build public URL with domain from config or fallback\nconst filesUrl = ($node['Set Config5'] && $node['Set Config5'].json && $node['Set Config5'].json.FILES_URL) ? String($node['Set Config5'].json.FILES_URL).trim() : 'https://files.mohdasif.net';\nconst publicUrl = filesUrl.replace(/\\/$/, '') + (filename ? ('/' + filename) : '');\n\nconst status = filename ? 'DOWNLOADED' : 'ERROR';\n\nreturn [{\n  json: {\n    fileid,\n    filename,\n    status,\n    downloaded_at: now,\n    public_url: publicUrl,\n    direct_url\n  }\n}];\n"
+      },
+      "id": "cc571dc7-7de4-486b-ad63-5f23b3744d55",
+      "name": "Prepare Sheet Update4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -432
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "mode": "list",
+          "value": "={{ $node['Set Config5'].json.GOOGLE_SHEET_ID }}"
+        },
+        "sheetName": {
+          "mode": "list",
+          "value": "={{ $node['Set Config5'].json.SHEET_NAME }}"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "fileid"
+          ],
+          "schema": [
+            {
+              "id": "fileid",
+              "displayName": "fileid"
+            },
+            {
+              "id": "filename",
+              "displayName": "filename"
+            },
+            {
+              "id": "direct_url",
+              "displayName": "direct_url"
+            },
+            {
+              "id": "status",
+              "displayName": "status"
+            },
+            {
+              "id": "downloaded_at",
+              "displayName": "downloaded_at"
+            },
+            {
+              "id": "public_url",
+              "displayName": "public_url"
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "340ff4f9-44b0-48c5-84e3-0ac00e8a5f69",
+      "name": "Google Sheets — AppendOrUpdate (final update)4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        992,
+        -432
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Generate one clean 5-digit random number and create filename/local_path\nfunction random5Digits() {\n  return Math.floor(10000 + Math.random() * 90000);\n}\n\nconst randomNumber = random5Digits();\nconst filename = randomNumber + '.mp4';\nconst local_path = '/files/' + filename;\n\nreturn {\n  json: {\n    randomNumber,\n    filename,\n    local_path,\n    status: 'PROCESSING',\n    direct_url: $json.direct_url // keep direct_url for HTTP Request if needed\n  }\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        -704
+      ],
+      "id": "946a3c86-3cef-478f-b1b5-1e2addcb5c4d",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "PAGE_ID",
+              "value": "102723221205773"
+            },
+            {
+              "name": "PAGE_ACCESS_TOKEN",
+              "value": "EAAVPe8yZBZBXYBPVSAAJsZAlJHgmWVbvRDkbx3wka0kMdDtB1adw1uV7vhqRXLI43IqIvDTTAiOcCy7KSO4Ki8wP8TzM5eE2LIZAZC0QoP6yfSWkIAWbydEXlV9tdLtwbufgWIYbTT8AWm5TNXnAWpgdgejd82D50Caul6Skp932jiuqiK8ZAaXIq9qROatHWRt52JLLdlZBNOEoV1LoZAyty9m1tCg2EbhotdHZAbwZDZD"
+            },
+            {
+              "name": "FB_VIDEO_ENDPOINT",
+              "value": "https://graph-video.facebook.com/v21.0"
+            },
+            {
+              "name": "DIRECT_URL",
+              "value": "={{ $json.public_url }}"
+            },
+            {
+              "name": "CAPTION",
+              "value": "anything"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "683e1749-2508-44de-917e-931212023228",
+      "name": "Set Config FB",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        16,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://graph-video.facebook.com/v21.0/' + $json.PAGE_ID + '/videos' }}\n",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "={{ $json.public_url }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.CAPTION }}"
+            },
+            {
+              "name": "=access_token",
+              "value": "={{ $json.PAGE_ACCESS_TOKEN || $json.page_access_token || '' }}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00429f95-76e6-4448-b6ce-f63334b2a801",
+      "name": "FB Upload Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        368,
+        -176
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "qLytrID6kZbKauFA",
+          "name": "new"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Set Config5": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive — List Files4": {
+      "main": [
+        [
+          {
+            "node": "Filter mp7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter mp7": {
+      "main": [
+        [
+          {
+            "node": "Build Row Object4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Row Object4": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate (ensure rows)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate (ensure rows)4": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — Read Rows4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — Read Rows4": {
+      "main": [
+        [
+          {
+            "node": "Select One To Process4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select One To Process4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request (download)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request (download)4": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Binary File4": {
+      "main": [
+        [
+          {
+            "node": "Prepare Sheet Update4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Sheet Update4": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate (final update)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Google Drive — List Files4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set Config5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate (final update)4": {
+      "main": [
+        [
+          {
+            "node": "Set Config FB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config FB": {
+      "main": [
+        [
+          {
+            "node": "FB Upload Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "d85e9103-89c5-43b2-9003-029dba98a599",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-06T04:36:37.246Z",
+      "updatedAt": "2025-09-06T04:36:37.246Z",
+      "role": "workflow:owner",
+      "workflowId": "m5g4hmI7wbxxjiwK",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

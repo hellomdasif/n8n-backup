@@ -1,0 +1,740 @@
+{
+  "active": false,
+  "connections": {
+    "6. Wait 1 Second": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Process One by One1": {
+      "main": [
+        [
+          {
+            "node": "3. Get 5 Latest Posts1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "todownload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "CONFIG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download1": {
+      "main": [
+        [
+          {
+            "node": "SaveToFtp1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch URLs": {
+      "main": [
+        [
+          {
+            "node": "Download1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "SaveToFtp1": {
+      "main": [
+        [
+          {
+            "node": "update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONFIG": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 3": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "isExits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "todownload": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update": {
+      "main": [
+        [
+          {
+            "node": "Wait 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isExits": {
+      "main": [
+        [
+          {
+            "node": "Insert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 1 Second",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-26T09:41:52.288Z",
+  "id": "wiMc4hjHWQXu2pNx",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FETCH Facts Mind 99 FACEBOOK copy",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "0e496020-c3d6-4856-893c-9528019270b4"
+      },
+      "id": "e6910172-a5c5-4146-b53f-9b58f4714651",
+      "name": "6. Wait 1 Second",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1472,
+        272
+      ],
+      "webhookId": "0e496020-c3d6-4856-893c-9528019270b4"
+    },
+    {
+      "parameters": {
+        "url": "=https://facebook-scraper3.p.rapidapi.com/page/reels?reels_page_id={{ $json.userId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "facebook-scraper3.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d32ff74a-2dae-4d38-a3c9-024fbceefb10",
+      "name": "3. Get 5 Latest Posts1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -2304,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "873ca33b-aac1-4545-9e49-bb7e2b0ba308",
+      "name": "2. Process One by One1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -2528,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 5,
+              "triggerAtMinute": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3200,
+        272
+      ],
+      "id": "6666f655-4599-43c9-a34f-9f51505216ee",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.browser_native_hd_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "timeout": 120000
+        }
+      },
+      "id": "3a3986f9-3e72-4776-958b-077a880f3457",
+      "name": "Download1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -1856,
+        -48
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "d7c72f2f-71f5-4623-a5a4-1b180503b00c",
+      "name": "Batch URLs",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -2080,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "upload",
+        "path": "={{ $('CONFIG').item.json.dir }}/{{ $('Batch URLs').item.json.video_id }}.mp4"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -1632,
+        -96
+      ],
+      "id": "a75239a5-3476-4c45-b4d0-7ded963fa613",
+      "name": "SaveToFtp1",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44e39d3e-3738-48b3-89b8-c22bca4772a4",
+              "name": "dir",
+              "value": "/upload/fb/FactsMind99",
+              "type": "string"
+            },
+            {
+              "id": "937e8788-ad7c-49e9-acbe-ba635a51c704",
+              "name": "main_url",
+              "value": "https://files.mohdasif.net/fb/FactsMind99",
+              "type": "string"
+            },
+            {
+              "id": "6cc17da3-32e3-4902-af5b-7f923fcd1c0b",
+              "name": "fbreelid",
+              "value": "YXBwX2NvbGxlY3Rpb246cGZiaWQwNHA2SGVteFR6TjQ0QlFMNEhlOWdTb2dESGh0OGlDR0NjczdCd25GMUdVQ3hiR3NUUDZQcW5IM1BWcUN4TTFpZUFhRHk2Y1lZV2F2cXJEVGhYc1ZZc01Ta3F1eXl4TkROeHRlSmw=",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2976,
+        272
+      ],
+      "id": "b46000cb-d68e-4ef9-ae8f-964caa302914",
+      "name": "CONFIG"
+    },
+    {
+      "parameters": {
+        "amount": 3,
+        "path": "2bcbc8d2-e81b-449c-a360-ca50e7b84a88"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1184,
+        32
+      ],
+      "id": "62c97163-ba36-424c-a0f3-6435df51a6ab",
+      "name": "Wait 3",
+      "webhookId": "2bcbc8d2-e81b-449c-a360-ca50e7b84a88"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Keep ONLY items that are real videos (must have video_id)\n\nconst inputs = items.map(i => i.json);\n\n// Flatten and collect only video objects\nlet videos = [];\nfor (const input of inputs) {\n  if (input.results) {\n    videos.push(...input.results);\n  }\n}\n\n// Filter + map only the required keys\nreturn videos\n  .filter(v => v.video_id) // ensures only real video entries\n  .map(v => ({\n    json: {\n      video_id: v.video_id,\n      url: v.url,\n      description: v.description,\n      browser_native_hd_url: v.browser_native_hd_url\n    }\n  }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2080,
+        272
+      ],
+      "id": "7b8cbfc7-6ae5-4ac3-ad5f-c73b0d05a877",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Grab the reel ID from input\nconst reelId = $input.first().json.fbreelid;\n\n// Put into an array (you can add more IDs if needed)\nconst userIds = [ reelId ];\n\n// Return items for next nodes\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2752,
+        272
+      ],
+      "id": "935f3ab9-1eb0-4f69-89d0-0191edc48566",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Dr6T65qEZe0pGn30",
+          "mode": "list",
+          "cachedResultName": "FETCH FB LINKS FROM Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/Dr6T65qEZe0pGn30"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "downloaded",
+              "condition": "isFalse"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2304,
+        80
+      ],
+      "id": "73cf36eb-deba-412b-877a-12cc7cc70cb1",
+      "name": "todownload",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Dr6T65qEZe0pGn30",
+          "mode": "list",
+          "cachedResultName": "FETCH FB LINKS FROM Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/Dr6T65qEZe0pGn30"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "video_id",
+              "keyValue": "={{ $('Batch URLs').item.json.video_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "public": "={{ $('CONFIG').item.json.main_url }}/{{ $json.video_id }}.mp4",
+            "downloaded": true
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "video_id",
+              "displayName": "video_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "browser_native_hd_url",
+              "displayName": "browser_native_hd_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1408,
+        -48
+      ],
+      "id": "87ee7033-455a-49d0-b86c-f8b1d15992cd",
+      "name": "update"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Dr6T65qEZe0pGn30",
+          "mode": "list",
+          "cachedResultName": "FETCH FB LINKS FROM Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/Dr6T65qEZe0pGn30"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "video_id",
+              "keyValue": "={{ $json.video_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1856,
+        272
+      ],
+      "id": "d5d385ad-2609-4f01-b20c-50426b35da54",
+      "name": "isExits"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "Dr6T65qEZe0pGn30",
+          "mode": "list",
+          "cachedResultName": "FETCH FB LINKS FROM Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/Dr6T65qEZe0pGn30"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "video_id": "={{ $json.video_id }}",
+            "url": "={{ $json.url }}",
+            "description": "={{ $json.description }}",
+            "browser_native_hd_url": "={{ $json.browser_native_hd_url }}",
+            "downloaded": false
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "video_id",
+              "displayName": "video_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "browser_native_hd_url",
+              "displayName": "browser_native_hd_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1648,
+        272
+      ],
+      "id": "e417dfd5-4f11-40e0-a654-2717d95917ac",
+      "name": "Insert"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-26T09:41:52.293Z",
+      "updatedAt": "2025-09-26T09:41:52.293Z",
+      "role": "workflow:owner",
+      "workflowId": "wiMc4hjHWQXu2pNx",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        6,
+        8
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": [
+        268
+      ]
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-09-11T20:40:54.952Z",
+      "updatedAt": "2025-09-11T20:40:54.952Z",
+      "id": "KislEXiiNTebxxB8",
+      "name": "Facebook"
+    },
+    {
+      "createdAt": "2025-09-25T19:34:17.156Z",
+      "updatedAt": "2025-09-25T19:34:17.156Z",
+      "id": "o35vDW2iiCaZR9cG",
+      "name": "FETCH"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:04:01.000Z",
+  "versionId": "4613ddef-c83f-4264-bf63-d3f83d92785b"
+}

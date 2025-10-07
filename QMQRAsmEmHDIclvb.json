@@ -1,0 +1,79 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Send Request to Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-05T15:48:37.574Z",
+  "id": "QMQRAsmEmHDIclvb",
+  "isArchived": true,
+  "meta": null,
+  "name": "Dummy Workflow 1",
+  "nodes": [
+    {
+      "id": "trigger1",
+      "name": "When clicking 'Test workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "http1",
+      "name": "Send Request to Queue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/queue-processor",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\"name\": \"Request from Workflow 1 - User ABCD\"} }}",
+        "options": {}
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": null,
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-05T15:48:37.576Z",
+      "updatedAt": "2025-10-05T15:48:37.576Z",
+      "role": "workflow:owner",
+      "workflowId": "QMQRAsmEmHDIclvb",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-06T11:25:00.000Z",
+  "versionId": "fb33982b-cb41-4e9b-b640-a21753713d61"
+}

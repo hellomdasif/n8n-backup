@@ -1,0 +1,503 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "CONFIG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download1": {
+      "main": [
+        [
+          {
+            "node": "SaveToFtp1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch URLs": {
+      "main": [
+        [
+          {
+            "node": "Download1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "SaveToFtp1": {
+      "main": [
+        [
+          {
+            "node": "update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONFIG": {
+      "main": [
+        [
+          {
+            "node": "wait5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 3": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "todownload": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update": {
+      "main": [
+        [
+          {
+            "node": "Wait 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FETCH": {
+      "main": [
+        [
+          {
+            "node": "wait5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "wait5": {
+      "main": [
+        [
+          {
+            "node": "todownload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-26T06:42:45.099Z",
+  "id": "Jjsb4sMW2zLXBEzm",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FTECH-FIX",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 5,
+              "triggerAtMinute": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3328,
+        -80
+      ],
+      "id": "9bb92a45-afb9-44e2-84ab-0e50f563534b",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.browser_native_hd_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "timeout": 120000
+        }
+      },
+      "id": "84acac28-159d-411d-a682-cf9a8724c2d2",
+      "name": "Download1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -1984,
+        -144
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "2849d57d-b994-443d-8027-517ff389399d",
+      "name": "Batch URLs",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -2208,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "upload",
+        "path": "={{ $('CONFIG').item.json.dir }}/{{ $('Batch URLs').item.json.video_id }}.mp4"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -1760,
+        -144
+      ],
+      "id": "73dd82ea-d238-4277-bd17-782376eae703",
+      "name": "SaveToFtp1",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44e39d3e-3738-48b3-89b8-c22bca4772a4",
+              "name": "dir",
+              "value": "/upload/fb/FactsMind99",
+              "type": "string"
+            },
+            {
+              "id": "937e8788-ad7c-49e9-acbe-ba635a51c704",
+              "name": "main_url",
+              "value": "https://files.mohdasif.net/fb/FactsMind99",
+              "type": "string"
+            },
+            {
+              "id": "6cc17da3-32e3-4902-af5b-7f923fcd1c0b",
+              "name": "fbreelid",
+              "value": "YXBwX2NvbGxlY3Rpb246cGZiaWQwNHA2SGVteFR6TjQ0QlFMNEhlOWdTb2dESGh0OGlDR0NjczdCd25GMUdVQ3hiR3NUUDZQcW5IM1BWcUN4TTFpZUFhRHk2Y1lZV2F2cXJEVGhYc1ZZc01Ta3F1eXl4TkROeHRlSmw=",
+              "type": "string"
+            },
+            {
+              "id": "1cc52f30-2761-4ab3-a863-d06deff5648c",
+              "name": "profileid",
+              "value": "61556062703366",
+              "type": "string"
+            },
+            {
+              "id": "e729320a-4ff3-4bd3-9a95-6d73cce553de",
+              "name": "db",
+              "value": "Dr6T65qEZe0pGn30",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3104,
+        -80
+      ],
+      "id": "923eeda1-a5f2-40da-8816-cdb6a98fef41",
+      "name": "CONFIG"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1312,
+        -80
+      ],
+      "id": "9c9091eb-71d3-49fa-91e6-bb84467a9c59",
+      "name": "Wait 3",
+      "webhookId": "d48e670f-0ba5-4298-b2ef-97e8d5d08142"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Dr6T65qEZe0pGn30",
+          "mode": "list",
+          "cachedResultName": "FETCH FB LINKS FROM Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/Dr6T65qEZe0pGn30"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "downloaded",
+              "condition": "isFalse"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2432,
+        -80
+      ],
+      "id": "9ab3f2bd-b5ef-4951-8a6e-ac9b69cf8b53",
+      "name": "todownload",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Dr6T65qEZe0pGn30",
+          "mode": "list",
+          "cachedResultName": "FETCH FB LINKS FROM Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/Dr6T65qEZe0pGn30"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "video_id",
+              "keyValue": "={{ $('Batch URLs').item.json.video_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "public": "={{ $('CONFIG').item.json.main_url }}/{{ $json.video_id }}.mp4",
+            "downloaded": true
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "video_id",
+              "displayName": "video_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "browser_native_hd_url",
+              "displayName": "browser_native_hd_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1536,
+        -144
+      ],
+      "id": "af99741b-d6bd-41b9-af5d-82474c63d3de",
+      "name": "update"
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/fb",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fbreelid\": \"{{ $json.fbreelid }}\",\n  \"profileid\": \"{{ $json.profileid }}\",\n  \"db\": \"{{ $json.db }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2880,
+        -80
+      ],
+      "id": "2d9b4b09-a12e-4241-9e99-03787ae1a4e0",
+      "name": "FETCH",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {},
+      "id": "20df3a5d-3e46-4cdd-87c2-bb688e92d192",
+      "name": "wait5",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -2656,
+        -80
+      ],
+      "webhookId": "f79ea594-56dc-47a4-9b40-502e2465ddb1"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-26T06:42:45.105Z",
+      "updatedAt": "2025-09-26T06:42:45.105Z",
+      "role": "workflow:owner",
+      "workflowId": "Jjsb4sMW2zLXBEzm",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        6,
+        8
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": [
+        268
+      ]
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-09-11T20:40:54.952Z",
+      "updatedAt": "2025-09-11T20:40:54.952Z",
+      "id": "KislEXiiNTebxxB8",
+      "name": "Facebook"
+    },
+    {
+      "createdAt": "2025-09-25T19:34:17.156Z",
+      "updatedAt": "2025-09-25T19:34:17.156Z",
+      "id": "o35vDW2iiCaZR9cG",
+      "name": "FETCH"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:04:01.000Z",
+  "versionId": "5c7977a0-bca4-49a9-81bf-63a7aac03874"
+}

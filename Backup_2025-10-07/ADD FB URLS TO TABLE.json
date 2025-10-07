@@ -1,0 +1,169 @@
+{
+  "createdAt": "2025-09-27T11:17:42.232Z",
+  "updatedAt": "2025-09-27T18:40:55.000Z",
+  "id": "g4Y2eVoXR8uiN07t",
+  "name": "ADD FB URLS TO TABLE",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        0
+      ],
+      "id": "ac04279b-eedf-475d-b2b6-d09fcf66670b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "96tNUZnttfeSZrMt",
+          "mode": "list",
+          "cachedResultName": "religious",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/96tNUZnttfeSZrMt"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "reel_id": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "reel_id",
+              "displayName": "reel_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "optimizeBulk": true
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "52b34805-162f-405b-9eba-0e6c1c7c040d",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "118edebd-8446-45ce-a85f-4b0faf6212be",
+              "name": "Reels",
+              "value": "https://www.facebook.com/reel/809293264790189/ https://www.facebook.com/reel/1359284865809139/ https://www.facebook.com/reel/1499478801473777/ https://www.facebook.com/reel/1968821987201269/ https://www.facebook.com/reel/1103766981508135/ https://www.facebook.com/reel/1559450968557917/ https://www.facebook.com/reel/4280982402141479/ https://www.facebook.com/reel/2661550204187193/ https://www.facebook.com/reel/1951457962363789/ https://www.facebook.com/reel/1292929228653765/ https://www.facebook.com/reel/1312141403798821/ https://www.facebook.com/reel/1561747934795676/ https://www.facebook.com/reel/1686990805329199/ https://www.facebook.com/reel/817040167510944/ https://www.facebook.com/reel/1198669778756390/ https://www.facebook.com/reel/1318767963243931/ https://www.facebook.com/reel/1133100968262314/ https://www.facebook.com/reel/1521841252178326/ https://www.facebook.com/reel/781811894780428/ https://www.facebook.com/reel/1254097706469862/ https://www.facebook.com/reel/1849165076012844/ https://www.facebook.com/reel/1612614946790477/ https://www.facebook.com/reel/1822072295075543/ https://www.facebook.com/reel/785977804137627/ https://www.facebook.com/reel/1487922362359276/ https://www.facebook.com/reel/4261156474128031/ https://www.facebook.com/reel/790933846853562/ https://www.facebook.com/reel/2133070870553298/ https://www.facebook.com/reel/710425402055345/ https://www.facebook.com/reel/1113178640796199/ https://www.facebook.com/reel/4070750383186809/ https://www.facebook.com/reel/1766311034008910/ https://www.facebook.com/reel/1329805022269671/ https://www.facebook.com/reel/1330375935458646/ https://www.facebook.com/reel/680395151137941/ https://www.facebook.com/reel/741883055516016/ https://www.facebook.com/reel/788631637234377/ https://www.facebook.com/reel/1430361045404177/ https://www.facebook.com/reel/1303213431349631/ https://www.facebook.com/reel/1293446498610449/ https://www.facebook.com/reel/1474578693866622/ https://www.facebook.com/reel/1129050221887353/ https://www.facebook.com/reel/1213875197427261/ https://www.facebook.com/reel/1302128461300049/ https://www.facebook.com/reel/687850540242430/ https://www.facebook.com/reel/2546741595701187/ https://www.facebook.com/reel/1123341496438691/ https://www.facebook.com/reel/622472957413428/ https://www.facebook.com/reel/1746272946005796/ https://www.facebook.com/reel/793314360315392/ https://www.facebook.com/reel/1094991212741712/ https://www.facebook.com/reel/1852056625661664/ https://www.facebook.com/reel/1153470793299070/ https://www.facebook.com/reel/1586035115705163/ https://www.facebook.com/reel/3420470888092346/ https://www.facebook.com/reel/9792923564143238/ https://www.facebook.com/reel/1494748178229819/ https://www.facebook.com/reel/1118987350192860/ https://www.facebook.com/reel/1134817935230710/ https://www.facebook.com/reel/4179862025626301/ https://www.facebook.com/reel/4006802669630112/ https://www.facebook.com/reel/1620794799308146/ https://www.facebook.com/reel/1470606397152479/ https://www.facebook.com/reel/767147779348398/ https://www.facebook.com/reel/605972879057686/ https://www.facebook.com/reel/638978612106075/ https://www.facebook.com/reel/1531053838304895/ https://www.facebook.com/reel/1295969885272041/ https://www.facebook.com/reel/1104306338285095/ https://www.facebook.com/reel/1643326049690601/ https://www.facebook.com/reel/1238476110927522/ https://www.facebook.com/reel/1252666009449812/ https://www.facebook.com/reel/1091997772897566/ https://www.facebook.com/reel/601419926088376/ https://www.facebook.com/reel/1375821640161791/ https://www.facebook.com/reel/758729086686110/ https://www.facebook.com/reel/626796440438850/ https://www.facebook.com/reel/719482391083924/ https://www.facebook.com/reel/639614222578085/ https://www.facebook.com/reel/3263826173773548/ https://www.facebook.com/reel/925658009716266/ https://www.facebook.com/reel/1179062920692892/ https://www.facebook.com/reel/1316050143219754/ https://www.facebook.com/reel/2560038447677899/ https://www.facebook.com/reel/2844259719107954/ https://www.facebook.com/reel/1992550578215786/ https://www.facebook.com/reel/2749198668623624/ https://www.facebook.com/reel/1459028951797746/ https://www.facebook.com/reel/2191009738082042/ https://www.facebook.com/reel/771271682005139/ https://www.facebook.com/reel/24049385871349711/ https://www.facebook.com/reel/1079203816985187/ https://www.facebook.com/reel/741868144892981/ https://www.facebook.com/reel/747452247656187/ https://www.facebook.com/reel/1431245391345000/ https://www.facebook.com/reel/1242655246986100/ https://www.facebook.com/reel/1119764866738334/ https://www.facebook.com/reel/715796748038271/ https://www.facebook.com/reel/2013389039068997/ https://www.facebook.com/reel/1773885960195525/ https://www.facebook.com/reel/631235606653437/ https://www.facebook.com/reel/1441243846912798/ https://www.facebook.com/reel/716890987752407/ https://www.facebook.com/reel/2814295725420349/",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -336,
+        0
+      ],
+      "id": "17fb9762-61b1-4e7b-bc94-29b31dbec949",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Read the big input text from field \"Reels\"\nconst rawText = $json[\"Reels\"] || \"\";\n\n// Defensive: if empty, try lowercase key\nconst text = rawText || $json[\"reels\"] || \"\";\n\n// Regex to capture Facebook reel URLs (handles /reel/ and /reels/)\nconst urlRegex = /https?:\\/\\/[^\\s\"'<>]*?facebook\\.com\\/(?:reel|reels)\\/\\d+[^\\s\"'<>]*/gi;\n\n// Find all matches\nconst matches = [...text.matchAll(urlRegex)].map(m => m[0]);\n\n// Helper: trim trailing punctuation characters commonly pasted with URLs\nfunction cleanUrl(u) {\n  return u.replace(/[\\.,;\\)\\]\\}]+$/g, '');\n}\n\n// Extract id (first group of digits after /reel/ or /reels/)\nfunction extractId(u) {\n  const m = u.match(/\\/(?:reel|reels)\\/(\\d+)/i);\n  return m ? m[1] : null;\n}\n\n// If no explicit matches found, fallback to scanning tokens for any token containing /reel/\nlet urls = matches.map(cleanUrl);\n\nif (urls.length === 0) {\n  // token scan fallback\n  const tokens = text.split(/\\s+|,|;|\\|/).map(t => t.trim()).filter(Boolean);\n  for (const t of tokens) {\n    const maybe = t.match(/https?:\\/\\/[^\\s\"'<>]*/);\n    if (maybe && /facebook\\.com\\/(?:reel|reels)\\//i.test(maybe[0])) {\n      urls.push(cleanUrl(maybe[0]));\n    } else if (/(?:facebook\\.com\\/(?:reel|reels)\\/\\d+)/i.test(t)) {\n      // sometimes text contains partial url\n      const m = t.match(/facebook\\.com\\/(?:reel|reels)\\/\\d+/i);\n      if (m) urls.push(\"https://\" + m[0]);\n    }\n  }\n}\n\n// Deduplicate but preserve order\nconst seen = new Set();\nconst unique = [];\nfor (const u of urls) {\n  const cu = u.trim();\n  if (!cu) continue;\n  if (!seen.has(cu)) {\n    seen.add(cu);\n    unique.push(cu);\n  }\n}\n\n// Build n8n items\nconst items = unique.map(u => {\n  const id = extractId(u);\n  return { json: { url: u, reel_id: id } };\n});\n\n// Optionally: if you want a JSON payload (single item) containing the whole array too,\n// uncomment the following lines to return one extra item with \"as_json\" field.\n// const asJson = JSON.stringify(unique.map(u => ({ url:u, reel_id: extractId(u) })));\n// items.push({ json: { summary_count: unique.length, as_json: asJson } });\n\nreturn items;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        16
+      ],
+      "id": "a6896cbc-8384-4117-936a-1e50a9b7b513",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "c2b54454-600c-43ca-a27d-284baff32641",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-27T11:17:42.234Z",
+      "updatedAt": "2025-09-27T11:17:42.234Z",
+      "role": "workflow:owner",
+      "workflowId": "g4Y2eVoXR8uiN07t",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,127 @@
+{
+  "active": false,
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Notify in channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify in channel": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-10-02T04:57:05.825Z",
+  "id": "o9ORuJvZYNmMmFfK",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Alert",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "dfea281c-b45b-49b8-a4b8-ec1f3a01bb07",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "position": [
+        -576,
+        128
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0e3ef75e-b4d9-489a-b45b-ca0b994756a7",
+              "name": "telegramChatID",
+              "type": "string",
+              "value": "-1003013552191"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "76ce6219-ed7a-40a4-9115-6e28bf9e93d9",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -384,
+        128
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.telegramChatID }}",
+        "text": "=⚠️🐛 New bug in n8n\nWorkflow: {{ $('Error Trigger').item.json.workflow.name }}\nExecution URL: {{ $('Error Trigger').item.json.execution.url }}\nError message: {{ $('Error Trigger').item.json.execution.error.message }}",
+        "additionalFields": {}
+      },
+      "id": "f414045a-93ed-4c71-a320-765306d75629",
+      "name": "Notify in channel",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        -192,
+        128
+      ],
+      "webhookId": "41264c12-622c-45c1-badd-1e0834773b7f",
+      "typeVersion": 1.2,
+      "credentials": {
+        "telegramApi": {
+          "id": "MKWHBWBE6qCBEPNb",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-02T04:57:05.829Z",
+      "updatedAt": "2025-10-02T04:57:05.829Z",
+      "role": "workflow:owner",
+      "workflowId": "o9ORuJvZYNmMmFfK",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:16:51.255Z",
+      "updatedAt": "2025-10-07T12:16:51.255Z",
+      "id": "tTf80fwdIntIaSPQ",
+      "name": "TOOLS"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-07T12:17:16.000Z",
+  "versionId": "92253434-f3f5-40c8-b5c9-17707c8b9759"
+}

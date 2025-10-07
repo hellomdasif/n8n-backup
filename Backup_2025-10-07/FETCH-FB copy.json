@@ -1,0 +1,119 @@
+{
+  "createdAt": "2025-09-24T12:06:27.732Z",
+  "updatedAt": "2025-10-02T10:46:16.000Z",
+  "id": "4MBM3zz9JEgzIgct",
+  "name": "FETCH-FB copy",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3200,
+        560
+      ],
+      "id": "ae48b7d5-e060-4029-acf7-e4fa376197f5",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44e39d3e-3738-48b3-89b8-c22bca4772a4",
+              "name": "dir",
+              "value": "/upload/fb/Tanvi/output",
+              "type": "string"
+            },
+            {
+              "id": "937e8788-ad7c-49e9-acbe-ba635a51c704",
+              "name": "main_url",
+              "value": "https://files.mohdasif.net/fb/Tanvi/output",
+              "type": "string"
+            },
+            {
+              "id": "0c94ca8a-81b3-482d-b7b1-e122b4cb689a",
+              "name": "sheetid",
+              "value": "1ALPRJrRJJMoZNU3gDYgL8eCh6qbt2gERPgyCuJbctSw",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2976,
+        560
+      ],
+      "id": "56d6e4ae-d2b8-47ab-b88f-079a72201b31",
+      "name": "CONFIG"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "CONFIG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONFIG": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        6,
+        8
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "ac0a14d8-7668-4e5a-83b0-3d72a329d137",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-24T12:06:27.742Z",
+      "updatedAt": "2025-09-24T12:06:27.742Z",
+      "role": "workflow:owner",
+      "workflowId": "4MBM3zz9JEgzIgct",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-24T12:06:33.935Z",
+      "updatedAt": "2025-09-24T12:06:33.935Z",
+      "id": "brQYVTRAMuXweMOU",
+      "name": "fb"
+    }
+  ]
+}

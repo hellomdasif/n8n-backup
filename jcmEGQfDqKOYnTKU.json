@@ -1,0 +1,561 @@
+{
+  "active": false,
+  "connections": {
+    "⚙️ Configure Post Settings": {
+      "main": [
+        [
+          {
+            "node": "🔀 Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — Read Rows4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Google Sheets — Read Rows4": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output video file without watermark": {
+      "main": [
+        [
+          {
+            "node": "Upload Short2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Short2": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "⚙️ Configure Post Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Output video file without watermark",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet — SetStatus2": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-15T13:31:24.897Z",
+  "id": "jcmEGQfDqKOYnTKU",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "GyaanManch-YOUTUBE-NOT",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "217b69e3-98ec-49a2-8fde-372dd1bc1848",
+              "name": "node",
+              "value": "17841416753691295",
+              "type": "string"
+            },
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "value": "http_reel",
+              "type": "string"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5",
+              "name": "image_url",
+              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "type": "string"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "value": "https://files.mohdasif.net/meow1/upload.mp4",
+              "type": "string"
+            },
+            {
+              "id": "c6485101-488b-43db-8708-1a1136292956",
+              "name": "cover_image",
+              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "type": "string"
+            },
+            {
+              "id": "d3c29a01-de2f-4487-a8d1-b6ef691fd2ff",
+              "name": "default_description",
+              "value": "Introducing the \"VitaWear SmartBand,\" a next-generation wearable gadget🎉 that combines health monitoring, productivity tools, and entertainment features in a sleek, minimalist design. It features a flexible OLED display that wraps around the wrist, providing a comfortable fit and immersive visual experience. The SmartBand tracks vital signs like heart rate, blood oxygen levels, and body temperature in real-time, using advanced sensors and AI algorithms to provide personalized health insights and alerts. Beyond health tracking, the VitaWear SmartBand integrates with your digital life, offering seamless notifications, voice assistant support, and quick access to your schedule, reminders, and messages. It also includes a built-in mini projector that can display images or presentations on any flat surface, perfect for on-the-go professionals. Additionally, the SmartBand supports wireless charging and has a battery life of up to 10 days, making it a versatile and essential gadget for modern life.",
+              "type": "string"
+            },
+            {
+              "id": "b97e9319-6f06-4e85-af3b-ce904f6b221c",
+              "name": "default_tags",
+              "value": "#shortsvideo #youtubeshorts",
+              "type": "string"
+            },
+            {
+              "id": "54a57124-b253-4e90-a3d3-e9181acb0a89",
+              "name": "privacyStatus",
+              "value": "Unlisted",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3120,
+        -720
+      ],
+      "id": "5c3a0b45-3f6e-4946-83bb-f2fc2a86cf2e",
+      "name": "⚙️ Configure Post Settings"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "25e31619-4116-46e0-bfcb-a8d8a030fa68",
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP - Reels"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cf34e931-f798-4c70-af29-9aec7aab8f6c",
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Reels"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2896,
+        -720
+      ],
+      "id": "0004ca2d-22fc-4f12-810f-8e49690c141c",
+      "name": "🔀 Smart Content Router"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw",
+          "mode": "list",
+          "cachedResultName": "Insta-reel-fetch",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "FB"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9692f849-9463-4e05-95de-e7ad21a286f2",
+      "name": "Google Sheets — Read Rows4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -2672,
+        -720
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://files.mohdasif.net/extra/final1.mp4",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "140d1fdb-477b-440a-92d8-12895ef9b7c1",
+      "name": "Output video file without watermark",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -2224,
+        -720
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw",
+          "mode": "list",
+          "cachedResultName": "Insta-reel-fetch",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "reel_url": "={{ $('Google Sheets — Read Rows4').item.json.reel_url }}",
+            "FB": "DONE"
+          },
+          "matchingColumns": [
+            "reel_url"
+          ],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "video_url",
+              "displayName": "video_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "reel_url",
+              "displayName": "reel_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "code",
+              "displayName": "code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "published",
+              "displayName": "published",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "FB",
+              "displayName": "FB",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2b6e6702-8682-497e-b681-c53a4a7245c7",
+      "name": "Update Sheet — SetStatus2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1776,
+        -720
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "=Introducing the \"VitaWear SmartBand,\" a next-generation wearable gadget 🍓\n",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $('⚙️ Configure Post Settings').item.json.default_description }} {{ $('Google Sheets — Read Rows4').item.json.title }}",
+          "privacyStatus": "={{ $('⚙️ Configure Post Settings').item.json.privacyStatus }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "={{ $('⚙️ Configure Post Settings').item.json.default_tags }}"
+        }
+      },
+      "name": "Upload Short2",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        -2000,
+        -720
+      ],
+      "id": "e113788f-787f-4bbd-83f4-15952966e664",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "az9PKutmARyxqXGj",
+          "name": "hellomohdasif-youtube"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 21
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3344,
+        -720
+      ],
+      "id": "559cae62-b75e-431f-aa23-10eba9f55b40",
+      "name": "Schedule Trigger",
+      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
+    },
+    {
+      "parameters": {
+        "command": "=\nINPUT_URL=\"{{ $json.public }}\"\nOVERLAY_FILE=\"/files/extra/dance-funny1.mp4\" # The video for the top section\nBOTTOM_PERCENT=57                      # Percentage of the original video for the bottom\n\n# --- Caption Configuration ---\nCAPTION_TEXT=\"Your Caption Here\"\n\n# Instead of a Bash array, use a newline-separated string of captions.\n# If CAPTIONS_STR is non-empty, a random line will be chosen and used as CAPTION_TEXT.\nCAPTIONS_STR='Wait For End \nEND MAST HAI\nYE KYA HO GAYA\nWAAAH'\n\nCAPTION_POS_X_PERCENT=50               # Horizontal position (0=left, 50=center, 100=right)\nCAPTION_POS_Y_PERCENT=35               # Vertical position (0=top, 50=center, 100=bottom)\nCAPTION_FONT_SIZE=60\nCAPTION_FONT_COLOR=\"white\"\nCAPTION_FONT_PATH=\"/files/extra/ARIALBD 1.TTF\"\n\n# --- Text Background Box Configuration ---\nTEXT_BG_ENABLE=true\nTEXT_BG_COLOR=\"black\"\nTEXT_BG_OPACITY=150\nTEXT_BG_PADDING=25\n\n# --- Paths ---\nREL_PATH=$(echo \"$INPUT_URL\" | sed -E 's@https?://[^/]+/@@')\nINPUT_FILE=\"/files/$REL_PATH\"\nASSETS_DIR=\"/files/extra\"\nmkdir -p \"$ASSETS_DIR\"\nOUT_FILE=\"${ASSETS_DIR}/final1.mp4\"\nCAPTION_PNG=\"${ASSETS_DIR}/caption_image.png\"\n\necho \"Starting video processing...\"\n\n# ---------- Random caption selection (POSIX) ----------\nif [ -n \"$CAPTIONS_STR\" ]; then\n  # Use 'shuf' for a more reliable way to pick a random line\n  CAPTION_TEXT=$(printf \"%s\\n\" \"$CAPTIONS_STR\" | shuf -n 1)\n  if [ -n \"$CAPTION_TEXT\" ]; then\n    echo \"Selected random caption: $CAPTION_TEXT\"\n  else\n    echo \"shuf failed; using fixed caption.\"\n    # Reset to the default CAPTION_TEXT in case it was cleared\n    CAPTION_TEXT=\"Your Caption Here\"\n  fi\nelse\n  echo \"Using fixed caption: $CAPTION_TEXT\"\nfi\n\n# File checks\nif [ ! -f \"$INPUT_FILE\" ]; then echo \"ERR: Main input file not found: $INPUT_FILE\" >&2; exit 1; fi\nif [ ! -f \"$OVERLAY_FILE\" ]; then echo \"ERR: Overlay file not found: $OVERLAY_FILE\" >&2; exit 1; fi\n\n# Metadata gathering\nROTATE_TAG=$(ffprobe -v error -select_streams v:0 -show_entries stream_tags=rotate -of default=nw=1:nk=1 \"$INPUT_FILE\" 2>/dev/null || echo \"0\")\nMAIN_VID_DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"$INPUT_FILE\" 2>/dev/null || echo \"\")\nif [ -z \"$MAIN_VID_DURATION\" ]; then\n  MAIN_VID_DURATION=10\nfi\n\nROTATION_FILTER=\"\"\ncase \"$ROTATE_TAG\" in\n  90) ROTATION_FILTER=\"transpose=1,\" ;;\n  270) ROTATION_FILTER=\"transpose=2,\" ;;\nesac\n\n# Remove old caption to avoid caching issues\necho \"Cache-Busting: Deleting old caption image if it exists...\"\nrm -f \"${CAPTION_PNG}\"\n\necho \"Generating new caption image -> ${CAPTION_PNG}\"\nexport CAPTION_PNG CAPTION_TEXT CAPTION_FONT_PATH CAPTION_FONT_SIZE CAPTION_FONT_COLOR CAPTION_POS_X_PERCENT CAPTION_POS_Y_PERCENT TEXT_BG_ENABLE TEXT_BG_COLOR TEXT_BG_OPACITY TEXT_BG_PADDING\n\npython3 - <<'PY'\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\nout_path = os.environ[\"CAPTION_PNG\"]\ntext = os.environ.get(\"CAPTION_TEXT\", \"\")\nfont_path = os.environ.get(\"CAPTION_FONT_PATH\", \"/files/extra/ARIALBD 1.TTF\")\ntry:\n    font_size = int(os.environ.get(\"CAPTION_FONT_SIZE\", \"64\"))\nexcept:\n    font_size = 64\nfont_color = os.environ.get(\"CAPTION_FONT_COLOR\", \"white\")\ntry:\n    pos_x_pct = int(os.environ.get(\"CAPTION_POS_X_PERCENT\", \"50\"))\nexcept:\n    pos_x_pct = 50\ntry:\n    pos_y_pct = int(os.environ.get(\"CAPTION_POS_Y_PERCENT\", \"50\"))\nexcept:\n    pos_y_pct = 50\nbg_enable = os.environ.get(\"TEXT_BG_ENABLE\", \"true\").lower() == 'true'\nbg_color = os.environ.get(\"TEXT_BG_COLOR\", \"black\")\ntry:\n    bg_opacity = int(os.environ.get(\"TEXT_BG_OPACITY\", \"150\"))\nexcept:\n    bg_opacity = 150\ntry:\n    bg_padding = int(os.environ.get(\"TEXT_BG_PADDING\", \"20\"))\nexcept:\n    bg_padding = 20\n\ncanvas_w, canvas_h = 1080, 1920\ncanvas = Image.new(\"RGBA\", (canvas_w, canvas_h), (0, 0, 0, 0))\ndraw = ImageDraw.Draw(canvas)\n\n# Try load font, fallback gracefully\nfont = None\ntry:\n    font = ImageFont.truetype(font_path, font_size)\n    print(f\"Loaded font: {font_path} size {font_size}\")\nexcept Exception as e:\n    print(\"Font load failed:\", e)\n    candidates = [\n        \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n        \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\"\n    ]\n    for p in candidates:\n        if os.path.isfile(p):\n            try:\n                font = ImageFont.truetype(p, font_size)\n                print(\"Loaded fallback font:\", p)\n                break\n            except Exception:\n                font = None\n    if font is None:\n        font = ImageFont.load_default()\n        print(\"Using PIL default font (size may be ignored)\")\n\ntext_bbox = draw.textbbox((0,0), text, font=font)\ntext_width = text_bbox[2] - text_bbox[0]\ntext_height = text_bbox[3] - text_bbox[1]\n\nx = (canvas_w * pos_x_pct / 100.0) - (text_width / 2.0)\ny = (canvas_h * pos_y_pct / 100.0) - (text_height / 2.0)\n\nif bg_enable:\n    bg_layer = Image.new(\"RGBA\", (canvas_w, canvas_h), (0,0,0,0))\n    bg_draw = ImageDraw.Draw(bg_layer)\n    left = int(x - bg_padding)\n    top = int(y - bg_padding)\n    right = int(x + text_width + bg_padding)\n    bottom = int(y + text_height + bg_padding)\n    bg_draw.rectangle([left, top, right, bottom], fill=(0,0,0,bg_opacity))\n    canvas = Image.alpha_composite(canvas, bg_layer)\n\ndraw = ImageDraw.Draw(canvas)\ndraw.text((x, y), text, font=font, fill=font_color)\n\nos.makedirs(os.path.dirname(out_path), exist_ok=True)\ncanvas.save(out_path)\nprint(\"Saved caption image to\", out_path)\nPY\n\nif [ ! -f \"$CAPTION_PNG\" ]; then echo \"ERR: Python script failed to generate caption image.\" >&2; exit 1; fi\n\n# THIS IS THE UPDATED SECTION WITH THE hflip FILTER\nFILTER_COMPLEX=\"color=c=black:s=1080x1920:d=${MAIN_VID_DURATION}[canvas]; \\\n[1:v]scale=1080:-1[top_video]; \\\n[0:v]${ROTATION_FILTER}crop=in_w:in_h*${BOTTOM_PERCENT}/100:0:in_h-in_h*${BOTTOM_PERCENT}/100,scale=1080:-1,hflip[bottom_video]; \\\n[canvas][top_video]overlay=(W-w)/2:0[bg_with_top]; \\\n[bg_with_top][bottom_video]overlay=(W-w)/2:H-h[layout_complete]; \\\n[layout_complete][2:v]overlay=0:0[final_v]\"\n\necho \"Composing final video with text overlay...\"\ntimeout 5m ffmpeg -hide_banner -y \\\n  -loglevel error \\\n  -i \"$INPUT_FILE\" \\\n  -i \"$OVERLAY_FILE\" \\\n  -i \"$CAPTION_PNG\" \\\n  -filter_complex \"${FILTER_COMPLEX}\" \\\n  -map \"[final_v]\" \\\n  -map 0:a? \\\n  -c:v libx264 -crf 23 -preset veryfast \\\n  -c:a copy \\\n  -aspect 9:16 \\\n  -t \"$MAIN_VID_DURATION\" \\\n  \"$OUT_FILE\" < /dev/null\n\nif [ $? -eq 0 ] && [ -f \"$OUT_FILE\" ]; then\n  echo \"✅ SUCCESS: Wrote final video with caption to $OUT_FILE\"\n  exit 0\nelse\n  echo \"❌ ERR: ffmpeg failed or timed out after 5 minutes.\" >&2\n  exit 1\nfi"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2448,
+        -720
+      ],
+      "id": "6afcfea2-8e24-4bfd-ae59-b1c7d6152f76",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "delete",
+        "path": "/upload/extra/final1.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -1552,
+        -720
+      ],
+      "id": "35b6463c-ffd5-44a5-9b25-0521e99b6a09",
+      "name": "FTP",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-15T13:31:24.906Z",
+      "updatedAt": "2025-09-15T13:31:24.906Z",
+      "role": "workflow:owner",
+      "workflowId": "jcmEGQfDqKOYnTKU",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T09:21:16.000Z",
+  "versionId": "70d9b775-1508-4cc3-bd4a-d0a57ef422e9"
+}

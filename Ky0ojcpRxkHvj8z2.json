@@ -1,0 +1,377 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "TrendingTitle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "getLink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getLink": {
+      "main": [
+        [
+          {
+            "node": "download_to_binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download_to_binary": {
+      "main": [
+        [
+          {
+            "node": "upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "upload": {
+      "main": [
+        [
+          {
+            "node": "update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TrendingTitle": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-28T12:35:26.796Z",
+  "id": "Ky0ojcpRxkHvj8z2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FactsMind_99-yt",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 20
+            },
+            {
+              "triggerAtHour": 21,
+              "triggerAtMinute": 15
+            },
+            {
+              "triggerAtHour": 7,
+              "triggerAtMinute": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3440,
+        -1056
+      ],
+      "id": "67952ced-32e7-4181-8dfc-b96404c8adf0",
+      "name": "Schedule Trigger",
+      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "65s10TCHjuQpvOcn",
+          "mode": "list",
+          "cachedResultName": "accounts",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/65s10TCHjuQpvOcn"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "username",
+              "keyValue": "FactsMind_99"
+            },
+            {
+              "keyName": "type",
+              "keyValue": "youtube"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2992,
+        -1056
+      ],
+      "id": "887eeaf1-456c-4a78-8d72-9aed597d08f7",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "HTZPDB0r8j4vlvgv",
+          "mode": "list",
+          "cachedResultName": "Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/HTZPDB0r8j4vlvgv"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "youtube",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2768,
+        -1056
+      ],
+      "id": "5961a314-6e00-4cf8-854e-997fc740146f",
+      "name": "getLink"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Get row(s)').item.json.videopath }}{{ $json.filename }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "54189d50-3bb6-4531-81d6-2ef9f34d275b",
+      "name": "download_to_binary",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -2544,
+        -1056
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('TrendingTitle').item.json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $json.path }} {{ $('TrendingTitle').item.json.title }}",
+          "privacyStatus": "={{ $('Get row(s)').item.json.Privacy }}",
+          "publishAt": "={{ new Date(Date.now() + 60*60*1000).toISOString() }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "={{ $('Get row(s)').item.json.tags }}"
+        }
+      },
+      "name": "upload",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        -2320,
+        -1056
+      ],
+      "id": "c84d476e-3eb9-4d2f-89fc-140d2ceb9a3c",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ulnqe1qEielXQV0W",
+          "name": "Facts Mind 99 - ay7261496@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "RQniz2m6XHsilRNT",
+          "mode": "list",
+          "cachedResultName": "TrendingTitle",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/RQniz2m6XHsilRNT"
+        },
+        "matchType": "allConditions"
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -3216,
+        -1056
+      ],
+      "id": "2e6b8a3c-9ba8-4dc8-98a9-4ca301063fda",
+      "name": "TrendingTitle"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "HTZPDB0r8j4vlvgv",
+          "mode": "list",
+          "cachedResultName": "Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/HTZPDB0r8j4vlvgv"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('getLink').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "youtube": "DONE"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2112,
+        -1056
+      ],
+      "id": "0294156f-7f01-46e4-b376-f06a38f1831d",
+      "name": "update"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-28T12:35:26.801Z",
+      "updatedAt": "2025-09-28T12:35:26.801Z",
+      "role": "workflow:owner",
+      "workflowId": "Ky0ojcpRxkHvj8z2",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-09-20T04:39:43.575Z",
+      "updatedAt": "2025-09-20T04:39:43.575Z",
+      "id": "BV8GBwIqmK0QIGLr",
+      "name": "YOUTUBE"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:03:56.000Z",
+  "versionId": "98de6746-3375-4b12-b0be-23a413ee7b33"
+}

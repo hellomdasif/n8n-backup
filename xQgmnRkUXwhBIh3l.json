@@ -1,0 +1,204 @@
+{
+  "active": false,
+  "connections": {
+    "Trending-title": {
+      "main": [
+        [
+          {
+            "node": "alldata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "randomQuote": {
+      "main": [
+        [
+          {
+            "node": "Trending-title",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "randomQuote",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "alldata": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-22T10:32:30.937Z",
+  "id": "xQgmnRkUXwhBIh3l",
+  "isArchived": true,
+  "meta": null,
+  "name": "YOUTUBE-TAGS",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"title\": \"My title\",\n  \"description\": \"Long description\",\n  \"tags\": [\"#jaidmeel\", \"#ayeshavilla\", \"#aliza\"]\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        -144
+      ],
+      "id": "2ad428ca-08f4-4c72-ba79-da77561c197b",
+      "name": "Trending-title"
+    },
+    {
+      "parameters": {
+        "url": "https://hindi-quotes.vercel.app/random",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        -144
+      ],
+      "id": "8acfe8b7-a614-4dd8-bb2d-6c6be4435586",
+      "name": "randomQuote"
+    },
+    {
+      "parameters": {
+        "path": "ytags",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -240,
+        -144
+      ],
+      "id": "8ca8d6c7-a0d6-430a-acf0-808a16240f18",
+      "name": "Webhook",
+      "webhookId": "8a4d374e-fe8b-4c85-99b7-dcac509e95bd"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        624,
+        -144
+      ],
+      "id": "7248caeb-db08-47d5-9103-cca8453abdd0",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4c15aa3b-99f5-4871-8de5-a7183566b80a",
+              "name": "Title",
+              "value": "={{ $json.tags[Math.floor(Math.random() * $json.tags.length)] }}",
+              "type": "string"
+            },
+            {
+              "id": "6123eb49-8817-4fe7-98cf-99f67338e9bc",
+              "name": "description",
+              "value": "теги: xxxtentacion, empire, rap, bad vibes forever / empire, hip hop & rap, xxx, look at me, lil pump, music, bad vibes forever, sad, sad!, juice wrld, members only, hope, music video, 2017, hip-hop, the, ski mask the slump god, エックスエックスエックステンタシオン、 revenge,?, lj, jmp, hip hop, jocelyn flores, wishing well, ski mask, tentacion, икстентасион, xxxtentacion tribute, pop, lil wayne, live, wifisfuneral, official, rip, jahseh onfroy, yung bratz, 2019, trap, jahseh, jesus honcho - infatuated (official music video), emotional rap, yung bratz xxxtentaction, elevator, yung bratz xxxtentacion, elevator xxxtentacion, yung bratz lyrics, xxxtentacion songs, infatuated, xxxtentacion yung bratz, yung bratz artist, arms around you song, arms around you, sway lee, arms around you tribute, rap music, pop music, proudcatowner, xxx tentacion, hip hop music, armaroundyou, armsaroundyou, yung bratz r",
+              "type": "string"
+            },
+            {
+              "id": "7f41ee87-a8ca-4921-8738-f773bdfcaf40",
+              "name": "randomLines",
+              "value": "={{ $('randomQuote').item.json.quote }}",
+              "type": "string"
+            },
+            {
+              "id": "96bda1e1-917a-47fb-9249-fedd154588c9",
+              "name": "des2",
+              "value": "#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送🌍微信、支付寶收款 國外配送約2週左右 因天氣、不可控因素可能延誤 能接受再下單🗳️可詢問客服配送進度.",
+              "type": "string"
+            },
+            {
+              "id": "d30fbb6d-8a6a-4d9a-b940-6ac6e167fd84",
+              "name": "des3",
+              "value": "🔹Tags:- 👇   #harharmahadev​ #mahadev​ #mahakal​ #jaimahakal​ #sawan​ #sawanspecial​ #sawan2025​ #funny​ #comedy​ #attitude​ #girl​ #artandcraft​ #woodworking​ #shortvideo​    #trending​​ #emotional​​ #youtubeshorts​​ #comedy​​ #funny​​ #wedding​​ #realfools​​ #pushpa2​​ #pushpa​​    #short​​ #ytshort​​ #shortsfeed​​ #shortvideo​​ #trending​​ #short​​ #viral​​ #viralshorts​​ #youtubeshorts​​ #Imillion​​ #craft​​ #viralvideo​​ #youtube​​ #fact​​ #woodworking​​  #fact​​ #miniwoodtoy​​ #shortvideo​​ #shortviral​​   #viralreels​​ #factinhindi​​ #factshorts​​ #miniwood​​ #trendingvideo​​ #urcristiano​​ #cristianoronaldo​​ #tiktok​​ #tiktokvideo​​ #story​​ #storytime​​ #storiesinhindi​​ #hindistories​​ #factswood​​ #factinhindi​​ #factvideo​​ #amazingfacts​​ #shortvideo​​ #intestingfact​​ #2024facts​​ #shortfeed​​ #shortvideo​​ #shorts​​ #ytshorts​​ #shortsfeed​​ #shortvideo​​ #trending​​ #short​​ #viral​​ #viralshorts​​ #youtubeshorts​​ #facts​​ #woodworking​​ #fact​​ #trend​​ #factswood​​     #shorts​​ #unboxing​​ #youtubeshorts​​ #unboxingvideo​​ #amazon​​ #amazonproducts​​ #firstyoutubeincome​​ #unboxingindia​​ #amazonunboxing​​ #gaming​​ #unboxingshorts​​ #cricket​​ #cricketball​​ #indiancricket​​ #cricketbat​​ #cricketlover​​ #ball​​ #collection​​    #funny​​ #teamacto​​  @MrBeast2  @MrBeast    @ManojDey2.O-m2v @ManojDey      @PushkarRajThakurOfficial  @Skfacts01s    ‪@Jooliohere‬    ⚠️Copyright Disclaimer:⚠️ Under section 107 of the copyright Act 1976, allowance is mad for FAIR USE for purpose such a as criticism, comment, news reporting, teaching, scholarship and research. Fair use is a use permitted by copyright statues that might otherwise be infringing. Non- Profit, educational or personal use tips the balance in favor of FAIR USE.2",
+              "type": "string"
+            },
+            {
+              "id": "2ce42dae-62bd-4ca9-bf72-cd439b553b51",
+              "name": "des4",
+              "value": "Introducing the \"VitaWear SmartBand,\" a next-generation wearable gadget🎉 that combines health monitoring, productivity tools, and entertainment features in a sleek, minimalist design. It features a flexible OLED display that wraps around the wrist, providing a comfortable fit and immersive visual experience. The SmartBand tracks vital signs like heart rate, blood oxygen levels, and body temperature in real-time, using advanced sensors and AI algorithms to provide personalized health insights and alerts.  Beyond health tracking, the VitaWear SmartBand integrates with your digital life, offering seamless notifications, voice assistant support, and quick access to your schedule, reminders, and messages. It also includes a built-in mini projector that can display images or presentations on any flat surface, perfect for on-the-go professionals. Additionally, the SmartBand supports wireless charging and has a battery life of up to 10 days, making it a versatile and essential gadget for modern life.",
+              "type": "string"
+            },
+            {
+              "id": "2231b59c-f7fd-441d-8a13-919891dd4a4d",
+              "name": "title1",
+              "value": "Introducing the \"VitaWear SmartBand,\" a next-generation wearable gadget🎉 ",
+              "type": "string"
+            },
+            {
+              "id": "6ddf6e55-71b9-4b3d-a730-e1ae737de89a",
+              "name": "trend",
+              "value": "#zarooratrishta",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        -144
+      ],
+      "id": "9f1b57ef-261a-4c4b-af47-c468d664fe2e",
+      "name": "alldata"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-22T10:32:30.941Z",
+      "updatedAt": "2025-09-22T10:32:30.941Z",
+      "role": "workflow:owner",
+      "workflowId": "xQgmnRkUXwhBIh3l",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-09-30T11:43:46.000Z",
+  "versionId": "70db2326-7039-4b09-8bc6-d9d1af94d168"
+}

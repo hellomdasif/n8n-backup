@@ -1,0 +1,1138 @@
+{
+  "createdAt": "2025-09-25T19:15:31.162Z",
+  "updatedAt": "2025-09-25T19:51:57.000Z",
+  "id": "kDeUhcZ882OSTqKh",
+  "name": "Instagram-mystickhan-reaction-video copy",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw",
+          "mode": "list",
+          "cachedResultName": "Insta-reel-fetch",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "published": "PUBLISHED",
+            "public": "={{ $('Google Sheets — Read Rows4').item.json.public }}"
+          },
+          "matchingColumns": [
+            "public"
+          ],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "video_url",
+              "displayName": "video_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "reel_url",
+              "displayName": "reel_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "code",
+              "displayName": "code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "published",
+              "displayName": "published",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "a6d7db2f-540f-44f5-b6a3-1a9a44447dde",
+      "name": "Update Sheet — SetStatus1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1040,
+        -928
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "217b69e3-98ec-49a2-8fde-372dd1bc1848",
+              "name": "node",
+              "value": "17841468272726732",
+              "type": "string"
+            },
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "value": "http_reel",
+              "type": "string"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5",
+              "name": "image_url",
+              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "type": "string"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "value": "https://files.mohdasif.net/meow1/upload.mp4",
+              "type": "string"
+            },
+            {
+              "id": "c6485101-488b-43db-8708-1a1136292956",
+              "name": "cover_image",
+              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3952,
+        -496
+      ],
+      "id": "2685b4b3-3f4f-4d22-93ea-5be8109ebb8a",
+      "name": "⚙️ Configure Post Settings"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('⚙️ Configure Post Settings').item.json.node }}/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "=REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "=https://files.mohdasif.net/extra/{{ $('Google Sheets — Read Rows4').item.json.code }}.mp4"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('Google Sheets — Read Rows4').item.json.title }} #mystickhan\n"
+            },
+            {
+              "name": "cover_url",
+              "value": "="
+            },
+            {
+              "name": "audio_name",
+              "value": "=mystickhan"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2608,
+        -672
+      ],
+      "id": "53c64f15-4fb5-4d2a-97e5-6def3614563d",
+      "name": "Container HTTP Reels",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "K7LY27wNHGw0VlWg",
+          "name": "mystickhan-17841468272726732"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "37f96da8-a8b6-417b-b5cf-7a4df5b4610c",
+              "name": "container_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2384,
+        -672
+      ],
+      "id": "802c1aab-5f15-45dc-ab87-8a3f82f9d8b9",
+      "name": "🔍 Check Processing Status"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1712,
+        -736
+      ],
+      "id": "c0b5724c-0d31-42b8-87a7-ee8bade74eb0",
+      "name": "✅ Is Container Ready?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "da6bcb63-632a-443a-b5b3-a8b6e1c62871",
+              "leftValue": "={{ $('🔀 Smart Content Router').item.json.post_type.split(\"_\")[0] }}",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1488,
+        -832
+      ],
+      "id": "bdd5bdc1-d5d4-432a-b414-40e725ff308c",
+      "name": "🔀 HTTP vs FB API Router"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('🔀 Smart Content Router').item.json.node }}/media_publish",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1264,
+        -928
+      ],
+      "id": "10588c30-0ce7-466b-8243-dfd184fd3963",
+      "name": "📤 Publish via HTTP API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "K7LY27wNHGw0VlWg",
+          "name": "mystickhan-17841468272726732"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $('🔀 Smart Content Router').item.json.node }}",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -1264,
+        -736
+      ],
+      "id": "a6c97be8-02cf-4955-8bf8-05338e1a5ef7",
+      "name": "📤 Publish via Facebook SDK",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IoWNonuo3DCqxU0n",
+          "name": "tiny.moew.diary-instagram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -2160,
+        -672
+      ],
+      "id": "f7d20304-c033-4ced-9f0c-bb3df9bc326d",
+      "name": "⏰ Initial Processing Wait",
+      "webhookId": "4e0d96c6-30b2-47b4-b40f-48d9198ca589"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1264,
+        -544
+      ],
+      "id": "61b0e8ef-8355-490b-afc1-e0289487fb2f",
+      "name": "⏰ Retry Wait Loop",
+      "webhookId": "833b5ce0-6e1e-499c-9b82-7d000b6a3278"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v22.0/{{ $('🔍 Check Processing Status').item.json.container_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1936,
+        -672
+      ],
+      "id": "07e667e7-cd81-478c-89d4-beb2fcca85bf",
+      "name": "🔍 Check Processing Status1",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "K7LY27wNHGw0VlWg",
+          "name": "mystickhan-17841468272726732"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1488,
+        -544
+      ],
+      "id": "3005658f-0acd-4388-be99-2a425c4e36d1",
+      "name": "anyError"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8",
+          "mode": "list",
+          "cachedResultName": "tiny.moew.diary-insta-tiktok",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $('Google Sheets — Read Rows4').item.json.DirectUrl }}",
+            "status": "=ERROR"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "7429e56c-89ad-4ac9-ab05-815071e82996",
+      "name": "UPDATE ERROR",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1040,
+        -544
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw",
+          "mode": "list",
+          "cachedResultName": "Insta-reel-fetch",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uvLy2aqh4nZcSnls1B9lMDcCLvu9poQWJ6uzpZELALw/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "downloaded"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0e333705-494b-4294-a3a4-d8d84c7642e3",
+      "name": "Google Sheets — Read Rows4",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -3424,
+        -1008
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $('Increment Loop Var').item.json.page }}",
+              "operation": "larger",
+              "value2": "=3"
+            }
+          ]
+        }
+      },
+      "name": "Reached Max?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1264,
+        -352
+      ],
+      "id": "b4127aa2-f327-47ab-b6be-ffb188952d7d"
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "name": "Wait 2m",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        -816,
+        -112
+      ],
+      "id": "7c0c210d-cc75-45f5-92a8-1e1622a6c506",
+      "webhookId": "df32e715-4cfa-4ef3-8fe9-09e2318defa2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1503b89d-7f11-49fc-86ed-38ed600fc34c",
+              "name": "prevPage",
+              "value": "={{ $('Increment Loop Var').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1040,
+        -192
+      ],
+      "id": "b234d38d-4b7c-427d-8537-ab963fb7e81d",
+      "name": "Forward Prev Page Num"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "32a6221a-b000-4b5f-9b93-271c44d542fd",
+              "name": "page",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "91668535-ba9c-4626-8e64-e7a20644c8e2",
+              "name": "pageCount",
+              "value": 3,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3504,
+        -496
+      ],
+      "id": "36902d96-f62b-413c-b650-89b119f1be21",
+      "name": "Vars"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a042073f-f9e7-4258-80db-360a09c549e4",
+              "name": "page",
+              "value": "={{ ($('Forward Prev Page Num').isExecuted) ? $('Forward Prev Page Num').first().json.prevPage + 1 : $('Vars').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3280,
+        -496
+      ],
+      "id": "499f074b-b6bc-4615-8d7a-3521578f2b3b",
+      "name": "Increment Loop Var"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "25e31619-4116-46e0-bfcb-a8d8a030fa68",
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP - Reels"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cf34e931-f798-4c70-af29-9aec7aab8f6c",
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Reels"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -3728,
+        -496
+      ],
+      "id": "f77ca127-3374-4135-b20d-a78f65b4de30",
+      "name": "🔀 Smart Content Router"
+    },
+    {
+      "parameters": {
+        "command": "=\nINPUT_URL=\"{{ $json.public }}\"\nOVERLAY_FILE=\"/files/extra/dance-funny1.mp4\" # The video for the top section\nBOTTOM_PERCENT=57                      # Percentage of the original video for the bottom\n\n# --- Caption Configuration ---\nCAPTION_TEXT=\"Your Caption Here\"\n\n# Instead of a Bash array, use a newline-separated string of captions.\n# If CAPTIONS_STR is non-empty, a random line will be chosen and used as CAPTION_TEXT.\nCAPTIONS_STR='Wait For End \nEND MAST HAI\nYE KYA HO GAYA\nWAAAH'\n\nCAPTION_POS_X_PERCENT=50               # Horizontal position (0=left, 50=center, 100=right)\nCAPTION_POS_Y_PERCENT=35               # Vertical position (0=top, 50=center, 100=bottom)\nCAPTION_FONT_SIZE=60\nCAPTION_FONT_COLOR=\"white\"\nCAPTION_FONT_PATH=\"/files/extra/ARIALBD 1.TTF\"\n\n# --- Text Background Box Configuration ---\nTEXT_BG_ENABLE=true\nTEXT_BG_COLOR=\"black\"\nTEXT_BG_OPACITY=150\nTEXT_BG_PADDING=25\n\n# --- Paths ---\nREL_PATH=$(echo \"$INPUT_URL\" | sed -E 's@https?://[^/]+/@@')\nINPUT_FILE=\"/files/$REL_PATH\"\nASSETS_DIR=\"/files/extra\"\nmkdir -p \"$ASSETS_DIR\"\nOUT_FILE=\"${ASSETS_DIR}/{{ $json.code }}.mp4\"\nCAPTION_PNG=\"${ASSETS_DIR}/caption_image.png\"\n\necho \"Starting video processing...\"\n\n# ---------- Random caption selection (POSIX) ----------\nif [ -n \"$CAPTIONS_STR\" ]; then\n  # Use 'shuf' for a more reliable way to pick a random line\n  CAPTION_TEXT=$(printf \"%s\\n\" \"$CAPTIONS_STR\" | shuf -n 1)\n  if [ -n \"$CAPTION_TEXT\" ]; then\n    echo \"Selected random caption: $CAPTION_TEXT\"\n  else\n    echo \"shuf failed; using fixed caption.\"\n    # Reset to the default CAPTION_TEXT in case it was cleared\n    CAPTION_TEXT=\"Your Caption Here\"\n  fi\nelse\n  echo \"Using fixed caption: $CAPTION_TEXT\"\nfi\n\n# File checks\nif [ ! -f \"$INPUT_FILE\" ]; then echo \"ERR: Main input file not found: $INPUT_FILE\" >&2; exit 1; fi\nif [ ! -f \"$OVERLAY_FILE\" ]; then echo \"ERR: Overlay file not found: $OVERLAY_FILE\" >&2; exit 1; fi\n\n# Metadata gathering\nROTATE_TAG=$(ffprobe -v error -select_streams v:0 -show_entries stream_tags=rotate -of default=nw=1:nk=1 \"$INPUT_FILE\" 2>/dev/null || echo \"0\")\nMAIN_VID_DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"$INPUT_FILE\" 2>/dev/null || echo \"\")\nif [ -z \"$MAIN_VID_DURATION\" ]; then\n  MAIN_VID_DURATION=10\nfi\n\nROTATION_FILTER=\"\"\ncase \"$ROTATE_TAG\" in\n  90) ROTATION_FILTER=\"transpose=1,\" ;;\n  270) ROTATION_FILTER=\"transpose=2,\" ;;\nesac\n\n# Remove old caption to avoid caching issues\necho \"Cache-Busting: Deleting old caption image if it exists...\"\nrm -f \"${CAPTION_PNG}\"\n\necho \"Generating new caption image -> ${CAPTION_PNG}\"\nexport CAPTION_PNG CAPTION_TEXT CAPTION_FONT_PATH CAPTION_FONT_SIZE CAPTION_FONT_COLOR CAPTION_POS_X_PERCENT CAPTION_POS_Y_PERCENT TEXT_BG_ENABLE TEXT_BG_COLOR TEXT_BG_OPACITY TEXT_BG_PADDING\n\npython3 - <<'PY'\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\nout_path = os.environ[\"CAPTION_PNG\"]\ntext = os.environ.get(\"CAPTION_TEXT\", \"\")\nfont_path = os.environ.get(\"CAPTION_FONT_PATH\", \"/files/extra/ARIALBD 1.TTF\")\ntry:\n    font_size = int(os.environ.get(\"CAPTION_FONT_SIZE\", \"64\"))\nexcept:\n    font_size = 64\nfont_color = os.environ.get(\"CAPTION_FONT_COLOR\", \"white\")\ntry:\n    pos_x_pct = int(os.environ.get(\"CAPTION_POS_X_PERCENT\", \"50\"))\nexcept:\n    pos_x_pct = 50\ntry:\n    pos_y_pct = int(os.environ.get(\"CAPTION_POS_Y_PERCENT\", \"50\"))\nexcept:\n    pos_y_pct = 50\nbg_enable = os.environ.get(\"TEXT_BG_ENABLE\", \"true\").lower() == 'true'\nbg_color = os.environ.get(\"TEXT_BG_COLOR\", \"black\")\ntry:\n    bg_opacity = int(os.environ.get(\"TEXT_BG_OPACITY\", \"150\"))\nexcept:\n    bg_opacity = 150\ntry:\n    bg_padding = int(os.environ.get(\"TEXT_BG_PADDING\", \"20\"))\nexcept:\n    bg_padding = 20\n\ncanvas_w, canvas_h = 1080, 1920\ncanvas = Image.new(\"RGBA\", (canvas_w, canvas_h), (0, 0, 0, 0))\ndraw = ImageDraw.Draw(canvas)\n\n# Try load font, fallback gracefully\nfont = None\ntry:\n    font = ImageFont.truetype(font_path, font_size)\n    print(f\"Loaded font: {font_path} size {font_size}\")\nexcept Exception as e:\n    print(\"Font load failed:\", e)\n    candidates = [\n        \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n        \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\"\n    ]\n    for p in candidates:\n        if os.path.isfile(p):\n            try:\n                font = ImageFont.truetype(p, font_size)\n                print(\"Loaded fallback font:\", p)\n                break\n            except Exception:\n                font = None\n    if font is None:\n        font = ImageFont.load_default()\n        print(\"Using PIL default font (size may be ignored)\")\n\ntext_bbox = draw.textbbox((0,0), text, font=font)\ntext_width = text_bbox[2] - text_bbox[0]\ntext_height = text_bbox[3] - text_bbox[1]\n\nx = (canvas_w * pos_x_pct / 100.0) - (text_width / 2.0)\ny = (canvas_h * pos_y_pct / 100.0) - (text_height / 2.0)\n\nif bg_enable:\n    bg_layer = Image.new(\"RGBA\", (canvas_w, canvas_h), (0,0,0,0))\n    bg_draw = ImageDraw.Draw(bg_layer)\n    left = int(x - bg_padding)\n    top = int(y - bg_padding)\n    right = int(x + text_width + bg_padding)\n    bottom = int(y + text_height + bg_padding)\n    bg_draw.rectangle([left, top, right, bottom], fill=(0,0,0,bg_opacity))\n    canvas = Image.alpha_composite(canvas, bg_layer)\n\ndraw = ImageDraw.Draw(canvas)\ndraw.text((x, y), text, font=font, fill=font_color)\n\nos.makedirs(os.path.dirname(out_path), exist_ok=True)\ncanvas.save(out_path)\nprint(\"Saved caption image to\", out_path)\nPY\n\nif [ ! -f \"$CAPTION_PNG\" ]; then echo \"ERR: Python script failed to generate caption image.\" >&2; exit 1; fi\n\n# THIS IS THE UPDATED SECTION WITH THE hflip FILTER\nFILTER_COMPLEX=\"color=c=black:s=1080x1920:d=${MAIN_VID_DURATION}[canvas]; \\\n[1:v]scale=1080:-1[top_video]; \\\n[0:v]${ROTATION_FILTER}crop=in_w:in_h*${BOTTOM_PERCENT}/100:0:in_h-in_h*${BOTTOM_PERCENT}/100,scale=1080:-1,hflip[bottom_video]; \\\n[canvas][top_video]overlay=(W-w)/2:0[bg_with_top]; \\\n[bg_with_top][bottom_video]overlay=(W-w)/2:H-h[layout_complete]; \\\n[layout_complete][2:v]overlay=0:0[final_v]\"\n\necho \"Composing final video with text overlay...\"\ntimeout 5m ffmpeg -hide_banner -y \\\n  -loglevel error \\\n  -i \"$INPUT_FILE\" \\\n  -i \"$OVERLAY_FILE\" \\\n  -i \"$CAPTION_PNG\" \\\n  -filter_complex \"${FILTER_COMPLEX}\" \\\n  -map \"[final_v]\" \\\n  -map 0:a? \\\n  -c:v libx264 -crf 23 -preset veryfast \\\n  -c:a copy \\\n  -aspect 9:16 \\\n  -t \"$MAIN_VID_DURATION\" \\\n  \"$OUT_FILE\" < /dev/null\n\nif [ $? -eq 0 ] && [ -f \"$OUT_FILE\" ]; then\n  echo \"✅ SUCCESS: Wrote final video with caption to $OUT_FILE\"\n  exit 0\nelse\n  echo \"❌ ERR: ffmpeg failed or timed out after 5 minutes.\" >&2\n  exit 1\nfi"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2768,
+        -608
+      ],
+      "id": "922eef2e-75cc-48e2-9e61-964924c65c52",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "delete",
+        "path": "= /upload/extra/{{ $('Google Sheets — Read Rows4').item.json.code }}.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -816,
+        -928
+      ],
+      "id": "39253cd8-97d9-4c8d-b320-1dd372c40305",
+      "name": "FTP",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8,13 * * *"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 8,19,21 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -4224,
+        -512
+      ],
+      "id": "e4398c9d-f818-45c1-a828-f44fd92e4813",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "name": "Wait 2m1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        -2768,
+        -464
+      ],
+      "id": "11d8c9a2-07b7-49ca-a0db-879165f49f9c",
+      "webhookId": "9f5bcf09-52e3-4a2a-a28c-c804f44c5693"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "lFVyd4RfhwC5itlg",
+          "mode": "list",
+          "cachedResultName": "FETCH REACTION VIDEO FROM INSTAGRAM",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/lFVyd4RfhwC5itlg"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "FB"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2992,
+        -800
+      ],
+      "id": "33b2398d-b11f-44a6-bff1-6696aed581c6",
+      "name": "Get row(s)"
+    }
+  ],
+  "connections": {
+    "⚙️ Configure Post Settings": {
+      "main": [
+        [
+          {
+            "node": "🔀 Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container HTTP Reels": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Check Processing Status": {
+      "main": [
+        [
+          {
+            "node": "⏰ Initial Processing Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✅ Is Container Ready?": {
+      "main": [
+        [
+          {
+            "node": "🔀 HTTP vs FB API Router",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "anyError",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 HTTP vs FB API Router": {
+      "main": [
+        [
+          {
+            "node": "📤 Publish via HTTP API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📤 Publish via Facebook SDK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Initial Processing Wait": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Retry Wait Loop": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Check Processing Status1": {
+      "main": [
+        [
+          {
+            "node": "✅ Is Container Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📤 Publish via HTTP API": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "anyError": {
+      "main": [
+        [
+          {
+            "node": "Reached Max?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "⏰ Retry Wait Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — Read Rows4": {
+      "main": [
+        []
+      ]
+    },
+    "Reached Max?": {
+      "main": [
+        [
+          {
+            "node": "UPDATE ERROR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Forward Prev Page Num",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2m": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Forward Prev Page Num": {
+      "main": [
+        [
+          {
+            "node": "Wait 2m",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vars": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Loop Var": {
+      "main": [
+        []
+      ]
+    },
+    "🔀 Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Wait 2m1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet — SetStatus1": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        []
+      ]
+    },
+    "Wait 2m1": {
+      "main": [
+        [
+          {
+            "node": "Container HTTP Reels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "164aec0e-2a3a-4d90-9451-461c7674007c",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-25T19:15:31.168Z",
+      "updatedAt": "2025-09-25T19:15:31.168Z",
+      "role": "workflow:owner",
+      "workflowId": "kDeUhcZ882OSTqKh",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-10T11:25:38.298Z",
+      "updatedAt": "2025-09-10T11:25:38.298Z",
+      "id": "r3ZdTHEV3fmr7eAz",
+      "name": "instagram"
+    }
+  ]
+}

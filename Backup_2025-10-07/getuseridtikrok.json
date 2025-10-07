@@ -1,0 +1,160 @@
+{
+  "createdAt": "2025-09-10T07:42:20.897Z",
+  "updatedAt": "2025-09-14T12:48:48.000Z",
+  "id": "V6uY4ppkwDsH0kVK",
+  "name": "getuseridtikrok",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "2d850171-3779-432a-840b-e11d6729e009",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "username",
+              "value": "tiny.moew.diary"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "30b84b38-ef3a-4e18-96f1-364639c287a2",
+      "name": "Set Username",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        80,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://tiktok-api23.p.rapidapi.com/api/user/info",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "uniqueId",
+              "value": "={{$json[\"username\"]}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "tiktok-api23.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e59e79e4-8b09-4881-9d83-b1f5b38379e6",
+      "name": "Get User Info",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        320,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "value": "={{ $json.userInfo.user.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2abb420e-01bc-4038-ad32-27ed72fbfa60",
+      "name": "Extract secUid",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        560,
+        -176
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Set Username",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Username": {
+      "main": [
+        [
+          {
+            "node": "Get User Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get User Info": {
+      "main": [
+        [
+          {
+            "node": "Extract secUid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "17abda7a-3e6f-4a26-b6b2-5978a8f76ec4",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-10T07:42:20.903Z",
+      "updatedAt": "2025-09-10T07:42:20.903Z",
+      "role": "workflow:owner",
+      "workflowId": "V6uY4ppkwDsH0kVK",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-10T07:49:32.166Z",
+      "updatedAt": "2025-09-10T07:49:32.166Z",
+      "id": "kmJ9RrYGObSkXZT9",
+      "name": "tiktok"
+    }
+  ]
+}

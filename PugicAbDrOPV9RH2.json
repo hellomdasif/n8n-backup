@@ -1,0 +1,374 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Insert into Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert into Queue": {
+      "main": [
+        [
+          {
+            "node": "Respond Immediately",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check for Pending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for Pending": {
+      "main": [
+        [
+          {
+            "node": "Has Pending?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Pending?": {
+      "main": [
+        [
+          {
+            "node": "Get Next Job",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Next Job": {
+      "main": [
+        [
+          {
+            "node": "Mark as Processing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as Processing": {
+      "main": [
+        [
+          {
+            "node": "Process Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Job": {
+      "main": [
+        [
+          {
+            "node": "Mark as Completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as Completed": {
+      "main": [
+        [
+          {
+            "node": "Wait 1 sec",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 1 sec": {
+      "main": [
+        [
+          {
+            "node": "Check for Pending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-05T15:48:29.240Z",
+  "id": "PugicAbDrOPV9RH2",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Centralized Queue Processor",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "queue-processor",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "queue-processor"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "request_queue",
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "name",
+              "value": "={{ $json.body.name }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "mysql_insert",
+      "name": "Insert into Queue",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        464,
+        304
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM request_queue WHERE status = 'pending' ORDER BY id ASC LIMIT 1",
+        "options": {}
+      },
+      "id": "check_pending",
+      "name": "Check for Pending",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        688,
+        400
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "any",
+                "operation": "exists"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if_pending",
+      "name": "Has Pending?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        912,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "job_id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "get_next",
+      "name": "Get Next Job",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE request_queue SET status = 'processing' WHERE id = {{ $json.job_id }}",
+        "options": {}
+      },
+      "id": "mark_processing",
+      "name": "Mark as Processing",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1344,
+        304
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Simulate processing\nconst name = $input.item.json.name;\n\nconsole.log(`Processing job: ${name}`);\nconsole.log(`Name: ${name}`);\n\n// Simulate some work\nawait new Promise(resolve => setTimeout(resolve, 2000));\n\nreturn {\n  json: {\n    job_id: $input.item.json.job_id,\n    name: name,\n    status: 'completed',\n    message: `Successfully processed: ${name}`\n  }\n};"
+      },
+      "id": "process_job",
+      "name": "Process Job",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE request_queue SET status = 'completed', processed_at = NOW() WHERE id = {{ $json.job_id }}",
+        "options": {}
+      },
+      "id": "mark_completed",
+      "name": "Mark as Completed",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1792,
+        304
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "id": "wait",
+      "name": "Wait 1 sec",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2000,
+        304
+      ],
+      "webhookId": "ba859046-e557-4b2c-9b4b-c23873818557"
+    },
+    {
+      "parameters": {},
+      "id": "no_job",
+      "name": "No Job",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        512
+      ]
+    },
+    {
+      "id": "respond",
+      "name": "Respond Immediately",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        688,
+        208
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\"status\": \"queued\", \"job_id\": $json.insertId, \"message\": \"Request added to queue\"} }}",
+        "options": {}
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-05T15:48:29.244Z",
+      "updatedAt": "2025-10-05T15:48:29.244Z",
+      "role": "workflow:owner",
+      "workflowId": "PugicAbDrOPV9RH2",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-06T05:42:59.000Z",
+  "versionId": "3c87adcb-6cd4-4a8a-9351-f74db8f297b8"
+}

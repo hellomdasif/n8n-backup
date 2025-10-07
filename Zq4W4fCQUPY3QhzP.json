@@ -1,0 +1,1092 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Configure Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Settings": {
+      "main": [
+        [
+          {
+            "node": "Get Unpublished Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Unpublished Content": {
+      "main": [
+        [
+          {
+            "node": "Check if Content Available",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Content Available": {
+      "main": [
+        [
+          {
+            "node": "Process Content Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Content Data": {
+      "main": [
+        [
+          {
+            "node": "Initialize Retry Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Retry Variables": {
+      "main": [
+        [
+          {
+            "node": "Initialize FB Upload",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create IG Container",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Download Video File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize FB Upload": {
+      "main": [
+        [
+          {
+            "node": "Upload FB Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Update FB Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload FB Video": {
+      "main": [
+        [
+          {
+            "node": "Publish Facebook Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Update FB Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Facebook Reel": {
+      "main": [
+        [
+          {
+            "node": "Update FB Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Update FB Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create IG Container": {
+      "main": [
+        [
+          {
+            "node": "Set Container ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Update IG Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Container ID": {
+      "main": [
+        [
+          {
+            "node": "Wait for IG Processing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for IG Processing": {
+      "main": [
+        [
+          {
+            "node": "Check IG Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check IG Status": {
+      "main": [
+        [
+          {
+            "node": "Is IG Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is IG Ready?": {
+      "main": [
+        [
+          {
+            "node": "Publish IG Reel",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is IG Error?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish IG Reel": {
+      "main": [
+        [
+          {
+            "node": "Update IG Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Update IG Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is IG Error?": {
+      "main": [
+        [
+          {
+            "node": "Check Retry Limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 1 Minute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Retry Limit": {
+      "main": [
+        [
+          {
+            "node": "Increment Retry Count",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update IG Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Retry Count": {
+      "main": [
+        [
+          {
+            "node": "Wait 1 Minute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 1 Minute": {
+      "main": [
+        [
+          {
+            "node": "Check IG Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video File": {
+      "main": [
+        [
+          {
+            "node": "Upload to YouTube",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Update YT Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload to YouTube": {
+      "main": [
+        [
+          {
+            "node": "Update YT Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Update YT Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-28T06:55:16.908Z",
+  "id": "Zq4W4fCQUPY3QhzP",
+  "isArchived": true,
+  "meta": null,
+  "name": "Multi-Platform Social Media Poster - Fixed",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9,
+              "triggerAtMinute": 0
+            },
+            {
+              "triggerAtHour": 15,
+              "triggerAtMinute": 0
+            },
+            {
+              "triggerAtHour": 21,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "config",
+      "name": "Configure Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        300,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "fb_page_id",
+              "value": "YOUR_FACEBOOK_PAGE_ID",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "ig_node_id",
+              "value": "YOUR_INSTAGRAM_NODE_ID",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "video_base_url",
+              "value": "YOUR_VIDEO_BASE_URL",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "data_table_id",
+              "value": "3n4T1gUfzptUetE7",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "common_hashtags",
+              "value": "#viral #trending #content",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "getData",
+      "name": "Get Unpublished Content",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "3n4T1gUfzptUetE7",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fb_status",
+              "condition": "isEmpty"
+            },
+            {
+              "keyName": "ig_status",
+              "condition": "isEmpty"
+            },
+            {
+              "keyName": "yt_status",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "limit": 1
+      }
+    },
+    {
+      "id": "checkData",
+      "name": "Check if Content Available",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        700,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.filename }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "processContent",
+      "name": "Process Content Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        200
+      ],
+      "parameters": {
+        "jsCode": "// Process the content data for posting\nconst contentData = $('Get Unpublished Content').first().json;\nconst config = $('Configure Settings').first().json;\n\n// Clean and prepare the description/title\nfunction cleanDescription(input) {\n  let output = input;\n  // Remove any unwanted text patterns\n  output = output.replace(/\\s{2,}/g, \" \").trim();\n  // Escape for JSON\n  output = output\n    .replace(/\\\\/g, \"\\\\\\\\\")\n    .replace(/\"/g, '\\\\\"')\n    .replace(/\\r/g, \"\\\\r\")\n    .replace(/\\n/g, \"\\\\n\");\n  return output;\n}\n\nconst cleanedDescription = cleanDescription(contentData.path);\nconst videoUrl = `${config.video_base_url}${contentData.filename}`;\n\nreturn [{\n  json: {\n    filename: contentData.filename,\n    title: cleanedDescription,\n    description: `${cleanedDescription}\\n\\n${config.common_hashtags}`,\n    videoUrl: videoUrl,\n    contentId: contentData.id || contentData.filename\n  }\n}];"
+      }
+    },
+    {
+      "id": "initRetryVars",
+      "name": "Initialize Retry Variables",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        900,
+        100
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "ig_retry_count",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "2",
+              "name": "max_retries",
+              "value": 2,
+              "type": "number"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "facebookPost",
+      "name": "Initialize FB Upload",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        50
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Configure Settings').item.json.fb_page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"upload_phase\":\"start\"\n}"
+      }
+    },
+    {
+      "id": "uploadFBVideo",
+      "name": "Upload FB Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1300,
+        50
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.upload_url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "={{ $('Process Content Data').item.json.videoUrl }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "publishFB",
+      "name": "Publish Facebook Reel",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1500,
+        50
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Configure Settings').item.json.fb_page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_id\": \"{{ $('Initialize FB Upload').item.json.video_id }}\",\n  \"upload_phase\": \"finish\",\n  \"video_state\": \"PUBLISHED\",\n  \"description\": \"{{ $('Process Content Data').item.json.description }}\"\n}"
+      }
+    },
+    {
+      "id": "updateFBSuccess",
+      "name": "Update FB Success",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        50
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "3n4T1gUfzptUetE7",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Process Content Data').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb_status": "DONE",
+            "fb_post_id": "={{ $('Publish Facebook Reel').item.json.id }}"
+          }
+        }
+      }
+    },
+    {
+      "id": "updateFBError",
+      "name": "Update FB Error",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        150
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "3n4T1gUfzptUetE7",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Process Content Data').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb_status": "ERROR"
+          }
+        }
+      }
+    },
+    {
+      "id": "instagramContainer",
+      "name": "Create IG Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        250
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('Configure Settings').item.json.ig_node_id }}/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $('Process Content Data').item.json.videoUrl }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('Process Content Data').item.json.description }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "setContainerID",
+      "name": "Set Container ID",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1300,
+        250
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "container_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "waitIG",
+      "name": "Wait for IG Processing",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1500,
+        250
+      ],
+      "parameters": {
+        "amount": 30
+      }
+    },
+    {
+      "id": "checkIGStatus",
+      "name": "Check IG Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1700,
+        250
+      ],
+      "parameters": {
+        "url": "=https://graph.facebook.com/v22.0/{{ $('Set Container ID').item.json.container_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "isIGReady",
+      "name": "Is IG Ready?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1900,
+        250
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "publishIG",
+      "name": "Publish IG Reel",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2100,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('Configure Settings').item.json.ig_node_id }}/media_publish",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $('Set Container ID').item.json.container_id }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "updateIGSuccess",
+      "name": "Update IG Success",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        2300,
+        200
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "3n4T1gUfzptUetE7",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Process Content Data').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ig_status": "DONE",
+            "ig_post_id": "={{ $('Publish IG Reel').item.json.id }}"
+          }
+        }
+      }
+    },
+    {
+      "id": "isIGError",
+      "name": "Is IG Error?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1900,
+        350
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "ERROR",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "checkRetryLimit",
+      "name": "Check Retry Limit",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2100,
+        350
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $('Initialize Retry Variables').item.json.ig_retry_count }}",
+              "rightValue": "={{ $('Initialize Retry Variables').item.json.max_retries }}",
+              "operator": {
+                "type": "number",
+                "operation": "smaller"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "incrementRetry",
+      "name": "Increment Retry Count",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2300,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "ig_retry_count",
+              "value": "={{ $('Initialize Retry Variables').item.json.ig_retry_count + 1 }}",
+              "type": "number"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "waitRetry",
+      "name": "Wait 1 Minute",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2500,
+        300
+      ],
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      }
+    },
+    {
+      "id": "updateIGError",
+      "name": "Update IG Error",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        2300,
+        400
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "3n4T1gUfzptUetE7",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Process Content Data').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ig_status": "ERROR"
+          }
+        }
+      }
+    },
+    {
+      "id": "downloadVideo",
+      "name": "Download Video File",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        450
+      ],
+      "parameters": {
+        "url": "={{ $('Process Content Data').item.json.videoUrl }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "youtubePost",
+      "name": "Upload to YouTube",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        450
+      ],
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('Process Content Data').item.json.title }}",
+        "regionCode": "US",
+        "categoryId": "22",
+        "binaryProperty": "data",
+        "options": {
+          "description": "={{ $('Process Content Data').item.json.description }}",
+          "tags": "viral,trending,shorts",
+          "privacyStatus": "public"
+        }
+      }
+    },
+    {
+      "id": "updateYTSuccess",
+      "name": "Update YT Success",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        450
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "3n4T1gUfzptUetE7",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Process Content Data').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "yt_status": "DONE",
+            "yt_video_id": "={{ $('Upload to YouTube').item.json.id }}"
+          }
+        }
+      }
+    },
+    {
+      "id": "updateYTError",
+      "name": "Update YT Error",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        550
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "3n4T1gUfzptUetE7",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Process Content Data').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "yt_status": "ERROR"
+          }
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": null,
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-28T06:55:16.911Z",
+      "updatedAt": "2025-09-28T06:55:16.911Z",
+      "role": "workflow:owner",
+      "workflowId": "Zq4W4fCQUPY3QhzP",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-28T07:09:41.000Z",
+  "versionId": "790cd803-055f-4c99-aee1-39dce95e543d"
+}

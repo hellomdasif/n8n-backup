@@ -1,0 +1,1433 @@
+{
+  "active": false,
+  "connections": {
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pending_url": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "accounts": {
+      "main": [
+        [
+          {
+            "node": "pending_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "command": {
+      "main": [
+        [
+          {
+            "node": "public",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "public": {
+      "main": [
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepared": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config2": {
+      "main": [
+        [
+          {
+            "node": "download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "IF FINAL EMPTY1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF FINAL EMPTY",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF FINAL EMPTY2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF FINAL EMPTY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "final_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT_PUBLIC": {
+      "main": [
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "build_public_url": {
+      "main": [
+        [
+          {
+            "node": "INSERT_PUBLIC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "modify_mohd_asif",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MILLION_VIEWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "build_final_url_mohd_asif": {
+      "main": [
+        [
+          {
+            "node": "INSERT_FINAL_MOHD_ASIF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT_FINAL_MOHD_ASIF": {
+      "main": [
+        [
+          {
+            "node": "After_mod_Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "After_mod_Prepared": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "modify_mohd_asif": {
+      "main": [
+        [
+          {
+            "node": "build_final_url_mohd_asif",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "final_url": {
+      "main": [
+        [
+          {
+            "node": "After_mod_Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "build_public_url1": {
+      "main": [
+        [
+          {
+            "node": "INSERT_PUBLIC_ReelSense",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT_PUBLIC_ReelSense": {
+      "main": [
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SAMPLE": {
+      "main": [
+        []
+      ]
+    },
+    "MILLION_VIEWS": {
+      "main": [
+        [
+          {
+            "node": "build_final_url_mohd_asif",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF FINAL EMPTY1": {
+      "main": [
+        [
+          {
+            "node": "config2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF FINAL EMPTY": {
+      "main": [
+        [
+          {
+            "node": "build_public_url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF FINAL EMPTY2": {
+      "main": [
+        [
+          {
+            "node": "build_public_url1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-07T03:09:18.154Z",
+  "id": "Kci6PSZkQ4DDd0qm",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "build_data_fb_insta (GOD MOD)",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('accounts').item.json.root_dir }}{{ $('accounts').item.json.folder }}input.jpg",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -1136,
+        -2144
+      ],
+      "id": "a1f3a58b-740a-4614-9592-4e47a19cf36c",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nLIMIT 1;\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -2336,
+        -1536
+      ],
+      "id": "432d3597-51a3-4ab4-827e-548a6332f300",
+      "name": "pending_url",
+      "executeOnce": false,
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM accounts\nWHERE username = '{{ $json.username }}'\n  AND type = '{{ $json.type }}'\nLIMIT 1;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -2560,
+        -1536
+      ],
+      "id": "0d30938f-0432-472c-99ba-f797feb051e6",
+      "name": "accounts",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('pending_url').item.json.image }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1360,
+        -2144
+      ],
+      "id": "741df578-beba-44d7-9cd1-8a5dd096817f",
+      "name": "download"
+    },
+    {
+      "parameters": {
+        "command": "=python3  {{ $json.file }} \\\n-i  {{ $json.input_image }} \\\n-b  {{ $json.input_video }} \\\n-o  {{ $json.output__video }} \\\n--cut-percentage 40 \\\n--cut-shape random \\\n--hole-color red \\\n--movement-style random \\\n--piece-scale 1.5 \\\n--fps 30 \\\n--margin-top 45 \\\n--audio-volume 10 \\\n--audio-file {{ $json.audio }} \\\n--audio-custom-volume 100 \\\n--alignment-hold-time 10 \\\n--image-coverage 95"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -912,
+        -2144
+      ],
+      "id": "76b69049-13df-427f-80e2-fae6b37813ab",
+      "name": "command"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $('config2').item.json.finalurl }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -736,
+        -2144
+      ],
+      "id": "669e43df-929b-4c79-9d18-e18d12775e4f",
+      "name": "public",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k",
+          "mode": "list",
+          "cachedResultName": "PROCESS FACEBOOK",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "public": "={{ $json.final }}",
+            "access_token": "={{ $('accounts').item.json.token }}",
+            "database_name": "={{ $('accounts').item.json.database_name }}",
+            "status": "Pending",
+            "acc_id": "={{ $('accounts').item.json.acc_id }}",
+            "title": "={{ $('config').item.json.title ? $json.title : $('accounts').item.json.default_title }}\n",
+            "description": "={{ $('config').item.json.description ? $json.title : $('accounts').item.json.default_des }}\n",
+            "type": "={{ $('config').item.json.type }}",
+            " username": "={{ $('accounts').item.json.username }}",
+            "id": "={{ $json.id }}"
+          },
+          "matchingColumns": [
+            "acc_id"
+          ],
+          "schema": [
+            {
+              "id": " username",
+              "displayName": " username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "access_token",
+              "displayName": "access_token",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "database_name",
+              "displayName": "database_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "acc_id",
+              "displayName": "acc_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1152,
+        -1504
+      ],
+      "id": "3901ecdc-5c3d-4f89-8e7a-669c1f377eb7",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "hellomohdasif@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('config').item.json.type }} IS NULL\n   OR {{ $('config').item.json.type }} = ''\nLIMIT 1;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -480,
+        -1584
+      ],
+      "id": "cc6a44de-3b5b-4163-88eb-a09e4bfd33cf",
+      "name": "Prepared",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3008,
+        -1632
+      ],
+      "id": "409af4c1-8795-48a7-ab07-5355e134c4e5",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "235e1dfd-b7bb-40e9-a708-f495c8361968",
+              "name": "file",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}v2.py",
+              "type": "string"
+            },
+            {
+              "id": "ad67ccd6-fa0b-493f-b7f5-d3c517e7a402",
+              "name": "input_image",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}input.jpg ",
+              "type": "string"
+            },
+            {
+              "id": "53643391-bd34-45ae-92f2-b09c42d88bee",
+              "name": "input_video",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}input/{{ String(Math.floor(Math.random() * 28) + 1).padStart(3, '0') }}.mp4",
+              "type": "string"
+            },
+            {
+              "id": "ef82fb45-0b77-4793-bdca-fa5a565eb7f4",
+              "name": "output__video",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}output/{{ $json.id }}.mp4",
+              "type": "string"
+            },
+            {
+              "id": "e4456bd9-36e6-490d-8067-18c207ebf21b",
+              "name": "audio",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}audio.mp3",
+              "type": "string"
+            },
+            {
+              "id": "0e5c521a-b028-434d-8602-0d9ac00cde6d",
+              "name": "finalurl",
+              "value": "=https://files.mohdasif.net{{ $('accounts').item.json.folder }}output/{{ $('pending_url').item.json.id }}.mp4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1488,
+        -2144
+      ],
+      "id": "fe5a91a7-1a44-4bf2-a401-4ff954e99c9f",
+      "name": "config2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "638acc1e-78f9-49fb-9988-2fbc39c24bcf",
+              "name": "username",
+              "value": "={{ $json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
+              "name": "type",
+              "value": "={{ $json.type }}",
+              "type": "string"
+            },
+            {
+              "id": "49cc4872-f0c8-4630-9d2b-776ab3e26f7b",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2784,
+        -1536
+      ],
+      "id": "d04f865e-030e-4094-9842-ea28d6a20bb2",
+      "name": "config"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3008,
+        -1440
+      ],
+      "id": "68ff4ffc-57ae-44d3-a54d-cdb5cba40c25",
+      "name": "When clicking ‘Execute workflow’",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "urban__raja",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "044222b3-8bb6-49ab-894b-9b3fee1fe343"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "urban__raja"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "087647e1-c883-48ad-b04b-a2fce36eb524",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "iammohdasifx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "iammohdasifx"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "83ea2689-510b-4ec7-92a0-dd5f8dfe51bf",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "ReelSense",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ReelSense"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "04be0559-ef87-434e-b0b1-b68486abee4f",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "knowsparkz",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "knowsparkz"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -2032,
+        -1568
+      ],
+      "id": "a5201cff-3225-40c6-bcc4-8dd094d7ba18",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $json.final }}",
+              "rightValue": "NEEDS MODIFICATION",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -304,
+        -1584
+      ],
+      "id": "424b0d66-ed2f-4b57-99a8-74454a9851b9",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $json.public }}\",\n  final =  \"NEEDS MODIFICATION\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -928,
+        -1600
+      ],
+      "id": "00b44975-eaf1-4ae9-934f-9fe6703c0a02",
+      "name": "INSERT_PUBLIC",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b7b3e73-6867-4b4d-a184-d016241b74bf",
+              "name": "public",
+              "value": "=https://files.mohdasif.net{{ $('accounts').item.json.folder }}{{ $('pending_url').item.json.filename }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1232,
+        -1632
+      ],
+      "id": "9a722e99-40d0-4653-8bf8-521f98bc9841",
+      "name": "build_public_url"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "087647e1-c883-48ad-b04b-a2fce36eb524",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "iammohdasifx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "iammohdasifx"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "253761b6-dd64-4b7a-badb-afb1e73bfd90",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "knowsparkz",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "knowsparkz"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -80,
+        -1808
+      ],
+      "id": "926f2345-b815-44fd-9729-274eb4d8f2a0",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  final =  \"{{ $('build_final_url_mohd_asif').item.json.final }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        784,
+        -2000
+      ],
+      "id": "495fcb90-b2e5-494e-b004-1ee16a79386a",
+      "name": "INSERT_FINAL_MOHD_ASIF",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b7b3e73-6867-4b4d-a184-d016241b74bf",
+              "name": "final",
+              "value": "=https://files.mohdasif.net{{ $('accounts').item.json.folder }}output/{{ $json.stdout }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        -2000
+      ],
+      "id": "6b4cd469-241a-41f3-a650-0a1f58d11884",
+      "name": "build_final_url_mohd_asif"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('config').item.json.type }} IS NULL\n   OR {{ $('config').item.json.type }} = ''\nLIMIT 1;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        992,
+        -1504
+      ],
+      "id": "cde61bca-f5d6-443e-ac4d-3e683fc268c9",
+      "name": "After_mod_Prepared",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://n8n.mohdasif.net/webhook/reaction2",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('pending_url').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\",\n  \"OVERLAY_FILE\": \"{{ $('accounts').item.json.root_dir }}tools/reaction/asif/1.mp4\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        112,
+        -2000
+      ],
+      "id": "7955f9f5-382f-436b-8ba3-302e3d5658db",
+      "name": "modify_mohd_asif"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  final = \"{{ $('Prepared').item.json.public }}\"\nWHERE \n  id = {{ $('pending_url').item.json.id }}\n  AND (final IS NULL OR final = '');\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        224,
+        -1504
+      ],
+      "id": "35d4856f-13f4-4c5e-99bc-6675609c93de",
+      "name": "final_url",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b7b3e73-6867-4b4d-a184-d016241b74bf",
+              "name": "public",
+              "value": "=https://files.mohdasif.net/{{ $('accounts').item.json.folder }}{{ $('pending_url').item.json.filename }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1232,
+        -1360
+      ],
+      "id": "f73418e9-b043-4b93-a692-cbf5f36c9b55",
+      "name": "build_public_url1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $json.public }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -944,
+        -1360
+      ],
+      "id": "21c6a69d-91a3-4206-ad31-4bc0c2812cdf",
+      "name": "INSERT_PUBLIC_ReelSense",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 288,
+        "width": 928
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1680,
+        -1728
+      ],
+      "typeVersion": 1,
+      "id": "487c0e68-200b-4aa1-a6a4-fcd28be1582c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d953bafc-ff06-43b9-a2be-f1fd341bef57",
+              "name": "stdout",
+              "value": "d5_lgmSVRtQ.mp4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        -2352
+      ],
+      "id": "7fcac101-1d27-4321-a6d7-f69f642f3a3b",
+      "name": "SAMPLE",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/views",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('Prepared').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        256,
+        -1792
+      ],
+      "id": "e75a2291-85da-4f63-b9c4-1e9b08dfc020",
+      "name": "MILLION_VIEWS"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "c6d77762-53c7-484a-845c-b5f966a55a94",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1712,
+        -2128
+      ],
+      "id": "725ccdf8-baea-4903-8a63-c16cae7e35b3",
+      "name": "IF FINAL EMPTY1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "c6d77762-53c7-484a-845c-b5f966a55a94",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1568,
+        -1344
+      ],
+      "id": "99da09c0-4791-4ea2-a64d-d6e992c8d867",
+      "name": "IF FINAL EMPTY2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "c6d77762-53c7-484a-845c-b5f966a55a94",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1600,
+        -1616
+      ],
+      "id": "a77a1caa-04f7-4187-ae50-1f4585b11281",
+      "name": "IF FINAL EMPTY"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 272,
+        "width": 1408
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1856,
+        -2208
+      ],
+      "typeVersion": 1,
+      "id": "235fb084-2ec7-4e27-98b5-0bf2378f79b5",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 288,
+        "width": 928
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1664,
+        -1408
+      ],
+      "typeVersion": 1,
+      "id": "e4aaa099-dadc-4e2a-8c81-35fd0c6cf6b3",
+      "name": "Sticky Note2"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK",
+    "executionTimeout": 600
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-07T03:09:18.159Z",
+      "updatedAt": "2025-10-07T03:09:18.159Z",
+      "role": "workflow:owner",
+      "workflowId": "Kci6PSZkQ4DDd0qm",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        18
+      ]
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:13:49.553Z",
+      "updatedAt": "2025-10-07T12:13:49.553Z",
+      "id": "RDHUqhF8fggE5BPq",
+      "name": "FACEBOOK-INSTA"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:13:56.000Z",
+  "versionId": "fdf9f24a-8527-4511-b5ab-9ce6d31ab520"
+}

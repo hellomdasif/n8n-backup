@@ -1,0 +1,66 @@
+{
+  "createdAt": "2025-09-29T19:29:23.276Z",
+  "updatedAt": "2025-09-29T19:35:59.000Z",
+  "id": "Zj4XWcEcfZAuQj3w",
+  "name": "My workflow 24",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bbced7b2-d64d-4cd6-830e-38d34138882a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# save as get_instagram_reels.py\nimport json\nimport instaloader\nfrom datetime import datetime\nimport time\n\nUSERNAME = \"instagram_username_here\"   # <- replace with target username\nOUTPUT_FILE = f\"{USERNAME}_reels.json\"\nDO_LOGIN = False           # set True if you want to login (recommended for big profiles)\nLOGIN_USER = \"your_user\"   # if DO_LOGIN True\nLOGIN_PASS = \"your_pass\"   # consider interactive or sessionfile instead of plaintext\n\nL = instaloader.Instaloader(download_pictures=False,\n                            download_videos=False,\n                            download_video_thumbnails=False,\n                            save_metadata=False,\n                            compress_json=False)\n\n# Optional: login to increase access / reduce rate-limits (and access private if allowed)\nif DO_LOGIN:\n    L.login(LOGIN_USER, LOGIN_PASS)\n    # or: L.interactive_login(LOGIN_USER)\n\n# Get the profile object\nprofile = instaloader.Profile.from_username(L.context, USERNAME)\n\nreels = []\ncount = 0\n\n# Instaloader provides profile.get_reels() / profile.get_posts(); get_reels() is focused on Reels\n# (If your installed instaloader is older and lacks get_reels(), you can iterate get_posts() and filter is_video.)\ntry:\n    reel_iter = profile.get_reels()\nexcept Exception:\n    # fallback for versions without get_reels()\n    reel_iter = (p for p in profile.get_posts() if p.is_video)\n\nfor post in reel_iter:\n    # Some Post attributes:\n    # post.shortcode -> unique ID used in URLs\n    # post.video_url -> direct mp4 url (may be None for non-video posts)\n    # post.caption, post.date_utc, post.likes, post.comments\n    # Construct public reel URL: https://www.instagram.com/reel/{shortcode}/\n    try:\n        item = {\n            \"shortcode\": post.shortcode,\n            \"reel_url\": f\"https://www.instagram.com/reel/{post.shortcode}/\",\n            \"video_url\": getattr(post, \"video_url\", None),\n            \"thumbnail_url\": getattr(post, \"url\", None),\n            \"caption\": post.caption or \"\",\n            \"timestamp_utc\": post.date_utc.isoformat() if post.date_utc else None,\n            \"likes\": getattr(post, \"likes\", None),\n            \"comments\": getattr(post, \"comments\", None),\n        }\n        reels.append(item)\n        count += 1\n    except Exception as e:\n        print(\"Skipped a post due to:\", e)\n\n    # small polite delay to avoid hammering Instagram\n    time.sleep(1.0)\n\nprint(f\"Collected {count} reels for @{USERNAME}\")\n\n# Save to file\nwith open(OUTPUT_FILE, \"w\", encoding=\"utf-8\") as f:\n    json.dump({\n        \"fetched_at\": datetime.utcnow().isoformat(),\n        \"username\": USERNAME,\n        \"reel_count\": count,\n        \"reels\": reels\n    }, f, ensure_ascii=False, indent=2)\n\nprint(\"Saved ->\", OUTPUT_FILE)\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0622a3e0-28c1-4ced-b70c-325b9d1a4ca1",
+      "name": "Code in Python (Beta)"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code in Python (Beta)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "c2abe278-f294-49c4-b940-5418d0fab67c",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-29T19:29:23.282Z",
+      "updatedAt": "2025-09-29T19:29:23.282Z",
+      "role": "workflow:owner",
+      "workflowId": "Zj4XWcEcfZAuQj3w",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

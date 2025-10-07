@@ -1,0 +1,139 @@
+{
+  "createdAt": "2025-09-08T02:58:46.900Z",
+  "updatedAt": "2025-09-11T05:03:24.000Z",
+  "id": "8P8nRDOxItEvq4RT",
+  "name": "My workflow 4",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "upload-short",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        -160
+      ],
+      "id": "10a1d521-fc42-41f7-b27b-50d11ffab434",
+      "webhookId": "e8120145-f089-42ae-8fbe-4c0840c8000a"
+    },
+    {
+      "parameters": {
+        "url": "=https://files.mohdasif.net/KnowSparkz/a10.mp4",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "name": "Download Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -160
+      ],
+      "id": "468ffdb9-729f-44f6-a9fe-074547c6b488"
+    },
+    {
+      "parameters": {
+        "functionCode": "// ensure title/description contain #Shorts and normalise tags\nconst input = items[0].json || {};\nconst rawTitle = input.title || null;\nconst rawDesc = input.description || null;\nconst filename = (input.videoUrl || '').split('/').pop() || 'short';\nconst basename = filename.split('.').slice(0, -1).join('.') || filename;\nconst title = rawTitle ? (rawTitle.includes('#Shorts') ? rawTitle : rawTitle + ' #Shorts') : (basename + ' #Shorts');\nconst description = rawDesc ? (rawDesc.includes('#Shorts') ? rawDesc : rawDesc + '\\n\\n#Shorts') : '#Shorts';\nitems[0].json.title = title;\nitems[0].json.description = description;\nitems[0].json.tags = input.tags || ['shorts','youtube'];\nreturn items;"
+      },
+      "name": "Prepare Metadata",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        208,
+        -160
+      ],
+      "id": "4912c9f4-d114-46c4-95fa-aa62b7661aa2"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        1168,
+        -208
+      ],
+      "id": "dcd6bf73-92e1-4262-b6c2-47fc84baa05a",
+      "name": "Upload a video",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "53V5EXwtYZRfT2WN",
+          "name": "YouTube account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        928,
+        -224
+      ],
+      "id": "78d37a94-8a89-4127-a779-a07a2134668e",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Download Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video": {
+      "main": [
+        [
+          {
+            "node": "Prepare Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Upload a video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "2fb73b45-3db8-43f3-a439-a6b236a7c73f",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-08T02:58:46.914Z",
+      "updatedAt": "2025-09-08T02:58:46.914Z",
+      "role": "workflow:owner",
+      "workflowId": "8P8nRDOxItEvq4RT",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

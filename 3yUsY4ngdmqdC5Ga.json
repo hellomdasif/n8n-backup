@@ -1,0 +1,70 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-10T19:59:21.616Z",
+  "id": "3yUsY4ngdmqdC5Ga",
+  "isArchived": true,
+  "meta": null,
+  "name": "{   \"name\": \"INSTAGRAM-REVISED-FINAL\",   \"nodes\": [     {       \"parameters\": {         \"values\": {           \"string\": [",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6e52b8e7-6da7-486b-b8fa-f04f5d1453e4",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "Quisquam blanditiis minus cum illo optio adipisci ut."
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "e4caa53e-9922-4db2-b6a6-bdb5c2190653",
+      "name": "Execute Command"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-10T19:59:21.618Z",
+      "updatedAt": "2025-09-10T19:59:21.618Z",
+      "role": "workflow:owner",
+      "workflowId": "3yUsY4ngdmqdC5Ga",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-11T05:00:47.000Z",
+  "versionId": "4060c22b-288c-4dd8-ab03-9d4b9b9e94f8"
+}

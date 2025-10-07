@@ -1,0 +1,100 @@
+{
+  "createdAt": "2025-10-04T15:22:05.389Z",
+  "updatedAt": "2025-10-04T15:31:35.000Z",
+  "id": "dPTjh7EuS1ayot16",
+  "name": "webhook-N4Bhai",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "N4Bhai",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -96,
+        -128
+      ],
+      "id": "e5b5b10f-af4f-4a59-b701-fd4d0449124c",
+      "name": "Webhook",
+      "webhookId": "240608a6-91c8-45a9-8999-489e21cc3b71"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "table": {
+          "__rl": true,
+          "value": "N4Bhai",
+          "mode": "list",
+          "cachedResultName": "N4Bhai"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "filename",
+        "valueToMatchOn": "={{ $json.body.filename }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "filename",
+              "value": "={{ $json.body.filename }}"
+            },
+            {
+              "column": "path",
+              "value": "={{ $json.body.title }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        160,
+        -128
+      ],
+      "id": "c40ef3eb-2d49-4062-bcd5-16f6ceebde38",
+      "name": "Insert or update rows in a table",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Insert or update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "857be2b6-624a-4fdd-8374-2ccee66205df",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-10-04T15:22:05.394Z",
+      "updatedAt": "2025-10-04T15:22:05.394Z",
+      "role": "workflow:owner",
+      "workflowId": "dPTjh7EuS1ayot16",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,153 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If row does not exist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-29T04:52:42.920Z",
+  "id": "3sMuke7g8DLAZbfu",
+  "isArchived": true,
+  "meta": null,
+  "name": "webhook-FactsMind_99",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "FactsMind_99",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -272,
+        16
+      ],
+      "id": "ef2f92a5-d757-495d-aa79-159b398f9432",
+      "name": "Webhook",
+      "webhookId": "fc47df42-c4e4-472d-a297-736169651b70"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "HTZPDB0r8j4vlvgv",
+          "mode": "list",
+          "cachedResultName": "Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/HTZPDB0r8j4vlvgv"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filename": "={{ $json.body.filename }}",
+            "path": "={{ $json.body.title }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        176,
+        16
+      ],
+      "id": "a1132f95-1bab-4282-a31a-cd2e4e3599c0",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "HTZPDB0r8j4vlvgv",
+          "mode": "list",
+          "cachedResultName": "Facts Mind 99",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/HTZPDB0r8j4vlvgv"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $json.body.filename }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        16
+      ],
+      "id": "9f5b728c-5f00-4588-8a84-0f4af2c9ff45",
+      "name": "If row does not exist"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-29T04:52:42.924Z",
+      "updatedAt": "2025-09-29T04:52:42.924Z",
+      "role": "workflow:owner",
+      "workflowId": "3sMuke7g8DLAZbfu",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-01T07:29:57.000Z",
+  "versionId": "e275859a-cd29-48d3-bd45-3adcfdc209c1"
+}

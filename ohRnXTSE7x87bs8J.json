@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "If": {
       "main": [
@@ -572,9 +572,7 @@
       "parameters": {
         "rule": {
           "interval": [
-            {
-              "triggerAtHour": 7
-            }
+            {}
           ]
         }
       },
@@ -1157,7 +1155,12 @@
     "owner": "hellomdasif",
     "name": "n8n-backup"
   },
-  "settings": {},
+  "settings": {
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 600,
+    "executionOrder": "v0",
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
   "shared": [
     {
       "createdAt": "2025-10-07T12:55:57.359Z",
@@ -1167,9 +1170,20 @@
       "projectId": "COQIBF46Vn0bg2e3"
     }
   ],
-  "staticData": null,
-  "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-10-07T12:59:25.000Z",
-  "versionId": "bace0fc1-3123-4726-bfaf-e25579974d25"
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:16:51.255Z",
+      "updatedAt": "2025-10-07T12:16:51.255Z",
+      "id": "tTf80fwdIntIaSPQ",
+      "name": "TOOLS"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T13:05:54.000Z",
+  "versionId": "13a7ad20-3f15-4b25-a207-ae9bcbea4884"
 }

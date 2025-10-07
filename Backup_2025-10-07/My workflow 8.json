@@ -1,0 +1,65 @@
+{
+  "createdAt": "2025-09-10T19:47:15.482Z",
+  "updatedAt": "2025-09-11T05:01:09.000Z",
+  "id": "C6CEIzypFnDuv9ew",
+  "name": "My workflow 8",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b19a9fb4-3a6b-49ce-865f-a0dc31111823",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "ffmpeg -version"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "6e7251e7-e5ae-4fdd-9165-51f187f818cc",
+      "name": "Execute Command"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "5019f5c8-8652-4b98-bd01-8a3c99403448",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-10T19:47:15.485Z",
+      "updatedAt": "2025-09-10T19:47:15.485Z",
+      "role": "workflow:owner",
+      "workflowId": "C6CEIzypFnDuv9ew",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

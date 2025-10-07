@@ -1,0 +1,294 @@
+{
+  "createdAt": "2025-09-12T03:33:21.908Z",
+  "updatedAt": "2025-09-14T12:46:02.000Z",
+  "id": "Yopy6yZGyn1FeclO",
+  "name": "My workflow 18",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1744,
+        48
+      ],
+      "id": "eacbc62e-f4af-4aad-9bb2-5f8fb32db22e",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a042073f-f9e7-4258-80db-360a09c549e4",
+              "name": "page",
+              "value": "={{ ($('Forward Prev Page Num').isExecuted) ? $('Forward Prev Page Num').first().json.prevPage + 1 : $('Initialize Loop Vars').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1296,
+        48
+      ],
+      "id": "0efd5f43-7b37-45eb-97c4-c32fe76ef3b4",
+      "name": "Increment Loop Var"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        48
+      ],
+      "id": "36e76843-8004-41e8-a938-803d753b5e17",
+      "name": "Do Stuff for One Loop Iteration"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4571994d-b14e-4474-85a8-29d667c467d6",
+              "leftValue": "={{  $('Increment Loop Var').first().json.page }}",
+              "rightValue": "={{ $('Initialize Loop Vars').first().json.pageCount }}",
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -432,
+        48
+      ],
+      "id": "61509063-46d7-4c28-b9ad-18186382aa4f",
+      "name": "If - Done"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "32a6221a-b000-4b5f-9b93-271c44d542fd",
+              "name": "page",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "91668535-ba9c-4626-8e64-e7a20644c8e2",
+              "name": "pageCount",
+              "value": 3,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1520,
+        48
+      ],
+      "id": "852e14c1-a3c0-48d0-bfa2-d011947ec466",
+      "name": "Initialize Loop Vars"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1503b89d-7f11-49fc-86ed-38ed600fc34c",
+              "name": "prevPage",
+              "value": "={{ $('Increment Loop Var').first().json.page }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        192
+      ],
+      "id": "7b66ffdb-377c-4090-8289-3a3d2b56a5f9",
+      "name": "Forward Prev Page Num"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -656,
+        48
+      ],
+      "id": "33eb111e-dd8a-4fcb-804f-3a6b0fa74e06",
+      "name": "Tight Loop Safety Check",
+      "webhookId": "c442c3db-b2cf-44b9-880a-acc9ae37fab9"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        -64
+      ],
+      "id": "009c197e-0d5d-470a-99dd-4b17c30877b0",
+      "name": "Continue Workflow Steps After Loop"
+    },
+    {
+      "parameters": {
+        "url": "=https://httpbin.org/anything?page={{ $('Increment Loop Var').first().json.page }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -864,
+        48
+      ],
+      "id": "cb7a3a06-5cf8-4572-b0ae-2c2cf0b7f7d9",
+      "name": "HTTP Request"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Initialize Loop Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Loop Var": {
+      "main": [
+        [
+          {
+            "node": "Do Stuff for One Loop Iteration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Do Stuff for One Loop Iteration": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If - Done": {
+      "main": [
+        [
+          {
+            "node": "Continue Workflow Steps After Loop",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Forward Prev Page Num",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Loop Vars": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Forward Prev Page Num": {
+      "main": [
+        [
+          {
+            "node": "Increment Loop Var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tight Loop Safety Check": {
+      "main": [
+        [
+          {
+            "node": "If - Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Tight Loop Safety Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "772b244f-2567-42b2-88d0-c20a157d3172",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-12T03:33:21.915Z",
+      "updatedAt": "2025-09-12T03:33:21.915Z",
+      "role": "workflow:owner",
+      "workflowId": "Yopy6yZGyn1FeclO",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

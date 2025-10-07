@@ -1,0 +1,341 @@
+{
+  "active": false,
+  "connections": {
+    "Start (Manual)": {
+      "main": [
+        [
+          {
+            "node": "FTP (Download)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Data": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP (Download)1": {
+      "main": [
+        [
+          {
+            "node": "Function - BinaryToJSON1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - BinaryToJSON1": {
+      "main": [
+        [
+          {
+            "node": "Find First Pending URL1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get TikTok Video Page Data1": {
+      "main": [
+        [
+          {
+            "node": "Scrape raw video URL1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape raw video URL1": {
+      "main": [
+        [
+          {
+            "node": "Output video file without watermark1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output video file without watermark1": {
+      "main": [
+        [
+          {
+            "node": "Merge Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find First Pending URL1": {
+      "main": [
+        [
+          {
+            "node": "Get TikTok Video Page Data1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Data",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "FTP (Upload)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-07T04:38:05.472Z",
+  "id": "YQjDskZT3PVjrtIT",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FETCH-JSON",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "3db4c435-00e5-4723-8ef2-aacdf3758dc3",
+      "name": "Start (Manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        672,
+        -800
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "71834b5a-52aa-4fac-9727-f778a4e2e299",
+      "name": "Merge Data",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1728,
+        -512
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "path": "/upload/db.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        880,
+        -800
+      ],
+      "id": "ad9a9010-80ab-4bd6-8ee6-0993b873a153",
+      "name": "FTP (Download)1",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "/* Binary -> JSON parse\n   expects the SFTP Download placed binary into item.binary.file\n*/\nconst out = [];\nfor (const item of items) {\n  const bin = item.binary || {};\n  const keys = Object.keys(bin);\n  if (keys.length === 0) {\n    out.push({ json: { parseError: 'no-binary' } });\n    continue;\n  }\n  const bKey = keys[0];\n  const b64 = bin[bKey].data;\n  const text = Buffer.from(b64, 'base64').toString('utf8');\n  try {\n    const parsed = JSON.parse(text);\n    out.push({ json: parsed });\n  } catch (err) {\n    out.push({ json: { parseError: err.message, raw: text } });\n  }\n}\nreturn out;"
+      },
+      "id": "271a3139-7a91-4402-97aa-68cee5f3674b",
+      "name": "Function - BinaryToJSON1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        -800
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/91.0.4472.124"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "6f6d678b-d025-4062-8c96-5920b2622ea5",
+      "name": "Get TikTok Video Page Data1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1600,
+        -800
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = $input.first().json.data;\nconst headers = $input.first().json.headers || {};\nconst cookies = headers['set-cookie'] || [];\n\nif (!html) {\n  throw new Error(\"HTML body is undefined. Check the previous node's output.\");\n}\nconst regex = /<script id=\"__UNIVERSAL_DATA_FOR_REHYDRATION__\" type=\"application\\/json\">([\\s\\S]*?)<\\/script>/;\nconst match = html.match(regex);\n\nif (match) {\n  const jsonStr = match[1];\n  const data = JSON.parse(jsonStr);\n  const videoUrl = data?.__DEFAULT_SCOPE__?.[\"webapp.video-detail\"]?.itemInfo?.itemStruct?.video?.playAddr;\n  if (!videoUrl) {\n    throw new Error(\"Could not find video URL in the JSON data.\");\n  }\n  return [{ json: { videoUrl, cookies: cookies.join('; ') } }];\n} else {\n  throw new Error(\"Could not find __UNIVERSAL_DATA_FOR_REHYDRATION__ script in the HTML.\");\n}"
+      },
+      "id": "b08b09ce-4150-4f4b-97d9-81765236895d",
+      "name": "Scrape raw video URL1",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        1904,
+        -800
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.videoUrl }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Cookie",
+              "value": "={{ $json.cookies }}"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "dc8956fe-9528-45e8-aca6-38bd605de49f",
+      "name": "Output video file without watermark1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        2272,
+        -800
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the parsed list of posts from the previous node.\n// Assumes the structure is { \"posts\": [...] } or just [...]\nconst data = $input.first().json;\nconst posts = Array.isArray(data.posts) ? data.posts : data;\n\nif (!Array.isArray(posts)) {\n  throw new Error(\"Parsed db.json is not an array of posts.\");\n}\n\n// Find the index of the first post with status 'PENDING'.\nconst pendingIndex = posts.findIndex(p => p.status === 'PENDING');\n\n// If no pending items are found, stop the workflow.\nif (pendingIndex === -1) {\n  console.log(\"No pending URLs found. Stopping workflow.\");\n  return null; // This stops this branch of the workflow.\n}\n\n// Get the specific post to process.\nconst postToProcess = posts[pendingIndex];\n\n// Prepare the output. We pass along the single post for processing,\n// but crucially, we also pass the original full list and the index\n// so we can update it later.\nconst output = {\n  json: {\n    ...postToProcess, // This will include the 'url'\n    originalPosts: posts,\n    itemIndex: pendingIndex\n  }\n};\n\nreturn [output];"
+      },
+      "id": "4ea528cf-1134-4068-bee4-0ac71fd57e93",
+      "name": "Find First Pending URL1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        -800
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "upload",
+        "path": "/upload/db.json"
+      },
+      "id": "a13bedb8-a20c-478e-9560-569b9ddafc9d",
+      "name": "FTP (Upload)1",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        2112,
+        -496
+      ],
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the incoming JSON data.\nconst inputJson = $input.item.json;\n\n// Retrieve the full list and the index from the merged object.\nconst posts = inputJson.originalPosts;\nconst index = inputJson.itemIndex;\n\n// Check if we have valid data before trying to update.\nif (posts && typeof index !== 'undefined' && index > -1) {\n  // Update the status of the processed item to 'COMPLETED'.\n  posts[index].status = 'COMPLETED';\n}\n\n// Convert the updated list back into a JSON string.\nconst fileContent = JSON.stringify({ posts: posts }, null, 2);\n\n// Create a binary buffer from the string.\nconst binaryData = Buffer.from(fileContent);\n\n// Use the helper method compatible with your n8n version.\nconst binaryObject = await this.helpers.prepareBinaryData(binaryData, 'db.json', 'application/json');\n\n// Create a new, clean item for the output.\nconst newItem = {};\n\n// Set the binary property for the next node (FTP Upload).\n// The key 'data' must match the \"Input Binary Field\" in the FTP node.\nnewItem.binary = {\n  data: binaryObject\n};\n\n// Set the json property to an empty object.\nnewItem.json = {};\n\n// The Code node must always return an array of items.\nreturn [newItem];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        -496
+      ],
+      "id": "067474bc-71f3-4fdb-b306-a3c69922607e",
+      "name": "Code"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-07T04:38:05.474Z",
+      "updatedAt": "2025-09-07T04:38:05.474Z",
+      "role": "workflow:owner",
+      "workflowId": "YQjDskZT3PVjrtIT",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-07T12:07:18.000Z",
+  "versionId": "b0d9dbf9-f248-4068-b358-7e0511d560aa"
+}

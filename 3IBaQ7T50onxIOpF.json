@@ -1,0 +1,153 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If row does not exist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-28T12:46:41.335Z",
+  "id": "3IBaQ7T50onxIOpF",
+  "isArchived": true,
+  "meta": null,
+  "name": "webhook-asur_magics",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "FactsMind_99",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        16
+      ],
+      "id": "dc4591ec-e873-4f59-9716-238c6dd9ff95",
+      "name": "Webhook",
+      "webhookId": "79e042b2-5a3f-4a2e-b911-8ac8bb5115b6"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "BKjzpvWCmS3NMwjG",
+          "mode": "list",
+          "cachedResultName": "asur_magics-YOUTUBE",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/BKjzpvWCmS3NMwjG"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filename": "={{ $json.body.filename }}",
+            "path": "={{ $json.body.title }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "path",
+              "displayName": "path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        240,
+        16
+      ],
+      "id": "f8ecc6c7-5005-4ae8-9121-9f6fc352929c",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "BKjzpvWCmS3NMwjG",
+          "mode": "list",
+          "cachedResultName": "asur_magics-YOUTUBE",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/BKjzpvWCmS3NMwjG"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $json.body.filename }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        80,
+        16
+      ],
+      "id": "efa17f27-dc0d-45a0-881f-858ad1944ef9",
+      "name": "If row does not exist"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-28T12:46:41.338Z",
+      "updatedAt": "2025-09-28T12:46:41.338Z",
+      "role": "workflow:owner",
+      "workflowId": "3IBaQ7T50onxIOpF",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-09-29T05:02:37.000Z",
+  "versionId": "4f0afe6b-2406-4316-b226-f27959624955"
+}

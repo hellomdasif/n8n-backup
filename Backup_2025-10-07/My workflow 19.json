@@ -1,0 +1,206 @@
+{
+  "createdAt": "2025-09-12T14:18:29.223Z",
+  "updatedAt": "2025-09-14T12:45:35.000Z",
+  "id": "diwfKK7zT7SSv0eH",
+  "name": "My workflow 19",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $json.data.medias[4].url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Cookie",
+              "value": "={{ $json.cookies }}"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "9163f3c5-d1f6-4899-a6b7-58985d2770f8",
+      "name": "Output video file without watermark",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -112,
+        -112
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {},
+      "id": "dc9d41cd-8e30-4078-856e-a822b52e802f",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://youtube-shorts-downloader-api.p.rapidapi.com/download",
+        "options": {},
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "x-rapidapi-key",
+              "value": "=4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "x-rapidapi-host",
+              "value": "youtube-shorts-downloader-api.p.rapidapi.com"
+            }
+          ]
+        },
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "link",
+              "value": "https://www.youtube.com/shorts/CoMgoLwwZh0"
+            }
+          ]
+        }
+      },
+      "id": "ee40b4c9-f0ee-4ae2-ac10-74e44a2f5618",
+      "name": "RapidAPI Request (meta)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        112,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "downloadUrl",
+              "value": "={{ $json.data.medias.find(m => m.ext === 'mp4' && (m.quality.includes('720') || m.width === 720))?.url || $json.data.medias.find(m => m.ext === 'mp4')?.url }}"
+            },
+            {
+              "name": "filename",
+              "value": "={{ ($json.data.title || 'output').replace(/[\\\\/:*?\"<>|]/g, '') + '.mp4' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f193eb7f-e4ad-4828-9c13-54e8fae52210",
+      "name": "Set (pick mp4)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        336,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=bash -lc 'curl -f -L --retry 3 --retry-delay 2 -A \"Mozilla/5.0\" \"{{$json[\"downloadUrl\"]}}\" -o \"/files/output.mp4\"'\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        832,
+        160
+      ],
+      "id": "78e900ec-d8fb-4bba-9f4d-04b9bfddc51f",
+      "name": "Execute Command"
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "RapidAPI Request (meta)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RapidAPI Request (meta)": {
+      "main": [
+        [
+          {
+            "node": "Set (pick mp4)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set (pick mp4)": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {
+    "Execute Command": [
+      {
+        "json": {
+          "exitCode": 0,
+          "stderr": "% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100  1775  100  1775    0     0  22187      0 --:--:-- --:--:-- --:--:-- 22187\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0",
+          "stdout": ""
+        }
+      }
+    ]
+  },
+  "versionId": "3e2e37bd-b173-44bb-a92d-849ccb06f98b",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-12T14:18:29.227Z",
+      "updatedAt": "2025-09-12T14:18:29.227Z",
+      "role": "workflow:owner",
+      "workflowId": "diwfKK7zT7SSv0eH",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

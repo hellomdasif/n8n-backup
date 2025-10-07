@@ -1,0 +1,74 @@
+{
+  "createdAt": "2025-10-05T15:48:43.002Z",
+  "updatedAt": "2025-10-06T11:24:53.000Z",
+  "id": "7tEEQfibpXMUVyie",
+  "name": "Dummy Workflow 2",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "id": "trigger2",
+      "name": "When clicking 'Test workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "http2",
+      "name": "Send Request to Queue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/queue-processor",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\"name\": \"Request from Workflow 2 - User EFGH\"} }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Send Request to Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "0b97e99b-4503-46d7-a375-4255e93a6e72",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-10-05T15:48:43.004Z",
+      "updatedAt": "2025-10-05T15:48:43.004Z",
+      "role": "workflow:owner",
+      "workflowId": "7tEEQfibpXMUVyie",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

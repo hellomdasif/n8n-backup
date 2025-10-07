@@ -1,0 +1,77 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-27T11:02:03.340Z",
+  "id": "SEg3TnoISgyk8TZh",
+  "isArchived": false,
+  "meta": null,
+  "name": "HOW TO DOWNLOAD FB VIDEOS YTDLP",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9f86c73d-9acf-4e8f-854d-fa051b661ead",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "yt-dlp -o \"/files/fbreels/%(id)s.%(ext)s\" \"https://www.facebook.com/reel/2814295725420349/\"\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "49b1ab67-500f-4dfe-910e-55ca780c9a24",
+      "name": "Execute Command"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-27T11:02:03.348Z",
+      "updatedAt": "2025-09-27T11:02:03.348Z",
+      "role": "workflow:owner",
+      "workflowId": "SEg3TnoISgyk8TZh",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:16:51.255Z",
+      "updatedAt": "2025-10-07T12:16:51.255Z",
+      "id": "tTf80fwdIntIaSPQ",
+      "name": "TOOLS"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-07T12:17:26.000Z",
+  "versionId": "768d0f40-50f4-414a-aa0f-82916987f4af"
+}

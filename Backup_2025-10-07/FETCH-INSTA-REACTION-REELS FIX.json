@@ -1,0 +1,747 @@
+{
+  "createdAt": "2025-09-25T19:34:09.369Z",
+  "updatedAt": "2025-10-01T10:39:22.000Z",
+  "id": "Gn1T55FyYlgiXy26",
+  "name": "FETCH-INSTA-REACTION-REELS FIX",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "98768721-5f9d-4743-a5f8-ca6c9f3dd16c",
+      "name": "6. Wait 1 Second",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -848,
+        576
+      ],
+      "webhookId": "cf15ef04-11d3-42e0-83a3-4f206e57636e"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Define the two user IDs you want to process\nconst userIds = [\n  \"crazysunil02\"\n\n];\n\n// This will create two separate items for the next nodes to process\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));\n"
+      },
+      "id": "5326b51d-65b8-4ec4-91de-7de28208d838",
+      "name": "1. Set User IDs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -2192,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://instagram-social-api.p.rapidapi.com/v1/reels?username_or_id_or_url={{ $json.userId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "instagram-social-api.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5e034eca-9608-4037-b52d-5e690b0ec4e5",
+      "name": "3. Get 5 Latest Posts1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1744,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Get the array of video items from the input\nconst itemsArray = items[0].json.data.items;\n\n// Map over the array to create a new, cleaner array of objects\nconst extractedData = itemsArray.map(item => {\n  return {\n    code: item.code,\n    title: item.caption?.text || \"No caption\",  // Handle missing/empty caption\n    video_url: item.video_url, // Temporary download URL\n    reel_url: `https://www.instagram.com/reel/${item.code}` // Permanent shareable URL\n  };\n});\n\n// Return the new array\nreturn extractedData;\n"
+      },
+      "id": "f90c4b91-44b3-431b-9d68-b3f89437282e",
+      "name": "4. Extract URLs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1520,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "56d538a5-5d3f-43e8-93b0-08e939bffc4f",
+      "name": "2. Process One by One1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -1968,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 4
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2640,
+        512
+      ],
+      "id": "1334a45d-1214-45a4-a9be-ebc42dbcf8cc",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.download_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "timeout": 120000
+        }
+      },
+      "id": "f70ee57b-d48a-4a73-b312-97f4bd6dec5b",
+      "name": "Download1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -1296,
+        192
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "27c12a0a-2c6c-4068-bfbb-2971d4d04822",
+      "name": "Batch URLs",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -1520,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "upload",
+        "path": "={{ $('CONFIG').item.json.dir }}{{ $json.code }}.mp4"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        192
+      ],
+      "id": "89a5bb21-0f64-4945-b357-f5d05d17d153",
+      "name": "SaveToFtp1",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44e39d3e-3738-48b3-89b8-c22bca4772a4",
+              "name": "dir",
+              "value": "/upload/fb/Asif/downloaded/",
+              "type": "string"
+            },
+            {
+              "id": "937e8788-ad7c-49e9-acbe-ba635a51c704",
+              "name": "main_url",
+              "value": "https://files.mohdasif.net/fb/Asif/downloaded/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2416,
+        512
+      ],
+      "id": "0b68da8c-fd4a-4297-b7bb-bdf55384dd3a",
+      "name": "CONFIG"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -624,
+        272
+      ],
+      "id": "b7ce9842-9fa2-4fd8-97d8-9c12ad5d8314",
+      "name": "Wait 3",
+      "webhookId": "9616d81a-b5b6-4bf2-acfe-8c4969021a4a"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "jp3j25dLysLO51VR",
+          "mode": "list",
+          "cachedResultName": "FETCH INSTA LINKS FROM crazysunil02",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/jp3j25dLysLO51VR"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "code": "={{ $json.code }}",
+            "title": "={{ $json.title }}",
+            "url": "={{ $json.reel_url }}",
+            "download_url": "={{ $json.video_url }}",
+            "downloaded": false
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "code",
+              "displayName": "code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "download_url",
+              "displayName": "download_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "final",
+              "displayName": "final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        512
+      ],
+      "id": "97355a90-fff7-4b36-a4ed-9320c9e17022",
+      "name": "APPEND"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "jp3j25dLysLO51VR",
+          "mode": "list",
+          "cachedResultName": "FETCH INSTA LINKS FROM crazysunil02",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/jp3j25dLysLO51VR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "code",
+              "keyValue": "={{ $json.code }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "downloaded": true,
+            "public": "={{ $('CONFIG').item.json.main_url }}{{ $json.code }}.mp4"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "code",
+              "displayName": "code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "download_url",
+              "displayName": "download_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "final",
+              "displayName": "final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -848,
+        192
+      ],
+      "id": "00fda0a6-55c1-44a5-93e3-6273c8b91953",
+      "name": "UPDATE"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "jp3j25dLysLO51VR",
+          "mode": "list",
+          "cachedResultName": "FETCH INSTA LINKS FROM crazysunil02",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/jp3j25dLysLO51VR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "code",
+              "keyValue": "={{ $json.code }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1296,
+        512
+      ],
+      "id": "04f38d1e-cecb-45a6-ba38-1f5b5fbe0691",
+      "name": "isExits"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "jp3j25dLysLO51VR",
+          "mode": "list",
+          "cachedResultName": "FETCH INSTA LINKS FROM crazysunil02",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/jp3j25dLysLO51VR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "downloaded",
+              "condition": "isFalse"
+            },
+            {
+              "keyName": "downloaded",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1744,
+        272
+      ],
+      "id": "42f27372-8e3b-4ee4-9d58-1956bac87e9b",
+      "name": "todownload",
+      "executeOnce": true
+    }
+  ],
+  "connections": {
+    "6. Wait 1 Second": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Set User IDs1": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts1": {
+      "main": [
+        [
+          {
+            "node": "4. Extract URLs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Extract URLs1": {
+      "main": [
+        [
+          {
+            "node": "isExits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Process One by One1": {
+      "main": [
+        [
+          {
+            "node": "3. Get 5 Latest Posts1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "todownload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "CONFIG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download1": {
+      "main": [
+        [
+          {
+            "node": "SaveToFtp1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch URLs": {
+      "main": [
+        [
+          {
+            "node": "Download1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "SaveToFtp1": {
+      "main": [
+        [
+          {
+            "node": "UPDATE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONFIG": {
+      "main": [
+        [
+          {
+            "node": "1. Set User IDs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 3": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APPEND": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 1 Second",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UPDATE": {
+      "main": [
+        [
+          {
+            "node": "Wait 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isExits": {
+      "main": [
+        [
+          {
+            "node": "APPEND",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "todownload": {
+      "main": [
+        [
+          {
+            "node": "Batch URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        6,
+        8
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "2e741fde-fc1a-4659-9808-d0b19c4529d8",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-25T19:34:09.374Z",
+      "updatedAt": "2025-09-25T19:34:09.374Z",
+      "role": "workflow:owner",
+      "workflowId": "Gn1T55FyYlgiXy26",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-25T19:34:23.044Z",
+      "updatedAt": "2025-09-25T19:34:23.044Z",
+      "id": "lm0PqWGirK51qoO4",
+      "name": "REACTION"
+    },
+    {
+      "createdAt": "2025-09-25T19:34:17.156Z",
+      "updatedAt": "2025-09-25T19:34:17.156Z",
+      "id": "o35vDW2iiCaZR9cG",
+      "name": "FETCH"
+    }
+  ]
+}

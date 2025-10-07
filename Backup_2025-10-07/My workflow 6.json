@@ -1,0 +1,120 @@
+{
+  "createdAt": "2025-09-10T04:58:12.089Z",
+  "updatedAt": "2025-09-11T05:04:02.000Z",
+  "id": "tqALTF0zfUJJIcxk",
+  "name": "My workflow 6",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9aabd8a5-aeed-4719-847b-7231cb5ca8d9",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://tiktok-api23.p.rapidapi.com/api/user/posts?secUid=MS4wLjABAAAAdgS7F9hU5l_c7JXO9zHlK-ysAfxv5uFB_ya3MGi_JHHyFfnv3vGA1WLIoWyEelFW&count=1",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "tiktok-api23.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "48478426-3cea-48b0-b119-2a9a6ef7cb66",
+      "name": "Get 1 Latest Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        432,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "publicUrl",
+              "value": "=https://www.tiktok.com/@{{ $json.data.itemList[0].author.uniqueId }}/video/{{ $json.data.itemList[0].id }}\n"
+            },
+            {
+              "name": "likes",
+              "value": "={{ $json.data.itemList[0].stats.diggCount }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b8e3bf49-88ab-4cee-94bd-208a0067ecf7",
+      "name": "Extract Video Info",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        672,
+        336
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Get 1 Latest Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Video Info": {
+      "main": [
+        []
+      ]
+    },
+    "Get 1 Latest Post": {
+      "main": [
+        [
+          {
+            "node": "Extract Video Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "a6a5e4ff-9409-4340-a009-43a8b9ccc21a",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-10T04:58:12.095Z",
+      "updatedAt": "2025-09-10T04:58:12.095Z",
+      "role": "workflow:owner",
+      "workflowId": "tqALTF0zfUJJIcxk",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

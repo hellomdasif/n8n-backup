@@ -1,0 +1,156 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command1": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-02T01:43:46.006Z",
+  "id": "4Ox1zSUVKd1NhNdc",
+  "isArchived": true,
+  "meta": null,
+  "name": "My workflow 27",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        -32
+      ],
+      "id": "6cba9a0d-88d3-4ab5-8ed6-763e5f99974c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "ls /home/node/shared/TIKTOK | awk 'BEGIN{printf \"[\"} {printf \"%s\\\"%s\\\"\", (NR>1?\",\":\"\"), $0} END{printf \"]\"}'"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -32
+      ],
+      "id": "a3b7c2ec-046a-4b27-8fc8-e12fdec1263c",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "command": "npm install fs"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        560,
+        128
+      ],
+      "id": "77ad8cfa-fcea-4a57-ab4c-20e143b68ca3",
+      "name": "Execute Command1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the stdout from previous Execute Command node\nconst jsonString = $input.first().json.stdout;\n\n// Parse the JSON string to get the array\nconst filenames = JSON.parse(jsonString);\n\n// Return each filename as a separate item\nreturn filenames.map(filename => ({ json: { filename } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        -32
+      ],
+      "id": "6d49b5ba-94a9-41d7-a819-d7b4184d1a98",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9e0d3154-446e-414c-a1dc-5570ea89674c",
+              "name": "=finalurl",
+              "value": "=https://files.mohdasif.net/TIKTOK/{{ encodeURIComponent($json.filename) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        336,
+        -32
+      ],
+      "id": "6d7f9c39-abde-4c45-b41d-d127d60caae1",
+      "name": "Edit Fields"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {
+    "Execute Command": [
+      {
+        "json": {
+          "exitCode": 0,
+          "stderr": "",
+          "stdout": "[\"masstiktok_mermaid.capture__#mermaid #ai #aivideo #trendingv.mp4\",\"masstiktok_mermaid.capture__Baby mermaid rescued #mermaid #a.mp4\",\"masstiktok_mermaid.capture__Beach mermaid.mp4\",\"masstiktok_mermaid.capture__Did this happen.mp4\",\"masstiktok_mermaid.capture__Evil Senyora swaps the mermaids .mp4\",\"masstiktok_mermaid.capture__God saves mermaid #mermaid #ai #.mp4\",\"masstiktok_mermaid.capture__Is this a Mermaid.mp4\",\"masstiktok_mermaid.capture__Is this a real fish.mp4\",\"masstiktok_mermaid.capture__Is this fish real.mp4\",\"masstiktok_mermaid.capture__Is this real tho.mp4\",\"masstiktok_mermaid.capture__Is this real.mp4\",\"masstiktok_mermaid.capture__Man takes bananas from Mermaid f.mp4\",\"masstiktok_mermaid.capture__Man tries to take Merbabies on b.mp4\",\"masstiktok_mermaid.capture__Man tries to take merbabies but .mp4\",\"masstiktok_mermaid.capture__Mermaid    #mermaid #ai #mermaid.mp4\",\"masstiktok_mermaid.capture__Mermaid and baby.mp4\",\"masstiktok_mermaid.capture__Mermaid and bananas.mp4\",\"masstiktok_mermaid.capture__Mermaid ballon #mermaid #ai #mer.mp4\",\"masstiktok_mermaid.capture__Mermaid betrayal #mermaid #ai #m.mp4\",\"masstiktok_mermaid.capture__Mermaid capture.mp4\",\"masstiktok_mermaid.capture__Mermaid captured but fighting ba.mp4\",\"masstiktok_mermaid.capture__Mermaid captured but fights back.mp4\",\"masstiktok_mermaid.capture__Mermaid captured by fishermen.mp4\",\"masstiktok_mermaid.capture__Mermaid captured by sailers.mp4\",\"masstiktok_mermaid.capture__Mermaid captured in a net.mp4\",\"masstiktok_mermaid.capture__Mermaid captured in fishing net.mp4\",\"masstiktok_mermaid.capture__Mermaid captured in net.mp4\",\"masstiktok_mermaid.capture__Mermaid captured on boat.mp4\",\"masstiktok_mermaid.capture__Mermaid captured on fishing vess.mp4\",\"masstiktok_mermaid.capture__Mermaid captured.mp4\",\"masstiktok_mermaid.capture__Mermaid caught and fights back.mp4\",\"masstiktok_mermaid.capture__Mermaid caught by group.mp4\",\"masstiktok_mermaid.capture__Mermaid caught in net #mermaid #.mp4\",\"masstiktok_mermaid.capture__Mermaid caught in net on boat.mp4\",\"masstiktok_mermaid.capture__Mermaid caught in net.mp4\",\"masstiktok_mermaid.capture__Mermaid caught in open ocean.mp4\",\"masstiktok_mermaid.capture__Mermaid caught off the coast of .mp4\",\"masstiktok_mermaid.capture__Mermaid caught on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid caught on boat.mp4\",\"masstiktok_mermaid.capture__Mermaid caught on fishing boat.mp4\",\"masstiktok_mermaid.capture__Mermaid caught up in net.mp4\",\"masstiktok_mermaid.capture__Mermaid caught.mp4\",\"masstiktok_mermaid.capture__Mermaid crawiling into cave.mp4\",\"masstiktok_mermaid.capture__Mermaid crawls into hole.mp4\",\"masstiktok_mermaid.capture__Mermaid discovered on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid dragged on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid drinking beer #mermaid #.mp4\",\"masstiktok_mermaid.capture__Mermaid eating banana.mp4\",\"masstiktok_mermaid.capture__Mermaid eating bananas on the be.mp4\",\"masstiktok_mermaid.capture__Mermaid eating bananas.mp4\",\"masstiktok_mermaid.capture__Mermaid eating banans.mp4\",\"masstiktok_mermaid.capture__Mermaid eats a banana.mp4\",\"masstiktok_mermaid.capture__Mermaid eats bananas.mp4\",\"masstiktok_mermaid.capture__Mermaid eats banans.mp4\",\"masstiktok_mermaid.capture__Mermaid family #mermaid #ai #mer.mp4\",\"masstiktok_mermaid.capture__Mermaid family on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid family.mp4\",\"masstiktok_mermaid.capture__Mermaid feeding babies.mp4\",\"masstiktok_mermaid.capture__Mermaid fights back #mermaid #me.mp4\",\"masstiktok_mermaid.capture__Mermaid fights back after being .mp4\",\"masstiktok_mermaid.capture__Mermaid fights back.mp4\",\"masstiktok_mermaid.capture__Mermaid fights to get back into .mp4\",\"masstiktok_mermaid.capture__Mermaid found by fishers flops b.mp4\",\"masstiktok_mermaid.capture__Mermaid found in net on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid found in net.mp4\",\"masstiktok_mermaid.capture__Mermaid found in ocean.mp4\",\"masstiktok_mermaid.capture__Mermaid found on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid found on boat.mp4\",\"masstiktok_mermaid.capture__Mermaid found.mp4\",\"masstiktok_mermaid.capture__Mermaid gets caught on boat then.mp4\",\"masstiktok_mermaid.capture__Mermaid goes into hole.mp4\",\"masstiktok_mermaid.capture__Mermaid holding babies.mp4\",\"masstiktok_mermaid.capture__Mermaid in a net.mp4\",\"masstiktok_mermaid.capture__Mermaid in boat.mp4\",\"masstiktok_mermaid.capture__Mermaid in carnival #mermaid #ai.mp4\",\"masstiktok_mermaid.capture__Mermaid in cave.mp4\",\"masstiktok_mermaid.capture__Mermaid in mud.mp4\",\"masstiktok_mermaid.capture__Mermaid in net.mp4\",\"masstiktok_mermaid.capture__Mermaid in nets.mp4\",\"masstiktok_mermaid.capture__Mermaid in the mud.mp4\",\"masstiktok_mermaid.capture__Mermaid in water.mp4\",\"masstiktok_mermaid.capture__Mermaid is bald #mermaid #ai #me.mp4\",\"masstiktok_mermaid.capture__Mermaid jumps back into ocean af.mp4\",\"masstiktok_mermaid.capture__Mermaid jumps back into ocean.mp4\",\"masstiktok_mermaid.capture__Mermaid laying on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid new friends #mermaid #ai.mp4\",\"masstiktok_mermaid.capture__Mermaid on a boat.mp4\",\"masstiktok_mermaid.capture__Mermaid on a pool #mermaid #ai #.mp4\",\"masstiktok_mermaid.capture__Mermaid on beach with bananas.mp4\",\"masstiktok_mermaid.capture__Mermaid on beach with her babies.mp4\",\"masstiktok_mermaid.capture__Mermaid on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid on boat defends itself.mp4\",\"masstiktok_mermaid.capture__Mermaid on boat with others.mp4\",\"masstiktok_mermaid.capture__Mermaid on boat.mp4\",\"masstiktok_mermaid.capture__Mermaid on land.mp4\",\"masstiktok_mermaid.capture__Mermaid on net.mp4\",\"masstiktok_mermaid.capture__Mermaid on stilts.mp4\",\"masstiktok_mermaid.capture__Mermaid picks bananas.mp4\",\"masstiktok_mermaid.capture__Mermaid poisoned #mermaid #ai #m.mp4\",\"masstiktok_mermaid.capture__Mermaid rescued #mermaid #ai #me.mp4\",\"masstiktok_mermaid.capture__Mermaid rescued.mp4\",\"masstiktok_mermaid.capture__Mermaid revenge #mermaid #ai #me.mp4\",\"masstiktok_mermaid.capture__Mermaid sacrifice #mermaid #ai #.mp4\",\"masstiktok_mermaid.capture__Mermaid saves a man #mermaid #ai.mp4\",\"masstiktok_mermaid.capture__Mermaid sitting on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid swimming.mp4\",\"masstiktok_mermaid.capture__Mermaid taking care of babies.mp4\",\"masstiktok_mermaid.capture__Mermaid walking on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid with Merbabies.mp4\",\"masstiktok_mermaid.capture__Mermaid with babies found.mp4\",\"masstiktok_mermaid.capture__Mermaid with babies on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid with babies.mp4\",\"masstiktok_mermaid.capture__Mermaid with bananas on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid with bananas.mp4\",\"masstiktok_mermaid.capture__Mermaid with children on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid with her babies on beach.mp4\",\"masstiktok_mermaid.capture__Mermaid with her babies.mp4\",\"masstiktok_mermaid.capture__Mermaid with her merbabies.mp4\",\"masstiktok_mermaid.capture__Mermaid with lots of bananas.mp4\",\"masstiktok_mermaid.capture__Mermaid.mp4\",\"masstiktok_mermaid.capture__Mermaids found on boat in net.mp4\",\"masstiktok_mermaid.capture__Mermaids love the dirt.mp4\",\"masstiktok_mermaid.capture__One full minute of mermaid captu.mp4\",\"masstiktok_mermaid.capture__Pregnant mermaid on the beach.mp4\",\"masstiktok_mermaid.capture__Senyora hates mermaid #mermaid #.mp4\",\"masstiktok_mermaid.capture__Tell me this isn't real.mp4\",\"masstiktok_mermaid.capture__What is this.mp4\",\"masstiktok_mermaid.capture__What's going on.mp4\",\"masstiktok_mermaid.capture__What's happening.mp4\",\"masstiktok_mermaid.capture__Why did he steal that mermaid's .mp4\",\"masstiktok_mermaid.capture__Will she be saved.mp4\",\"masstiktok_mermaid.capture__Wow!.mp4\",\"masstiktok_mermaid.capture__fight back.mp4\",\"masstiktok_mermaid.capture__mermaid found and cuaght.mp4\",\"masstiktok_mermaid.capture__mermaid found in boat.mp4\",\"masstiktok_mermaid.capture__mermaid found on vessel.mp4\",\"masstiktok_mermaid.capture__mermaid in a cave.mp4\",\"masstiktok_mermaid.capture__mermaid on beach with babies.mp4\",\"masstiktok_mermaid.capture__mermaid on the beach.mp4\",\"masstiktok_mermaid.capture__will Mermaid fight back.mp4\"]"
+        }
+      }
+    ]
+  },
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-02T01:43:46.010Z",
+      "updatedAt": "2025-10-02T01:43:46.010Z",
+      "role": "workflow:owner",
+      "workflowId": "4Ox1zSUVKd1NhNdc",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-02T07:22:56.000Z",
+  "versionId": "05d0962e-6606-43c3-9d8a-55cca23e5774"
+}

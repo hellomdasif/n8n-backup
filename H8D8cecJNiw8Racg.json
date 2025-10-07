@@ -1,0 +1,510 @@
+{
+  "active": false,
+  "connections": {
+    "API": {
+      "main": [
+        [
+          {
+            "node": "1. Set User IDs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insert_data": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "process_url": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Daily": {
+      "main": [
+        [
+          {
+            "node": "API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "process_url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "3. Get 5 Latest Posts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Set User IDs1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Extract URLs1": {
+      "main": [
+        [
+          {
+            "node": "insert_data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Download Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts1": {
+      "main": [
+        [
+          {
+            "node": "4. Extract URLs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-02T18:46:18.439Z",
+  "id": "H8D8cecJNiw8Racg",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "DOWNLOAD INSTA REELS - CLEAN copy",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "88035089-1fb3-4570-b8df-ca310c6a42b9",
+      "name": "Schedule Daily",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -720,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "0eeac650-ed20-4f56-943d-76920ed5e5da",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        400,
+        160
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.video_url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "335586b8-ce84-4ff8-9d91-70b356437380",
+      "name": "Download Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        160
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/node/shared/INSTAGRAM/usa/{{ $json.code }}.mp4",
+        "options": {
+          "append": false
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        864,
+        160
+      ],
+      "id": "2cc1d1c8-ee5a-4464-bfad-594599c9d8f8",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        256
+      ],
+      "id": "0fd4669d-fa04-4b19-84b6-35a8b4c4e5ef",
+      "name": "Wait2",
+      "webhookId": "634f1c6e-ff81-47f6-9cab-e3b946a7e26f"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Define the two user IDs you want to process\nconst userIds = [\n  \"bhonyongwa\",\n  \"noluthando5387\"\n];\n\n// This will create two separate items for the next nodes to process\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));\n"
+      },
+      "id": "9d78fac9-d790-4d14-b7f3-20986d5c0534",
+      "name": "1. Set User IDs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -64,
+        448
+      ],
+      "id": "d5f92fbe-f7ad-4b3f-b332-06af693d78c6",
+      "name": "Loop Over Items",
+      "executeOnce": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "USA",
+          "mode": "list",
+          "cachedResultName": "USA"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "downloaded",
+              "value": "0"
+            }
+          ],
+          "values[0]": {
+            "value": "0"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        160,
+        160
+      ],
+      "id": "4ef955c6-7d03-431d-bd67-11ff8740f44b",
+      "name": "process_url",
+      "executeOnce": true,
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "table": {
+          "__rl": true,
+          "value": "USA",
+          "mode": "list",
+          "cachedResultName": "USA"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "code",
+        "valueToMatchOn": "={{ $json.code }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "reel_url",
+              "value": "={{ $json.reel_url }}"
+            },
+            {
+              "column": "video_url",
+              "value": "={{ $json.video_url }}"
+            },
+            {
+              "column": "title",
+              "value": "={{ $json.title }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        592,
+        464
+      ],
+      "id": "4ba7fea6-f104-42a4-a813-42827bb3e9bd",
+      "name": "insert_data",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('API').item.json.url + $('1. Set User IDs1').item.json.userId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "={{ $('API').item.json.x_rapidapi_key }}"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "={{ $('API').item.json.x_rapidapi_host }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "eef647d5-89e3-4399-aad0-5278921aeaae",
+      "name": "3. Get 5 Latest Posts1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        192,
+        464
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "api",
+          "mode": "list",
+          "cachedResultName": "api"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "name",
+              "value": "instagram"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -496,
+        464
+      ],
+      "id": "5ce600fa-c410-4d83-8675-bc31cb5a2799",
+      "name": "API",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Get the array of video items from the input\nconst itemsArray = items[0].json.data.items;\n\n// Map over the array to create a new, cleaner array of objects\nconst extractedData = itemsArray.map(item => {\n  return {\n    code: item.code,\n    title: item.caption?.text || \"No caption\",  // Handle missing/empty caption\n    video_url: item.video_url, // Temporary download URL\n    reel_url: `https://www.instagram.com/reel/${item.code}` // Permanent shareable URL\n  };\n});\n\n// Return the new array\nreturn extractedData;\n"
+      },
+      "id": "4c119062-3a20-4afa-9a98-f2617efa69a6",
+      "name": "4. Extract URLs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        400,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "USA",
+          "mode": "list",
+          "cachedResultName": "USA"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "code",
+        "valueToMatchOn": "={{ $('Split In Batches').item.json.code }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "downloaded",
+              "value": "1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1056,
+        64
+      ],
+      "id": "feb9dbc2-425a-4257-889f-f8c0a3c71fec",
+      "name": "update",
+      "executeOnce": true,
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {},
+  "shared": [
+    {
+      "createdAt": "2025-10-02T18:46:18.443Z",
+      "updatedAt": "2025-10-02T18:46:18.443Z",
+      "role": "workflow:owner",
+      "workflowId": "H8D8cecJNiw8Racg",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Daily": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:04:32.000Z",
+  "versionId": "09d27064-f7a8-4659-872e-fa19472836bf"
+}

@@ -1,0 +1,102 @@
+{
+  "createdAt": "2025-09-28T07:43:03.429Z",
+  "updatedAt": "2025-09-28T11:30:34.000Z",
+  "id": "E35e6Ub6N3Erjycl",
+  "name": "add_columns_to_data_table_test",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        200
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "create-sample-data",
+      "name": "Create Sample Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        200
+      ],
+      "parameters": {
+        "jsCode": "// Create sample data to establish columns in the data table\nreturn {\n  // Content columns\n  filename: \"sample_video.mp4\",\n  caption: \"Sample Instagram post caption\",\n  \n  // Status tracking columns for both accounts\n  sb_insta_status: \"pending\",\n  ks_insta_status: \"pending\",\n  \n  // Result tracking for SuccessBlueprint\n  successblueprint_post_id: \"\",\n  successblueprint_processed_at: \"\",\n  successblueprint_error: \"\",\n  \n  // Result tracking for KnowSparkz\n  knowsparkz_post_id: \"\",\n  knowsparkz_processed_at: \"\",\n  knowsparkz_error: \"\",\n  \n  // Additional metadata\n  created_by: \"system\",\n  content_type: \"video\"\n};"
+      }
+    },
+    {
+      "id": "insert-to-table",
+      "name": "Insert to Data Table",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        500,
+        200
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YpfR5PAwNwDkmpbe"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create Sample Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Sample Data": {
+      "main": [
+        [
+          {
+            "node": "Insert to Data Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "d119a00d-d317-4e8c-91f8-1269d4252443",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-28T07:43:03.431Z",
+      "updatedAt": "2025-09-28T07:43:03.431Z",
+      "role": "workflow:owner",
+      "workflowId": "E35e6Ub6N3Erjycl",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

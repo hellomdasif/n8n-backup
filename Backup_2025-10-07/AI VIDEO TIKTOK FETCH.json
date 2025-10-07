@@ -1,0 +1,423 @@
+{
+  "createdAt": "2025-09-21T09:02:59.144Z",
+  "updatedAt": "2025-10-06T13:01:54.000Z",
+  "id": "1nfnmDKBbndwPPkR",
+  "name": "AI VIDEO TIKTOK FETCH",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "id": "0dc4c0c3-15c3-493b-ad7f-bd891e5aedc4",
+      "name": "6. Wait 1 Second",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -848,
+        400
+      ],
+      "webhookId": "99051cdf-147f-4522-b9cf-41ed66379034"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Define the two user IDs you want to process\nconst userIds = [\n  \"7518750184432501773\", //comedycat66\n  \"7434206160599827488\", //litle.tots\n  \"7496882876568110111\" // mermaid.capture\n\n];\n\n// This will create two separate items for the next nodes to process\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));\n"
+      },
+      "id": "2395a838-62a1-4bb6-b655-c67e509ce66c",
+      "name": "1. Set User IDs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -2192,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "d4a9b4df-eb91-40c3-bac6-cb7bcd957093",
+      "name": "2. Process One by One1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -1968,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2640,
+        384
+      ],
+      "id": "600c0de3-1bc8-43d2-ae2d-0c911f1ab944",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44e39d3e-3738-48b3-89b8-c22bca4772a4",
+              "name": "dir",
+              "value": "/upload/insta/morph.tales1",
+              "type": "string"
+            },
+            {
+              "id": "937e8788-ad7c-49e9-acbe-ba635a51c704",
+              "name": "main_url",
+              "value": "https://files.mohdasif.net/insta/morph.tales1/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2416,
+        384
+      ],
+      "id": "ec907ec2-5da3-4aa1-86d3-d40fca70f279",
+      "name": "CONFIG"
+    },
+    {
+      "parameters": {
+        "url": "={{'https://tiktok-scraper7.p.rapidapi.com/user/posts?user_id=' + $json.userId + '&count=10&cursor=0'}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "tiktok-scraper7.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b558aee0-964d-4dab-8a79-41c2c8b51647",
+      "name": "3. Get 5 Latest Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1744,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "0ONMyugiIqxixyyW",
+          "mode": "list",
+          "cachedResultName": "AI VIDEO TIKTOK",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/0ONMyugiIqxixyyW"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "DirectUrl",
+              "keyValue": "={{ $json.tiktokMainUrl }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1296,
+        208
+      ],
+      "id": "acdfaccb-3ef8-4a30-b607-7836bbb815fb",
+      "name": "If row does not exist"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "0ONMyugiIqxixyyW",
+          "mode": "list",
+          "cachedResultName": "AI VIDEO TIKTOK",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/0ONMyugiIqxixyyW"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.tiktokMainUrl }}",
+            "title": "={{ $json.title }}",
+            "download": "={{ $json.videoUrl }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "download",
+              "displayName": "download",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        208
+      ],
+      "id": "e9becfca-52cc-48bb-88b8-437fe52cce0f",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "operation": "rowExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "0ONMyugiIqxixyyW",
+          "mode": "list",
+          "cachedResultName": "AI VIDEO TIKTOK",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/0ONMyugiIqxixyyW"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "DirectUrl",
+              "keyValue": "={{ $json.tiktokMainUrl }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        400
+      ],
+      "id": "c6510d1c-ba1e-4076-a5b9-fc4fcdca22d4",
+      "name": "If row exists"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node code: parse TikTok response and return cleaned items\n\n// Read all incoming items (n8n provides an array of items)\nconst items = $input.all();\n\n// Usually the HTTP request / previous node produces a single item with the JSON payload\nconst payload = items[0]?.json;\n\nif (!payload) {\n  // nothing to process — return empty array so n8n doesn't error\n  return [];\n}\n\n// Get videos array from payload (safe optional chaining)\nconst videos = payload.data?.videos || [];\n\n// Debug: write to n8n function console (you'll see this in node execution output logs)\nconsole.log('videos found:', videos.length);\n\nconst results = videos.map(video => {\n  const authorId = video.author?.unique_id || video.author?.nickname || 'unknown';\n  const videoId = video.video_id || video.aweme_id || '';\n  const tiktokMainUrl = `https://www.tiktok.com/@${authorId}/video/${videoId}`;\n\n  return {\n    tiktokMainUrl,\n    videoUrl: video.play || '',\n    title: video.title || '',\n    author: video.author?.nickname || '',\n    uniqueId: video.author?.unique_id || '',\n    awemeId: video.aweme_id || '',\n    videoId: video.video_id || '',\n    playCount: video.play_count || 0,\n    createTime: video.create_time || 0\n  };\n});\n\n// Return items in n8n format\nreturn results.map(r => ({ json: r }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1520,
+        304
+      ],
+      "id": "0b463b9a-efc0-4527-9106-270eec8ff453",
+      "name": "Extract"
+    }
+  ],
+  "connections": {
+    "6. Wait 1 Second": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Set User IDs1": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Process One by One1": {
+      "main": [
+        [
+          {
+            "node": "3. Get 5 Latest Posts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "CONFIG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONFIG": {
+      "main": [
+        [
+          {
+            "node": "1. Set User IDs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts": {
+      "main": [
+        [
+          {
+            "node": "Extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 1 Second",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row exists": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 1 Second",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract": {
+      "main": [
+        [
+          {
+            "node": "If row does not exist",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If row exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        6,
+        8
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "6a162007-e03c-4cf4-8913-db798c0a4420",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-21T09:02:59.157Z",
+      "updatedAt": "2025-09-21T09:02:59.157Z",
+      "role": "workflow:owner",
+      "workflowId": "1nfnmDKBbndwPPkR",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-10T07:49:32.166Z",
+      "updatedAt": "2025-09-10T07:49:32.166Z",
+      "id": "kmJ9RrYGObSkXZT9",
+      "name": "tiktok"
+    }
+  ]
+}

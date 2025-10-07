@@ -1,0 +1,758 @@
+{
+  "active": false,
+  "connections": {
+    "Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Reel if",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reel if": {
+      "main": [
+        [
+          {
+            "node": "get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Upload Session": {
+      "main": [
+        [
+          {
+            "node": "Upload the Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload the Reel": {
+      "main": [
+        [
+          {
+            "node": "Check Status of Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status of Upload": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Reel": {
+      "main": [
+        [
+          {
+            "node": "update_published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "hook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        []
+      ]
+    },
+    "get": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Publish Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_published": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP": {
+      "main": [
+        []
+      ]
+    },
+    "hook": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-25T19:53:02.891Z",
+  "id": "6tAH5TTbLAQ4a4td",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FACEBOOK MOHD ASIF PAGE (POST REACTION VIDEOS)",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "be8816f5-ae68-48c3-869e-bc67078298d8",
+                    "leftValue": "={{ $('config').item.json.post_type }}",
+                    "rightValue": "reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reel"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1920,
+        -1600
+      ],
+      "id": "3d4bdf4e-2ffc-4e5d-b21b-3f111cec1931",
+      "name": "Smart Content Router"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "465dee68-878c-46de-8dd8-ba29e8bb93d3",
+              "leftValue": "={{ $('config').item.json.node_type }}",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1696,
+        -1600
+      ],
+      "id": "22514250-80c6-4add-a741-19cff4aa0097",
+      "name": "Reel if"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('config').item.json.page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"upload_phase\":\"start\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1024,
+        -1600
+      ],
+      "id": "2fb8862b-3354-47fb-be70-673167823a03",
+      "name": "Initialize Upload Session",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "cEQLj5RRQvCzvQ2k",
+          "name": "MOHD-ASIF-PAGE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.upload_url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "={{ $('config').item.json.uploadfinal }}{{ $('Execute Command').item.json.stdout }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -800,
+        -1600
+      ],
+      "id": "a59ede77-44ce-4687-808a-35320777ca32",
+      "name": "Upload the Reel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "cEQLj5RRQvCzvQ2k",
+          "name": "MOHD-ASIF-PAGE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Initialize Upload Session').item.json.video_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -576,
+        -1600
+      ],
+      "id": "2454dc67-b637-4d6a-afee-361811a61cfa",
+      "name": "Check Status of Upload",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "cEQLj5RRQvCzvQ2k",
+          "name": "MOHD-ASIF-PAGE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('config').item.json.page_id }}/video_reels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_id\": \"{{ $('Initialize Upload Session').item.json.video_id }}\",\n  \"upload_phase\": \"finish\",\n  \"video_state\": \"PUBLISHED\",\n  \"description\": \"{{ $json.description }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -128,
+        -1600
+      ],
+      "id": "2ed105e7-e286-4f90-b95f-19d3882a9115",
+      "name": "Publish Reel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "cEQLj5RRQvCzvQ2k",
+          "name": "MOHD-ASIF-PAGE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            },
+            {
+              "triggerAtHour": 11,
+              "triggerAtMinute": 15
+            },
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2592,
+        -1600
+      ],
+      "id": "4b74643a-4f88-48af-b7e7-9bd55b685cab",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "command": "=#!/bin/sh\nset -eu\n\n# Merge overlay_file -> overlay2 with a smooth video-only crossfade,\n# then use the merged overlay in the existing composition pipeline.\n#\n# Main background (INPUT_FILE) is left untouched (video & audio).\n# Overlay1 (OVERLAY_FILE) is replaced by merged overlay (overlay1 -> overlay2 crossfade).\n#\n# Edit config below.\n\n# ---------------- CONFIG ----------------\nINPUT_URL=\"{{ $json.public }}\"        # main background (can be URL or /files/ path)\nOVERLAY_FILE=\"{{ $('config').item.json.input }}\"  # primary overlay (reaction: normal)\nOVERLAY_2=\"/files/fb/Asif/input/laugh.mp4\"        # secondary overlay (reaction: laugh); leave empty to skip merge\nOVERLAY_2_LENGTH_SECONDS=\"\"    # if set, final N seconds will come from OVERLAY_2; otherwise default rule used\nOVERLAY_2_START_SEC=\"0\"        # offset into overlay2\nOVERLAY_TRANSITION_DURATION=\"0.6\" # crossfade duration (seconds)\n\nCAPTION_FONT_PATH=\"{{ $('config').item.json.fontpath }}\"  # caption font path\nBOTTOM_PERCENT=57\nCAPTION_POS_X_PERCENT=50\nCAPTION_POS_Y_PERCENT=35\n\nCAPTION_TEXT=\"{{ $('hook').item.json.captions[0] }}\"\nCAPTIONS_STR='Wait For End\nEND MAST HAI\nYE KYA HO GAYA\nWAAAH'\nCAPTION_FONT_SIZE=60\nCAPTION_FONT_COLOR=\"white\"\nTEXT_BG_ENABLE=true\nTEXT_BG_COLOR=\"black\"\nTEXT_BG_OPACITY=150\nTEXT_BG_PADDING=25\n\nASSETS_DIR=\"{{ $('config').item.json.output }}\"\nmkdir -p \"$ASSETS_DIR\"\nOUT_FILE=\"${ASSETS_DIR}/output_$(date +%s).mp4\"\nif [ -n \"${JSON_CODE:-}\" ]; then OUT_FILE=\"${ASSETS_DIR}/${JSON_CODE}.mp4\"; fi\n\nCAPTION_PNG=\"${ASSETS_DIR}/caption_image.png\"\nMERGED_OVERLAY_TMP=\"/tmp/overlay_merged_$(date +%s)_$$.mp4\"\nFFMPEG_TIMEOUT=\"5m\"\n# --------------- end config --------------\n\necho \"=== Start: overlay merge + compose ===\" >&2\n\n# Resolve INPUT_FILE (URL -> /files mapping)\ncase \"$INPUT_URL\" in\n  http://*|https://*)\n    REL_PATH=$(printf \"%s\" \"$INPUT_URL\" | sed -E 's@https?://[^/]+/@@')\n    INPUT_FILE=\"/files/${REL_PATH}\"\n    ;;\n  /files/*) INPUT_FILE=\"$INPUT_URL\";;\n  files/*) INPUT_FILE=\"/$INPUT_URL\";;\n  *) INPUT_FILE=\"/files/${INPUT_URL}\";;\nesac\n\necho \"Main background: $INPUT_FILE\" >&2\necho \"Overlay primary: $OVERLAY_FILE\" >&2\n[ -n \"$OVERLAY_2\" ] && echo \"Overlay secondary: $OVERLAY_2\" >&2\necho \"Output will be: $OUT_FILE\" >&2\n\n# helpers\nprobe_duration() { ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"$1\" 2>/dev/null || printf \"\"; }\nprobe_resolution() { ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0:s=x \"$1\" 2>/dev/null || printf \"\"; }\nprobe_framerate() { ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of default=nw=1:nk=1 \"$1\" 2>/dev/null || printf \"\"; }\n\n# validate files\nif [ ! -f \"$INPUT_FILE\" ]; then echo \"ERR: main input missing: $INPUT_FILE\" >&2; exit 1; fi\nif [ ! -f \"$OVERLAY_FILE\" ]; then echo \"ERR: overlay primary missing: $OVERLAY_FILE\" >&2; exit 1; fi\nif [ -n \"$OVERLAY_2\" ] && [ ! -f \"$OVERLAY_2\" ]; then echo \"ERR: overlay secondary missing: $OVERLAY_2\" >&2; exit 1; fi\n\n# probe overlay durations\nOV1_DUR=$(probe_duration \"$OVERLAY_FILE\"); OV1_DUR=${OV1_DUR:-0}; OV1_DUR=$(awk -v v=\"$OV1_DUR\" 'BEGIN{printf(\"%.3f\", v+0)}')\necho \"Overlay1 duration: $OV1_DUR\" >&2\nif [ -n \"$OVERLAY_2\" ]; then\n  OV2_DUR=$(probe_duration \"$OVERLAY_2\"); OV2_DUR=${OV2_DUR:-0}; OV2_DUR=$(awk -v v=\"$OV2_DUR\" 'BEGIN{printf(\"%.3f\", v+0)}')\n  echo \"Overlay2 duration: $OV2_DUR\" >&2\nfi\n\n# determine overlay1 resolution and FPS target\nIN_RES=$(probe_resolution \"$OVERLAY_FILE\" || true)\nif [ -n \"$IN_RES\" ]; then\n  O_W=$(printf \"%s\" \"$IN_RES\" | awk -Fx '{print $1}')\n  O_H=$(printf \"%s\" \"$IN_RES\" | awk -Fx '{print $2}')\nelse\n  # fallback vertical default\n  O_W=720; O_H=1280\nfi\nFPS_RAW=$(probe_framerate \"$OVERLAY_FILE\" || true)\nif [ -n \"$FPS_RAW\" ]; then\n  FPS=$(awk -v r=\"$FPS_RAW\" 'BEGIN{ if(index(r,\"/\")) { split(r,a,\"/\"); printf(\"%d\", a[1]/a[2]+0.5) } else { printf(\"%d\", r+0.5) } }')\nelse\n  FPS=30\nfi\necho \"Overlay target resolution: ${O_W}x${O_H} fps:${FPS}\" >&2\n\n# If no overlay2 provided, skip merge\nif [ -z \"$OVERLAY_2\" ]; then\n  echo \"No overlay2 provided — skipping merge; using overlay primary as-is.\" >&2\n  MERGED_OVERLAY=\"$OVERLAY_FILE\"\nelse\n  # compute FIRST_END_SEC using OVERLAY_2_LENGTH_SECONDS semantics\n  if [ -n \"$OVERLAY_2_LENGTH_SECONDS\" ]; then\n    OVERLAY_2_LENGTH_SECONDS=$(awk -v v=\"$OVERLAY_2_LENGTH_SECONDS\" 'BEGIN{printf(\"%.3f\", v+0)}')\n    FIRST_END_SEC=$(awk -v d=\"$OV1_DUR\" -v s=\"$OVERLAY_2_LENGTH_SECONDS\" 'BEGIN{printf(\"%.3f\", d - s)}')\n    echo \"FIRST_END_SEC = OV1_DUR - OVERLAY_2_LENGTH_SECONDS => $FIRST_END_SEC\" >&2\n  else\n    FIRST_END_SEC=$(awk -v d=\"$OV1_DUR\" 'BEGIN{printf(\"%.3f\", d*0.70)}')\n    echo \"OVERLAY_2_LENGTH_SECONDS not set; defaulting FIRST_END_SEC = 70% of overlay1 => $FIRST_END_SEC\" >&2\n  fi\n\n  # safety checks\n  TRANS=$(awk -v v=\"$OVERLAY_TRANSITION_DURATION\" 'BEGIN{printf(\"%.3f\", v+0)}')\n  # FIRST_END_SEC must be > TRANS\n  awk -v a=\"$FIRST_END_SEC\" -v b=\"$TRANS\" 'BEGIN{ if(a<=b || a<=0) { print \"ERR\"; exit 1 } }' || { echo \"ERR: computed FIRST_END_SEC invalid (<= transition)\"; exit 1; }\n  OFFSET=$(awk -v f=\"$FIRST_END_SEC\" -v t=\"$TRANS\" 'BEGIN{printf(\"%.3f\", f - t)}')\n  echo \"Crossfade params: FIRST_END_SEC=$FIRST_END_SEC OFFSET=$OFFSET TRANS=$TRANS\" >&2\n\n  # Build merged overlay (video-only xfade). We'll trim overlay1 to [0:FIRST_END_SEC]\n  # and overlay2 starting at OVERLAY_2_START_SEC; scale/fps/format to match overlay1 target.\n  echo \"Creating merged overlay video at: $MERGED_OVERLAY_TMP\" >&2\n\n  ffmpeg -y -hide_banner -loglevel error \\\n    -i \"$OVERLAY_FILE\" -i \"$OVERLAY_2\" \\\n    -filter_complex \"\\\n[0:v]trim=start=0:end=${FIRST_END_SEC},setpts=PTS-STARTPTS,scale=${O_W}:${O_H},fps=${FPS},setsar=1,format=yuv420p[v0]; \\\n[1:v]trim=start=${OVERLAY_2_START_SEC},setpts=PTS-STARTPTS,scale=${O_W}:${O_H},fps=${FPS},setsar=1,format=yuv420p[v1]; \\\n[v0][v1]xfade=transition=fade:duration=${TRANS}:offset=${OFFSET}[vxf]\" \\\n    -map \"[vxf]\" -c:v libx264 -crf 18 -preset veryfast -an -movflags +faststart \\\n    \"$MERGED_OVERLAY_TMP\"\n\n  rc=$?\n  if [ $rc -ne 0 ]; then\n    echo \"ERR: creating merged overlay failed (ffmpeg rc=$rc)\" >&2\n    rm -f \"$MERGED_OVERLAY_TMP\" || true\n    exit 1\n  fi\n\n  MERGED_OVERLAY=\"$MERGED_OVERLAY_TMP\"\n  echo \"Merged overlay created: $MERGED_OVERLAY\" >&2\nfi\n\n# --- generate caption image (same as before) ---\nrm -f \"${CAPTION_PNG}\" || true\nexport CAPTION_PNG CAPTION_TEXT CAPTION_FONT_PATH CAPTION_FONT_SIZE CAPTION_FONT_COLOR CAPTION_POS_X_PERCENT CAPTION_POS_Y_PERCENT TEXT_BG_ENABLE TEXT_BG_COLOR TEXT_BG_OPACITY TEXT_BG_PADDING\n\npython3 - <<'PY' 1>&2\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\nout_path = os.environ[\"CAPTION_PNG\"]\ntext = os.environ.get(\"CAPTION_TEXT\", \"\")\nfont_path = os.environ.get(\"CAPTION_FONT_PATH\", \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\")\ntry:\n    font_size = int(os.environ.get(\"CAPTION_FONT_SIZE\", \"64\"))\nexcept:\n    font_size = 64\nfont_color = os.environ.get(\"CAPTION_FONT_COLOR\", \"white\")\ntry:\n    pos_x_pct = int(os.environ.get(\"CAPTION_POS_X_PERCENT\", \"50\"))\nexcept:\n    pos_x_pct = 50\ntry:\n    pos_y_pct = int(os.environ.get(\"CAPTION_POS_Y_PERCENT\", \"50\"))\nexcept:\n    pos_y_pct = 50\nbg_enable = os.environ.get(\"TEXT_BG_ENABLE\", \"true\").lower() == 'true'\ntry:\n    bg_opacity = int(os.environ.get(\"TEXT_BG_OPACITY\", \"150\"))\nexcept:\n    bg_opacity = 150\ntry:\n    bg_padding = int(os.environ.get(\"TEXT_BG_PADDING\", \"20\"))\nexcept:\n    bg_padding = 20\n\ncanvas_w, canvas_h = 1080, 1920\ncanvas = Image.new(\"RGBA\", (canvas_w, canvas_h), (0, 0, 0, 0))\ndraw = ImageDraw.Draw(canvas)\nfont = None\ntry:\n    font = ImageFont.truetype(font_path, font_size)\n    print(\"Loaded font:\", font_path, \"size\", font_size)\nexcept Exception as e:\n    print(\"Font load failed:\", e)\n    candidates = [\n        \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n        \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\"\n    ]\n    for p in candidates:\n        if os.path.isfile(p):\n            try:\n                font = ImageFont.truetype(p, font_size)\n                print(\"Loaded fallback font:\", p)\n                break\n            except Exception:\n                font = None\n    if font is None:\n        font = ImageFont.load_default()\n        print(\"Using PIL default font (size may be ignored)\")\n\ntext = text or \" \"\nlines = text.splitlines() if \"\\n\" in text else [text]\nline_heights = []\nmax_w = 0\ntemp_draw = ImageDraw.Draw(canvas)\nfor ln in lines:\n    bbox = temp_draw.textbbox((0,0), ln, font=font)\n    w = bbox[2] - bbox[0]\n    h = bbox[3] - bbox[1]\n    line_heights.append(h)\n    if w > max_w:\n        max_w = w\ntotal_h = sum(line_heights) + (len(lines)-1) * int(font_size * 0.2)\n\nx = (canvas_w * pos_x_pct / 100.0) - (max_w / 2.0)\ny = (canvas_h * pos_y_pct / 100.0) - (total_h / 2.0)\n\nif bg_enable:\n    bg_layer = Image.new(\"RGBA\", (canvas_w, canvas_h), (0,0,0,0))\n    bg_draw = ImageDraw.Draw(bg_layer)\n    left = int(x - bg_padding)\n    top = int(y - bg_padding)\n    right = int(x + max_w + bg_padding)\n    bottom = int(y + total_h + bg_padding)\n    bg_draw.rectangle([left, top, right, bottom], fill=(0,0,0,bg_opacity))\n    canvas = Image.alpha_composite(canvas, bg_layer)\n\ndraw = ImageDraw.Draw(canvas)\ncur_y = y\nfor idx, ln in enumerate(lines):\n    draw.text((x, cur_y), ln, font=font, fill=font_color)\n    cur_y += line_heights[idx] + int(font_size * 0.2)\n\nos.makedirs(os.path.dirname(out_path), exist_ok=True)\ncanvas.save(out_path)\nprint(\"Saved caption image to\", out_path)\nPY\n\nif [ ! -f \"$CAPTION_PNG\" ]; then\n  echo \"ERR: caption image generation failed.\" >&2\n  [ -n \"$MERGED_OVERLAY_TMP\" ] && rm -f \"$MERGED_OVERLAY_TMP\" || true\n  exit 1\nfi\n\n# probe main duration for canvas duration\nMAIN_VID_DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"$INPUT_FILE\" 2>/dev/null || printf \"\")\nMAIN_VID_DURATION=${MAIN_VID_DURATION:-10}\nMAIN_VID_DURATION=$(awk -v v=\"$MAIN_VID_DURATION\" 'BEGIN{ if(v==0) v=10; printf(\"%.3f\", v+0)}')\necho \"Main duration: $MAIN_VID_DURATION\" >&2\n\n# rotation tag for main input (same as your pipeline)\nROTATE_TAG=$(ffprobe -v error -select_streams v:0 -show_entries stream_tags=rotate -of default=nw=1:nk=1 \"$INPUT_FILE\" 2>/dev/null || printf \"0\")\nROTATION_FILTER=\"\"\ncase \"$ROTATE_TAG\" in\n  90) ROTATION_FILTER=\"transpose=1,\" ;;\n  270) ROTATION_FILTER=\"transpose=2,\" ;;\nesac\n\n# Build final composition:\n# inputs:\n# 0 = main background (unchanged)\n# 1 = merged overlay (or original overlay if no merge)\n# 2 = caption image\nFILTER_COMPLEX=\"color=c=black:s=1080x1920:d=${MAIN_VID_DURATION}[canvas]; \\\n[1:v]scale=1080:-1[top_video]; \\\n[0:v]${ROTATION_FILTER}crop=in_w:in_h*${BOTTOM_PERCENT}/100:0:in_h-in_h*${BOTTOM_PERCENT}/100,scale=1080:-1,hflip[bottom_video]; \\\n[canvas][top_video]overlay=(W-w)/2:0[bg_with_top]; \\\n[bg_with_top][bottom_video]overlay=(W-w)/2:H-h[layout_complete]; \\\n[layout_complete][2:v]overlay=0:0[final_v]\"\n\necho \"Composing final output...\" >&2\nif timeout \"$FFMPEG_TIMEOUT\" ffmpeg -hide_banner -y \\\n  -loglevel error \\\n  -i \"$INPUT_FILE\" \\\n  -i \"$MERGED_OVERLAY\" \\\n  -i \"$CAPTION_PNG\" \\\n  -filter_complex \"${FILTER_COMPLEX}\" \\\n  -map \"[final_v]\" \\\n  -map 0:a? \\\n  -c:v libx264 -crf 23 -preset veryfast \\\n  -c:a copy \\\n  -aspect 9:16 \\\n  -t \"$MAIN_VID_DURATION\" \\\n  \"$OUT_FILE\" < /dev/null; then\n\n  # cleanup\n  rm -f \"$CAPTION_PNG\" || true\n  if [ -n \"$MERGED_OVERLAY_TMP\" ] && [ -f \"$MERGED_OVERLAY_TMP\" ]; then rm -f \"$MERGED_OVERLAY_TMP\" || true; fi\n\n  printf '%s\\n' \"$(basename \"$OUT_FILE\")\"\n  exit 0\nelse\n  echo \"❌ ERR: ffmpeg failed or timed out.\" >&2\n  if [ -n \"$MERGED_OVERLAY_TMP\" ] && [ -f \"$MERGED_OVERLAY_TMP\" ]; then rm -f \"$MERGED_OVERLAY_TMP\" || true; fi\n  exit 1\nfi\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        -1600
+      ],
+      "id": "4a98c988-d011-4f2e-9c73-11523bc238b4",
+      "name": "Execute Command",
+      "notes": "/files/successblueprint86-script/make_unique_fixed.sh -i in.mp4 --speed 1.2 --brightness -0.05 --contrast 1.1 --saturation 1.05 --border 20"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "jp3j25dLysLO51VR",
+          "mode": "list",
+          "cachedResultName": "FETCH INSTA LINKS FROM crazysunil02",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/jp3j25dLysLO51VR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fb",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1472,
+        -1600
+      ],
+      "id": "036f9558-06db-46a2-bb01-1a235085f12e",
+      "name": "get"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "value": "reel",
+              "type": "string"
+            },
+            {
+              "id": "f5027281-f5b9-4507-95f3-f1d8749e9028",
+              "name": "page_id",
+              "value": "928910723850453",
+              "type": "string"
+            },
+            {
+              "id": "c4578992-d24a-4666-b369-ae9f8c91aaec",
+              "name": "node_type",
+              "value": "http",
+              "type": "string"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5a",
+              "name": "image_url",
+              "value": "https://media.licdn.com/dms/image/v2/D4D03AQHf-K7ergkUwQ/profile-displayphoto-shrink_800_800/B4DZbdtDouHQAg-/0/1747476298728?e=1753920000&v=beta&t=Js1KDjpDYOgzYW4YlhwT1_ZmbggoSIxjcq3IA0rRJs0",
+              "type": "string"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "value": "https://files.mohdasif.net/meow1/upload1.mp4",
+              "type": "string"
+            },
+            {
+              "id": "383ffb11-0191-4fbc-abb1-c9183c66c71c",
+              "name": "reel_url",
+              "value": "https://videos.pexels.com/video-files/4830364/4830364-uhd_1440_2732_25fps.mp4",
+              "type": "string"
+            },
+            {
+              "id": "8f86898c-b399-43e4-87bd-a4da92622a1a",
+              "name": "dir",
+              "value": "/files/fb/Asif/downloaded/",
+              "type": "string"
+            },
+            {
+              "id": "3391efb1-d236-47c5-a9b0-35c67cf25455",
+              "name": "link",
+              "value": "https://files.mohdasif.net/fb/Asif/downloaded/",
+              "type": "string"
+            },
+            {
+              "id": "fea3bb99-c9e0-4e9b-a4ff-a27c0dacf5f8",
+              "name": "dir2",
+              "value": "/fb/Asif/downloaded/",
+              "type": "string"
+            },
+            {
+              "id": "0a112c81-a5e6-401e-8402-b667ab70b2e6",
+              "name": "input",
+              "value": "/files/fb/Asif/input/input.mp4",
+              "type": "string"
+            },
+            {
+              "id": "74cd6dd1-b05a-49ad-bba9-80ae5fc3a298",
+              "name": "fontpath",
+              "value": "/files/fonts/ARIALBD.TTF",
+              "type": "string"
+            },
+            {
+              "id": "f147a5a5-21e2-492d-9408-7f5b9c9f882d",
+              "name": "output",
+              "value": "/files/fb/Asif/output",
+              "type": "string"
+            },
+            {
+              "id": "9292c731-3ac0-4c47-b190-713e52e94b9a",
+              "name": "uploadfinal",
+              "value": "https://files.mohdasif.net/fb/Asif/output/",
+              "type": "string"
+            },
+            {
+              "id": "10d8a764-bce9-457f-9503-7c559124d549",
+              "name": "delete",
+              "value": "/upload/fb/Asif/output/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2144,
+        -1600
+      ],
+      "id": "fe7953f4-cdb5-459b-a71f-d5ed3147b5aa",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "jp3j25dLysLO51VR",
+          "mode": "list",
+          "cachedResultName": "FETCH INSTA LINKS FROM crazysunil02",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/jp3j25dLysLO51VR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "code",
+              "keyValue": "={{ $('get').item.json.code }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb": "DONE"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "code",
+              "displayName": "code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "download_url",
+              "displayName": "download_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "downloaded",
+              "displayName": "downloaded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fb",
+              "displayName": "fb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "youtube",
+              "displayName": "youtube",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "instagram",
+              "displayName": "instagram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        96,
+        -1600
+      ],
+      "id": "4cde89c9-47ec-47f8-8d53-b6fdb1105904",
+      "name": "update_published"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🔹 Put your description here:\nconst rawDescription = $('get').first().json.title\nfunction cleanDescription(input) {\n  let output = input;\n\n  // Remove \"Sachin Kumar\"\n  output = output.replace(/Sachin Kumar/gi, \"\");\n\n  // Remove \"#Sachin_kumar_a1\"\n  output = output.replace(/#Sachin_kumar_a1/gi, \"\");\n\n  // Trim extra spaces left behind\n  output = output.replace(/\\s{2,}/g, \" \").trim();\n\n  // Escape for JSON: backslashes, quotes, newlines, carriage returns\n  output = output\n    .replace(/\\\\/g, \"\\\\\\\\\")\n    .replace(/\"/g, '\\\\\"')\n    .replace(/\\r/g, \"\\\\r\")\n    .replace(/\\n/g, \"\\\\n\");\n\n  return output;\n}\n\n// ✅ Return one clean item for n8n\nreturn [\n  {\n    json: {\n      description: cleanDescription(rawDescription)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        -1600
+      ],
+      "id": "5761f005-8969-4081-8746-f1d806108164",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "delete",
+        "path": "=/upload/fb/Asif/output/output_1758834078.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        320,
+        -1600
+      ],
+      "id": "15ea7890-8156-483d-a1c2-ab084933cc71",
+      "name": "FTP",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "command": "=#!/bin/sh\nset -eu\n\n# =========================\n# CONFIG (Edit only here)\n# =========================\n# Either provide a full URL (https://domain/.../file.mp4) OR a local path (/files/.../file.mp4 or files/...)\nINPUT_URL=\"{{ $json.public }}\"\n\n# Files needed (these can be absolute paths)\nOVERLAY_FILE=\"{{ $('config').item.json.input }}\"   # The video for the top section\nCAPTION_FONT_PATH=\"{{ $('config').item.json.fontpath }}\" # Font path (falls back if missing)\n\n# Rendering / placement\nBOTTOM_PERCENT=57                      # Percentage of the original video reserved for the bottom\nCAPTION_POS_X_PERCENT=50               # Horizontal position (0=left, 50=center, 100=right)\nCAPTION_POS_Y_PERCENT=35               # Vertical position (0=top, 50=center, 100=bottom)\n\n# Caption / text\nCAPTION_TEXT=\"Your Caption Here\"\nCAPTIONS_STR='Wait For End\nEND MAST HAI\nYE KYA HO GAYA\nWAAAH'\nCAPTION_FONT_SIZE=60\nCAPTION_FONT_COLOR=\"white\"\n\n# Text BG box\nTEXT_BG_ENABLE=true\nTEXT_BG_COLOR=\"black\"\nTEXT_BG_OPACITY=150\nTEXT_BG_PADDING=25\n\n# Output naming (uses code if present in env var JSON_CODE, else timestamp)\nASSETS_DIR=\"{{ $('config').item.json.output }}\"\nmkdir -p \"$ASSETS_DIR\"\nOUT_FILE=\"${ASSETS_DIR}/output_$(date +%s).mp4\"\n# If your environment injects a code variable, set JSON_CODE env and it will be used:\nif [ -n \"${JSON_CODE:-}\" ]; then\n  OUT_FILE=\"${ASSETS_DIR}/${JSON_CODE}.mp4\"\nfi\n\n# Path used for the caption image\nCAPTION_PNG=\"${ASSETS_DIR}/caption_image.png\"\n\n# ffmpeg timeout (seconds)\nFFMPEG_TIMEOUT=\"5m\"\n# =========================\n# End config\n# =========================\n\n# All informational output goes to stderr so stdout stays clean (only final basename printed)\necho \"=== Video processing started ===\" >&2\n\n# --- Resolve INPUT_FILE whether INPUT_URL is a URL or a path ---\nINPUT_FILE=\"\"\ncase \"$INPUT_URL\" in\n  http://*|https://*)\n    # Strip domain to produce relative path used by your file server mapping\n    REL_PATH=$(printf \"%s\" \"$INPUT_URL\" | sed -E 's@https?://[^/]+/@@')\n    INPUT_FILE=\"/files/${REL_PATH}\"\n    echo \"Detected full URL; mapped to local path: $INPUT_FILE\" >&2\n    ;;\n  /files/*)\n    INPUT_FILE=\"$INPUT_URL\"\n    echo \"Detected absolute /files path: $INPUT_FILE\" >&2\n    ;;\n  files/*)\n    INPUT_FILE=\"/$INPUT_URL\"\n    echo \"Detected path starting with files/: $INPUT_FILE\" >&2\n    ;;\n  *)\n    INPUT_FILE=\"/files/${INPUT_URL}\"\n    echo \"Detected relative path; prefixed to /files/: $INPUT_FILE\" >&2\n    ;;\nesac\n\necho \"Output will be: $OUT_FILE\" >&2\necho \"Overlay file: $OVERLAY_FILE\" >&2\necho \"Caption font path: $CAPTION_FONT_PATH\" >&2\n\n# ---------- Random caption selection ----------\nif [ -n \"${CAPTIONS_STR}\" ]; then\n  if command -v shuf >/dev/null 2>&1; then\n    CAPTION_TEXT=$(printf \"%s\\n\" \"$CAPTIONS_STR\" | shuf -n 1)\n  else\n    # portable awk fallback\n    CAPTION_TEXT=$(printf \"%s\\n\" \"$CAPTIONS_STR\" | awk 'BEGIN{srand()} {lines[NR]=$0} END{print lines[int(rand()*NR)+1]}')\n  fi\n  [ -n \"$CAPTION_TEXT\" ] || CAPTION_TEXT=\"Your Caption Here\"\n  echo \"Selected caption: $CAPTION_TEXT\" >&2\nelse\n  echo \"Using fixed caption: $CAPTION_TEXT\" >&2\nfi\n\n# ---------------- File existence checks ----------------\nif [ ! -f \"$INPUT_FILE\" ]; then\n  echo \"ERR: Main input file not found: $INPUT_FILE\" >&2\n  exit 1\nfi\nif [ ! -f \"$OVERLAY_FILE\" ]; then\n  echo \"ERR: Overlay file not found: $OVERLAY_FILE\" >&2\n  exit 1\nfi\n\n# ---------------- Gather metadata ----------------\nROTATE_TAG=$(ffprobe -v error -select_streams v:0 -show_entries stream_tags=rotate -of default=nw=1:nk=1 \"$INPUT_FILE\" 2>/dev/null || printf \"0\")\nMAIN_VID_DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"$INPUT_FILE\" 2>/dev/null || printf \"\")\nif [ -z \"$MAIN_VID_DURATION\" ]; then\n  MAIN_VID_DURATION=10\nfi\necho \"Main duration: $MAIN_VID_DURATION\" >&2\necho \"Rotate tag: $ROTATE_TAG\" >&2\n\nROTATION_FILTER=\"\"\ncase \"$ROTATE_TAG\" in\n  90) ROTATION_FILTER=\"transpose=1,\" ;;\n  270) ROTATION_FILTER=\"transpose=2,\" ;;\nesac\n\n# Remove old caption image to avoid caching issues\necho \"Cache-Busting: Deleting old caption image if it exists...\" >&2\nrm -f \"${CAPTION_PNG}\" || true\n\n# Export env for the python caption generator\nexport CAPTION_PNG CAPTION_TEXT CAPTION_FONT_PATH CAPTION_FONT_SIZE CAPTION_FONT_COLOR CAPTION_POS_X_PERCENT CAPTION_POS_Y_PERCENT TEXT_BG_ENABLE TEXT_BG_COLOR TEXT_BG_OPACITY TEXT_BG_PADDING\n\necho \"Generating new caption image -> ${CAPTION_PNG}\" >&2\n# Redirect python's stdout/stderr to stderr so it won't pollute stdout\npython3 - <<'PY' 1>&2\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\nout_path = os.environ[\"CAPTION_PNG\"]\ntext = os.environ.get(\"CAPTION_TEXT\", \"\")\nfont_path = os.environ.get(\"CAPTION_FONT_PATH\", \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\")\ntry:\n    font_size = int(os.environ.get(\"CAPTION_FONT_SIZE\", \"64\"))\nexcept:\n    font_size = 64\nfont_color = os.environ.get(\"CAPTION_FONT_COLOR\", \"white\")\ntry:\n    pos_x_pct = int(os.environ.get(\"CAPTION_POS_X_PERCENT\", \"50\"))\nexcept:\n    pos_x_pct = 50\ntry:\n    pos_y_pct = int(os.environ.get(\"CAPTION_POS_Y_PERCENT\", \"50\"))\nexcept:\n    pos_y_pct = 50\nbg_enable = os.environ.get(\"TEXT_BG_ENABLE\", \"true\").lower() == 'true'\ntry:\n    bg_opacity = int(os.environ.get(\"TEXT_BG_OPACITY\", \"150\"))\nexcept:\n    bg_opacity = 150\ntry:\n    bg_padding = int(os.environ.get(\"TEXT_BG_PADDING\", \"20\"))\nexcept:\n    bg_padding = 20\n\ncanvas_w, canvas_h = 1080, 1920\ncanvas = Image.new(\"RGBA\", (canvas_w, canvas_h), (0, 0, 0, 0))\ndraw = ImageDraw.Draw(canvas)\n\n# Try load font, fallback gracefully\nfont = None\ntry:\n    font = ImageFont.truetype(font_path, font_size)\n    print(\"Loaded font:\", font_path, \"size\", font_size)\nexcept Exception as e:\n    print(\"Font load failed:\", e)\n    candidates = [\n        \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n        \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\"\n    ]\n    for p in candidates:\n        if os.path.isfile(p):\n            try:\n                font = ImageFont.truetype(p, font_size)\n                print(\"Loaded fallback font:\", p)\n                break\n            except Exception:\n                font = None\n    if font is None:\n        font = ImageFont.load_default()\n        print(\"Using PIL default font (size may be ignored)\")\n\ntext = text or \" \"\nlines = text.splitlines() if \"\\n\" in text else [text]\nline_heights = []\nmax_w = 0\ntemp_draw = ImageDraw.Draw(canvas)\nfor ln in lines:\n    bbox = temp_draw.textbbox((0,0), ln, font=font)\n    w = bbox[2] - bbox[0]\n    h = bbox[3] - bbox[1]\n    line_heights.append(h)\n    if w > max_w:\n        max_w = w\ntotal_h = sum(line_heights) + (len(lines)-1) * int(font_size * 0.2)\n\nx = (canvas_w * pos_x_pct / 100.0) - (max_w / 2.0)\ny = (canvas_h * pos_y_pct / 100.0) - (total_h / 2.0)\n\nif bg_enable:\n    bg_layer = Image.new(\"RGBA\", (canvas_w, canvas_h), (0,0,0,0))\n    bg_draw = ImageDraw.Draw(bg_layer)\n    left = int(x - bg_padding)\n    top = int(y - bg_padding)\n    right = int(x + max_w + bg_padding)\n    bottom = int(y + total_h + bg_padding)\n    bg_draw.rectangle([left, top, right, bottom], fill=(0,0,0,bg_opacity))\n    canvas = Image.alpha_composite(canvas, bg_layer)\n\ndraw = ImageDraw.Draw(canvas)\ncur_y = y\nfor idx, ln in enumerate(lines):\n    draw.text((x, cur_y), ln, font=font, fill=font_color)\n    cur_y += line_heights[idx] + int(font_size * 0.2)\n\nos.makedirs(os.path.dirname(out_path), exist_ok=True)\ncanvas.save(out_path)\nprint(\"Saved caption image to\", out_path)\nPY\n\nif [ ! -f \"$CAPTION_PNG\" ]; then\n  echo \"ERR: Python script failed to generate caption image.\" >&2\n  exit 1\nfi\n\n# --- Build ffmpeg filter_complex (includes hflip on bottom video) ---\nFILTER_COMPLEX=\"color=c=black:s=1080x1920:d=${MAIN_VID_DURATION}[canvas]; \\\n[1:v]scale=1080:-1[top_video]; \\\n[0:v]${ROTATION_FILTER}crop=in_w:in_h*${BOTTOM_PERCENT}/100:0:in_h-in_h*${BOTTOM_PERCENT}/100,scale=1080:-1,hflip[bottom_video]; \\\n[canvas][top_video]overlay=(W-w)/2:0[bg_with_top]; \\\n[bg_with_top][bottom_video]overlay=(W-w)/2:H-h[layout_complete]; \\\n[layout_complete][2:v]overlay=0:0[final_v]\"\n\necho \"Composing final video with caption...\" >&2\nif timeout \"$FFMPEG_TIMEOUT\" ffmpeg -hide_banner -y \\\n  -loglevel error \\\n  -i \"$INPUT_FILE\" \\\n  -i \"$OVERLAY_FILE\" \\\n  -i \"$CAPTION_PNG\" \\\n  -filter_complex \"${FILTER_COMPLEX}\" \\\n  -map \"[final_v]\" \\\n  -map 0:a? \\\n  -c:v libx264 -crf 23 -preset veryfast \\\n  -c:a copy \\\n  -aspect 9:16 \\\n  -t \"$MAIN_VID_DURATION\" \\\n  \"$OUT_FILE\" < /dev/null; then\n  # Remove caption image (clean up) before printing final filename\n  rm -f \"$CAPTION_PNG\" || true\n  # Print only the clean filename to STDOUT (so downstream systems get a single clean value)\n  printf '%s\\n' \"$(basename \"$OUT_FILE\")\"\n  exit 0\nelse\n  echo \"❌ ERR: ffmpeg failed or timed out after ${FFMPEG_TIMEOUT}.\" >&2\n  exit 1\nfi\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1392,
+        -2112
+      ],
+      "id": "ee14cdca-015e-4f0a-a75c-b77dceecb46b",
+      "name": "Execute Command1",
+      "disabled": true,
+      "notes": "/files/successblueprint86-script/make_unique_fixed.sh -i in.mp4 --speed 1.2 --brightness -0.05 --contrast 1.1 --saturation 1.05 --border 20"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Gone1f69kAxut8Im",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/Gone1f69kAxut8Im",
+          "cachedResultName": "RandomHook"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -2368,
+        -1600
+      ],
+      "id": "b84c8350-c7d2-45d4-8fc1-2ad8f460e1d5",
+      "name": "hook"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-25T19:53:02.896Z",
+      "updatedAt": "2025-09-25T19:53:02.896Z",
+      "role": "workflow:owner",
+      "workflowId": "6tAH5TTbLAQ4a4td",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-09-11T20:40:54.952Z",
+      "updatedAt": "2025-09-11T20:40:54.952Z",
+      "id": "KislEXiiNTebxxB8",
+      "name": "Facebook"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:08:22.000Z",
+  "versionId": "178f1b1b-55b7-4b79-9685-45747ccec905"
+}

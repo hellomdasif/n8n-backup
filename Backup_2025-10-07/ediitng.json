@@ -1,0 +1,1159 @@
+{
+  "createdAt": "2025-09-12T11:56:46.108Z",
+  "updatedAt": "2025-09-14T12:45:43.000Z",
+  "id": "PYpS9tIPsQDFy2HO",
+  "name": "ediitng",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        -256
+      ],
+      "id": "b041d54e-0127-4286-a73a-89f8020781ef",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "=yt-dlp --cookies /files/cookies.txt --no-part --recode-video mp4 -o \"/files/test/%(id)s.%(ext)s\" \"https://www.youtube.com/shorts/7d93S5YNUTM\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -240
+      ],
+      "id": "7aa9c655-3411-4fe7-940f-1c2d0e76ccb7",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit?usp=drivesdk",
+          "cachedResultName": "DaysOfDodo"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 1195115445,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit#gid=1195115445",
+          "cachedResultName": "Video Pool"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2eab817f-9c8c-40d4-ac05-8a4bbb78e5c4",
+      "name": "GetYTvideo",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -1952,
+        -1296
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {},
+      "id": "13d644ea-5633-4068-87ce-11aed4892b60",
+      "name": "Limit_1",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        -1728,
+        -1296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b8917a0-7b13-46f3-9b5a-59dbe9d33e38",
+              "name": "=File Name",
+              "type": "string",
+              "value": "={{ Array.from({ length: 10 }, () => Math.random().toString(36)[2]).join('') }}"
+            },
+            {
+              "id": "3dd38945-c044-486b-9e0c-4a080b62a606",
+              "name": "Folder Name",
+              "type": "string",
+              "value": "Video Footage"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ac4e8b01-b4f9-413d-96e4-c760df95881d",
+      "name": "GenrateFileName",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -1504,
+        -1296
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "command": "=yt-dlp -o \"./files/KnowSparkz/demo.mp4\" \"https://www.youtube.com/shorts/_YQ3cowSkAc\" -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"\n"
+      },
+      "id": "60b9cbfa-e98d-4dce-b825-73bc086c613f",
+      "name": "DownloadVideoFootage",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        -1280,
+        -1296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit?usp=drivesdk",
+          "cachedResultName": "DaysOfDodo"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 1195115445,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit#gid=1195115445",
+          "cachedResultName": "Video Pool"
+        },
+        "columns": {
+          "value": {
+            "Status": "Success",
+            "row_number": "={{ $('Limit_1').item.json.row_number }}",
+            "Internal Path": "=./{{ $('GenrateFileName').item.json['Folder Name'] }}/{{ $('GenrateFileName').item.json['File Name'] }}.mp4"
+          },
+          "schema": [
+            {
+              "id": "Video Path",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Video Path",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Internal Path",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Internal Path",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Status",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "type": "number",
+              "display": true,
+              "removed": false,
+              "readOnly": true,
+              "required": false,
+              "displayName": "row_number",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "4b0cfc60-cefb-42c6-bc5c-3d43a544b020",
+      "name": "UpdateVideoFootageDetails",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -1056,
+        -1296
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit?usp=drivesdk",
+          "cachedResultName": "DaysOfDodo"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 871997350,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit#gid=871997350",
+          "cachedResultName": "Music Pool"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "19bdbce5-6a98-4cfe-974f-c7428726f020",
+      "name": "GetYTmusic",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -1952,
+        -1072
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {},
+      "id": "f664d0c7-3ac2-4f05-92b2-9c4f2076a16b",
+      "name": "Limit_01",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        -1728,
+        -1072
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b8917a0-7b13-46f3-9b5a-59dbe9d33e38",
+              "name": "=File Name",
+              "type": "string",
+              "value": "={{ Array.from({ length: 10 }, () => Math.random().toString(36)[2]).join('') }}"
+            },
+            {
+              "id": "3dd38945-c044-486b-9e0c-4a080b62a606",
+              "name": "Folder Name",
+              "type": "string",
+              "value": "MusicFile"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7844ea80-c1f2-4730-970b-6a3f4e55fbc7",
+      "name": "GenrateFileName_01",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -1504,
+        -1072
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "command": "=yt-dlp -x \\\n  --audio-format mp3 \\\n  --audio-quality 0 \\\n  --embed-thumbnail \\\n  -o\"./{{ $('GenrateFileName_01').item.json['Folder Name'] }}/{{ $('GenrateFileName_01').item.json['File Name'] }}.mp3\" \\\n  \"{{ $('GetYTmusic').item.json['Music Path'] }}\"\n"
+      },
+      "id": "5131b58f-c167-43c9-8b2d-3c415417a008",
+      "name": "DownloadMusic",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        -1280,
+        -1072
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit?usp=drivesdk",
+          "cachedResultName": "DaysOfDodo"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 871997350,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit#gid=871997350",
+          "cachedResultName": "Music Pool"
+        },
+        "columns": {
+          "value": {
+            "Status": "Success",
+            "row_number": "={{ $('GetYTmusic').item.json.row_number }}",
+            "Internal Path": "=./{{ $('GenrateFileName_01').item.json['Folder Name'] }}/{{ $('GenrateFileName_01').item.json['File Name'] }}.mp3"
+          },
+          "schema": [
+            {
+              "id": "Music Path",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Music Path",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Internal Path",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Internal Path",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Status",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "type": "number",
+              "display": true,
+              "removed": false,
+              "readOnly": true,
+              "required": false,
+              "displayName": "row_number",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "95833ae0-6da8-4def-89c5-0798ffbbea63",
+      "name": "UpdateMusicDetails",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -1056,
+        -1072
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {
+        "content": "# YouTube Video & Music Downloader\n\n**Video Downloader** - Fetches YouTube video links from Google Sheets, downloads as MP4 with unique filenames, and updates sheet with paths  \n\n**Music Downloader** - Gets music links from Google Sheets, downloads as MP3 (HQ+thumbnail), and tracks paths in spreadsheet",
+        "height": 592,
+        "width": 1392,
+        "color": 4
+      },
+      "id": "6e9d03de-afc9-4e64-a389-ed88b736b8ca",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2256,
+        -1472
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 11,
+              "triggerAtMinute": 51
+            }
+          ]
+        }
+      },
+      "id": "de45a50b-b445-4b13-93ac-6cc6e166c380",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -240,
+        -1504
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit?usp=drivesdk",
+          "cachedResultName": "DaysOfDodo"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 1195115445,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit#gid=1195115445",
+          "cachedResultName": "Video Pool"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Success"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6d9c1ebb-cefb-419c-ad58-06f4af25d858",
+      "name": "GetAllVideos",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -16,
+        -1504
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "Internal Path"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "20933dba-6fe2-41f6-8b5b-7aea544b0b9d",
+      "name": "AggregateVideos",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        208,
+        -1504
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit?usp=drivesdk",
+          "cachedResultName": "DaysOfDodo"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 871997350,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit#gid=871997350",
+          "cachedResultName": "Music Pool"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Success"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b0c63bf7-b82e-4b29-a5c2-450c6ead8945",
+      "name": "GetAllMusic",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        432,
+        -1504
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "Internal Path"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cdc93af8-c6fe-4485-a91e-cc9f45c9f124",
+      "name": "AggregateMusic",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        -672,
+        -1296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit?usp=drivesdk",
+          "cachedResultName": "DaysOfDodo"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 739055601,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit#gid=739055601",
+          "cachedResultName": "Video Logs"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "54dfca6b-d0a9-40d5-beed-6cd1042150e5",
+      "name": "GetQuotes",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -448,
+        -1296
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {},
+      "id": "f46db84f-82f6-495a-ac25-ad30e02c4dd1",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        -224,
+        -1296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b028ccc-6b8d-4ed0-958a-52b0223e5dac",
+              "name": "Music_Path",
+              "type": "string",
+              "value": "={{ $('AggregateMusic').item.json['Internal Path'][Math.floor(Math.random() * $('AggregateMusic').item.json['Internal Path'].length)] }}"
+            },
+            {
+              "id": "b97fb3ce-cf68-46fc-81b3-774ac5e26990",
+              "name": "Video_Path",
+              "type": "string",
+              "value": "={{ $('AggregateVideos').item.json['Internal Path'][Math.floor(Math.random()*$('AggregateVideos').item.json['Internal Path'].length)] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "15e81dc8-113a-4c05-b2ee-f40a98118e7b",
+      "name": "PickMusicVideoRandom",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -16,
+        -1296
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "aec988b9-f8b7-4b59-8438-f720568d4d9f",
+              "name": "File Name",
+              "type": "string",
+              "value": "={{ Array.from({ length: 10 }, () => Math.random().toString(36)[2]).join('') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b1611d08-8846-4953-8a95-8ac593146028",
+      "name": "GenrateFinalFileName",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        208,
+        -1296
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const fontColor = \"white\";\nconst fontFile = \"NotoSerif_Condensed-BlackItalic.ttf\";\nconst fontSize = 80;\nconst lineHeightMultiplier = 1.1;\nconst videoWidth = 1080;\n\nconst avgCharWidth = fontSize * 0.6;\nconst maxCharsPerLine = Math.floor(videoWidth / avgCharWidth);\n\nconst words = $('GetQuotes').item.json['Video Transcript'].split(' ');\nconst lines = [];\nlet currentLine = '';\nlet currentCharCount = 0;\n\nwords.forEach(word => {\n  const wordLength = word.length;\n  const potentialLength = currentCharCount + (currentLine ? 1 : 0) + wordLength;\n  if (potentialLength <= maxCharsPerLine) {\n    currentLine += `${currentLine ? ' ' : ''}${word}`;\n    currentCharCount = potentialLength;\n  } else {\n    lines.push(currentLine);\n    currentLine = word;\n    currentCharCount = wordLength;\n  }\n});\n\nif (currentLine) lines.push(currentLine);\n\nconst totalHeight = lines.length * fontSize * lineHeightMultiplier;\nconst lineHeight = fontSize * lineHeightMultiplier;\n\nconst drawText = lines.map((line, index) => {\n  const y = `(h/2)-${Math.ceil(totalHeight/2)}+${index * lineHeight}`;\n  return `drawtext=text='${line}':fontsize=${fontSize}:fontcolor=${fontColor}:x=(w-tw)/2:y=${y}:fontfile=${fontFile}`;\n}).join(',');\n\nreturn {\n  drawText\n};"
+      },
+      "id": "8a86f689-1c4d-4dd5-ab6c-b2b19e4fa9f9",
+      "name": "GenrateTextOverlayForVideo",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        432,
+        -1296
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=ffmpeg -i \"{{ $('PickMusicVideoRandom').item.json.Video_Path }}\" \\\n    -i \"{{ $('PickMusicVideoRandom').item.json.Music_Path }}\" \\\n    -filter_complex \"\n[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[vid];\ncolor=black@0.3:size=1080x1920:d=10[bg];\n[vid][bg]overlay[bgvid];\n[bgvid]{{ $json.drawText }}[outv];\n[1:a]volume=0.8[aout]\" \\\n    -map \"[outv]\" \\\n    -map \"[aout]\" \\\n    -t 10 -aspect 9:16 -c:v libx264 -c:a aac -shortest \\\n    \"./{{ $('GenrateFinalFileName').item.json['File Name'] }}.mp4\" -y\n\n\n"
+      },
+      "id": "5725d10f-d894-4e45-9dc0-7ffac4f64642",
+      "name": "GenerateVideo",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        -672,
+        -1072
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "fileSelector": "=./{{ $('GenrateFinalFileName').item.json['File Name'] }}.mp4",
+        "options": {}
+      },
+      "id": "d636e2df-a10d-49cf-a1c1-0cb041691c59",
+      "name": "Read/Write Files from Disk",
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        -224,
+        -1072
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $('CreateYoutubeLink').item.json.headers.location }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "video/webm"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "id": "6761b3cb-3acf-40d1-b2c0-ec8671fa59e8",
+      "name": "UploadVideo",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -16,
+        -1072
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/upload/youtube/v3/videos?part=snippet,status&uploadType=resumable",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "C-Upload-Content-Type",
+              "value": "video/webm"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "RAW/JSON",
+        "body": "={\n  \"snippet\": {\n    \"title\": \"{{ $('Limit').item.json['Video Title'] }}\",\n    \"description\": \"{{ $('Limit').item.json['Video Transcript'] }}\",\n    \"defaultLanguage\": \"en\",\n    \"defaultAudioLanguage\": \"en\"\n  },\n  \"status\": {\n    \"privacyStatus\": \"public\",\n    \"license\": \"youtube\",\n    \"embeddable\": true,\n    \"publicStatsViewable\": true,\n    \"madeForKids\": false\n  }\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "9fc384ae-f1f3-43d8-bb92-2cf9999aae66",
+      "name": "CreateYoutubeLink",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -464,
+        -1072
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "53V5EXwtYZRfT2WN",
+          "name": "YouTube account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit?usp=drivesdk",
+          "cachedResultName": "DaysOfDodo"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 739055601,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12GT5hiQBMiklbVtOtfzySwwy2gzJTaz5U6NEMXmAUzs/edit#gid=739055601",
+          "cachedResultName": "Video Logs"
+        },
+        "columns": {
+          "value": {
+            "Status": "Success",
+            "Post Time": "={{$now}}",
+            "row_number": "={{ $('Limit').item.json.row_number }}",
+            "Output Path": "=./{{ $('GenrateFinalFileName').item.json['File Name'] }}.mp4",
+            "Youtube Link": "=https://www.youtube.com/watch?v={{ $json.id }}"
+          },
+          "schema": [
+            {
+              "id": "Video Title",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Video Title",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Video Transcript",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Video Transcript",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Output Path",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Output Path",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Status",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Youtube Link",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Youtube Link",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Post Time",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Post Time",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "type": "number",
+              "display": true,
+              "removed": false,
+              "readOnly": true,
+              "required": false,
+              "displayName": "row_number",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "1bfc4869-c597-48eb-b4c3-ff2000f7267f",
+      "name": "UpdateVideoPost",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        208,
+        -1072
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {
+        "content": "# YouTube Video & Music Processor\n\n**Video Pipeline** - Fetches videos → Adds text overlays → Generates 10s clips → Uploads to YouTube  \n\n**Music Pipeline** - Selects random tracks → Adjusts volume → Merges with videos  \n\n**Tracking** - Logs all results in Google Sheets → Cleans up files",
+        "height": 768,
+        "width": 1504,
+        "color": 3
+      },
+      "id": "a5f36040-9b0b-4c2c-8380-8ba1d3c125aa",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -832,
+        -1648
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=rm ./{{ $('GenrateFinalFileName').item.json['File Name'] }}.mp4"
+      },
+      "id": "6ef99129-519b-4f0b-9b4b-d826c7c76a0b",
+      "name": "RemoveFile",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        448,
+        -1072
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Automatic Youtube shorts creation and uploading\n## That includes 2 workflows, first one to download the resources and second one to merge and uploading",
+        "height": 128,
+        "width": 1392,
+        "color": 3
+      },
+      "id": "564e3869-988d-4567-ba47-a25b97080393",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2256,
+        -1648
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "PickMusicVideoRandom",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit_1": {
+      "main": [
+        [
+          {
+            "node": "GenrateFileName",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit_01": {
+      "main": [
+        [
+          {
+            "node": "GenrateFileName_01",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetQuotes": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetYTmusic": {
+      "main": [
+        [
+          {
+            "node": "Limit_01",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetYTvideo": {
+      "main": [
+        [
+          {
+            "node": "Limit_1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetAllMusic": {
+      "main": [
+        [
+          {
+            "node": "AggregateMusic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UploadVideo": {
+      "main": [
+        [
+          {
+            "node": "UpdateVideoPost",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetAllVideos": {
+      "main": [
+        [
+          {
+            "node": "AggregateVideos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DownloadMusic": {
+      "main": [
+        [
+          {
+            "node": "UpdateMusicDetails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenerateVideo": {
+      "main": [
+        [
+          {
+            "node": "CreateYoutubeLink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AggregateMusic": {
+      "main": [
+        [
+          {
+            "node": "GetQuotes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AggregateVideos": {
+      "main": [
+        [
+          {
+            "node": "GetAllMusic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenrateFileName": {
+      "main": [
+        [
+          {
+            "node": "DownloadVideoFootage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateVideoPost": {
+      "main": [
+        [
+          {
+            "node": "RemoveFile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreateYoutubeLink": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "GetAllVideos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenrateFileName_01": {
+      "main": [
+        [
+          {
+            "node": "DownloadMusic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DownloadVideoFootage": {
+      "main": [
+        [
+          {
+            "node": "UpdateVideoFootageDetails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenrateFinalFileName": {
+      "main": [
+        [
+          {
+            "node": "GenrateTextOverlayForVideo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PickMusicVideoRandom": {
+      "main": [
+        [
+          {
+            "node": "GenrateFinalFileName",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenrateTextOverlayForVideo": {
+      "main": [
+        [
+          {
+            "node": "GenerateVideo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "UploadVideo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "8ad89fd6-574c-4cfd-b893-d143655edb96",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-12T11:56:46.112Z",
+      "updatedAt": "2025-09-12T11:56:46.112Z",
+      "role": "workflow:owner",
+      "workflowId": "PYpS9tIPsQDFy2HO",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

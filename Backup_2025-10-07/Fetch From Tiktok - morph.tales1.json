@@ -1,0 +1,299 @@
+{
+  "createdAt": "2025-09-11T19:18:02.680Z",
+  "updatedAt": "2025-10-06T13:01:54.000Z",
+  "id": "0D1QWfHpQuzeI5Vc",
+  "name": "Fetch From Tiktok - morph.tales1",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "// Define the two user IDs you want to process\nconst userIds = [\n  \"7352806711759701025\", // First User ID\n  \"7402651265307952171\"  // Second User ID\n];\n\n// This will create two separate items for the next nodes to process\nreturn userIds.map(id => ({\n  json: {\n    userId: id\n  }\n}));"
+      },
+      "id": "fd3d1249-815b-4acc-994f-7dba100f7d86",
+      "name": "1. Set User IDs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1856,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://tiktok-scraper7.p.rapidapi.com/user/posts?user_id=' + $json.userId + '&count=5&cursor=0'}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "tiktok-scraper7.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d76afd82-bb61-4f28-8b21-faec176c7a0c",
+      "name": "3. Get 5 Latest Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1408,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Extract URLs (robust) - outputs { json: { DirectUrl: \"...\", title: \"...\", status: \"\" } }\n\n// helper to normalize and push an URL if not seen\nfunction pushUrl(u, out, seen, title) {\n  if (!u) return;\n  const url = String(u).trim();\n  if (!url) return;\n  if (!seen.has(url)) {\n    seen.add(url);\n    out.push({ json: { DirectUrl: url, title: String(title || '').trim(), status: '' } });\n  }\n}\n\n// try a few common places where URLs live\nconst out = [];\nconst seen = new Set();\n\n// 1) data.videos (new API sample)\nconst videos = items[0]?.json?.data?.videos || [];\nif (Array.isArray(videos) && videos.length > 0) {\n  for (let i = 0; i < Math.min(5, videos.length); i++) {\n    const v = videos[i];\n    if (!v) continue;\n    const videoTitle = v.title || v.caption || '';\n    // prefer explicit video link fields if present (play / wmplay / origin_cover fallback)\n    // but most stable: construct tiktok page URL using author unique_id and video_id\n    const videoId = v.video_id || v.aweme_id || v.id || v.videoId;\n    let username = v.author?.unique_id || v.author?.uniqueId || v.author?.uniqueIdStr || v.author?.id || v.author?.nickname || '';\n    username = String(username || '').trim().replace(/^@+/, '');\n    if (username && videoId) {\n      pushUrl(`https://www.tiktok.com/@${username}/video/${videoId}`, out, seen, videoTitle);\n    } else {\n      // if no username, try to use a direct play link present in the object\n      if (v.play) pushUrl(v.play, out, seen, videoTitle);\n      else if (v.wmplay) pushUrl(v.wmplay, out, seen, videoTitle);\n      else if (v.origin_cover) pushUrl(v.origin_cover, out, seen, videoTitle);\n    }\n    if (out.length >= 5) break;\n  }\n}\n\n// 2) video.UrlList (your screenshot shows this)\nif (out.length < 5) {\n  const urlList = items[0]?.json?.video?.UrlList || items[0]?.json?.video?.UrlListV2 || [];\n  if (Array.isArray(urlList) && urlList.length > 0) {\n    for (let i = 0; i < urlList.length && out.length < 5; i++) {\n      const u = urlList[i];\n      // UrlList entries may be strings or objects with Uri/Url fields\n      if (typeof u === 'string') pushUrl(u, out, seen, '');\n      else if (u && typeof u === 'object') {\n        pushUrl(u.Uri || u.Url || u.url || u.UrI || u.play || u.playUrl, out, seen, u.title || '');\n      }\n    }\n  }\n}\n\n// 3) data.itemList (older endpoint shape)\nif (out.length < 5) {\n  const itemList = items[0]?.json?.data?.itemList || [];\n  if (Array.isArray(itemList) && itemList.length > 0) {\n    for (let i = 0; i < Math.min(5, itemList.length) && out.length < 5; i++) {\n      const it = itemList[i];\n      const v = it || {};\n      const videoId = v.id || v.video?.id || v.aweme_id;\n      const username = v.author?.uniqueId || v.author?.unique_id || v.author?.unique_id_str || v.author?.uniqueIdStr || v.author?.unique_id || v.author?.uniqueId || '';\n      const title = v.title || v.caption || v.video?.title || '';\n      if (videoId && username) pushUrl(`https://www.tiktok.com/@${String(username).replace(/^@+/,'')}/video/${videoId}`, out, seen, title);\n      // fallback to any direct url\n      else if (v.play_url) pushUrl(v.play_url, out, seen, title);\n    }\n  }\n}\n\n// 4) fallback: items that already contain url fields (e.g., earlier Extract outputs)\nif (out.length < 5) {\n  for (const it of items) {\n    if (!it || !it.json) continue;\n    if (typeof it.json.url === 'string') pushUrl(it.json.url, out, seen, it.json.title || it.json.description || '');\n    if (typeof it.json.DirectUrl === 'string') pushUrl(it.json.DirectUrl, out, seen, it.json.title || it.json.TITLE || '');\n    if (out.length >= 5) break;\n  }\n}\n\n// return (may be 0..5 items)\nreturn out;\n"
+      },
+      "id": "ded5b2ac-1620-4a36-934f-a2f016987789",
+      "name": "4. Extract URLs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1184,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8",
+          "mode": "list",
+          "cachedResultName": "tiny.moew.diary-insta-tiktok",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lBX-_Fm10zmUZvYOsGbVOG84z_kEfTSurt72FisNBX8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}",
+            "title": "={{ $json.title }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": [
+            {
+              "id": "DirectUrl",
+              "displayName": "DirectUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2116488f-9cbe-4bcf-b0e6-f4381dc07f4d",
+      "name": "5. Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [
+        -960,
+        544
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "f0937637-c84b-4e2f-b3a9-6a408f034ab3",
+      "name": "6. Wait 2 Seconds",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -736,
+        624
+      ],
+      "webhookId": "be8d2533-2d22-424d-92e1-7bf743ba2c98"
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "0b858109-a705-47c2-9d3d-073633d611b6",
+      "name": "2. Process One by One",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -1632,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {},
+            {
+              "field": "hours",
+              "hoursInterval": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2144,
+        592
+      ],
+      "id": "07a6e886-bede-41a9-94cc-b8bda7cc00cd",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "connections": {
+    "1. Set User IDs": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Get 5 Latest Posts": {
+      "main": [
+        [
+          {
+            "node": "4. Extract URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Extract URLs": {
+      "main": [
+        [
+          {
+            "node": "5. Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "6. Wait 2 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Wait 2 Seconds": {
+      "main": [
+        [
+          {
+            "node": "2. Process One by One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Process One by One": {
+      "main": [
+        [
+          {
+            "node": "3. Get 5 Latest Posts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "1. Set User IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        null,
+        0
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "f0879df5-7a8c-48e1-9d1d-be171df65142",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-11T19:18:02.685Z",
+      "updatedAt": "2025-09-11T19:18:02.685Z",
+      "role": "workflow:owner",
+      "workflowId": "0D1QWfHpQuzeI5Vc",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-10T07:49:32.166Z",
+      "updatedAt": "2025-09-10T07:49:32.166Z",
+      "id": "kmJ9RrYGObSkXZT9",
+      "name": "tiktok"
+    }
+  ]
+}

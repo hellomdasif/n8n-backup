@@ -1,0 +1,527 @@
+{
+  "createdAt": "2025-09-28T07:34:20.419Z",
+  "updatedAt": "2025-09-28T11:30:44.000Z",
+  "id": "4hAmxyPhMi6HRigr",
+  "name": "instagram_successblueprint_poster_test",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "loadConfig",
+      "name": "Load Account Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Load SuccessBlueprint account configuration\nconst accountConfig = {\n  \"account_name\": \"successblueprint_test\",\n  \"platform\": \"instagram\", \n  \"node_id\": \"17841474258007414\",\n  \"credential_id\": \"Z5gcDf7MQd9HXjHU\",\n  \"data_table_id\": \"YpfR5PAwNwDkmpbe\",\n  \"status_column\": \"sb_insta_status\",\n  \"video_base_url\": \"https://files.mohdasif.net/successblueprint/\",\n  \"processing_required\": false,\n  \"processing_config\": {},\n  \"active\": true,\n  \"max_retries\": 3,\n  \"initial_wait\": 30,\n  \"retry_wait\": 60\n};\n\nreturn [{ json: accountConfig }];"
+      }
+    },
+    {
+      "id": "getContent",
+      "name": "Get Unpublished Content",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "YpfR5PAwNwDkmpbe",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "sb_insta_status",
+              "condition": "isEmpty"
+            }
+          ]
+        },
+        "limit": 1
+      }
+    },
+    {
+      "id": "checkContent",
+      "name": "Content Available?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        700,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.filename }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "prepareData",
+      "name": "Prepare Video Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        250
+      ],
+      "parameters": {
+        "jsCode": "// Prepare data for processing and posting\nconst contentData = $('Get Unpublished Content').first().json;\nconst config = $('Load Account Config').first().json;\n\n// Clean and prepare caption\nfunction cleanCaption(input) {\n  let output = input || '';\n  output = output.replace(/\\s{2,}/g, \" \").trim();\n  return output;\n}\n\nconst caption = cleanCaption(contentData.path);\nconst videoUrl = `${config.video_base_url}${contentData.filename}`;\n\nreturn [{\n  json: {\n    // Content data\n    filename: contentData.filename,\n    caption: caption + \"\\n\\n#successblueprint #motivation #viral\",\n    video_url: videoUrl,\n    \n    // Account config\n    node_id: config.node_id,\n    credential_id: config.credential_id,\n    max_retries: config.max_retries,\n    initial_wait: config.initial_wait,\n    retry_wait: config.retry_wait,\n    \n    // Processing config\n    processing_required: config.processing_required,\n    processing_config: config.processing_config,\n    source_url: config.video_base_url,\n    \n    // Table update data\n    data_table_id: config.data_table_id,\n    status_column: config.status_column\n  }\n}];"
+      }
+    },
+    {
+      "id": "checkProcessing",
+      "name": "Processing Required?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.processing_required }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "processVideo",
+      "name": "Process Video",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1300,
+        150
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "eaLho7dP7lIJB8G3",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "video_filename": "={{ $json.filename }}",
+            "source_url": "={{ $json.source_url }}",
+            "processing_required": "={{ $json.processing_required }}",
+            "processing_config": "={{ $json.processing_config }}"
+          }
+        }
+      }
+    },
+    {
+      "id": "setProcessedURL",
+      "name": "Set Processed Video URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1500,
+        150
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "final_video_url",
+              "value": "={{ $json.processed_video_url }}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "setOriginalURL",
+      "name": "Set Original Video URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1300,
+        250
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "final_video_url",
+              "value": "={{ $json.video_url }}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "postToInstagram",
+      "name": "Post to Instagram",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1700,
+        200
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "skGQa0hR5yAxvQrV",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "node_id": "={{ $('Prepare Video Data').item.json.node_id }}",
+            "credential_id": "={{ $('Prepare Video Data').item.json.credential_id }}",
+            "video_url": "={{ $json.final_video_url }}",
+            "caption": "={{ $('Prepare Video Data').item.json.caption }}",
+            "max_retries": "={{ $('Prepare Video Data').item.json.max_retries }}",
+            "initial_wait": "={{ $('Prepare Video Data').item.json.initial_wait }}",
+            "retry_wait": "={{ $('Prepare Video Data').item.json.retry_wait }}"
+          }
+        }
+      }
+    },
+    {
+      "id": "updateSuccess",
+      "name": "Update Success Status",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1900,
+        150
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "YpfR5PAwNwDkmpbe",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Prepare Video Data').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sb_insta_status": "DONE",
+            "sb_insta_post_id": "={{ $('Post to Instagram').item.json.post_id }}",
+            "sb_insta_posted_at": "={{ new Date().toISOString() }}"
+          }
+        }
+      }
+    },
+    {
+      "id": "updateError",
+      "name": "Update Error Status",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1900,
+        250
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "YpfR5PAwNwDkmpbe",
+          "mode": "id"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "filename",
+              "keyValue": "={{ $('Prepare Video Data').item.json.filename }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sb_insta_status": "ERROR",
+            "sb_insta_error": "={{ $('Post to Instagram').item.json.error || 'Unknown error' }}",
+            "sb_insta_retry_count": "={{ $('Post to Instagram').item.json.retry_count || 0 }}"
+          }
+        }
+      }
+    },
+    {
+      "id": "checkPostStatus",
+      "name": "Check Post Status",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1700,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "DONE",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "noContent",
+      "name": "No Content Available",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        900,
+        350
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "No unpublished content found for SuccessBlueprint",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "status",
+              "value": "NO_CONTENT",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Load Account Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Account Config": {
+      "main": [
+        [
+          {
+            "node": "Get Unpublished Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Unpublished Content": {
+      "main": [
+        [
+          {
+            "node": "Content Available?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Content Available?": {
+      "main": [
+        [
+          {
+            "node": "Prepare Video Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Content Available",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Video Data": {
+      "main": [
+        [
+          {
+            "node": "Processing Required?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Processing Required?": {
+      "main": [
+        [
+          {
+            "node": "Process Video",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Original Video URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Video": {
+      "main": [
+        [
+          {
+            "node": "Set Processed Video URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Processed Video URL": {
+      "main": [
+        [
+          {
+            "node": "Post to Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Original Video URL": {
+      "main": [
+        [
+          {
+            "node": "Post to Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post to Instagram": {
+      "main": [
+        [
+          {
+            "node": "Check Post Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Post Status": {
+      "main": [
+        [
+          {
+            "node": "Update Success Status",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Error Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "c8710851-0ce1-4083-a572-32ea603087f7",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-28T07:34:20.421Z",
+      "updatedAt": "2025-09-28T07:34:20.421Z",
+      "role": "workflow:owner",
+      "workflowId": "4hAmxyPhMi6HRigr",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,327 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Config2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get File Size (Function)": {
+      "main": [
+        [
+          {
+            "node": "Upload (binary to rupload)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload (binary to rupload)": {
+      "main": [
+        [
+          {
+            "node": "Get Upload Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config2": {
+      "main": [
+        [
+          {
+            "node": "Start Upload (Init Session)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Upload (Init Session)1": {
+      "main": [
+        [
+          {
+            "node": "Output video file without watermark2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output video file without watermark2": {
+      "main": [
+        [
+          {
+            "node": "Get File Size (Function)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Upload Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Upload Status1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-10T12:36:03.570Z",
+  "id": "wmyTpUQRY2ICL12d",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 7 copy 2",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -656
+      ],
+      "id": "c5803f63-1c5f-42a8-ac4a-da0ce370724b"
+    },
+    {
+      "parameters": {
+        "functionCode": "return items.map(item => {\n  // binary property named 'data' from Download File node\n  const out = item;\n  try {\n    const b64 = item.binary && item.binary.data && item.binary.data.data;\n    if (b64) {\n      const buf = Buffer.from(b64, 'base64');\n      out.json.fileSize = buf.length;\n    } else {\n      out.json.fileSize = null;\n    }\n  } catch (err) {\n    out.json.fileSize = null;\n  }\n  return out;\n});"
+      },
+      "name": "Get File Size (Function)",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -656
+      ],
+      "id": "1d2a45d7-d044-4089-a50f-15858fdb32b6"
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "={{ $json.upload_url }}",
+        "allowUnauthorizedCerts": true,
+        "options": {},
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'OAuth ' + $node[\"Set Config2\"].json[\"FB_ACCESS_TOKEN\"].trim() }}"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            },
+            {
+              "name": "file_size",
+              "value": "={{ $json.fileSize }}"
+            }
+          ]
+        }
+      },
+      "name": "Upload (binary to rupload)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -656
+      ],
+      "id": "030f02d9-2ac2-4803-bbc6-1ee2bc4e06e2"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "FB_PAGE_ID",
+              "value": "=822222874300149"
+            },
+            {
+              "name": "FB_ACCESS_TOKEN",
+              "value": "=EAATU432GSC8BPSYdbhan3NIOx5siFlDWvAufpGp2DwHLpKpDWp2J9OItV73kFGmiXAYtCFEZBUxE0LbjDuogZCQNvNhUQZBP03cYZCxgQspIJ2Y5uVrXXUgTX9tYFSh8S49xJDmKCwtb5B1A5H7UUMv4dEzyH9y1wPDRcHLZAoB2DUeIGaRZA2pz3kM1Tu6bRxvWXzzd27"
+            },
+            {
+              "name": "GRAPH_API_VERSION",
+              "value": "={{$env.GRAPH_API_VERSION || 'v23.0'}}"
+            },
+            {
+              "name": "VIDEO_URL",
+              "value": "=https://files.mohdasif.net/meow1/upload.mp4"
+            },
+            {
+              "name": "DESCRIPTION",
+              "value": "A short description or caption for the Reel #hashtag"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Config2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        -656
+      ],
+      "id": "ed0c5b09-8ee1-45b5-8f6d-1ea7d5f70c01"
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "={{ 'https://graph.facebook.com/' + $json.GRAPH_API_VERSION + '/' + $json.FB_PAGE_ID + '/video_reels?upload_phase=start&access_token=' + $json.FB_ACCESS_TOKEN }}",
+        "allowUnauthorizedCerts": true,
+        "options": {}
+      },
+      "name": "Start Upload (Init Session)1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -656
+      ],
+      "id": "84f4830c-d962-4d22-8889-fe3e5d44767b"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://graph.facebook.com/' \n   + $node[\"Set Config2\"].json[\"GRAPH_API_VERSION\"] \n   + '/' \n   + $node[\"Start Upload (Init Session)1\"].json[\"video_id\"] \n   + '?fields=status&access_token=' \n   + $node[\"Set Config2\"].json[\"FB_ACCESS_TOKEN\"] }}\n",
+        "options": {}
+      },
+      "name": "Get Upload Status1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        624,
+        -656
+      ],
+      "id": "22644f36-8e14-48fa-b558-b4b309169a64"
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "={{ 'https://graph.facebook.com/' + $node[\"Set Config2\"].json[\"GRAPH_API_VERSION\"] + '/' + $node[\"Set Config2\"].json[\"FB_PAGE_ID\"] + '/video_reels?upload_phase=finish&video_state=PUBLISHED&video_id=' + $node[\"Start Upload (Init Session)1\"].json[\"video_id\"] + '&access_token=' + $node[\"Set Config2\"].json[\"FB_ACCESS_TOKEN\"] }}\n",
+        "options": {}
+      },
+      "name": "Finish & Publish1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        -656
+      ],
+      "id": "1daf8bb4-9d0a-4738-971c-80301c10d6d5"
+    },
+    {
+      "parameters": {
+        "url": "={{ $node[\"Set Config2\"].json[\"VIDEO_URL\"] }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "85c87915-3997-42de-8e4f-765a48f4a959",
+      "name": "Output video file without watermark2",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -48,
+        -656
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        848,
+        -656
+      ],
+      "id": "c8702564-51bd-4fbb-81de-f06835617ebf",
+      "name": "Wait",
+      "webhookId": "31ef23a2-8888-45d8-8d74-0fbb03e454c2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.status && $json.status.uploading_phase && $json.status.uploading_phase.status }}",
+              "value2": "={{ 'complete' }}"
+            }
+          ]
+        }
+      },
+      "name": "Check Upload Complete (IF)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        848,
+        -496
+      ],
+      "id": "9575d5c6-c511-4b52-861f-d796be73a0f5"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-10T12:36:03.576Z",
+      "updatedAt": "2025-09-10T12:36:03.576Z",
+      "role": "workflow:owner",
+      "workflowId": "wmyTpUQRY2ICL12d",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-11T05:01:39.000Z",
+  "versionId": "28141673-fc91-4562-a0ea-18cb77270fd4"
+}

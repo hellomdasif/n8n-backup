@@ -1,0 +1,327 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Input": {
+      "main": [
+        [
+          {
+            "node": "IG Create Media",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Create Media": {
+      "main": [
+        [
+          {
+            "node": "Init Poll Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Poll Vars": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "IG Check Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Check Status": {
+      "main": [
+        [
+          {
+            "node": "IF Finished?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Finished?": {
+      "main": [
+        [
+          {
+            "node": "IG Publish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inc Attempts": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-10T20:17:48.293Z",
+  "id": "xBe2dsgvhsbREuZd",
+  "isArchived": true,
+  "meta": null,
+  "name": "My workflow 11",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7e9154b4-08c1-423a-83b0-7b3ba660f3ec",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "IG_USER_ID",
+              "value": "17841468272726732"
+            },
+            {
+              "name": "IG_ACCESS_TOKEN",
+              "value": "EAAZAD11ycW5IBPV1rV8L7ZBbRkCO1eSuetnxe68A2AyEqZCgMq8XLuOK5UgNZAzcxZBjzZA1mugbPEAIkZAus6slHugD355ESkJCIJOVU2E7KXxjg1tjZCCdaR4sazaGbpbNDpTAkmieMJTRQsm471ZBI7d7vdumx3w4hz4kZCSwuA2ZAGJpgZBXMaEkXZCHoMsxf"
+            },
+            {
+              "name": "CAPTION",
+              "value": "={{ $json.CAPTION || 'Posted via n8n' }}"
+            },
+            {
+              "name": "DirectUrl",
+              "value": "={{ $json.DirectUrl }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "63c448bd-da84-474c-8aff-2b4fc1258f78",
+      "name": "Set Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1456,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://graph.facebook.com/v21.0/' + $json.IG_USER_ID + '/media'}}",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.DirectUrl }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.CAPTION }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.IG_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "33ec26dd-21e1-4f0a-9eaa-67b425e2f2a5",
+      "name": "IG Create Media",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -1088,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { creation_id: $item(0).$node['IG Create Media'].json.id, attempts: 0, max_attempts: 10, sleep_sec: 6 } }];"
+      },
+      "id": "7fbfac1c-c38b-4ffe-a991-966c796cbab5",
+      "name": "Init Poll Vars",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -848,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 6
+      },
+      "id": "6cdb313f-d49f-4eb5-a824-55ba42bcefeb",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -608,
+        144
+      ],
+      "webhookId": "e255e05f-6932-4f2e-bac0-c29fd0860a83"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $json.creation_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code,status"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $items('Set Input')[0].json.IG_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d719fef9-edd2-493c-a09a-a032f01d7751",
+      "name": "IG Check Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -368,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "leftValue": "={{ $json.status_code }}",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.status_code }}",
+              "operation": "equals",
+              "rightValue": "FINISHED"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "622700f7-82a8-4746-b738-dc4593371ba6",
+      "name": "IF Finished?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://graph.facebook.com/v21.0/' + $items('Set Input')[0].json.IG_USER_ID + '/media_publish'}}",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $items('Init Poll Vars')[0].json.creation_id || $items('IG Create Media')[0].json.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $items('Set Input')[0].json.IG_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8fdd34ea-934a-47f3-a69c-823930a8bce0",
+      "name": "IG Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        112,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "/* increment attempts and either loop or finish */\nconst prev = $items('Init Poll Vars')[0].json || {};\nconst attempts = (prev.attempts || 0) + 1;\nif (attempts >= (prev.max_attempts || 10)) {\n  return [{ json: { stop: true, attempts } }];\n}\nreturn [{ json: { creation_id: prev.creation_id, attempts, max_attempts: prev.max_attempts, sleep_sec: prev.sleep_sec } }];"
+      },
+      "id": "b682535a-b81c-4b88-aca8-9d4ef898b6a4",
+      "name": "Inc Attempts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        272
+      ]
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-10T20:17:48.297Z",
+      "updatedAt": "2025-09-10T20:17:48.297Z",
+      "role": "workflow:owner",
+      "workflowId": "xBe2dsgvhsbREuZd",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-11T05:00:12.000Z",
+  "versionId": "4280583d-e8f8-42a9-9e02-9dd29de842a1"
+}

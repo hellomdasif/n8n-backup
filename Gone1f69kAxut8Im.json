@@ -1,0 +1,70 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-25T21:34:02.835Z",
+  "id": "Gone1f69kAxut8Im",
+  "isArchived": true,
+  "meta": null,
+  "name": "RandomHook",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -80
+      ],
+      "id": "f06a59fa-7582-4cbf-a5ec-ce47e72d5bd9",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Captions array (text + texture emoji only)\nconst captions = [\n  \"Wait for it... ⚡\",\n  \"You won’t believe this!\",\n  \"The ending is wild !\",\n  \"Hold on... !\",\n  \"Trust me, watch till the end !\",\n  \"This part got me !\",\n  \"Keep watching !\",\n  \"Plot twist ahead !\",\n  \"Didn’t see that coming !\",\n  \"Stay till the last sec !\"\n];\n\n// Default n = 1\nlet n = 1;\n\n// items[0].json contains the incoming webhook body when using the Webhook node\nif (Array.isArray(items) && items.length && items[0].json) {\n  const body = items[0].json;\n  if (body.n_atom !== undefined && body.n_atom !== null) {\n    const parsed = parseInt(body.n_atom, 10);\n    if (!isNaN(parsed)) n = parsed;\n  }\n  // Support query params if webhook forwarded them under json.query\n  if (body.query && body.query.n_atom) {\n    const qp = parseInt(body.query.n_atom, 10);\n    if (!isNaN(qp)) n = qp;\n  }\n}\n\n// Clamp n between 1 and captions.length\nn = Math.max(1, Math.min(n, captions.length));\n\nfunction pickRandomUnique(arr, count) {\n  const copy = arr.slice();\n  const out = [];\n  for (let i = 0; i < count; i++) {\n    const idx = Math.floor(Math.random() * copy.length);\n    out.push(copy.splice(idx, 1)[0]);\n  }\n  return out;\n}\n\nconst selected = pickRandomUnique(captions, n);\n\nreturn [\n  {\n    json: {\n      captions: selected,\n      count: selected.length,\n      requested_n: n\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        336,
+        -80
+      ],
+      "id": "65f26d89-a13a-48c8-bef0-fd9bc17186ff",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-25T21:34:02.840Z",
+      "updatedAt": "2025-09-25T21:34:02.840Z",
+      "role": "workflow:owner",
+      "workflowId": "Gone1f69kAxut8Im",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-07T12:08:22.000Z",
+  "versionId": "78ddd848-13ee-41df-8ad3-cf4589fdb01d"
+}

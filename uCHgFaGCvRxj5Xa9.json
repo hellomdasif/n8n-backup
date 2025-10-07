@@ -1,0 +1,138 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Current Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Current Data": {
+      "main": [
+        [
+          {
+            "node": "Add Required Columns",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-28T07:40:28.257Z",
+  "id": "uCHgFaGCvRxj5Xa9",
+  "isArchived": true,
+  "meta": null,
+  "name": "check_and_setup_data_table_structure",
+  "nodes": [
+    {
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        200
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "get-current-data",
+      "name": "Get Current Data",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        300,
+        200
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YpfR5PAwNwDkmpbe"
+        }
+      }
+    },
+    {
+      "id": "add-columns",
+      "name": "Add Required Columns",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        500,
+        200
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YpfR5PAwNwDkmpbe"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "account_name": "test_column_setup",
+            "platform": "instagram",
+            "node_id": "sample_node",
+            "credential_id": "sample_cred",
+            "data_table_id": "YpfR5PAwNwDkmpbe",
+            "status_column": "test_status",
+            "video_base_url": "https://example.com/",
+            "processing_required": false,
+            "processing_config": "{}",
+            "active": true,
+            "max_retries": 3,
+            "initial_wait": 30,
+            "retry_wait": 60,
+            "sb_insta_status": "pending",
+            "ks_insta_status": "pending",
+            "filename": "sample.mp4",
+            "caption": "Sample caption",
+            "successblueprint_post_id": "",
+            "successblueprint_processed_at": "",
+            "successblueprint_error": "",
+            "knowsparkz_post_id": "",
+            "knowsparkz_processed_at": "",
+            "knowsparkz_error": ""
+          }
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": null,
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-28T07:40:28.261Z",
+      "updatedAt": "2025-09-28T07:40:28.261Z",
+      "role": "workflow:owner",
+      "workflowId": "uCHgFaGCvRxj5Xa9",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-28T11:30:39.000Z",
+  "versionId": "d615a7e7-351a-45e3-b819-161a91245f38"
+}

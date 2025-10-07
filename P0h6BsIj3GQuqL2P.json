@@ -1,0 +1,143 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        []
+      ]
+    },
+    "Ollama Chat Model": {
+      "main": [
+        []
+      ],
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-05T12:12:41.365Z",
+  "id": "P0h6BsIj3GQuqL2P",
+  "isArchived": true,
+  "meta": null,
+  "name": "Ollama Test Workflow",
+  "nodes": [
+    {
+      "id": "manual-trigger-001",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "set-message-002",
+      "name": "Set Message",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "msg",
+              "name": "chatInput",
+              "value": "Tell me a short joke about programming",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "llm-chain-003",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "prompt": "={{ $json.chatInput }}"
+      }
+    },
+    {
+      "id": "ollama-model-004",
+      "name": "Ollama Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        680,
+        480
+      ],
+      "parameters": {
+        "model": "llama2",
+        "options": {}
+      },
+      "credentials": {
+        "ollamaApi": {
+          "id": "DF35v2kgNma2Iwd8",
+          "name": "Ollama account 2"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": null,
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-05T12:12:41.367Z",
+      "updatedAt": "2025-10-05T12:12:41.367Z",
+      "role": "workflow:owner",
+      "workflowId": "P0h6BsIj3GQuqL2P",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-05T15:04:02.000Z",
+  "versionId": "babbc8e6-aeaa-4520-8d04-cec6df074c09"
+}

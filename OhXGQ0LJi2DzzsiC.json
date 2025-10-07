@@ -1,0 +1,1002 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Config1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config": {
+      "main": [
+        [
+          {
+            "node": "Google Drive — List Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive — List Files": {
+      "main": [
+        [
+          {
+            "node": "Filter mp4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter mp4": {
+      "main": [
+        [
+          {
+            "node": "Build Row Object",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Row Object": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate (ensure rows)": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — Read Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — Read Rows": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request (download)": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request (upload)": {
+      "main": [
+        []
+      ]
+    },
+    "Prepare Sheet Update": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate (final update)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate (final update)": {
+      "main": [
+        [
+          {
+            "node": "Set Final Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config1": {
+      "main": [
+        [
+          {
+            "node": "Google Drive — List Files1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive — List Files1": {
+      "main": [
+        [
+          {
+            "node": "Filter mp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter mp": {
+      "main": [
+        [
+          {
+            "node": "Build Row Object1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Row Object1": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate (ensure rows)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Binary File1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request (download)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Sheet Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-05T12:58:07.072Z",
+  "id": "OhXGQ0LJi2DzzsiC",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "upload to sever from google drive",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "8462f823-abb8-406b-9666-ed740c9cffbe",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1104,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "GOOGLE_DRIVE_FOLDER_ID",
+              "value": "1KHv4wZAzt_OaWETkhzbxz37fF27VOkmN"
+            },
+            {
+              "name": "GOOGLE_SHEET_ID",
+              "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE"
+            },
+            {
+              "name": "SHEET_NAME",
+              "value": "0"
+            },
+            {
+              "name": "FILES_DIR",
+              "value": "/srv/files"
+            },
+            {
+              "name": "FILES_URL",
+              "value": "https://files.mohdasif.net"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "26a17b17-d596-48b4-b5d0-9b7eed3fd9d3",
+      "name": "Set Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1072,
+        1376
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "filter": {
+          "folderId": {
+            "mode": "expression",
+            "value": "={{ $node['Set Config'].json.GOOGLE_DRIVE_FOLDER_ID }}"
+          }
+        },
+        "options": {
+          "fields": [
+            "id",
+            "name",
+            "mimeType",
+            "createdTime"
+          ]
+        }
+      },
+      "id": "1ea142f1-8b07-4653-a1c2-1cc88dbff74a",
+      "name": "Google Drive — List Files",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -352,
+        1648
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "HzZikzrKPy60clC6",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().filter(item => item.json.mimeType === 'video/mp4' || (item.json.name||'').endsWith('.mp4'));"
+      },
+      "id": "14f525ff-996e-4aa0-abac-b8a28429ed7d",
+      "name": "Filter mp4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = [];\nfor (const item of $input.all()) {\n  const id = item.json.id;\n  const name = item.json.name || 'video.mp4';\n  const timestamp = Date.now();\n  const safeName = name.replace(/[^a-zA-Z0-9._-]/g, '_');\n  const finalName = `${timestamp}-BigCreative-${safeName}`;\n  out.push({ json: {\n    fileid: id,\n    original_name: name,\n    filename: finalName,\n    direct_url: `https://drive.google.com/uc?export=download&id=${id}`,\n    status: 'NOT_DOWNLOADED',\n    created_at: new Date().toISOString(),\n    downloaded_at: '',\n    public_url: ''\n  }});\n}\nreturn out;"
+      },
+      "id": "7925ebb1-38c7-4387-9ef6-eb87cc484ff6",
+      "name": "Build Row Object",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "mode": "list",
+          "value": "={{ $node['Set Config'].json.GOOGLE_SHEET_ID }}"
+        },
+        "sheetName": {
+          "mode": "list",
+          "value": "={{ $node['Set Config'].json.SHEET_NAME }}"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "fileid"
+          ],
+          "schema": [
+            {
+              "id": "fileid",
+              "displayName": "fileid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "direct_url",
+              "displayName": "direct_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "mp4_url",
+              "displayName": "mp4_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ig_response",
+              "displayName": "ig_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "original_name",
+              "displayName": "original_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "downloaded_at",
+              "displayName": "downloaded_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "public_url",
+              "displayName": "public_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "30864530-3faf-4aaf-8b59-13bdbc4a8fa3",
+      "name": "Google Sheets — AppendOrUpdate",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -16,
+        1168
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.direct_url }}",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "id": "94cf1b45-d990-47b2-b4d4-10b70ec9e4e5",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        192,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "fileName": "/files/neww.mp4",
+        "options": {}
+      },
+      "id": "7128f296-faa9-4928-aefc-3e5980a6224e",
+      "name": "Write Binary File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        400,
+        1168
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "mode": "list",
+          "value": "={{ $node['Set Config1'].json.GOOGLE_SHEET_ID }}"
+        },
+        "sheetName": {
+          "mode": "list",
+          "value": "={{ $node['Set Config1'].json.SHEET_NAME }}"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "fileid"
+          ],
+          "schema": [
+            {
+              "id": "fileid",
+              "displayName": "fileid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "direct_url",
+              "displayName": "direct_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "mp4_url",
+              "displayName": "mp4_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "ig_response",
+              "displayName": "ig_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "original_name",
+              "displayName": "original_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "downloaded_at",
+              "displayName": "downloaded_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            },
+            {
+              "id": "public_url",
+              "displayName": "public_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8789c97e-6227-48a3-a8d2-54cfe7f1f88b",
+      "name": "Google Sheets — AppendOrUpdate (ensure rows)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        320,
+        -464
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE",
+          "mode": "list",
+          "cachedResultName": "pCloud_Instagram_Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "7d8d942a-e0e3-4c76-a165-dd1204679c1b",
+      "name": "Google Sheets — Read Rows",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        544,
+        -464
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.direct_url }}",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "id": "d14476e9-0e74-4abd-b0fe-b8cd4dd2f891",
+      "name": "HTTP Request (download)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $node['Set Config1'].json.UPLOAD_ENDPOINT }}",
+        "options": {}
+      },
+      "id": "142cb620-4c7b-4e0b-95da-564e6821c608",
+      "name": "HTTP Request (upload)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        1312,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare Google Sheets update payload after upload\n// Expecting previous node (upload) returned JSON with public_url in body.public_url or body.publicUrl or public_url\nconst uploadBody = $input.all()[0].json;\nlet publicUrl = '';\nif (uploadBody) {\n  publicUrl = uploadBody.public_url || uploadBody.publicUrl || (uploadBody.body && (uploadBody.body.public_url || uploadBody.body.publicUrl)) || '';\n}\nconst now = new Date().toISOString();\n\n// previous selected item fields should be available on input[1] if we chain inputs; if not, try to read from prev nodes\nconst source = $input.all()[1] ? $input.all()[1].json : $input.all()[0].json;\n\nreturn [{\n  json: {\n    fileid: source.fileid,\n    filename: source.filename,\n    direct_url: source.direct_url,\n    status: 'DOWNLOADED',\n    downloaded_at: now,\n    public_url: publicUrl,\n    created_at: source.created_at || ''\n  }\n}];"
+      },
+      "id": "5ffc8d56-53c9-48a4-a5a3-d4296d5eaf9a",
+      "name": "Prepare Sheet Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1824,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "mode": "list",
+          "value": "={{ $node['Set Config1'].json.GOOGLE_SHEET_ID }}"
+        },
+        "sheetName": {
+          "mode": "list",
+          "value": "={{ $node['Set Config1'].json.SHEET_NAME }}"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "fileid"
+          ],
+          "schema": [
+            {
+              "id": "fileid",
+              "displayName": "fileid",
+              "required": false
+            },
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false
+            },
+            {
+              "id": "direct_url",
+              "displayName": "direct_url",
+              "required": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false
+            },
+            {
+              "id": "downloaded_at",
+              "displayName": "downloaded_at",
+              "required": false
+            },
+            {
+              "id": "public_url",
+              "displayName": "public_url",
+              "required": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1214bc4c-0eed-41c8-92bf-a920ed7d0461",
+      "name": "Google Sheets — AppendOrUpdate (final update)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        2096,
+        -464
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "fileid",
+              "value": "={{ $json.fileid }}"
+            },
+            {
+              "name": "local_path",
+              "value": "={{ $node['Set Config1'].json.FILES_DIR + '/' + $json.filename }}"
+            },
+            {
+              "name": "public_url",
+              "value": "={{ $json.public_url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d012a390-6ba3-44f9-b3e8-624a58c73a48",
+      "name": "Set Final Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        2352,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "GOOGLE_DRIVE_FOLDER_ID",
+              "value": "1KHv4wZAzt_OaWETkhzbxz37fF27VOkmN"
+            },
+            {
+              "name": "GOOGLE_SHEET_ID",
+              "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE"
+            },
+            {
+              "name": "SHEET_NAME",
+              "value": "0"
+            },
+            {
+              "name": "FILES_DIR",
+              "value": "/srv/files"
+            },
+            {
+              "name": "FILES_URL",
+              "value": "https://files.mohdasif.net"
+            },
+            {
+              "name": "UPLOAD_ENDPOINT",
+              "value": "https://files.mohdasif.net/upload"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2192812d-19e8-4104-8f25-3e2ea2f56ae3",
+      "name": "Set Config1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -608,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "filter": {
+          "folderId": {
+            "mode": "expression",
+            "value": "={{ $node['Set Config1'].json.GOOGLE_DRIVE_FOLDER_ID }}"
+          }
+        },
+        "options": {
+          "fields": [
+            "id",
+            "name",
+            "mimeType",
+            "createdTime"
+          ]
+        }
+      },
+      "id": "5949eaeb-016e-4449-a5ee-00c36c0e9b15",
+      "name": "Google Drive — List Files1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -368,
+        -464
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "HzZikzrKPy60clC6",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().filter(item => item.json.mimeType === 'video/mp4' || (item.json.name||'').toLowerCase().endsWith('.mp4'));"
+      },
+      "id": "60a0682b-ad42-40cb-91b8-3b19273124d6",
+      "name": "Filter mp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = [];\nfor (const item of $input.all()) {\n  const id = item.json.id;\n  const name = item.json.name || 'video.mp4';\n  const timestamp = Date.now();\n  const safeName = name.replace(/[^a-zA-Z0-9._-]/g, '_');\n  const finalName = `${timestamp}-BigCreative-${safeName}`;\n  out.push({ json: {\n    fileid: id,\n    original_name: name,\n    filename: finalName,\n    direct_url: `https://drive.google.com/uc?export=download&id=${id}`,\n    status: 'NOT_DOWNLOADED',\n    created_at: new Date().toISOString(),\n    downloaded_at: '',\n    public_url: ''\n  }});\n}\nreturn out;"
+      },
+      "id": "3e164deb-f16d-4b8c-86c9-cfb678d36f0b",
+      "name": "Build Row Object1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        80,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "fileName": "={{ '/files/' + (Math.random().toString(36).slice(2,10)) + '-' + (Math.floor(1000 + Math.random()*9000)) + '.mp4' }}\n",
+        "options": {}
+      },
+      "id": "17bb315f-1ad8-4741-9f61-c7c7d7bfd0f6",
+      "name": "Write Binary File1",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node (Run Once for All Items)\n\n// Helper: safely read json items from a node by name\nfunction readJsonItems(nodeName) {\n  try {\n    const node = $node[nodeName];\n    if (!node || !node.items) return [];\n    return node.items.map(it => it.json || {}).filter(Boolean);\n  } catch (e) {\n    return [];\n  }\n}\n\n// Try the expected node names\nlet builds = readJsonItems('Build Row Object') || [];\nlet sheetRows = readJsonItems('Google Sheets — Read Rows') || [];\n\n// Fallback: find nodes with 'build' or 'sheet' in name\nif ((!builds || builds.length === 0)) {\n  for (const k of Object.keys($node)) {\n    if (k.toLowerCase().includes('build') && $node[k].items && $node[k].items.length) {\n      builds = readJsonItems(k);\n      break;\n    }\n  }\n}\nif ((!sheetRows || sheetRows.length === 0)) {\n  for (const k of Object.keys($node)) {\n    if (k.toLowerCase().includes('sheet') && $node[k].items && $node[k].items.length) {\n      sheetRows = readJsonItems(k);\n      break;\n    }\n  }\n}\n\n// Final fallback: if Function was called with input items, use those as builds\nif ((!builds || builds.length === 0) && typeof items !== 'undefined' && items.length) {\n  builds = items.map(i => i.json || {}).filter(Boolean);\n}\n\n// Normalize to arrays\nbuilds = Array.isArray(builds) ? builds : [];\nsheetRows = Array.isArray(sheetRows) ? sheetRows : [];\n\n// Debug logs (viewable in the browser console when executing)\nconsole.log('builds.length =', builds.length, 'sheetRows.length =', sheetRows.length);\n\n// Build map from sheet fileid -> sheet row (preserve top-most)\nconst sheetById = {};\nfor (const r of sheetRows) {\n  const fid = String(r.fileid ?? r.fileId ?? '');\n  if (!fid) continue;\n  if (!sheetById[fid]) sheetById[fid] = r;\n}\n\n// Pick the first build whose sheet row is missing or NOT_DOWNLOADED\nlet chosen = null;\nfor (const b of builds) {\n  const itemJson = b.json ? b.json : b; // support both shapes\n  const fid = String(itemJson.fileid ?? itemJson.fileId ?? '');\n  const sheetRow = sheetById[fid];\n  const status = String(sheetRow?.status ?? '').trim().toUpperCase();\n  if (!sheetRow || status === '' || status === 'NOT_DOWNLOADED') {\n    chosen = Object.assign({}, itemJson); // copy\n    if (sheetRow) chosen._sheetRow = sheetRow;\n    break;\n  }\n}\n\n// If nothing to process -> return nothing\nif (!chosen) {\n  console.log('No NOT_DOWNLOADED items found; returning nothing.');\n  return [];\n}\n\n// Create unique filename + local path\nconst ts = Date.now();\nconst safeOriginal = (chosen.original_name || 'video.mp4').replace(/[^a-zA-Z0-9._-]/g, '_');\nchosen.filename = `${ts}-BigCreative-${(chosen.fileid||'').slice(0,8)}-${safeOriginal}`;\n\n// Read FILES_DIR from Set Config if available\nlet filesDir = '/srv/files';\ntry {\n  if ($node['Set Config'] && $node['Set Config'].json && $node['Set Config'].json.FILES_DIR) {\n    filesDir = $node['Set Config'].json.FILES_DIR;\n  }\n} catch (e) {/* ignore */}\n\nchosen.local_path = `${filesDir.replace(/\\/$/, '')}/${chosen.filename}`;\nchosen.status = 'PROCESSING';\n\n// Provide a sheet update object so the next Google Sheets node can immediately set status=PROCESSING\nchosen._sheet_update = {\n  fileid: chosen.fileid,\n  status: 'PROCESSING',\n  downloaded_at: '',\n  public_url: ''\n};\n\nconsole.log('Selected file to process:', chosen.fileid, chosen.filename);\n\n// Return a single item (so only one file goes downstream)\nreturn [{ json: chosen }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -432
+      ],
+      "id": "0b3226cb-9551-4184-ad4d-052e8b5741bb",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.direct_url }}",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "id": "4b9cfa97-1ad2-4181-8da6-444ae0728e9f",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        1840,
+        -992
+      ]
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {
+    "Code": [
+      {
+        "json": {
+          "row_number": 2,
+          "fileid": "1CW-1crPY_wB8QzTAKP8jnzQaZakI0fJS",
+          "original_name": "She_will_speak_202509022301 (1).mp4",
+          "filename": "1757096963546-BigCreative-1CW-1crP-She_will_speak_202509022301__1_.mp4",
+          "direct_url": "https://drive.google.com/uc?export=download&id=1CW-1crPY_wB8QzTAKP8jnzQaZakI0fJS",
+          "status": "PROCESSING",
+          "created_at": "2025-09-05T18:28:41.159Z",
+          "downloaded_at": "",
+          "public_url": "",
+          "local_path": "/srv/files/1757096963546-BigCreative-1CW-1crP-She_will_speak_202509022301__1_.mp4",
+          "_sheet_update": {
+            "fileid": "1CW-1crPY_wB8QzTAKP8jnzQaZakI0fJS",
+            "status": "PROCESSING",
+            "downloaded_at": "",
+            "public_url": ""
+          }
+        }
+      }
+    ]
+  },
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-05T12:58:07.078Z",
+      "updatedAt": "2025-09-05T12:58:07.078Z",
+      "role": "workflow:owner",
+      "workflowId": "OhXGQ0LJi2DzzsiC",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-07T02:13:03.000Z",
+  "versionId": "3a77b7f2-2289-442a-8822-13823a937b0c"
+}

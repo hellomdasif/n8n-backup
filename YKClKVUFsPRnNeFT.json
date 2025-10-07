@@ -1,0 +1,260 @@
+{
+  "active": true,
+  "connections": {
+    "Create Channel Items": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Extract Title",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Title": {
+      "main": [
+        [
+          {
+            "node": "Count Title Occurrences",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count Title Occurrences": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create Channel Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-28T13:08:48.098Z",
+  "id": "YKClKVUFsPRnNeFT",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FETCH-YOUTUBE-TRENDING-TITLES",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Create separate items for each channel ID\nconst channelIds = [\"UCG2JxMRfPCQVLaV_8lLdVaQ\", \"UCMx1s1888tsoSKQVxTCQd9Q\", \"UCWvRgnmIZ0oX9ZhPX0EibDQ\"];\n\nreturn channelIds.map(channelId => ({\n  json: { channelId: channelId }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -512,
+        -112
+      ],
+      "id": "create-items",
+      "name": "Create Channel Items"
+    },
+    {
+      "parameters": {
+        "url": "=https://yt-api.p.rapidapi.com/channel/shorts?id={{ $json.channelId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-key",
+              "value": "4721a0ae82msh02ee2c23ceab8b0p16b0b3jsne0a8e2769ad2"
+            },
+            {
+              "name": "x-rapidapi-host",
+              "value": "yt-api.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -320,
+        -112
+      ],
+      "id": "6060fbc6-3e36-4f97-8fcd-acc51b49f9ce",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8d3e8ee5-f4d2-44c3-915d-cd3c0cef676d",
+              "name": "TITLE",
+              "value": "={{ $json.data && $json.data.length > 0 ? $json.data[0].title : null }}",
+              "type": "string"
+            },
+            {
+              "id": "channel-id",
+              "name": "CHANNEL_ID",
+              "value": "={{ $('Create Channel Items').item.json.channelId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        -112
+      ],
+      "id": "a95ea4a8-dce8-4259-bde0-6933bae17346",
+      "name": "Extract Title"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all titles from all items, filter out null values (channels with no videos)\nconst allTitles = $input.all()\n  .map(item => item.json.TITLE)\n  .filter(title => title !== null && title !== undefined);\n\n// If no video titles found, return appropriate message\nif (allTitles.length === 0) {\n  return [{\n    json: {\n      mostFrequentTitle: 'No video titles found',\n      occurrenceCount: 0,\n      allTitleCounts: {},\n      totalChannelsChecked: $input.all().length,\n      channelsWithVideos: 0,\n      allTitles: []\n    }\n  }];\n}\n\n// Count occurrences of each title\nconst titleCounts = {};\nallTitles.forEach(title => {\n  titleCounts[title] = (titleCounts[title] || 0) + 1;\n});\n\n// Find the highest count\nconst maxCount = Math.max(...Object.values(titleCounts));\n\n// Get all titles with the highest count\nconst topTitles = Object.keys(titleCounts).filter(title => titleCounts[title] === maxCount);\n\n// Return a random title from the ones with highest occurrence\nconst randomTitle = topTitles[Math.floor(Math.random() * topTitles.length)];\n\nreturn [{\n  json: {\n    mostFrequentTitle: randomTitle,\n    occurrenceCount: maxCount,\n    allTitleCounts: titleCounts,\n    totalChannelsChecked: $input.all().length,\n    channelsWithVideos: allTitles.length,\n    allTitles: allTitles\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        64,
+        -112
+      ],
+      "id": "count-occurrences",
+      "name": "Count Title Occurrences"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "RQniz2m6XHsilRNT",
+          "mode": "list",
+          "cachedResultName": "TrendingTitle",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/RQniz2m6XHsilRNT"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "1"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $json.mostFrequentTitle }}"
+          },
+          "matchingColumns": [
+            "title"
+          ],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        272,
+        -112
+      ],
+      "id": "bd913a3c-473c-48b3-b48d-3b5b317438e5",
+      "name": "Update row(s)"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 11
+            },
+            {
+              "triggerAtHour": 15
+            },
+            {
+              "triggerAtHour": 23
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -736,
+        -112
+      ],
+      "id": "3b903a47-50d7-4aff-9f74-835fe405d91c",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-28T13:08:48.100Z",
+      "updatedAt": "2025-09-28T13:08:48.100Z",
+      "role": "workflow:owner",
+      "workflowId": "YKClKVUFsPRnNeFT",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:16:51.255Z",
+      "updatedAt": "2025-10-07T12:16:51.255Z",
+      "id": "tTf80fwdIntIaSPQ",
+      "name": "TOOLS"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-07T12:17:20.000Z",
+  "versionId": "2f1ce2da-df8e-4e23-8ff7-60144b05baef"
+}

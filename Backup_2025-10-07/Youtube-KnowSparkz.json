@@ -1,0 +1,560 @@
+{
+  "createdAt": "2025-09-07T21:12:26.312Z",
+  "updatedAt": "2025-09-14T12:11:29.000Z",
+  "id": "JVDOIeg0UiZF6c3D",
+  "name": "Youtube-KnowSparkz",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "default_title",
+              "value": "#comedyeffect"
+            },
+            {
+              "name": "default_description",
+              "value": "теги: Xxxtentacion, Empire, Rap, Bad Vibes Forever / Empire, Hip Hop & Rap, Xxx, Look At Me, Lil Pump, Music, Bad Vibes Forever, Sad, Sad!, Juice World, Members Only, Hope, Music Video, 2017, Hip-Hop, The, Ski Mask The Slump god, snowflakes. revenge,?, lj, JMP, Hip Hop, Jocelyn Flores, Wishing Well, Ski Mask, Tentacion, Puja, Xxxtentacion Tribute, Pop, Lil Wayne, Live, Wifisfuneral, Official, Rip, Jahseh Onfroy, Yung Bratz, 2019, Trap, Jahseh, Jesus Honcho - Infatuated (Official Music Video), Emotional Rap, Yung Bratz Xxxtentaction, Elevator, Yung Bratz Xxxtentacion, Elevator Xxxtentacion, Yung Bratz Lyrics, Xxxtentacion Songs, Infatuated, Xxxtentacion Yung Bratz, Yung Bratz Artist, Arms Around You Song, Arms Around You, Sway Lee, Arms Around You Tribute, Rap Music, Pop Music, Proudcatowner, Yung Bratz R"
+            },
+            {
+              "name": "default_tags",
+              "value": "#shortsvideo #youtubeshorts"
+            },
+            {
+              "name": "privacyStatus",
+              "value": "public"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6dce3abb-42b2-49ae-b8a9-089c220b6f06",
+      "name": "Set Default Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        -1568
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1FxLvtVpL7_qK7dhnxUbHLNao2a6FpukAnMlUkGmozF4",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz-Youtube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FxLvtVpL7_qK7dhnxUbHLNao2a6FpukAnMlUkGmozF4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FxLvtVpL7_qK7dhnxUbHLNao2a6FpukAnMlUkGmozF4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "5026a17b-b21d-433b-934d-c96a4990dee8",
+      "name": "Google Sheets — AppendOrUpdate (ensure rows)2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        64,
+        -1568
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1FxLvtVpL7_qK7dhnxUbHLNao2a6FpukAnMlUkGmozF4",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz-Youtube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FxLvtVpL7_qK7dhnxUbHLNao2a6FpukAnMlUkGmozF4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FxLvtVpL7_qK7dhnxUbHLNao2a6FpukAnMlUkGmozF4/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "985f8861-7774-4051-80ce-e0fbc673c1d2",
+      "name": "Google Sheets — Read Rows2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        288,
+        -1568
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    DirectUrl: $items('Select One To Process6')[0]?.json?.DirectUrl || $json.DirectUrl || null,\n    status: 'PUBLISHED',\n    published_meta: { when: new Date().toISOString() }\n  }\n}];"
+      },
+      "id": "4411e9ea-dc76-42f0-a0e5-5e6c365a8814",
+      "name": "Prepare Publish Update2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        -1568
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1FxLvtVpL7_qK7dhnxUbHLNao2a6FpukAnMlUkGmozF4",
+          "mode": "list",
+          "cachedResultName": "KnowSparkz-Youtube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FxLvtVpL7_qK7dhnxUbHLNao2a6FpukAnMlUkGmozF4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DirectUrl": "={{ $json.DirectUrl }}",
+            "status": "={{ $json.status }}"
+          },
+          "matchingColumns": [
+            "DirectUrl"
+          ],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "0d68edb7-3193-4a21-b195-e8993191c8e9",
+      "name": "Update Sheet — SetStatus2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1408,
+        -1568
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "H3U1X4hjIcv7PxVl",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $json.description }}",
+          "privacyStatus": "={{ $json.privacyStatus }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "={{ $json.tags }}"
+        }
+      },
+      "name": "Upload Short2",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        960,
+        -1568
+      ],
+      "id": "83877af2-75b9-4460-b7aa-796927e3dbbd",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "7etIVG4Sc1i9kmfT",
+          "name": "hellomdasif-knowsparkz"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the default metadata from the start of the workflow\nconst defaults = $node[\"Set Default Metadata\"].json;\n\n// Select One To Process (fixed)\n// Mode: Run Once for All Items\nconst rows = $input.all().map(i => i.json || {});\n\n// statuses that mean \"already processed\" (do NOT pick)\nconst SKIP_STATUSES = new Set([\n  'PUBLISHED',\n  'DOWNLOADED',\n  'PROCESSING',\n  'ERROR',\n  'CANCELLED'\n]);\n\nfunction isAvailable(row) {\n  if (!row) return false;\n  if (row.published === true || String(row.published).toLowerCase() === 'true') return false;\n\n  const s = row.status;\n  if (s === undefined || s === null) return true;\n  if (typeof s === 'string') {\n    const t = s.trim().toUpperCase();\n    if (t === '') return true;\n    if (SKIP_STATUSES.has(t)) return false;\n    return true;\n  }\n  return !s;\n}\n\n// pick first available row\nlet chosen = rows.find(isAvailable) || null;\n\nif (!chosen) {\n  return [{\n    json: {\n      debug: 'NO_ROW_SELECTED',\n      reason: 'no rows matched the availability criteria',\n      rowsCount: rows.length,\n    }\n  }];\n}\n\n// MERGE DEFAULTS: Use sheet data if available, otherwise use defaults\nchosen.title = chosen.title || defaults.default_title;\nchosen.description = chosen.description || defaults.default_description;\nchosen.tags = chosen.tags || defaults.default_tags;\nchosen.privacyStatus = chosen.privacyStatus || defaults.privacyStatus;\nchosen.madeForKids = defaults.madeForKids; // Always use the default for this\n\n// mark chosen as processing so subsequent runs don't pick it\nchosen.status = 'PROCESSING';\n\nreturn [{ json: chosen }];"
+      },
+      "id": "f325678f-8f59-45a4-b906-2bb9b6f4d0f4",
+      "name": "Select One To Process6",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        -1568
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 15
+            }
+          ]
+        }
+      },
+      "id": "2ab782f4-239f-4120-827c-3fef74a07c82",
+      "name": "Schedule Trigger3",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1504,
+        -1568
+      ]
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "list",
+        "path": "={{ $json.FILES_DIR }}"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        -1568
+      ],
+      "id": "de24afd6-81af-4f4b-83e7-4e6281fea194",
+      "name": "FTP3",
+      "credentials": {
+        "sftp": {
+          "id": "C8w0MijZfYD2NPtq",
+          "name": "SFTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// GetFileLinks (Function) - normalizes input from SFTP list node\nconst out = [];\n\nfor (const item of $input.all()) {\n  const rawName = item.json.name || item.json.filename || '';\n  const name = rawName.replace(/\\r?\\n/g, '').trim();\n\n  const path = item.json.path || `/upload/${name}`;\n  const fileid = name;\n  const filename = name;\n  const remote_path = path;\n  const created_at = item.json.modifyTime || new Date().toISOString();\n  const size = item.json.size || null;\n\n  out.push({\n    json: {\n      fileid,\n      original_name: name,\n      filename,\n      remote_path,\n      created_at,\n      size\n    }\n  });\n}\n\nreturn out;"
+      },
+      "id": "f03ae10c-fee2-4e3b-83ea-054f95a36013",
+      "name": "getFileLinks3",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -1568
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect output rows here\nconst output = [];\n\n// Loop over all incoming items\nfor (let i = 0; i < items.length; i++) {\n  const item = items[i];\n  const data = item.json || {};\n\n  const uname =\n    (data.UNAME && String(data.UNAME).trim()) ||\n    ($node && $node[\"config2\"] && $node[\"config2\"].json && $node[\"config2\"].json.UNAME) ||\n    '';\n\n  const fileid = data.fileid || data.filename || '';\n  const filename = data.filename || fileid || '';\n  const encodedFilename = encodeURIComponent(filename || '');\n\n  const direct_url = `https://files.mohdasif.net/${uname}/${encodedFilename}`;\n  const remote_path = data.remote_path || `/upload/${uname}/${filename}`;\n\n  const row = {\n    fileid,\n    original_name: filename,\n    DirectUrl: direct_url,\n    remote_path,\n    created_at: data.created_at || new Date().toISOString(),\n    size: data.size || null,\n    status: data.status || 'unknown',\n    published: data.published || false\n  };\n\n  output.push({ json: row });\n}\n\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        -1568
+      ],
+      "id": "beb1cbc2-2c9b-4af7-8cd9-2fbebb84805f",
+      "name": "BuildRowObjectForExcel3"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.DirectUrl }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "97f1df3f-a179-4f37-9a86-0900e2bfd309",
+      "name": "Output video file without watermark2",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        736,
+        -1568
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "UNAME",
+              "value": "KnowSparkz"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "328c094b-e3b0-4911-b9e1-ac41c6509c4d",
+      "name": "USERNAME2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1056,
+        -1568
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "GOOGLE_DRIVE_FOLDER_ID",
+              "value": "1KHv4wZAzt_OaWETkhzbxz37fF27VOkmN"
+            },
+            {
+              "name": "GOOGLE_SHEET_ID",
+              "value": "14EzuQ_35iuNhdVzKnIBcW6uL5vGsCvKwRfL9oVXtsmE"
+            },
+            {
+              "name": "SHEET_NAME",
+              "value": "0"
+            },
+            {
+              "name": "FILES_DIR",
+              "value": "=/upload/{{ $json.UNAME }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bcec128e-0b36-4ce3-8188-7772509d4061",
+      "name": "config2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -832,
+        -1568
+      ]
+    },
+    {
+      "parameters": {
+        "content": "API KEY IS FROM  hellomadasif@gmail.com console\nTRIGGER ONCE A DAY AT 3PM",
+        "height": 80,
+        "width": 400,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -320,
+        -1712
+      ],
+      "typeVersion": 1,
+      "id": "f9d75b17-0dd3-42b7-9296-10a833ea0f63",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "Set Default Metadata": {
+      "main": [
+        [
+          {
+            "node": "USERNAME2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — AppendOrUpdate (ensure rows)2": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — Read Rows2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets — Read Rows2": {
+      "main": [
+        [
+          {
+            "node": "Select One To Process6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Publish Update2": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet — SetStatus2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Short2": {
+      "main": [
+        [
+          {
+            "node": "Prepare Publish Update2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select One To Process6": {
+      "main": [
+        [
+          {
+            "node": "Output video file without watermark2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger3": {
+      "main": [
+        [
+          {
+            "node": "Set Default Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP3": {
+      "main": [
+        [
+          {
+            "node": "getFileLinks3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getFileLinks3": {
+      "main": [
+        [
+          {
+            "node": "BuildRowObjectForExcel3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BuildRowObjectForExcel3": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets — AppendOrUpdate (ensure rows)2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output video file without watermark2": {
+      "main": [
+        [
+          {
+            "node": "Upload Short2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "USERNAME2": {
+      "main": [
+        [
+          {
+            "node": "config2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config2": {
+      "main": [
+        [
+          {
+            "node": "FTP3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger3": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "37b189e1-ccd8-49e8-85a7-8c29a99d8338",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-07T21:12:26.315Z",
+      "updatedAt": "2025-09-07T21:12:26.315Z",
+      "role": "workflow:owner",
+      "workflowId": "JVDOIeg0UiZF6c3D",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "tags": []
+}

@@ -1,105 +1,364 @@
 {
   "active": false,
   "connections": {
-    "⚙️ Configure Post Settings": {
+    "Read/Write Files from Disk": {
       "main": [
         [
           {
-            "node": "🔀 Smart Content Router",
+            "node": "command",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "🔀 Smart Content Router": {
+    "pending_url": {
       "main": [
         [
           {
-            "node": "Google Sheets — Read Rows4",
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "accounts": {
+      "main": [
+        [
+          {
+            "node": "pending_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "command": {
+      "main": [
+        [
+          {
+            "node": "public",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "public": {
+      "main": [
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepared": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config2": {
+      "main": [
+        [
+          {
+            "node": "download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "IF FINAL EMPTY1",
             "type": "main",
             "index": 0
           }
         ],
-        []
-      ]
-    },
-    "Google Sheets — Read Rows4": {
-      "main": [
         [
           {
-            "node": "Execute Command",
+            "node": "IF FINAL EMPTY",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF FINAL EMPTY2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF FINAL EMPTY",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Output video file without watermark": {
+    "If1": {
       "main": [
         [
           {
-            "node": "Upload Short2",
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "final_url",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Upload Short2": {
+    "INSERT_PUBLIC": {
       "main": [
         [
           {
-            "node": "Update Sheet — SetStatus2",
+            "node": "Prepared",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Execute Command": {
+    "build_public_url": {
       "main": [
         [
           {
-            "node": "Output video file without watermark",
+            "node": "INSERT_PUBLIC",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Update Sheet — SetStatus2": {
+    "Switch1": {
       "main": [
         [
           {
-            "node": "FTP1",
+            "node": "modify_mohd_asif",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MILLION_VIEWS",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "FTP1": {
-      "main": [
-        []
-      ]
-    },
-    "Schedule Trigger": {
+    "INSERT_FINAL_MOHD_ASIF": {
       "main": [
         [
           {
-            "node": "Call 'YOUTUBE-TAGS'",
+            "node": "After_mod_Prepared",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Call 'YOUTUBE-TAGS'": {
+    "build_final_url_mohd_asif": {
       "main": [
         [
           {
-            "node": "⚙️ Configure Post Settings",
+            "node": "INSERT_FINAL_MOHD_ASIF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "After_mod_Prepared": {
+      "main": [
+        [
+          {
+            "node": "Execute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "modify_mohd_asif": {
+      "main": [
+        [
+          {
+            "node": "build_final_url_mohd_asif",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "final_url": {
+      "main": [
+        [
+          {
+            "node": "After_mod_Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "build_public_url1": {
+      "main": [
+        [
+          {
+            "node": "INSERT_PUBLIC_ReelSense",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT_PUBLIC_ReelSense": {
+      "main": [
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MILLION_VIEWS": {
+      "main": [
+        [
+          {
+            "node": "build_final_url_mohd_asif",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF FINAL EMPTY1": {
+      "main": [
+        [
+          {
+            "node": "config2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF FINAL EMPTY2": {
+      "main": [
+        [
+          {
+            "node": "build_public_url1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF FINAL EMPTY": {
+      "main": [
+        [
+          {
+            "node": "build_public_url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute": {
+      "main": [
+        [
+          {
+            "node": "Call 'YOUTUBE-MAX'",
             "type": "main",
             "index": 0
           }
@@ -113,58 +372,187 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "YOUTUBE - GyaanManch-fix",
+  "name": "YOUTUBE - DATA HANDLER",
   "nodes": [
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('accounts').item.json.root_dir }}{{ $('accounts').item.json.folder }}input.jpg",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -3168,
+        -624
+      ],
+      "id": "0bdd08dd-585a-42cc-b359-c6b77c921398",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  youtube IS NULL\n   OR {{ $json.type }} = ''\nLIMIT 1;\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -4368,
+        -16
+      ],
+      "id": "196a5825-879f-4281-ade6-a0799394d798",
+      "name": "pending_url",
+      "executeOnce": false,
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM accounts\nWHERE username = '{{ $json.username }}'\n  AND type = '{{ $json.type }}'\nLIMIT 1;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -4592,
+        -16
+      ],
+      "id": "5e954228-3f4c-44c6-820b-585d019f6b31",
+      "name": "accounts",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('pending_url').item.json.image }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3392,
+        -624
+      ],
+      "id": "9ab4365f-9160-480d-84a6-8ec723fb3cac",
+      "name": "download"
+    },
+    {
+      "parameters": {
+        "command": "=python3  {{ $json.file }} \\\n-i  {{ $json.input_image }} \\\n-b  {{ $json.input_video }} \\\n-o  {{ $json.output__video }} \\\n--cut-percentage 40 \\\n--cut-shape random \\\n--hole-color red \\\n--movement-style random \\\n--piece-scale 1.5 \\\n--fps 30 \\\n--margin-top 45 \\\n--audio-volume 10 \\\n--audio-file {{ $json.audio }} \\\n--audio-custom-volume 100 \\\n--alignment-hold-time 10 \\\n--image-coverage 95"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2944,
+        -624
+      ],
+      "id": "f43689dc-3b3e-4d57-afa0-795754bd1c17",
+      "name": "command"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $('config2').item.json.finalurl }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -2768,
+        -624
+      ],
+      "id": "e62234f1-2abc-40c3-9001-6d8151ea17f8",
+      "name": "public",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('config').item.json.type }} IS NULL\n   OR {{ $('config').item.json.type }} = ''\nLIMIT 1;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -2512,
+        -64
+      ],
+      "id": "3ff902c2-1ef9-4371-9368-44672f2ee9a3",
+      "name": "Prepared",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -5040,
+        -112
+      ],
+      "id": "f2f8cc9f-7455-47c9-a2d7-ca513ead7ddf",
+      "name": "start",
+      "disabled": true
+    },
     {
       "parameters": {
         "assignments": {
           "assignments": [
             {
-              "id": "217b69e3-98ec-49a2-8fde-372dd1bc1848",
-              "name": "node",
-              "value": "17841416753691295",
+              "id": "235e1dfd-b7bb-40e9-a708-f495c8361968",
+              "name": "file",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}v2.py",
               "type": "string"
             },
             {
-              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
-              "name": "post_type",
-              "value": "http_reel",
+              "id": "ad67ccd6-fa0b-493f-b7f5-d3c517e7a402",
+              "name": "input_image",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}input.jpg ",
               "type": "string"
             },
             {
-              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5",
-              "name": "image_url",
-              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "id": "53643391-bd34-45ae-92f2-b09c42d88bee",
+              "name": "input_video",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}input/{{ String(Math.floor(Math.random() * 28) + 1).padStart(3, '0') }}.mp4",
               "type": "string"
             },
             {
-              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
-              "name": "video_url",
-              "value": "https://files.mohdasif.net/meow1/upload.mp4",
+              "id": "ef82fb45-0b77-4793-bdca-fa5a565eb7f4",
+              "name": "output__video",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}output/{{ $json.id }}.mp4",
               "type": "string"
             },
             {
-              "id": "c6485101-488b-43db-8708-1a1136292956",
-              "name": "cover_image",
-              "value": "https://cdn.pixabay.com/photo/2023/11/07/22/59/building-8373618_1280.jpg",
+              "id": "e4456bd9-36e6-490d-8067-18c207ebf21b",
+              "name": "audio",
+              "value": "={{$env.BASE_DIR}}{{ $('accounts').item.json.folder }}audio.mp3",
               "type": "string"
             },
             {
-              "id": "d3c29a01-de2f-4487-a8d1-b6ef691fd2ff",
-              "name": "default_description",
-              "value": "Introducing the \"VitaWear SmartBand,\" a next-generation wearable gadget🎉 that combines health monitoring, productivity tools, and entertainment features in a sleek, minimalist design. It features a flexible OLED display that wraps around the wrist, providing a comfortable fit and immersive visual experience. The SmartBand tracks vital signs like heart rate, blood oxygen levels, and body temperature in real-time, using advanced sensors and AI algorithms to provide personalized health insights and alerts. Beyond health tracking, the VitaWear SmartBand integrates with your digital life, offering seamless notifications, voice assistant support, and quick access to your schedule, reminders, and messages. It also includes a built-in mini projector that can display images or presentations on any flat surface, perfect for on-the-go professionals. Additionally, the SmartBand supports wireless charging and has a battery life of up to 10 days, making it a versatile and essential gadget for modern life.",
-              "type": "string"
-            },
-            {
-              "id": "b97e9319-6f06-4e85-af3b-ce904f6b221c",
-              "name": "default_tags",
-              "value": "#shortsvideo #youtubeshorts",
-              "type": "string"
-            },
-            {
-              "id": "54a57124-b253-4e90-a3d3-e9181acb0a89",
-              "name": "privacyStatus",
-              "value": "private",
+              "id": "0e5c521a-b028-434d-8602-0d9ac00cde6d",
+              "name": "finalurl",
+              "value": "=https://files.mohdasif.net{{ $('accounts').item.json.folder }}output/{{ $('pending_url').item.json.id }}.mp4",
               "type": "string"
             }
           ]
@@ -174,11 +562,58 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2800,
-        -848
+        -3520,
+        -624
       ],
-      "id": "4eed687f-e5d0-452a-b7e3-2c0182b60aac",
-      "name": "⚙️ Configure Post Settings"
+      "id": "eaef3a00-e37d-43f9-a66e-08a5e044fbe2",
+      "name": "config2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "49cc4872-f0c8-4630-9d2b-776ab3e26f7b",
+              "name": "username",
+              "value": "={{ $json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "411cb60f-d78d-4bdf-870f-409179343e6e",
+              "name": "type",
+              "value": "={{ $json.type }}",
+              "type": "string"
+            },
+            {
+              "id": "d37748d7-bff4-45bc-adba-83ec387d7fe1",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -4816,
+        -16
+      ],
+      "id": "1e2f2e46-38b8-45d8-a09e-8e487670613c",
+      "name": "config"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -5040,
+        96
+      ],
+      "id": "8768aba7-c1f7-4e4c-baad-055d4bc0cc4a",
+      "name": "When clicking ‘Execute workflow’",
+      "disabled": true
     },
     {
       "parameters": {
@@ -194,20 +629,19 @@
                 },
                 "conditions": [
                   {
-                    "id": "25e31619-4116-46e0-bfcb-a8d8a030fa68",
-                    "leftValue": "={{ $json.post_type }}",
-                    "rightValue": "http_reel",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "urban__raja",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
+                      "operation": "equals"
+                    },
+                    "id": "044222b3-8bb6-49ab-894b-9b3fee1fe343"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "HTTP - Reels"
+              "outputKey": "urban__raja"
             },
             {
               "conditions": {
@@ -219,9 +653,9 @@
                 },
                 "conditions": [
                   {
-                    "id": "cf34e931-f798-4c70-af29-9aec7aab8f6c",
-                    "leftValue": "={{ $json.post_type }}",
-                    "rightValue": "fb_reel",
+                    "id": "087647e1-c883-48ad-b04b-a2fce36eb524",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "iammohdasifx",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -232,286 +666,576 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "FB - Reels"
+              "outputKey": "iammohdasifx"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "83ea2689-510b-4ec7-92a0-dd5f8dfe51bf",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "ReelSense",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ReelSense"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "04be0559-ef87-434e-b0b1-b68486abee4f",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "GyaanManch",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "GyaanManch"
             }
           ]
         },
         "options": {}
       },
       "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
+      "typeVersion": 3.3,
       "position": [
-        -2576,
-        -848
+        -4064,
+        -48
       ],
-      "id": "c9610d4b-2ed7-4461-8e92-d0b0d6a2dd38",
-      "name": "🔀 Smart Content Router"
+      "id": "272f1189-8da0-48ff-acb5-6c0ddb2ab70b",
+      "name": "Switch"
     },
     {
       "parameters": {
-        "documentId": {
-          "__rl": true,
-          "value": "1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU",
-          "mode": "list",
-          "cachedResultName": "gyan",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU/edit?usp=drivesdk"
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $json.final }}",
+              "rightValue": "NEEDS MODIFICATION",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
         },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU/edit#gid=0"
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2336,
+        -64
+      ],
+      "id": "4780cc87-3b44-42f5-8b28-4d962f3ade87",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $json.public }}\",\n  final =  \"NEEDS MODIFICATION\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -2960,
+        -80
+      ],
+      "id": "52656377-6929-40de-91d2-a13cf11a2286",
+      "name": "INSERT_PUBLIC",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b7b3e73-6867-4b4d-a184-d016241b74bf",
+              "name": "public",
+              "value": "=https://files.mohdasif.net{{ $('accounts').item.json.folder }}{{ $('pending_url').item.json.filename }}",
+              "type": "string"
+            }
+          ]
         },
-        "filtersUI": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3264,
+        -112
+      ],
+      "id": "d7a6942c-32c4-4b5d-8e93-61229f96bf16",
+      "name": "build_public_url"
+    },
+    {
+      "parameters": {
+        "rules": {
           "values": [
             {
-              "lookupColumn": "status"
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "087647e1-c883-48ad-b04b-a2fce36eb524",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "iammohdasifx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "iammohdasifx"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "253761b6-dd64-4b7a-badb-afb1e73bfd90",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "knowsparkz",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "knowsparkz"
             }
           ]
         },
         "options": {}
       },
-      "id": "15f055ae-b837-4de6-961d-82cb50c34133",
-      "name": "Google Sheets — Read Rows4",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4,
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
       "position": [
-        -2352,
-        -848
+        -2112,
+        -288
       ],
+      "id": "39340483-6516-4653-8ccb-ad5c196ac233",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  final =  \"{{ $('build_final_url_mohd_asif').item.json.final }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -1248,
+        -480
+      ],
+      "id": "678f6da8-9a06-4b96-acb0-3edb1339d716",
+      "name": "INSERT_FINAL_MOHD_ASIF",
       "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "H3U1X4hjIcv7PxVl",
-          "name": "hellomohdasif@gmail.com"
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
         }
       }
     },
     {
       "parameters": {
-        "url": "=https://files.mohdasif.net/extra/{{ $('Google Sheets — Read Rows4').item.json.row_number }}.mp4",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
+        "assignments": {
+          "assignments": [
             {
-              "name": "User-Agent",
-              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-            },
-            {
-              "name": "Referer",
-              "value": "https://www.tiktok.com/"
-            },
-            {
-              "name": "Accept",
-              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
-            },
-            {
-              "name": "Accept-Language",
-              "value": "en-US,en;q=0.5"
-            },
-            {
-              "name": "Connection",
-              "value": "keep-alive"
+              "id": "1b7b3e73-6867-4b4d-a184-d016241b74bf",
+              "name": "final",
+              "value": "=https://files.mohdasif.net{{ $('accounts').item.json.folder }}output/{{ $json.stdout }}",
+              "type": "string"
             }
           ]
         },
-        "options": {
-          "allowUnauthorizedCerts": true,
-          "response": {
-            "response": {
-              "responseFormat": "file"
-            }
-          }
-        }
+        "options": {}
       },
-      "id": "39432ad7-1946-4eea-9dc0-7b5608f77296",
-      "name": "Output video file without watermark",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1472,
+        -480
+      ],
+      "id": "59e02aa6-be82-43c3-bc48-f3122f95dfa6",
+      "name": "build_final_url_mohd_asif"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('config').item.json.type }} IS NULL\n   OR {{ $('config').item.json.type }} = ''\nLIMIT 1;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -1040,
+        32
+      ],
+      "id": "7509776e-69d1-44cf-bfcd-eefed9869f0e",
+      "name": "After_mod_Prepared",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://n8n.mohdasif.net/webhook/reaction2",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('pending_url').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\",\n  \"OVERLAY_FILE\": \"{{ $('accounts').item.json.root_dir }}tools/reaction/asif/1.mp4\"\n}",
+        "options": {}
+      },
       "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        -1904,
-        -848
+        -1920,
+        -480
       ],
-      "typeVersion": 4.2
+      "id": "dbae290b-c946-4c3a-b3eb-c520bc60e0cd",
+      "name": "modify_mohd_asif"
     },
     {
       "parameters": {
-        "operation": "appendOrUpdate",
-        "documentId": {
-          "__rl": true,
-          "value": "1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU",
-          "mode": "list",
-          "cachedResultName": "gyan",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oFP_l5u-dDJbctQldbdNzWXZ8RDwka2K3LdiaY5niaU/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XSgMPYZQRAT_KKVECOa_4hn6HEkat3dzcZlmuIEjNq4/edit#gid=0"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "DirectUrl": "={{ $('Google Sheets — Read Rows4').item.json.DirectUrl }}",
-            "status": "published"
-          },
-          "matchingColumns": [
-            "DirectUrl"
-          ],
-          "schema": [
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  final = \"{{ $('Prepared').item.json.public }}\"\nWHERE \n  id = {{ $('pending_url').item.json.id }}\n  AND (final IS NULL OR final = '');\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -1856,
+        -16
+      ],
+      "id": "9a6ab110-3379-4a53-9d45-46cfd06d1fcb",
+      "name": "final_url",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
             {
-              "id": "DirectUrl",
-              "displayName": "DirectUrl",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
+              "id": "1b7b3e73-6867-4b4d-a184-d016241b74bf",
+              "name": "public",
+              "value": "=https://files.mohdasif.net/{{ $('accounts').item.json.folder }}{{ $('pending_url').item.json.filename }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3264,
+        176
+      ],
+      "id": "340373e3-8380-49ad-a4e3-78e9cdfa300e",
+      "name": "build_public_url1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $json.public }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -2976,
+        176
+      ],
+      "id": "70c3352d-470e-4355-a5b1-a8ebf6df2fce",
+      "name": "INSERT_PUBLIC_ReelSense",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/views",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('Prepared').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1776,
+        -272
+      ],
+      "id": "1b138d3d-07ec-4be7-9eed-4f60955723eb",
+      "name": "MILLION_VIEWS"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
             },
             {
-              "id": "status",
-              "displayName": "status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
+              "id": "c6d77762-53c7-484a-845c-b5f966a55a94",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
             }
           ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
+          "combinator": "or"
         },
         "options": {}
       },
-      "id": "580d16f9-9c4a-4e3f-876d-f0eddfe24939",
-      "name": "Update Sheet — SetStatus2",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4,
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
       "position": [
-        -1456,
-        -848
+        -3744,
+        -608
       ],
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "H3U1X4hjIcv7PxVl",
-          "name": "hellomohdasif@gmail.com"
-        }
-      }
+      "id": "ff72aa0e-b22d-4af3-b19e-eb6cc438cb02",
+      "name": "IF FINAL EMPTY1"
     },
     {
       "parameters": {
-        "resource": "video",
-        "operation": "upload",
-        "title": "={{ $('Call \\'YOUTUBE-TAGS\\'').item.json.Title }}",
-        "regionCode": "IN",
-        "categoryId": "24",
-        "options": {
-          "defaultLanguage": "hi",
-          "description": "={{ $('Call \\'YOUTUBE-TAGS\\'').item.json.description }} {{ $('Call \\'YOUTUBE-TAGS\\'').item.json.randomLines }}",
-          "privacyStatus": "={{ $('⚙️ Configure Post Settings').item.json.privacyStatus }}",
-          "publishAt": "={{ new Date(Date.now() + 30*60*1000).toISOString() }}",
-          "selfDeclaredMadeForKids": false,
-          "tags": "="
-        }
-      },
-      "name": "Upload Short2",
-      "type": "n8n-nodes-base.youTube",
-      "typeVersion": 1,
-      "position": [
-        -1680,
-        -848
-      ],
-      "id": "222a6161-de94-4299-a47c-3d8723574aae",
-      "binaryPropertyName": "data",
-      "credentials": {
-        "youTubeOAuth2Api": {
-          "id": "e5vbfdIvggIbG7b0",
-          "name": "POST GyaanManch"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "command": "=\nINPUT_URL=\"https://files.mohdasif.net/GyaanManch/{{ $json.DirectUrl.split('/').pop().split('?')[0] }}.mp4\n\"\nREL_PATH=$(echo \"$INPUT_URL\" | sed -E 's@https?://[^/]+/@@')\nINPUT_FILE=\"/files/$REL_PATH\"\n\n# ---------- Configurable variables (change these) ----------\nASSETS_DIR=\"/files/extra\"\nFONT_FILE=\"ARIALBD 1.TTF\"        # place any TTF you upload into /files/extra and set the filename here\n\n# Final overlay placement on final video\nPLACEMENT=\"${PLACEMENT:-top-right}\"   # top-right, top-left, bottom-right, bottom-left\n\n# ICON inside screenshot (DEFAULT ANCHOR bottom-left)\nICON_ANCHOR=\"${ICON_ANCHOR:-bottom-left}\"  # bottom-left, bottom-right, top-left, top-right\nICON_SIZE=${ICON_SIZE:-94}\nICON_OFFSET_X=\"${ICON_OFFSET_X:-4%}\"   # px or percent of frame width (distance from left/right depending on anchor)\nICON_OFFSET_Y=\"${ICON_OFFSET_Y:-4%}\"   # px or percent of frame height (distance from bottom/top depending on anchor)\nTEXT_GAP=${TEXT_GAP:-6}                # gap between icon and text inside screenshot\nFONTSIZE=${FONTSIZE:-78}\nTEXT_OFFSET_X=${TEXT_OFFSET_X:-0}\nTEXT_OFFSET_Y=${TEXT_OFFSET_Y:-0}\nRAND_MIN=${RAND_MIN:-1}\nRAND_MAX=${RAND_MAX:-100}\n\n# Overlay (screenshot) scaling + offset for final video\nOVERLAY_W=\"${OVERLAY_W:-30%}\"   # px or percent of final video width\nOVERLAY_H=\"${OVERLAY_H:-25%}\"   # px or percent of final video height\nOVERLAY_OFFSET_X=${OVERLAY_OFFSET_X:-20}  # px from chosen corner on final video\nOVERLAY_OFFSET_Y=${OVERLAY_OFFSET_Y:-110}  # px from chosen corner on final video\n\n# Caption bar + emoji settings\nBAR_HEIGHT=${BAR_HEIGHT:-110}\nBAR_OFFSET_Y=${BAR_OFFSET_Y:-0}\nBAR_BG_OPACITY=${BAR_BG_OPACITY:-150}\nCAPTION_FONT_SIZE=${CAPTION_FONT_SIZE:-40}\n\nEMOJI_PNG=\"${ASSETS_DIR}/emoji.png\"\nEMOJI_SIZE=${EMOJI_SIZE:-74}\nEMOJI_OFFSET_X=${EMOJI_OFFSET_X:-50}\nEMOJI_OFFSET_Y=${EMOJI_OFFSET_Y:-20}\n\n# Show overlay from first frame by default\nFRAME_DELAY_START=${FRAME_DELAY_START:-0}\n\nOUT_VIDEO=\"${ASSETS_DIR}/{{ $json.row_number }}.mp4\"\nFPS=${FPS:-30}\n\n# Safety defaults\nDURATION_FALLBACK=${DURATION_FALLBACK:-600}  # 10 minutes max\n# ---------- End configurable ----------\n\n# ---------- Derived / paths ----------\nmkdir -p \"$ASSETS_DIR\"\nFONT=\"${ASSETS_DIR}/${FONT_FILE}\"\nEYE_ICON=\"${ASSETS_DIR}/eye.png\"\nSCREENSHOT_PNG=\"${ASSETS_DIR}/frame_with_views.png\"\nTMP_FRAME=\"${ASSETS_DIR}/_tmp_frame.png\"\nCAPTION_PNG=\"${ASSETS_DIR}/caption_canvas.png\"\n# ---------- End derived ----------\n\nVIEWS=\"$(shuf -i${RAND_MIN}-${RAND_MAX} -n1)M\"\n\necho \"INPUT_FILE: $INPUT_FILE\"\necho \"FONT: $FONT\"\necho \"VIEWS: $VIEWS\"\necho \"OUT_VIDEO: $OUT_VIDEO\"\necho \"ASSETS_DIR: $ASSETS_DIR\"\necho \"PLACEMENT: $PLACEMENT\"\necho \"ICON_ANCHOR: $ICON_ANCHOR\"\necho \"ICON_OFFSET_X: $ICON_OFFSET_X ICON_OFFSET_Y: $ICON_OFFSET_Y\"\necho \"OVERLAY_W: $OVERLAY_W OVERLAY_H: $OVERLAY_H\"\necho \"FRAME_DELAY_START: $FRAME_DELAY_START\"\necho \"MAX DURATION (s): $DURATION_FALLBACK\"\n\n# sanity check\nif [ ! -f \"$INPUT_FILE\" ]; then\n  echo \"ERR: input not found: $INPUT_FILE\" >&2\n  exit 1\nfi\n\n# ensure eye icon exists (transparent fallback)\nif [ ! -f \"$EYE_ICON\" ]; then\n  echo \"Note: eye icon missing at $EYE_ICON — creating transparent placeholder\"\n  ffmpeg -f lavfi -i \"color=rgba(0,0,0,0):s=${ICON_SIZE}x${ICON_SIZE}:d=1\" -frames:v 1 -y \"$EYE_ICON\"\nfi\n\n# helper: convert percent like \"5%\" to px given dim; otherwise return integer value\npct_to_px() {\n  val=\"$1\"\n  dim=\"$2\"\n  if printf '%s' \"$val\" | grep -qE '^[0-9]+%$'; then\n    p=${val%\\%}\n    echo $(( (p * dim) / 100 ))\n  else\n    # assume plain integer px\n    if [ -z \"$val\" ]; then\n      echo 0\n    else\n      echo \"$val\"\n    fi\n  fi\n}\n\n# ---------------- 1) extract a single frame ----------------\necho \"1/6: extracting frame at 2s -> $TMP_FRAME\"\nffmpeg -ss 2 -i \"$INPUT_FILE\" -frames:v 1 -q:v 2 -y \"$TMP_FRAME\"\n\n# compute video/frame dimensions\nVID_H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 \"$INPUT_FILE\" 2>/dev/null || echo 1080)\nVID_W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width  -of csv=p=0 \"$INPUT_FILE\" 2>/dev/null || echo 1080)\nVID_H=${VID_H:-1080}\nVID_W=${VID_W:-1080}\n\nFRAME_H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 \"$TMP_FRAME\" 2>/dev/null || echo \"$VID_H\")\nFRAME_W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width  -of csv=p=0 \"$TMP_FRAME\" 2>/dev/null || echo \"$VID_W\")\nFRAME_H=${FRAME_H:-$VID_H}\nFRAME_W=${FRAME_W:-$VID_W}\n\n# compute ICON X/Y inside the screenshot (supports px or percent)\n# anchor logic: icon anchor defines which edges offsets apply to\n# ICON_OFFSET_X measured from left when anchor contains 'left', otherwise from right\n# ICON_OFFSET_Y measured from top when anchor contains 'top', otherwise from bottom\nOFS_X_PX=$(pct_to_px \"${ICON_OFFSET_X}\" \"$FRAME_W\")\nOFS_Y_PX=$(pct_to_px \"${ICON_OFFSET_Y}\" \"$FRAME_H\")\n\ncase \"$ICON_ANCHOR\" in\n  bottom-left)\n    ICON_X=$OFS_X_PX\n    ICON_Y=$(( FRAME_H - OFS_Y_PX - ICON_SIZE ))\n    ;;\n  bottom-right)\n    ICON_X=$(( FRAME_W - OFS_X_PX - ICON_SIZE ))\n    ICON_Y=$(( FRAME_H - OFS_Y_PX - ICON_SIZE ))\n    ;;\n  top-left)\n    ICON_X=$OFS_X_PX\n    ICON_Y=$OFS_Y_PX\n    ;;\n  top-right)\n    ICON_X=$(( FRAME_W - OFS_X_PX - ICON_SIZE ))\n    ICON_Y=$OFS_Y_PX\n    ;;\n  *)\n    ICON_X=$OFS_X_PX\n    ICON_Y=$(( FRAME_H - OFS_Y_PX - ICON_SIZE ))\n    ;;\nesac\n\n# clamp inside frame\n[ \"$ICON_X\" -lt 0 ] && ICON_X=0\n[ \"$ICON_Y\" -lt 0 ] && ICON_Y=0\n[ \"$ICON_X\" -gt $((FRAME_W - ICON_SIZE)) ] && ICON_X=$((FRAME_W - ICON_SIZE))\n[ \"$ICON_Y\" -gt $((FRAME_H - ICON_SIZE)) ] && ICON_Y=$((FRAME_H - ICON_SIZE))\n\nTEXT_X=$(( ICON_X + ICON_SIZE + TEXT_GAP + TEXT_OFFSET_X ))\nTEXT_Y=$(( ICON_Y + ICON_SIZE/2 - FONTSIZE/2 + TEXT_OFFSET_Y ))\nif [ \"$TEXT_Y\" -lt 0 ]; then TEXT_Y=0; fi\n\necho \"Computed screenshot ICON at (${ICON_X},${ICON_Y}), TEXT at (${TEXT_X},${TEXT_Y}), FRAME=${FRAME_W}x${FRAME_H}, VIDEO=${VID_W}x${VID_H}\"\n\n# 2) Build screenshot image (icon + views) using Pillow\necho \"2/6: Creating screenshot image (Pillow)\"\nexport TMP_FRAME SCREENSHOT_PNG EYE_ICON VIEWS FONT ICON_X ICON_Y ICON_SIZE TEXT_X TEXT_Y FONTSIZE\n\npython3 - <<'PY'\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\ntmp_frame = os.environ[\"TMP_FRAME\"]\nout_png = os.environ[\"SCREENSHOT_PNG\"]\neye_icon = os.environ[\"EYE_ICON\"]\nv = os.environ[\"VIEWS\"]\nICON_X = int(os.environ.get(\"ICON_X\", \"24\"))\nICON_Y = int(os.environ.get(\"ICON_Y\", \"84\"))\nICON_SIZE = int(os.environ.get(\"ICON_SIZE\", \"64\"))\nTEXT_X = int(os.environ.get(\"TEXT_X\", str(ICON_X + ICON_SIZE + 5)))\nTEXT_Y = int(os.environ.get(\"TEXT_Y\", str(ICON_Y)))\nFONTSIZE = int(os.environ.get(\"FONTSIZE\", \"48\"))\nfontpath = os.environ.get(\"FONT\", \"\")\n\nbg = Image.open(tmp_frame).convert(\"RGBA\")\n\n# icon may be missing - handle gracefully\ntry:\n    icon = Image.open(eye_icon).convert(\"RGBA\").resize((ICON_SIZE, ICON_SIZE))\n    bg.paste(icon, (ICON_X, ICON_Y), icon)\nexcept Exception:\n    pass\n\n# pick font\ncandidates = [\n    fontpath,\n    \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n    \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\",\n    \"/Library/Fonts/Arial.ttf\",\n    \"/System/Library/Fonts/Supplemental/Arial.ttf\"\n]\nfont = None\nfor p in candidates:\n    if p and os.path.isfile(p):\n        try:\n            font = ImageFont.truetype(p, FONTSIZE)\n            break\n        except Exception:\n            font = None\nif font is None:\n    font = ImageFont.load_default()\n\ndraw = ImageDraw.Draw(bg)\ndraw.text((TEXT_X, TEXT_Y), v, font=font, fill=(255,255,255,255))\n\nbg.save(out_png)\nprint(out_png)\nPY\n\nchmod 644 \"$SCREENSHOT_PNG\"\necho \"WROTE screenshot $SCREENSHOT_PNG\"\n\nif [ ! -f \"$SCREENSHOT_PNG\" ]; then\n  echo \"ERR: screenshot image not created: $SCREENSHOT_PNG\" >&2\n  exit 1\nfi\n\n# 3) Build caption canvas PNG\necho \"3/6: Building caption PNG -> $CAPTION_PNG\"\nexport CAPTION_PNG VID_W BAR_HEIGHT CAPTION_FONT_SIZE BAR_BG_OPACITY VIEWS FONT\n\npython3 - <<'PY'\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\nout = os.environ[\"CAPTION_PNG\"]\nvidw = int(os.environ.get(\"VID_W\", \"1080\"))\nbarh = int(os.environ.get(\"BAR_HEIGHT\", \"110\"))\ntxt = f\" THANK YOU FOR {os.environ.get('VIEWS','0M')} VIEWS [TRICK AT END]\"\nfontsize = int(os.environ.get(\"CAPTION_FONT_SIZE\", \"64\"))\nbar_opacity = int(os.environ.get(\"BAR_BG_OPACITY\", \"80\"))\nfontpath = os.environ.get(\"FONT\", \"\")\n\ncandidates = [\n    fontpath,\n    \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n    \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\",\n    \"/Library/Fonts/Arial.ttf\",\n    \"/System/Library/Fonts/Supplemental/Arial.ttf\"\n]\nfont = None\nfor p in candidates:\n    if p and os.path.isfile(p):\n        try:\n            font = ImageFont.truetype(p, fontsize)\n            break\n        except Exception:\n            font = None\nif font is None:\n    font = ImageFont.load_default()\n    fontsize = 16\n\ntmp = Image.new(\"RGBA\", (10,10), (0,0,0,0))\ndraw = ImageDraw.Draw(tmp)\ntry:\n    bbox = draw.textbbox((0,0), txt, font=font)\n    w = bbox[2]-bbox[0]; h = bbox[3]-bbox[1]\nexcept Exception:\n    w,h = draw.textsize(txt, font=font)\n\nimg = Image.new(\"RGBA\", (vidw, barh), (0,0,0,0))\nd = ImageDraw.Draw(img)\nd.rectangle([(0,0),(vidw,barh)], fill=(0,0,0,bar_opacity))\n\ntx = (vidw - w) // 2\nty = (barh - h) // 2\nd.text((tx,ty), txt, font=font, fill=(255,255,255,255))\n\nimg.save(out)\nprint(out)\nPY\n\nchmod 644 \"$CAPTION_PNG\"\necho \"WROTE caption PNG $CAPTION_PNG\"\n\n# ---------------- Compute overlay pixel sizes (OVERLAY_W / OVERLAY_H may be percent) ----------------\nOVERLAY_W_PX=$(pct_to_px \"${OVERLAY_W}\" \"$VID_W\")\nOVERLAY_H_PX=$(pct_to_px \"${OVERLAY_H}\" \"$VID_H\")\n\n# Sanity clamp\nif [ \"$OVERLAY_W_PX\" -le 0 ] || [ \"$OVERLAY_W_PX\" -gt \"$VID_W\" ]; then\n  OVERLAY_W_PX=$(( VID_W / 5 ))\nfi\nif [ \"$OVERLAY_H_PX\" -le 0 ] || [ \"$OVERLAY_H_PX\" -gt \"$VID_H\" ]; then\n  OVERLAY_H_PX=$(( VID_H / 3 ))\nfi\n\necho \"Overlay final size = ${OVERLAY_W_PX}px x ${OVERLAY_H_PX}px (computed from ${OVERLAY_W} x ${OVERLAY_H})\"\n\n# 4) Compose final video\necho \"4/6: composing final video -> $OUT_VIDEO\"\n\ncase \"$PLACEMENT\" in\n  top-right)\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\n  top-left)\n    OV_X_EXPR=\"${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\n  bottom-right)\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"H-h-${OVERLAY_OFFSET_Y}\"\n    ;;\n  bottom-left)\n    OV_X_EXPR=\"${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"H-h-${OVERLAY_OFFSET_Y}\"\n    ;;\n  *)\n    OV_X_EXPR=\"W-w-${OVERLAY_OFFSET_X}\"\n    OV_Y_EXPR=\"${OVERLAY_OFFSET_Y}\"\n    ;;\nesac\n\n# include emoji overlay if available\nif [ -f \"${EMOJI_PNG}\" ]; then\n  ffmpeg -y -i \"$INPUT_FILE\" -i \"$SCREENSHOT_PNG\" -i \"$CAPTION_PNG\" -i \"${EMOJI_PNG}\" \\\n    -t \"${DURATION_FALLBACK}\" \\\n    -filter_complex \"\\\n[1:v]scale=${OVERLAY_W_PX}:${OVERLAY_H_PX}[ov]; \\\n[0:v][ov]overlay=x=${OV_X_EXPR}:y=${OV_Y_EXPR}:enable='gte(t,${FRAME_DELAY_START})'[step1]; \\\n[step1][2:v]overlay=x=(main_w-overlay_w)/2:y=${BAR_OFFSET_Y}[step2]; \\\n[3:v]scale=${EMOJI_SIZE}:${EMOJI_SIZE}[emoji]; \\\n[step2][emoji]overlay=x=${EMOJI_OFFSET_X}:y=${EMOJI_OFFSET_Y}\" \\\n    -r ${FPS} -c:v libx264 -preset veryfast -c:a copy -y \"$OUT_VIDEO\"\nelse\n  ffmpeg -y -i \"$INPUT_FILE\" -i \"$SCREENSHOT_PNG\" -i \"$CAPTION_PNG\" \\\n    -t \"${DURATION_FALLBACK}\" \\\n    -filter_complex \"\\\n[1:v]scale=${OVERLAY_W_PX}:${OVERLAY_H_PX}[ov]; \\\n[0:v][ov]overlay=x=${OV_X_EXPR}:y=${OV_Y_EXPR}:enable='gte(t,${FRAME_DELAY_START})'[step1]; \\\n[step1][2:v]overlay=x=(main_w-overlay_w)/2:y=${BAR_OFFSET_Y}\" \\\n    -r ${FPS} -c:v libx264 -preset veryfast -c:a copy -y \"$OUT_VIDEO\"\nfi\n\nif [ $? -eq 0 ] && [ -f \"$OUT_VIDEO\" ]; then\n  echo \"WROTE final video -> $OUT_VIDEO\"\n  exit 0\nelse\n  echo \"ERR: final ffmpeg compose failed\" >&2\n  exit 1\nfi\n"
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        -2128,
-        -848
-      ],
-      "id": "edc1b7cf-62cb-449f-84c5-a28b39fe3917",
-      "name": "Execute Command"
-    },
-    {
-      "parameters": {
-        "protocol": "sftp",
-        "operation": "delete",
-        "path": "=/upload/extra/{{ $('Google Sheets — Read Rows4').item.json.row_number }}.mp4",
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "c6d77762-53c7-484a-845c-b5f966a55a94",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
         "options": {}
       },
-      "type": "n8n-nodes-base.ftp",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
       "position": [
-        -1232,
-        -848
+        -3600,
+        192
       ],
-      "id": "87ff813d-4bcf-4767-b6f8-5c2dee2ff5e8",
-      "name": "FTP1",
-      "credentials": {
-        "sftp": {
-          "id": "C8w0MijZfYD2NPtq",
-          "name": "SFTP"
-        }
-      }
+      "id": "1ff60922-385f-49cd-a29f-0abeddb308be",
+      "name": "IF FINAL EMPTY2"
     },
     {
       "parameters": {
-        "content": "## aryankhan696968@gmail.com\n\n",
-        "height": 96,
-        "width": 432
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "c6d77762-53c7-484a-845c-b5f966a55a94",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3632,
+        -96
+      ],
+      "id": "3eb45b7d-a510-4084-9d74-29a41a0820ee",
+      "name": "IF FINAL EMPTY"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 272,
+        "width": 1408
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -2576,
-        -1008
+        -3888,
+        -688
       ],
       "typeVersion": 1,
-      "id": "1a10d70d-dc92-4f03-b511-ebd8039dd780",
-      "name": "Sticky Note"
+      "id": "8d84ca64-0177-4659-9864-c92acb4b176d",
+      "name": "Sticky Note1"
     },
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "triggerAtHour": 5
-            },
-            {
-              "triggerAtHour": 19
-            }
-          ]
-        }
+        "content": "",
+        "height": 288,
+        "width": 928
       },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
+      "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -3248,
-        -848
+        -3696,
+        128
       ],
-      "id": "e706e642-e12f-443a-a199-df1a85aa450e",
-      "name": "Schedule Trigger",
-      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
+      "typeVersion": 1,
+      "id": "f3e91bba-87fa-474f-9c8d-6e380e91ec52",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"acc_id\": \"{{ (String($('accounts').item.json.acc_id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"username\": \"{{ (String($('accounts').item.json.username || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"public\": \"{{ (String($json.final || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"access_token\": \"{{ (String($('accounts').item.json.token || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"database_name\": \"{{ (String($('accounts').item.json.database_name || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"status\": \"{{ (String('Pending').trim()) }}\",\n  \"title\": \"{{ (String($('config').item.json.title || $('accounts').item.json.default_title || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"description\": \"{{ (String($('config').item.json.description || $('accounts').item.json.default_des || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"type\": \"{{ (String($('config').item.json.type || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"id\": \"{{ (String($json.id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n \"privacy\": \"{{ (String($('accounts').item.json.privacy || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -848,
+        32
+      ],
+      "id": "852d704e-9d25-4416-8e95-66f182e5136f",
+      "name": "Execute"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 288,
+        "width": 928
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3712,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "79b10881-39e5-496c-8502-681ef2ef1e24",
+      "name": "Sticky Note3"
     },
     {
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "xQgmnRkUXwhBIh3l",
+          "value": "5o6t5oIfRFT7p9Vr",
           "mode": "list",
-          "cachedResultName": "YOUTUBE-TAGS"
+          "cachedResultUrl": "/workflow/5o6t5oIfRFT7p9Vr",
+          "cachedResultName": "YOUTUBE-MAX"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -520,17 +1244,27 @@
         "options": {}
       },
       "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.2,
+      "typeVersion": 1.3,
       "position": [
-        -3024,
-        -848
+        -624,
+        32
       ],
-      "id": "30010efd-5496-4ce0-a59d-28d2da0c531f",
-      "name": "Call 'YOUTUBE-TAGS'"
+      "id": "118b7815-e0ee-4b62-9250-3e772eae40bd",
+      "name": "Call 'YOUTUBE-MAX'"
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "username": "GyaanManch",
+          "type": "youtube",
+          "title": "false"
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -561,6 +1295,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-09-30T12:12:21.000Z",
-  "versionId": "e0ae9002-5fd0-475a-ac59-9c4542cd92e3"
+  "updatedAt": "2025-10-07T20:28:05.000Z",
+  "versionId": "52a816b3-6858-4412-bc26-e78fae617dfa"
 }

@@ -8,6 +8,11 @@
             "node": "config",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "config1",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -25,13 +30,7 @@
     },
     "BUILD": {
       "main": [
-        [
-          {
-            "node": "config1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "config1": {
@@ -81,7 +80,7 @@
       "typeVersion": 1.2,
       "position": [
         -400,
-        -16
+        -96
       ],
       "id": "e6ca7492-7fc2-4625-a76a-9890c1b30a9b",
       "name": "Schedule Trigger"
@@ -116,7 +115,7 @@
       "typeVersion": 3.4,
       "position": [
         -176,
-        -16
+        -192
       ],
       "id": "8d6a4897-f75f-451f-a8e3-3c11b4c55269",
       "name": "config"
@@ -140,7 +139,7 @@
       "typeVersion": 1.3,
       "position": [
         48,
-        -16
+        -192
       ],
       "id": "1b57626c-829c-47bf-80ad-f227f8e2ae17",
       "name": "BUILD"
@@ -174,8 +173,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        272,
-        -16
+        -176,
+        0
       ],
       "id": "6405e981-2461-49d1-9214-a0e6b4e7d78b",
       "name": "config1"
@@ -198,8 +197,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        496,
-        -16
+        48,
+        0
       ],
       "id": "671fa54b-810a-47f7-a878-cf72145fa3de",
       "name": "BUILD1"
@@ -241,6 +240,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T12:14:51.000Z",
-  "versionId": "68b2ca57-986b-4b74-8900-8a921e39ac88"
+  "updatedAt": "2025-10-07T18:39:17.000Z",
+  "versionId": "10d1309d-fa95-4505-95e8-c996ca2b666e"
 }

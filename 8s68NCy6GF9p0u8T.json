@@ -438,10 +438,80 @@
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18ppDuREXH5hsDgb9VBJ1xxC9ddjYXanQVXgEAsr59YQ/edit#gid=0"
         },
         "columns": {
-          "mappingMode": "autoMapInputData",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
+          "mappingMode": "defineBelow",
+          "value": {
+            "username": "={{ $('Loop Over Items').item.json.username }}",
+            "public": "={{ $('Loop Over Items').item.json.public }}",
+            "type": "={{ $('Loop Over Items').item.json.type }}",
+            "acc_id": "={{ $('Loop Over Items').item.json.acc_id }}",
+            "id": "={{ $('Loop Over Items').item.json.id }}",
+            "Time": "={{ new Date().toLocaleString('en-GB', { day: 'numeric', month: 'short' }) + ' [' + new Date().toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) + ']' }}\n"
+          },
+          "matchingColumns": [
+            "success"
+          ],
+          "schema": [
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "acc_id",
+              "displayName": "acc_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
           "attemptToConvertTypes": false,
           "convertFieldsToString": false
         },
@@ -790,24 +860,7 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {
-    "Loop Over Items": [
-      {
-        "json": {
-          "acc_id": "17841454629202811",
-          "username": "knowsparkz",
-          "public": "https://files.mohdasif.net/YOUTUBE/KnowSparkz/output/JIEV4CoJlqE.mp4",
-          "access_token": "EAAZAD11ycW5IBPV1rV8L7ZBbRkCO1eSuetnxe68A2AyEqZCgMq8XLuOK5UgNZAzcxZBjzZA1mugbPEAIkZAus6slHugD355ESkJCIJOVU2E7KXxjg1tjZCCdaR4sazaGbpbNDpTAkmieMJTRQsm471ZBI7d7vdumx3w4hz4kZCSwuA2ZAGJpgZBXMaEkXZCHoMsxf",
-          "database_name": "knowsparkz",
-          "status": "Pending",
-          "title": ".#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送",
-          "description": ".#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送🌍微信、支付寶收款 國外配送約2週左右 因天氣、不可控因素可能延誤 能接受再下單🗳️可詢問客服配送進度.",
-          "type": "insta",
-          "id": "88"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -849,7 +902,7 @@
       "name": "FACEBOOK-INSTA"
     }
   ],
-  "triggerCount": 1,
-  "updatedAt": "2025-10-07T18:22:45.000Z",
-  "versionId": "01b83305-b416-4b9e-88b7-748c337056b4"
+  "triggerCount": 0,
+  "updatedAt": "2025-10-07T18:50:08.000Z",
+  "versionId": "be9512e7-e80c-419b-9334-f19d89affd34"
 }

@@ -1,0 +1,224 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "default_config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "GyaanManch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GyaanManch": {
+      "main": [
+        []
+      ]
+    },
+    "default_config": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-08T02:44:51.440Z",
+  "id": "LrTZS4q1B5vliRBk",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "UNLISTED => PUBLIC",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -704,
+        -320
+      ],
+      "id": "230a0fe9-3b2f-4664-b7ac-f35e7ad2418d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.username }}",
+                    "rightValue": "GyaanManch",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "d2b38fb4-3489-4f98-96c6-fa530979ad6b"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "GyaanManch"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -32,
+        -320
+      ],
+      "id": "e323a3b2-a3b2-436e-95a0-17e4bd8e10ad",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "1FnnwtEqjx7PUEBR",
+          "mode": "list",
+          "cachedResultName": "check_unlisted",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/1FnnwtEqjx7PUEBR"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "keyValue": "Unlisted"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        -320
+      ],
+      "id": "823c1fac-36f8-49f6-9a5d-461f14a1fcc7",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $('Get row(s)').item.json.videoid }}",
+        "title": "=",
+        "regionCode": "={{ $('default_config').item.json.Category_Name }}",
+        "categoryId": "24",
+        "updateFields": {
+          "privacyStatus": "public"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        192,
+        -320
+      ],
+      "id": "ee039e3b-e0b6-49a3-acf8-f628bc6b3c02",
+      "name": "GyaanManch",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "e5vbfdIvggIbG7b0",
+          "name": "POST GyaanManch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "30d40564-8745-415b-8a36-484257b2bd93",
+              "name": "Region_Code",
+              "value": "India - IN",
+              "type": "string"
+            },
+            {
+              "id": "7e836236-ff6e-47ab-9713-d8469abb9a4f",
+              "name": "Category_Name",
+              "value": "Entertainment",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -480,
+        -320
+      ],
+      "id": "2e7cffb3-c21f-4546-87c6-e052985b7578",
+      "name": "default_config"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-08T02:44:51.447Z",
+      "updatedAt": "2025-10-08T02:44:51.447Z",
+      "role": "workflow:owner",
+      "workflowId": "LrTZS4q1B5vliRBk",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-08T14:44:57.000Z",
+  "versionId": "4a0bf238-184b-4f14-9d8e-81630a8f122b"
+}

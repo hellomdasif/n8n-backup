@@ -99,28 +99,9 @@
         "rule": {
           "interval": [
             {
-              "triggerAtHour": 20,
-              "triggerAtMinute": 30
-            },
-            {
-              "triggerAtHour": 21,
-              "triggerAtMinute": 30
-            },
-            {
-              "triggerAtHour": 22,
-              "triggerAtMinute": 30
-            },
-            {
-              "triggerAtHour": 8,
-              "triggerAtMinute": 30
-            },
-            {
-              "triggerAtHour": 9,
-              "triggerAtMinute": 30
-            },
-            {
-              "triggerAtHour": 14,
-              "triggerAtMinute": 30
+              "field": "hours",
+              "hoursInterval": 4,
+              "triggerAtMinute": 1
             }
           ]
         }
@@ -174,6 +155,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T12:14:46.000Z",
-  "versionId": "aeb786da-e693-41e9-9c80-f7514c1adcff"
+  "updatedAt": "2025-10-08T16:36:37.000Z",
+  "versionId": "696b853e-5adf-404f-87fa-1388153c5389"
 }

@@ -1109,17 +1109,18 @@
         "url": "=https://n8n.mohdasif.net/webhook/reaction2",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('pending_url').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\",\n  \"OVERLAY_FILE\": \"{{ $('accounts').item.json.root_dir }}tools/reaction/asif/1.mp4\"\n}",
+        "jsonBody": "={\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('pending_url').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\",\n  \"OVERLAY_FILE\":\"{{ $('accounts').item.json.root_dir }}tools/reaction/asif/{{ ['shock.mp4','side.mp4','diff.mp4'][Math.floor(Math.random() * 3)] }}\"\n}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        112,
+        320,
         -2000
       ],
       "id": "7955f9f5-382f-436b-8ba3-302e3d5658db",
-      "name": "modify_mohd_asif"
+      "name": "modify_mohd_asif",
+      "notes": "{\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('pending_url').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\",\n  \"OVERLAY_FILE\": \"{{ $('accounts').item.json.root_dir }}tools/reaction/asif/1.mp4\"\n}"
     },
     {
       "parameters": {
@@ -1404,7 +1405,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={\n  \"acc_id\": \"{{ $('accounts').item.json.acc_id }}\",\n  \"username\": \"{{ $('accounts').item.json.username }}\",\n  \"public\": \"{{ ($json.final || '').replace(/^\\\"+|\\\"+$/g, '') }}\",\n  \"access_token\": \"{{ ($('accounts').item.json.token || '').replace(/[\\n\\r\\\"]/g, (m) => m === '\\n' ? '\\\\\\\\n' : m === '\\r' ? '\\\\\\\\r' : '\\\\\\\\\\\"') }}\",\n  \"database_name\": \"{{ $('accounts').item.json.database_name }}\",\n  \"status\": \"Pending\",\n  \"title\": \"{{ $('config').item.json.title || $('accounts').item.json.default_title }}\",\n  \"description\": \"{{ $('config').item.json.description || $('accounts').item.json.default_des }}\",\n  \"type\": \"{{ $('config').item.json.type }}\",\n  \"id\": \"{{ $json.id }}\"\n}\n",
+        "jsonOutput": "={\n  \"acc_id\": \"{{ (String($('accounts').item.json.acc_id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"username\": \"{{ (String($('accounts').item.json.username || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"public\": \"{{ (String($json.final || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"access_token\": \"{{ (String($('accounts').item.json.token || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"database_name\": \"{{ (String($('accounts').item.json.database_name || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"status\": \"{{ (String('Pending').trim()) }}\",\n  \"title\": \"{{ (() => {\n  const cfgTitle = $('config').item.json.title;\n  const isTrue = cfgTitle === true || String(cfgTitle).toLowerCase() === 'true';\n  if (isTrue) {\n    return String($('pending_url').item.json.title || '')\n      .trim()\n      .replace(/\\r?\\n/g, '')\n      .replace(/^\\\"+|\\\"+$/g, '');\n  }\n  return String($('config').item.json.title || $('accounts').item.json.default_title || '')\n    .trim()\n    .replace(/\\r?\\n/g, '')\n    .replace(/^\\\"+|\\\"+$/g, '');\n})() }}\",\n\"description\": \"{{ (String($('config').item.json.description || $('accounts').item.json.default_des || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"type\": \"{{ (String($('config').item.json.type || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"id\": \"{{ (String($json.id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\"\n}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -1442,7 +1443,17 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "username": "iammohdasifx",
+          "type": "fb",
+          "title": true
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -1479,6 +1490,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T18:29:39.000Z",
-  "versionId": "d03aa6fe-2b63-495b-a4bc-fd25310969ca"
+  "updatedAt": "2025-10-08T16:15:51.000Z",
+  "versionId": "93e5cec5-38e1-41d2-bb47-fe9ea56fb5e4"
 }

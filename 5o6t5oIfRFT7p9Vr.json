@@ -1,0 +1,1024 @@
+{
+  "active": false,
+  "connections": {
+    "download_to_binary": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "Trending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "GyaanManch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "FactsMind99",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "React_Roll_01",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Tanvi_Kapoor_01",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GyaanManch": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trending": {
+      "main": [
+        [
+          {
+            "node": "download_to_binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "GyaanManch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query1": {
+      "main": [
+        [
+          {
+            "node": "Insert row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "FactsMind",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FactsMind99": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query2": {
+      "main": [
+        [
+          {
+            "node": "Insert row2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row2": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "React_Roll_",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "React_Roll_01": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query3": {
+      "main": [
+        [
+          {
+            "node": "Insert row3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row3": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Tanvi_Kapoor_",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tanvi_Kapoor_01": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-07T19:58:05.872Z",
+  "id": "5o6t5oIfRFT7p9Vr",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "YOUTUBE-MAX",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $('start').item.json.public }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.tiktok.com/"
+            },
+            {
+              "name": "Accept",
+              "value": "video/mp4,video/webm,video/*;q=0.9,application/octet-stream;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "0959f6b8-f6b6-4f8b-80b1-18f4fd9b0bd5",
+      "name": "download_to_binary",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -768,
+        -480
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1216,
+        -480
+      ],
+      "id": "e4c77fda-2bba-4d92-af65-156aef1742b2",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('start').item.json.username }}",
+                    "rightValue": "=GyaanManch",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "a91b8f66-6ac2-4702-8c0e-ba8dd717226f"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "GyaanManch"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b099fdb1-1eae-4535-b853-3fab70e1cc2f",
+                    "leftValue": "={{ $('start').item.json.username }}",
+                    "rightValue": "FactsMind99",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FactsMind99"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2e29934e-69b8-43f1-8f33-b88758cb90f2",
+                    "leftValue": "={{ $('start').item.json.username }}",
+                    "rightValue": "React_Roll_01",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "React_Roll_01"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "abcb7fa8-00d8-4daa-abe9-60992891bc9e",
+                    "leftValue": "={{ $('start').item.json.username }}",
+                    "rightValue": "Tanvi_Kapoor_01",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Tanvi_Kapoor_01"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -544,
+        -512
+      ],
+      "id": "150357de-671d-4c06-ae82-e2837e3c7ce8",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $('Trending').item.json.title }}",
+          "privacyStatus": "={{ $('start').item.json.privacy }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "={{ $('Trending').item.json.title }}"
+        }
+      },
+      "name": "GyaanManch",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -768
+      ],
+      "id": "8769b9d3-05eb-4b1b-b39e-ffdf272b17a9",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "e5vbfdIvggIbG7b0",
+          "name": "POST GyaanManch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "RQniz2m6XHsilRNT",
+          "mode": "list",
+          "cachedResultName": "TrendingTitle",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/RQniz2m6XHsilRNT"
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -992,
+        -480
+      ],
+      "id": "f1ea14c6-b6fa-43ba-9cdd-7cbb45ffcbd9",
+      "name": "Trending"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -96,
+        -768
+      ],
+      "id": "12467468-3109-48d0-9859-c42342071840",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "1FnnwtEqjx7PUEBR",
+          "mode": "list",
+          "cachedResultName": "check_unlisted",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/1FnnwtEqjx7PUEBR"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "videoid": "={{ $('GyaanManch').item.json.uploadId }}"
+          },
+          "matchingColumns": [
+            "videoid"
+          ],
+          "schema": [
+            {
+              "id": "videoid",
+              "displayName": "videoid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -768
+      ],
+      "id": "2cf5567f-a6e7-4de2-b38f-55b817147450",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $('Insert row').item.json.videoid }}",
+        "title": "={{ $('Trending').item.json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "updateFields": {}
+      },
+      "name": "GyaanManch1",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        576,
+        -768
+      ],
+      "id": "dc3b7851-3c4f-4bfe-ba35-1abba0cfd8f7",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "e5vbfdIvggIbG7b0",
+          "name": "POST GyaanManch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        -768
+      ],
+      "id": "26cbb630-2aa7-450b-a450-9950c06c9b6e",
+      "name": "Wait",
+      "webhookId": "a3d8c350-ac9f-4ab9-84fa-1093d09fcc4e"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -96,
+        -576
+      ],
+      "id": "b7d1242f-f9a3-4d01-95f2-9c5c9484c678",
+      "name": "Execute a SQL query1",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "1FnnwtEqjx7PUEBR",
+          "mode": "list",
+          "cachedResultName": "check_unlisted",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/1FnnwtEqjx7PUEBR"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "videoid": "={{ $('FactsMind99').item.json.uploadId }}"
+          },
+          "matchingColumns": [
+            "videoid"
+          ],
+          "schema": [
+            {
+              "id": "videoid",
+              "displayName": "videoid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -576
+      ],
+      "id": "44fdbbb8-95c3-493d-be4c-64c983087cd2",
+      "name": "Insert row1"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        -576
+      ],
+      "id": "98d7432f-3f47-4e33-a0cb-354f01f57fb0",
+      "name": "Wait1",
+      "webhookId": "a3d8c350-ac9f-4ab9-84fa-1093d09fcc4e"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $('Trending').item.json.title }}",
+          "privacyStatus": "={{ $('start').item.json.privacy }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "={{ $('Trending').item.json.title }}"
+        }
+      },
+      "name": "FactsMind99",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -576
+      ],
+      "id": "b1f1c8d0-bbc4-44ab-9138-2d3b47115652",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ulnqe1qEielXQV0W",
+          "name": "Facts Mind 99 - ay7261496@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $('Insert row1').item.json.videoid }}",
+        "title": "={{ $('Trending').item.json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "updateFields": {}
+      },
+      "name": "FactsMind",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        576,
+        -576
+      ],
+      "id": "9bc45e67-baeb-40f5-89ed-b0bdf580200e",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ulnqe1qEielXQV0W",
+          "name": "Facts Mind 99 - ay7261496@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -96,
+        -384
+      ],
+      "id": "e950d99a-eb8c-408f-93df-b820ea77df5d",
+      "name": "Execute a SQL query2",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "1FnnwtEqjx7PUEBR",
+          "mode": "list",
+          "cachedResultName": "check_unlisted",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/1FnnwtEqjx7PUEBR"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "videoid": "={{ $('React_Roll_01').item.json.uploadId }}"
+          },
+          "matchingColumns": [
+            "videoid"
+          ],
+          "schema": [
+            {
+              "id": "videoid",
+              "displayName": "videoid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -384
+      ],
+      "id": "a3ac554d-edd7-40a6-a0dd-83eb2e61bed4",
+      "name": "Insert row2"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        -384
+      ],
+      "id": "1dceba77-0238-4cf0-8818-4625647892c5",
+      "name": "Wait2",
+      "webhookId": "a3d8c350-ac9f-4ab9-84fa-1093d09fcc4e"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $('Trending').item.json.title }}",
+          "privacyStatus": "={{ $('start').item.json.privacy }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "={{ $('Trending').item.json.title }}"
+        }
+      },
+      "name": "React_Roll_01",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -384
+      ],
+      "id": "487e9736-8959-4ec6-b257-a5dfa0cfbd82",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "bJrAr4Py04jWEIZT",
+          "name": "React_Roll_01-rahulverma0323e@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $('Insert row2').item.json.videoid }}",
+        "title": "={{ $('Trending').item.json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "updateFields": {}
+      },
+      "name": "React_Roll_",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        576,
+        -384
+      ],
+      "id": "c218f7c2-3abf-4249-b0c2-76fe55879c2c",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ulnqe1qEielXQV0W",
+          "name": "Facts Mind 99 - ay7261496@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -96,
+        -192
+      ],
+      "id": "08e2cfff-5d0f-43ec-a892-352fc0341b4f",
+      "name": "Execute a SQL query3",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "1FnnwtEqjx7PUEBR",
+          "mode": "list",
+          "cachedResultName": "check_unlisted",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/1FnnwtEqjx7PUEBR"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "videoid": "={{ $('Tanvi_Kapoor_01').item.json.uploadId }}"
+          },
+          "matchingColumns": [
+            "videoid"
+          ],
+          "schema": [
+            {
+              "id": "videoid",
+              "displayName": "videoid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -192
+      ],
+      "id": "74c529d8-92b8-4e6f-804c-b3129b42143f",
+      "name": "Insert row3"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        -192
+      ],
+      "id": "7d425b3e-8445-4945-87ca-b88b816eb6e5",
+      "name": "Wait3",
+      "webhookId": "a3d8c350-ac9f-4ab9-84fa-1093d09fcc4e"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "options": {
+          "defaultLanguage": "hi",
+          "description": "={{ $('Trending').item.json.title }}",
+          "privacyStatus": "={{ $('start').item.json.privacy }}",
+          "selfDeclaredMadeForKids": false,
+          "tags": "={{ $('Trending').item.json.title }}"
+        }
+      },
+      "name": "Tanvi_Kapoor_01",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -192
+      ],
+      "id": "d6a37bfe-9634-420d-87cc-58980034606e",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "bJrAr4Py04jWEIZT",
+          "name": "React_Roll_01-rahulverma0323e@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $('Insert row3').item.json.videoid }}",
+        "title": "={{ $('Trending').item.json.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "updateFields": {}
+      },
+      "name": "Tanvi_Kapoor_",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        576,
+        -192
+      ],
+      "id": "3bcecf0d-a4f6-4ce4-a9da-1ca4d4d4589c",
+      "binaryPropertyName": "data",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ulnqe1qEielXQV0W",
+          "name": "Facts Mind 99 - ay7261496@gmail.com"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-07T19:58:05.876Z",
+      "updatedAt": "2025-10-07T19:58:05.876Z",
+      "role": "workflow:owner",
+      "workflowId": "5o6t5oIfRFT7p9Vr",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-09-20T04:39:43.575Z",
+      "updatedAt": "2025-09-20T04:39:43.575Z",
+      "id": "BV8GBwIqmK0QIGLr",
+      "name": "YOUTUBE"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-08T14:44:46.000Z",
+  "versionId": "f534927f-d477-4b45-b2a4-1b700174ef01"
+}

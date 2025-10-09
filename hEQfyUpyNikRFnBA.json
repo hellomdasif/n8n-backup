@@ -151,6 +151,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "IF FINAL EMPTY2",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -206,6 +213,13 @@
         [
           {
             "node": "MILLION_VIEWS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "tweak",
             "type": "main",
             "index": 0
           }
@@ -364,6 +378,17 @@
           }
         ]
       ]
+    },
+    "tweak": {
+      "main": [
+        [
+          {
+            "node": "build_final_url_mohd_asif",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-09-19T07:09:46.264Z",
@@ -508,12 +533,11 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -5040,
-        -112
+        -5056,
+        -16
       ],
       "id": "f2f8cc9f-7455-47c9-a2d7-ca513ead7ddf",
-      "name": "start",
-      "disabled": true
+      "name": "start"
     },
     {
       "parameters": {
@@ -612,8 +636,7 @@
         96
       ],
       "id": "8768aba7-c1f7-4e4c-baad-055d4bc0cc4a",
-      "name": "When clicking ‘Execute workflow’",
-      "disabled": true
+      "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
@@ -630,7 +653,7 @@
                 "conditions": [
                   {
                     "leftValue": "={{ $('config').item.json.username }}",
-                    "rightValue": "urban__raja",
+                    "rightValue": "sss",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
@@ -641,7 +664,7 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "urban__raja"
+              "outputKey": "ss"
             },
             {
               "conditions": {
@@ -655,7 +678,7 @@
                   {
                     "id": "087647e1-c883-48ad-b04b-a2fce36eb524",
                     "leftValue": "={{ $('config').item.json.username }}",
-                    "rightValue": "iammohdasifx",
+                    "rightValue": "Tanvi_Kapoor_01",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -666,7 +689,7 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "iammohdasifx"
+              "outputKey": "Tanvi_Kapoor_01"
             },
             {
               "conditions": {
@@ -717,6 +740,31 @@
               },
               "renameOutput": true,
               "outputKey": "GyaanManch"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ae7ab193-5946-49dc-850d-87b1de7f660b",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "FactsMind_99",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FactsMind_99"
             }
           ]
         },
@@ -773,8 +821,8 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        -2960,
-        -80
+        -3088,
+        -160
       ],
       "id": "52656377-6929-40de-91d2-a13cf11a2286",
       "name": "INSERT_PUBLIC",
@@ -802,8 +850,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3264,
-        -112
+        -3296,
+        -160
       ],
       "id": "d7a6942c-32c4-4b5d-8e93-61229f96bf16",
       "name": "build_public_url"
@@ -861,6 +909,31 @@
               },
               "renameOutput": true,
               "outputKey": "knowsparkz"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a6b705d4-f783-4544-a26d-7aff32a0a966",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "Tanvi_Kapoor_01",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "=Tanvi_Kapoor_01"
             }
           ]
         },
@@ -884,8 +957,8 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        -1248,
-        -480
+        -1280,
+        -448
       ],
       "id": "678f6da8-9a06-4b96-acb0-3edb1339d716",
       "name": "INSERT_FINAL_MOHD_ASIF",
@@ -951,7 +1024,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1920,
+        -1776,
         -480
       ],
       "id": "dbae290b-c946-4c3a-b3eb-c520bc60e0cd",
@@ -995,8 +1068,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3264,
-        176
+        -3312,
+        64
       ],
       "id": "340373e3-8380-49ad-a4e3-78e9cdfa300e",
       "name": "build_public_url1"
@@ -1034,7 +1107,7 @@
       "typeVersion": 4.2,
       "position": [
         -1776,
-        -272
+        -320
       ],
       "id": "1b138d3d-07ec-4be7-9eed-4f60955723eb",
       "name": "MILLION_VIEWS"
@@ -1162,7 +1235,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -3632,
+        -3584,
         -96
       ],
       "id": "3eb45b7d-a510-4084-9d74-29a41a0820ee",
@@ -1201,7 +1274,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={\n  \"acc_id\": \"{{ (String($('accounts').item.json.acc_id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"username\": \"{{ (String($('accounts').item.json.username || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"public\": \"{{ (String($json.final || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"access_token\": \"{{ (String($('accounts').item.json.token || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"database_name\": \"{{ (String($('accounts').item.json.database_name || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"status\": \"{{ (String('Pending').trim()) }}\",\n  \"title\": \"{{ (String($('config').item.json.title || $('accounts').item.json.default_title || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"description\": \"{{ (String($('config').item.json.description || $('accounts').item.json.default_des || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"type\": \"{{ (String($('config').item.json.type || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"id\": \"{{ (String($json.id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n \"privacy\": \"{{ (String($('accounts').item.json.privacy || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\"\n}\n",
+        "jsonOutput": "={\n  \"acc_id\": \"{{ (String($('accounts').item.json.acc_id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"username\": \"{{ (String($('accounts').item.json.username || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"public\": \"{{ (String($json.final || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"access_token\": \"{{ (String($('accounts').item.json.token || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"database_name\": \"{{ (String($('accounts').item.json.database_name || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"status\": \"{{ (String('Pending').trim().replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"title\": \"{{ (String($('config').item.json.title || $('accounts').item.json.default_title || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"description\": \"{{ (String($('config').item.json.description || $('accounts').item.json.default_des || '').trim().replace(/\\r?\\n/g, ' ').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"type\": \"{{ (String($('config').item.json.type || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"id\": \"{{ (String($json.id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\",\n  \"privacy\": \"{{ (String($('accounts').item.json.privacy || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '').replace(/\\\"/g, '\\\\\\\"')) }}\"\n}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -1251,20 +1324,27 @@
       ],
       "id": "118b7815-e0ee-4b62-9250-3e772eae40bd",
       "name": "Call 'YOUTUBE-MAX'"
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/tweak",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"INPUT_VIDEO\": \"{{ $('accounts').item.json.root_dir }}{{ $('accounts').item.json.folder }}/{{ $('pending_url').item.json.filename }}\",\n  \"OUTPUT_VIDEO\": \"{{ $('accounts').item.json.root_dir }}{{ $('accounts').item.json.folder }}/output/{{ $('pending_url').item.json.filename }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1776,
+        -176
+      ],
+      "id": "97e8539f-92c2-4513-8413-8406237448c7",
+      "name": "tweak"
     }
   ],
   "origin": "n8n",
-  "pinData": {
-    "start": [
-      {
-        "json": {
-          "username": "GyaanManch",
-          "type": "youtube",
-          "title": "false"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -1295,6 +1375,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T20:28:05.000Z",
-  "versionId": "52a816b3-6858-4412-bc26-e78fae617dfa"
+  "updatedAt": "2025-10-09T10:05:30.000Z",
+  "versionId": "ab6b55bd-9df7-4cef-94b2-be5d568f3f9c"
 }

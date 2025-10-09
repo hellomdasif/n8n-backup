@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -118,7 +118,8 @@
         -192
       ],
       "id": "8d6a4897-f75f-451f-a8e3-3c11b4c55269",
-      "name": "config"
+      "name": "config",
+      "disabled": true
     },
     {
       "parameters": {
@@ -142,7 +143,8 @@
         -192
       ],
       "id": "1b57626c-829c-47bf-80ad-f227f8e2ae17",
-      "name": "BUILD"
+      "name": "BUILD",
+      "disabled": true
     },
     {
       "parameters": {
@@ -240,6 +242,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T18:39:17.000Z",
-  "versionId": "10d1309d-fa95-4505-95e8-c996ca2b666e"
+  "updatedAt": "2025-10-09T11:29:55.000Z",
+  "versionId": "e807a86c-bcd3-43c2-9cb3-9f02b9c8b6ba"
 }

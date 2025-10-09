@@ -43,7 +43,7 @@
   "nodes": [
     {
       "parameters": {
-        "command": "=#!/bin/bash\nset -eu\n\n# Fast Video Enhancement Script - Optimized for Speed\n# For n8n Execute Command Node\n\n# ============== CONFIGURATION ==============\n\n# Basic Input/Output - SET YOUR PATHS HERE\nINPUT_VIDEO=\"{{$json.body.root_dir}}{{$json.body.folder}}{{$json.body.filename}}\"\nOUTPUT_VIDEO=\"{{ $json.body.root_dir }}{{$json.body.folder }}output/{{ $json.body.filename }}\"\n\n# Speed Control (0.5 = half speed, 1.0 = normal, 2.0 = double speed)\nSPEED_FACTOR=\"1.1\"        # Slightly faster for engagement\n\n# Brightness (-1.0 to 1.0, where 0 = normal, positive = brighter, negative = darker)\nBRIGHTNESS=\"0.08\"          # Slightly brighter for pop\n\n# Contrast (0.0 to 4.0, where 1.0 = normal, >1.0 = more contrast, <1.0 = less contrast)\nCONTRAST=\"1.12\"            # Enhanced contrast for depth\n\n# Saturation (0.0 to 3.0, where 1.0 = normal, >1.0 = more saturated, <1.0 = less saturated)\nSATURATION=\"1.18\"          # More vibrant colors\n\n# Border Settings\nBORDER_ENABLE=true\nBORDER_SIZE=10            # 4px border as requested\nBORDER_COLOR=\"white\"       # Clean white border\n\n# Quality Settings - OPTIMIZED FOR SPEED\nCRF=\"25\"                   # Faster encoding (good quality)\nPRESET=\"ultrafast\"         # Fastest possible encoding\n\n# FFmpeg timeout\nFFMPEG_TIMEOUT=\"2m\"        # Short timeout for fast processing\n\n# ============== END CONFIGURATION ==============\n\necho \"=== Fast Video Enhancement ===\" >&2\necho \"Input: $INPUT_VIDEO\" >&2\necho \"Output: $OUTPUT_VIDEO\" >&2\n\n# Create output directory if it doesn't exist\nOUTPUT_DIR=$(dirname \"$OUTPUT_VIDEO\")\nmkdir -p \"$OUTPUT_DIR\"\n\n# Validate input file\nif [ ! -f \"$INPUT_VIDEO\" ]; then\n    echo \"ERROR: Input video file not found: $INPUT_VIDEO\" >&2\n    exit 1\nfi\n\n# Get video resolution for border calculation\nRESOLUTION=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0:s=x \"$INPUT_VIDEO\" 2>/dev/null || echo \"1920x1080\")\nWIDTH=$(echo \"$RESOLUTION\" | cut -d'x' -f1)\nHEIGHT=$(echo \"$RESOLUTION\" | cut -d'x' -f2)\n\necho \"Resolution: ${RESOLUTION}\" >&2\necho \"Starting fast video processing...\" >&2\n\n# Build filter chain - SIMPLIFIED FOR SPEED\nFILTERS=\"\"\n\n# Speed adjustment\nif [ \"$SPEED_FACTOR\" != \"1.0\" ]; then\n    FILTERS=\"${FILTERS}setpts=PTS/${SPEED_FACTOR},\"\n    echo \"Applying speed: ${SPEED_FACTOR}x\" >&2\nfi\n\n# Color adjustments - COMBINED FOR EFFICIENCY\nFILTERS=\"${FILTERS}eq=brightness=${BRIGHTNESS}:contrast=${CONTRAST}:saturation=${SATURATION},\"\necho \"Applying color enhancements\" >&2\n\n# Border (if enabled)\nif [ \"$BORDER_ENABLE\" = true ] && [ \"$BORDER_SIZE\" != \"0\" ]; then\n    NEW_WIDTH=$((WIDTH + 2 * BORDER_SIZE))\n    NEW_HEIGHT=$((HEIGHT + 2 * BORDER_SIZE))\n    FILTERS=\"${FILTERS}pad=${NEW_WIDTH}:${NEW_HEIGHT}:${BORDER_SIZE}:${BORDER_SIZE}:${BORDER_COLOR},\"\n    echo \"Applying border: ${BORDER_SIZE}px ${BORDER_COLOR}\" >&2\nfi\n\n# Remove trailing comma\nFILTERS=$(echo \"$FILTERS\" | sed 's/,$//')\n\n# Audio processing\nAUDIO_FILTERS=\"\"\nif [ \"$SPEED_FACTOR\" != \"1.0\" ]; then\n    AUDIO_FILTERS=\"atempo=${SPEED_FACTOR}\"\nfi\n\n# Build and execute FFmpeg command - OPTIMIZED FOR SPEED\necho \"Processing with ultrafast settings...\" >&2\n\nif [ -n \"$AUDIO_FILTERS\" ]; then\n    # With audio speed adjustment\n    timeout \"$FFMPEG_TIMEOUT\" ffmpeg -y -hide_banner -loglevel error \\\n        -i \"$INPUT_VIDEO\" \\\n        -vf \"$FILTERS\" \\\n        -af \"$AUDIO_FILTERS\" \\\n        -c:v libx264 -crf \"$CRF\" -preset \"$PRESET\" -threads 0 \\\n        -c:a aac -b:a 128k \\\n        -movflags +faststart \\\n        \"$OUTPUT_VIDEO\"\nelse\n    # No audio adjustment needed\n    timeout \"$FFMPEG_TIMEOUT\" ffmpeg -y -hide_banner -loglevel error \\\n        -i \"$INPUT_VIDEO\" \\\n        -vf \"$FILTERS\" \\\n        -c:v libx264 -crf \"$CRF\" -preset \"$PRESET\" -threads 0 \\\n        -c:a copy \\\n        -movflags +faststart \\\n        \"$OUTPUT_VIDEO\"\nfi\n\nif [ $? -eq 0 ]; then\n    echo \"✅ Video enhanced successfully!\" >&2\n    echo \"Output: $OUTPUT_VIDEO\" >&2\n    \n    # Show file sizes\n    INPUT_SIZE=$(du -h \"$INPUT_VIDEO\" | cut -f1)\n    OUTPUT_SIZE=$(du -h \"$OUTPUT_VIDEO\" | cut -f1)\n    echo \"Size - Input: $INPUT_SIZE, Output: $OUTPUT_SIZE\" >&2\n    \n    echo \"$(basename \"$OUTPUT_VIDEO\")\"\n\nelse\n    echo \"❌ Error: Video processing failed\" >&2\n    exit 1\nfi"
+        "command": "=#!/bin/bash\nset -eu\n\n# Fast Video Enhancement Script - Optimized for Speed\n# For n8n Execute Command Node\n\n# ============== CONFIGURATION ==============\n\n# Basic Input/Output - SET YOUR PATHS HERE\nINPUT_VIDEO=\"{{ $json.body.INPUT_VIDEO }}\"\nOUTPUT_VIDEO=\"{{ $json.body.OUTPUT_VIDEO }}\"\n\n# Speed Control (0.5 = half speed, 1.0 = normal, 2.0 = double speed)\nSPEED_FACTOR=\"1.1\"        # Slightly faster for engagement\n\n# Brightness (-1.0 to 1.0, where 0 = normal, positive = brighter, negative = darker)\nBRIGHTNESS=\"0.08\"          # Slightly brighter for pop\n\n# Contrast (0.0 to 4.0, where 1.0 = normal, >1.0 = more contrast, <1.0 = less contrast)\nCONTRAST=\"1.12\"            # Enhanced contrast for depth\n\n# Saturation (0.0 to 3.0, where 1.0 = normal, >1.0 = more saturated, <1.0 = less saturated)\nSATURATION=\"1.18\"          # More vibrant colors\n\n# Border Settings\nBORDER_ENABLE=true\nBORDER_SIZE=20            # 4px border as requested\nBORDER_COLOR=\"white\"       # Clean white border\n\n# Quality Settings - OPTIMIZED FOR SPEED\nCRF=\"25\"                   # Faster encoding (good quality)\nPRESET=\"ultrafast\"         # Fastest possible encoding\n\n# FFmpeg timeout\nFFMPEG_TIMEOUT=\"2m\"        # Short timeout for fast processing\n\n# ============== END CONFIGURATION ==============\n\necho \"=== Fast Video Enhancement ===\" >&2\necho \"Input: $INPUT_VIDEO\" >&2\necho \"Output: $OUTPUT_VIDEO\" >&2\n\n# Create output directory if it doesn't exist\nOUTPUT_DIR=$(dirname \"$OUTPUT_VIDEO\")\nmkdir -p \"$OUTPUT_DIR\"\n\n# Validate input file\nif [ ! -f \"$INPUT_VIDEO\" ]; then\n    echo \"ERROR: Input video file not found: $INPUT_VIDEO\" >&2\n    exit 1\nfi\n\n# Get video resolution for border calculation\nRESOLUTION=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0:s=x \"$INPUT_VIDEO\" 2>/dev/null || echo \"1920x1080\")\nWIDTH=$(echo \"$RESOLUTION\" | cut -d'x' -f1)\nHEIGHT=$(echo \"$RESOLUTION\" | cut -d'x' -f2)\n\necho \"Resolution: ${RESOLUTION}\" >&2\necho \"Starting fast video processing...\" >&2\n\n# Build filter chain - SIMPLIFIED FOR SPEED\nFILTERS=\"\"\n\n# Speed adjustment\nif [ \"$SPEED_FACTOR\" != \"1.0\" ]; then\n    FILTERS=\"${FILTERS}setpts=PTS/${SPEED_FACTOR},\"\n    echo \"Applying speed: ${SPEED_FACTOR}x\" >&2\nfi\n\n# Color adjustments - COMBINED FOR EFFICIENCY\nFILTERS=\"${FILTERS}eq=brightness=${BRIGHTNESS}:contrast=${CONTRAST}:saturation=${SATURATION},\"\necho \"Applying color enhancements\" >&2\n\n# Border (if enabled)\nif [ \"$BORDER_ENABLE\" = true ] && [ \"$BORDER_SIZE\" != \"0\" ]; then\n    NEW_WIDTH=$((WIDTH + 2 * BORDER_SIZE))\n    NEW_HEIGHT=$((HEIGHT + 2 * BORDER_SIZE))\n    FILTERS=\"${FILTERS}pad=${NEW_WIDTH}:${NEW_HEIGHT}:${BORDER_SIZE}:${BORDER_SIZE}:${BORDER_COLOR},\"\n    echo \"Applying border: ${BORDER_SIZE}px ${BORDER_COLOR}\" >&2\nfi\n\n# Remove trailing comma\nFILTERS=$(echo \"$FILTERS\" | sed 's/,$//')\n\n# Audio processing\nAUDIO_FILTERS=\"\"\nif [ \"$SPEED_FACTOR\" != \"1.0\" ]; then\n    AUDIO_FILTERS=\"atempo=${SPEED_FACTOR}\"\nfi\n\n# Build and execute FFmpeg command - OPTIMIZED FOR SPEED\necho \"Processing with ultrafast settings...\" >&2\n\nif [ -n \"$AUDIO_FILTERS\" ]; then\n    # With audio speed adjustment\n    timeout \"$FFMPEG_TIMEOUT\" ffmpeg -y -hide_banner -loglevel error \\\n        -i \"$INPUT_VIDEO\" \\\n        -vf \"$FILTERS\" \\\n        -af \"$AUDIO_FILTERS\" \\\n        -c:v libx264 -crf \"$CRF\" -preset \"$PRESET\" -threads 0 \\\n        -c:a aac -b:a 128k \\\n        -movflags +faststart \\\n        \"$OUTPUT_VIDEO\"\nelse\n    # No audio adjustment needed\n    timeout \"$FFMPEG_TIMEOUT\" ffmpeg -y -hide_banner -loglevel error \\\n        -i \"$INPUT_VIDEO\" \\\n        -vf \"$FILTERS\" \\\n        -c:v libx264 -crf \"$CRF\" -preset \"$PRESET\" -threads 0 \\\n        -c:a copy \\\n        -movflags +faststart \\\n        \"$OUTPUT_VIDEO\"\nfi\n\nif [ $? -eq 0 ]; then\n    echo \"✅ Video enhanced successfully!\" >&2\n    echo \"Output: $OUTPUT_VIDEO\" >&2\n    \n    # Show file sizes\n    INPUT_SIZE=$(du -h \"$INPUT_VIDEO\" | cut -f1)\n    OUTPUT_SIZE=$(du -h \"$OUTPUT_VIDEO\" | cut -f1)\n    echo \"Size - Input: $INPUT_SIZE, Output: $OUTPUT_SIZE\" >&2\n    \n    echo \"$(basename \"$OUTPUT_VIDEO\")\"\n\nelse\n    echo \"❌ Error: Video processing failed\" >&2\n    exit 1\nfi"
       },
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -96,7 +96,36 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.mohdasif.net",
+            "user-agent": "axios/1.12.0",
+            "content-length": "151",
+            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "10.0.1.1",
+            "x-forwarded-host": "n8n.mohdasif.net",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "0b39abc4689c",
+            "x-real-ip": "10.0.1.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "INPUT_VIDEO": "/home/node/shared//FACEBOOK/Tanvi//793314360315392.mp4",
+            "OUTPUT_VIDEO": "/home/node/shared//FACEBOOK/Tanvi//output/793314360315392.mp4"
+          },
+          "webhookUrl": "https://n8n.mohdasif.net/webhook/tweak",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -123,6 +152,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T12:15:46.000Z",
-  "versionId": "db3474d2-46d5-4e44-8c37-4588b96ab3b9"
+  "updatedAt": "2025-10-09T05:31:22.000Z",
+  "versionId": "cd1c0222-ad58-4b9f-8680-1b2b019909fa"
 }

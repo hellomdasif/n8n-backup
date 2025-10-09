@@ -1,0 +1,110 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-09T12:55:01.259Z",
+  "id": "fJ4VgllD1MLf8Nos",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "webhook-anime",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "anime",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        16
+      ],
+      "id": "f6c4bcb6-5cce-4fee-9740-0ce3186ca1a2",
+      "name": "Webhook",
+      "webhookId": "9f425f65-99aa-459f-8466-e2e9458e1330"
+    },
+    {
+      "parameters": {
+        "table": {
+          "__rl": true,
+          "value": "AIVIDEO",
+          "mode": "list",
+          "cachedResultName": "AIVIDEO"
+        },
+        "dataMode": "defineBelow",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "filename",
+              "value": "={{ $json.body.filename }}"
+            },
+            {
+              "column": "title",
+              "value": "={{ $json.body.title }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        128,
+        16
+      ],
+      "id": "ac230294-8424-41e2-a4e5-235058725b31",
+      "name": "Insert rows in a table",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-09T12:55:01.278Z",
+      "updatedAt": "2025-10-09T12:55:01.278Z",
+      "role": "workflow:owner",
+      "workflowId": "fJ4VgllD1MLf8Nos",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:16:06.534Z",
+      "updatedAt": "2025-10-07T12:16:06.534Z",
+      "id": "ZIgw9D8vZ3v5ByPZ",
+      "name": "WEBHOOK"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-09T13:12:20.000Z",
+  "versionId": "2462f8c6-0ebf-4cb0-9a31-73d4bab712c8"
+}

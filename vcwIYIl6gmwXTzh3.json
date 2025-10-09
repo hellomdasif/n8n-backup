@@ -1,0 +1,77 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-09T04:26:58.567Z",
+  "id": "vcwIYIl6gmwXTzh3",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 33",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ea467892-f6d0-4ccf-bdc7-edf921645104",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "96tNUZnttfeSZrMt",
+          "mode": "list",
+          "cachedResultName": "religious",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/96tNUZnttfeSZrMt"
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f4715ab1-48a5-413e-90e5-0529368e1225",
+      "name": "Get row(s)"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-09T04:26:58.569Z",
+      "updatedAt": "2025-10-09T04:26:58.569Z",
+      "role": "workflow:owner",
+      "workflowId": "vcwIYIl6gmwXTzh3",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-09T04:26:58.567Z",
+  "versionId": "c5542b6a-61a1-4bf6-838f-85cc90cc33b8"
+}

@@ -1,0 +1,162 @@
+{
+  "active": true,
+  "connections": {
+    "config": {
+      "main": [
+        [
+          {
+            "node": "BUILD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUILD": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-10T13:02:34.752Z",
+  "id": "kmbu4b9vXRycBcVq",
+  "isArchived": false,
+  "meta": null,
+  "name": "KahaniExpress-fbpage-start",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "638acc1e-78f9-49fb-9988-2fbc39c24bcf",
+              "name": "username",
+              "value": "KahaniExpress",
+              "type": "string"
+            },
+            {
+              "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
+              "name": "type",
+              "value": "fb",
+              "type": "string"
+            },
+            {
+              "id": "f3b742bf-cfaa-4b33-89df-ece73bd2cb28",
+              "name": "title",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -176,
+        -16
+      ],
+      "id": "f35d2b18-1b96-4a40-a73b-518a6ca7c770",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Kci6PSZkQ4DDd0qm",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/Kci6PSZkQ4DDd0qm",
+          "cachedResultName": "build_data_fb_insta (GOD MOD)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        -16
+      ],
+      "id": "742d2a44-5e0b-484e-b143-75a7f7ee8752",
+      "name": "BUILD"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 4,
+              "triggerAtMinute": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -464,
+        -16
+      ],
+      "id": "ee7be84d-9b71-4725-b9a2-f4a3b878828a",
+      "name": "Schedule Trigger1"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-10T13:02:34.757Z",
+      "updatedAt": "2025-10-10T13:02:34.757Z",
+      "role": "workflow:owner",
+      "workflowId": "kmbu4b9vXRycBcVq",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        12
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": [
+        20
+      ]
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:13:49.553Z",
+      "updatedAt": "2025-10-07T12:13:49.553Z",
+      "id": "RDHUqhF8fggE5BPq",
+      "name": "FACEBOOK-INSTA"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-10T14:27:07.000Z",
+  "versionId": "c16296c0-f295-42d4-8d7d-cb9f519a3a1b"
+}

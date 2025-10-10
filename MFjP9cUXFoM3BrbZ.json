@@ -41,7 +41,7 @@
           "interval": [
             {
               "field": "hours",
-              "hoursInterval": 2
+              "hoursInterval": 4
             }
           ]
         }
@@ -68,7 +68,7 @@
             {
               "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
               "name": "type",
-              "value": "insta",
+              "value": "fb",
               "type": "string"
             },
             {
@@ -151,6 +151,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-09T11:51:31.000Z",
-  "versionId": "5826d760-8fd7-47ee-93ad-ce46b0de352c"
+  "updatedAt": "2025-10-10T04:00:29.000Z",
+  "versionId": "803cb4dc-7903-419c-9c6d-553f61983497"
 }

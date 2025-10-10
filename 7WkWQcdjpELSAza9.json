@@ -1,0 +1,290 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "fetch_pending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fetch_pending": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "UPDATE-MAIN-TABLE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UPDATE-MAIN-TABLE": {
+      "main": [
+        [
+          {
+            "node": "update_status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_status": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-10T10:39:22.573Z",
+  "id": "7WkWQcdjpELSAza9",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "download-links",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        -480
+      ],
+      "id": "8bd92eeb-b8ed-4062-9daa-4a71fd612c2e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "instagram_reaction",
+          "mode": "list",
+          "cachedResultName": "instagram_reaction"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "status",
+              "value": "pending"
+            },
+            {
+              "column": "status",
+              "condition": "IS NULL"
+            },
+            {
+              "column": "status"
+            }
+          ]
+        },
+        "combineConditions": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -272,
+        -480
+      ],
+      "id": "a662481b-6bcc-4514-ab1a-73bd3d452444",
+      "name": "fetch_pending",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Loop Over Items').item.json.download_url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        -544
+      ],
+      "id": "7059ed6f-717a-4bb8-8a79-ac4096fa1c15",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/node/shared//INSTAGRAM/reaction-comedy/{{ $('Loop Over Items').item.json.uniqud }}.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -544
+      ],
+      "id": "6cd7a45f-6688-4815-ae33-74be37d6c449",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "instagram_reaction",
+          "mode": "list",
+          "cachedResultName": "instagram_reaction"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "public_url",
+        "valueToMatchOn": "={{ $('Loop Over Items').item.json.public_url }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "status",
+              "value": "DONE"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        848,
+        -480
+      ],
+      "id": "30c66b50-52fd-4e73-8b9d-1a2826ff4068",
+      "name": "update_status",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "table": {
+          "__rl": true,
+          "value": "reaction_comedy",
+          "mode": "list",
+          "cachedResultName": "reaction_comedy"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "filename",
+        "valueToMatchOn": "={{ $('Loop Over Items').item.json.uniqud }}.mp4",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "title",
+              "value": "={{ $('Loop Over Items').item.json.caption }}"
+            },
+            {
+              "column": "description",
+              "value": "={{ $('Loop Over Items').item.json.caption }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        624,
+        -544
+      ],
+      "id": "0c8192ba-b593-49a6-b419-7a34bb0bb320",
+      "name": "UPDATE-MAIN-TABLE",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -48,
+        -480
+      ],
+      "id": "e2466eab-34aa-4a42-afe9-3772e8434468",
+      "name": "Loop Over Items",
+      "executeOnce": false
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-10T10:39:22.575Z",
+      "updatedAt": "2025-10-10T10:39:22.575Z",
+      "role": "workflow:owner",
+      "workflowId": "7WkWQcdjpELSAza9",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-10T11:20:19.000Z",
+  "versionId": "e96d298d-8343-4b8b-b4f9-928f54aced1e"
+}

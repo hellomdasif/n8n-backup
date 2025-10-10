@@ -1,0 +1,192 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "fetch-links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Preapared_Urls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preapared_Urls": {
+      "main": [
+        [
+          {
+            "node": "Insert or update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fetch-links": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-10T09:31:07.765Z",
+  "id": "32n4z0g8za6FehTM",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "fetch-insta-links",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        -144
+      ],
+      "id": "bea73635-051c-4160-90cb-2c1a5187a167",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data.items",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -144
+      ],
+      "id": "6afbf644-657d-4f42-aab9-c767c3439044",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"url\": \"https://www.instagram.com/reel/{{ $json.code }}/\",\n  \"download_url\": \"{{ $json.video_url }}\",\n  \"text\": \"{{ $json.caption.text }}\",\n  \"reelid\": \"{{ $json.code }}\"\n\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        160,
+        -144
+      ],
+      "id": "06645621-2c74-4dce-ba09-9ce0c3d42a39",
+      "name": "Preapared_Urls"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "table": {
+          "__rl": true,
+          "value": "instagram_reaction",
+          "mode": "list",
+          "cachedResultName": "instagram_reaction"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "public_url",
+        "valueToMatchOn": "={{ $json.url }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "download_url",
+              "value": "={{ $json.download_url }}"
+            },
+            {
+              "column": "uniqud",
+              "value": "={{ $json.reelid }}"
+            },
+            {
+              "column": "caption",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        368,
+        -144
+      ],
+      "id": "b46551ea-1127-40b9-a9d5-f5da080aa6d4",
+      "name": "Insert or update rows in a table",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://instagram-social-api.p.rapidapi.com/v1/reels?username_or_id_or_url=ali.aftab.100",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpCustomAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -288,
+        -144
+      ],
+      "id": "0de5e313-d6c5-4ded-8660-4f5213cd1ae7",
+      "name": "fetch-links",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Ew6RZbLWKpZ4MMlz",
+          "name": "x-rapidapi-key-inta-300"
+        },
+        "httpCustomAuth": {
+          "id": "tNIW62Z9LndLXqWl",
+          "name": "instagram-social-api.p.rapidapi.com"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-10T09:31:07.767Z",
+      "updatedAt": "2025-10-10T09:31:07.767Z",
+      "role": "workflow:owner",
+      "workflowId": "32n4z0g8za6FehTM",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-10T11:16:38.000Z",
+  "versionId": "b3f276a9-ed46-419a-8f56-d17fc164fe9b"
+}

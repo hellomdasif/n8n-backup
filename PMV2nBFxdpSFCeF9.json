@@ -96,36 +96,7 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "n8n.mohdasif.net",
-            "user-agent": "axios/1.12.0",
-            "content-length": "151",
-            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
-            "accept-encoding": "gzip, compress, deflate, br",
-            "content-type": "application/json",
-            "x-forwarded-for": "10.0.1.1",
-            "x-forwarded-host": "n8n.mohdasif.net",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "0b39abc4689c",
-            "x-real-ip": "10.0.1.1"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "INPUT_VIDEO": "/home/node/shared//FACEBOOK/Tanvi//793314360315392.mp4",
-            "OUTPUT_VIDEO": "/home/node/shared//FACEBOOK/Tanvi//output/793314360315392.mp4"
-          },
-          "webhookUrl": "https://n8n.mohdasif.net/webhook/tweak",
-          "executionMode": "production"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -152,6 +123,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-09T05:31:22.000Z",
-  "versionId": "cd1c0222-ad58-4b9f-8680-1b2b019909fa"
+  "updatedAt": "2025-10-11T13:25:02.000Z",
+  "versionId": "3e412e3d-2ddc-499c-a2a9-df7c344bc1a6"
 }

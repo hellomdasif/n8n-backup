@@ -45,17 +45,6 @@
         ]
       ]
     },
-    "command": {
-      "main": [
-        [
-          {
-            "node": "public",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "public": {
       "main": [
         [
@@ -381,6 +370,22 @@
           }
         ]
       ]
+    },
+    "command_t": {
+      "main": [
+        []
+      ]
+    },
+    "command": {
+      "main": [
+        [
+          {
+            "node": "public",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-10-07T03:09:18.154Z",
@@ -394,7 +399,7 @@
     {
       "parameters": {
         "operation": "write",
-        "fileName": "={{ $('accounts').item.json.root_dir }}{{ $('accounts').item.json.folder }}input.jpg",
+        "fileName": "={{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png",
         "options": {}
       },
       "type": "n8n-nodes-base.readWriteFile",
@@ -457,7 +462,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1360,
+        -1344,
         -2144
       ],
       "id": "741df578-beba-44d7-9cd1-8a5dd096817f",
@@ -465,21 +470,8 @@
     },
     {
       "parameters": {
-        "command": "=python3  {{ $json.file }} \\\n-i  {{ $json.input_image }} \\\n-b  {{ $json.input_video }} \\\n-o  {{ $json.output__video }} \\\n--cut-percentage 40 \\\n--cut-shape random \\\n--hole-color red \\\n--movement-style random \\\n--piece-scale 1.5 \\\n--fps 30 \\\n--margin-top 45 \\\n--audio-volume 10 \\\n--audio-file {{ $json.audio }} \\\n--audio-custom-volume 100 \\\n--alignment-hold-time 10 \\\n--image-coverage 95"
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        -912,
-        -2144
-      ],
-      "id": "76b69049-13df-427f-80e2-fae6b37813ab",
-      "name": "command"
-    },
-    {
-      "parameters": {
         "operation": "executeQuery",
-        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $('config2').item.json.finalurl }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"https://files.mohdasif.net/python/games/outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\"\nWHERE id = {{ $('pending_url').item.json.id }};",
         "options": {}
       },
       "type": "n8n-nodes-base.mySql",
@@ -1394,8 +1386,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1856,
-        -2192
+        -1760,
+        -2176
       ],
       "typeVersion": 1,
       "id": "235fb084-2ec7-4e27-98b5-0bf2378f79b5",
@@ -1472,10 +1464,46 @@
       "id": "7955f9f5-382f-436b-8ba3-302e3d5658db",
       "name": "KahaniExpress",
       "notes": "{\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('pending_url').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\",\n  \"OVERLAY_FILE\": \"{{ $('accounts').item.json.root_dir }}tools/reaction/asif/1.mp4\"\n}"
+    },
+    {
+      "parameters": {
+        "command": "=python3  {{ $json.file }} \\\n-i  {{ $json.input_image }} \\\n-b  {{ $json.input_video }} \\\n-o  {{ $json.output__video }} \\\n--cut-percentage 40 \\\n--cut-shape random \\\n--hole-color red \\\n--movement-style random \\\n--piece-scale 1.5 \\\n--fps 30 \\\n--margin-top 45 \\\n--audio-volume 10 \\\n--audio-file {{ $json.audio }} \\\n--audio-custom-volume 100 \\\n--alignment-hold-time 10 \\\n--image-coverage 95"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        -2432
+      ],
+      "id": "76b69049-13df-427f-80e2-fae6b37813ab",
+      "name": "command_t"
+    },
+    {
+      "parameters": {
+        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 2 \\\n--hold-frames 2 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png\" \\\n--background \"files/lol.jpeg\" \\\n--output-path \"outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\" \\\n2>&1 | sed -n \"1,500p\"'"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -912,
+        -2144
+      ],
+      "id": "94fbe188-9772-4f63-a809-2809e1f3db37",
+      "name": "command"
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "username": "urban__raja",
+          "type": "insta",
+          "title": false
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -1512,6 +1540,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-10T13:45:13.000Z",
-  "versionId": "6f5d4491-ecd3-4bb0-a171-aad84e34fc7d"
+  "updatedAt": "2025-10-11T16:15:21.000Z",
+  "versionId": "94e9ccde-472e-4e45-8fd3-513080da8a7a"
 }

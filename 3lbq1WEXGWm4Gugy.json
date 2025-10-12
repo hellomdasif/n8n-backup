@@ -1,0 +1,580 @@
+{
+  "active": true,
+  "connections": {
+    "Get Uploads Playlist ID": {
+      "main": [
+        [
+          {
+            "node": "Get Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Videos": {
+      "main": [
+        [
+          {
+            "node": "Unlisted_Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unlisted_Videos": {
+      "main": [
+        [
+          {
+            "node": "Update a video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Uploads Playlist ID1": {
+      "main": [
+        [
+          {
+            "node": "Get Videos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a video": {
+      "main": [
+        []
+      ]
+    },
+    "Get Videos1": {
+      "main": [
+        [
+          {
+            "node": "Unlisted_Videos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unlisted_Videos1": {
+      "main": [
+        [
+          {
+            "node": "Update a video1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Uploads Playlist ID2": {
+      "main": [
+        [
+          {
+            "node": "Get Videos2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unlisted_Videos2": {
+      "main": [
+        [
+          {
+            "node": "Update a video2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Videos2": {
+      "main": [
+        [
+          {
+            "node": "Unlisted_Videos2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Uploads Playlist ID",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Uploads Playlist ID1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Uploads Playlist ID2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-12T09:22:08.773Z",
+  "id": "3lbq1WEXGWm4Gugy",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Publish One Unlisted",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://www.googleapis.com/youtube/v3/channels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "part",
+              "value": "contentDetails"
+            },
+            {
+              "name": "mine",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5e18a321-2277-4f75-a006-1a3e3bc200f4",
+      "name": "Get Uploads Playlist ID",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        320,
+        -448
+      ],
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "53V5EXwtYZRfT2WN",
+          "name": "hellomdasif-Tanvi_Kapoor_01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.googleapis.com/youtube/v3/playlistItems",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "part",
+              "value": "snippet,status"
+            },
+            {
+              "name": "playlistId",
+              "value": "={{ $json.items[0].contentDetails.relatedPlaylists.uploads }}"
+            },
+            {
+              "name": "maxResults",
+              "value": "50"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "46e0c2f0-d9ec-4a40-8643-61f325df177c",
+      "name": "Get Videos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        576,
+        -448
+      ],
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "53V5EXwtYZRfT2WN",
+          "name": "hellomdasif-Tanvi_Kapoor_01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the YouTube playlist response from the first item\nconst playlist = items[0].json;\n\n// Extract actual video entries\nconst videos = playlist.items || [];\n\n// Filter for unlisted videos\nconst unlisted = videos.filter(v => v.status?.privacyStatus === 'unlisted');\n\nif (unlisted.length === 0) {\n  return []; // No unlisted videos found\n}\n\n// Sort newest-first\nunlisted.sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));\n\n// Pick the most recent one\nconst chosen = unlisted[0];\n\n// Return chosen video (full JSON)\nreturn [{ json: chosen }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        752,
+        -448
+      ],
+      "id": "74e09628-ce6c-42c4-85aa-71310c76f739",
+      "name": "Unlisted_Videos"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $json.snippet.resourceId.videoId }}",
+        "title": "={{ $json.snippet.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "updateFields": {
+          "description": "={{ $json.snippet.description }}",
+          "privacyStatus": "public"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        960,
+        -448
+      ],
+      "id": "d2653d22-7157-405e-a688-06a469c8aa04",
+      "name": "Update a video",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "53V5EXwtYZRfT2WN",
+          "name": "hellomdasif-Tanvi_Kapoor_01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.googleapis.com/youtube/v3/channels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "part",
+              "value": "contentDetails"
+            },
+            {
+              "name": "mine",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a18e6d41-7700-4697-abe6-2cf74770f83e",
+      "name": "Get Uploads Playlist ID1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        336,
+        -208
+      ],
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ulnqe1qEielXQV0W",
+          "name": "Facts Mind 99 - ay7261496@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $json.snippet.resourceId.videoId }}",
+        "title": "={{ $json.snippet.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "updateFields": {
+          "description": "={{ $json.snippet.description }}",
+          "privacyStatus": "public"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        976,
+        -208
+      ],
+      "id": "beb43b17-8c53-45f3-b7fa-fd0025e5f1e5",
+      "name": "Update a video1",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ulnqe1qEielXQV0W",
+          "name": "Facts Mind 99 - ay7261496@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the YouTube playlist response from the first item\nconst playlist = items[0].json;\n\n// Extract actual video entries\nconst videos = playlist.items || [];\n\n// Filter for unlisted videos\nconst unlisted = videos.filter(v => v.status?.privacyStatus === 'unlisted');\n\nif (unlisted.length === 0) {\n  return []; // No unlisted videos found\n}\n\n// Sort newest-first\nunlisted.sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));\n\n// Pick the most recent one\nconst chosen = unlisted[0];\n\n// Return chosen video (full JSON)\nreturn [{ json: chosen }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        -208
+      ],
+      "id": "0b9f69fe-1f44-4c4c-8e33-04aea7523db7",
+      "name": "Unlisted_Videos1"
+    },
+    {
+      "parameters": {
+        "url": "https://www.googleapis.com/youtube/v3/playlistItems",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "part",
+              "value": "snippet,status"
+            },
+            {
+              "name": "playlistId",
+              "value": "={{ $json.items[0].contentDetails.relatedPlaylists.uploads }}"
+            },
+            {
+              "name": "maxResults",
+              "value": "50"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "af281d3f-b9f7-4cea-9e53-593af2f0e06e",
+      "name": "Get Videos1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        560,
+        -208
+      ],
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ulnqe1qEielXQV0W",
+          "name": "Facts Mind 99 - ay7261496@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Tanvi Kapoor",
+        "height": 240,
+        "width": 960
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        240,
+        -528
+      ],
+      "typeVersion": 1,
+      "id": "13af8ef2-4bcc-40b1-af75-42db80eb5d3e",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# FATCS MIND 99",
+        "height": 224,
+        "width": 960,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        240,
+        -272
+      ],
+      "typeVersion": 1,
+      "id": "03ad01de-604c-4c50-872c-db8bbc1a5c69",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "url": "https://www.googleapis.com/youtube/v3/channels",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "part",
+              "value": "contentDetails"
+            },
+            {
+              "name": "mine",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d5ff0317-04b0-47d2-be81-4f8ec70c7ef7",
+      "name": "Get Uploads Playlist ID2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        336,
+        64
+      ],
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "e5vbfdIvggIbG7b0",
+          "name": "POST GyaanManch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $json.snippet.resourceId.videoId }}",
+        "title": "={{ $json.snippet.title }}",
+        "regionCode": "IN",
+        "categoryId": "24",
+        "updateFields": {
+          "description": "={{ $json.snippet.description }}",
+          "privacyStatus": "public"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        976,
+        64
+      ],
+      "id": "4d717e26-43eb-40ac-8f38-29e4c9cebbd2",
+      "name": "Update a video2",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "e5vbfdIvggIbG7b0",
+          "name": "POST GyaanManch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the YouTube playlist response from the first item\nconst playlist = items[0].json;\n\n// Extract actual video entries\nconst videos = playlist.items || [];\n\n// Filter for unlisted videos\nconst unlisted = videos.filter(v => v.status?.privacyStatus === 'unlisted');\n\nif (unlisted.length === 0) {\n  return []; // No unlisted videos found\n}\n\n// Sort newest-first\nunlisted.sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));\n\n// Pick the most recent one\nconst chosen = unlisted[0];\n\n// Return chosen video (full JSON)\nreturn [{ json: chosen }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        64
+      ],
+      "id": "ea9a7842-9be2-44a3-aa91-36967e6ddff1",
+      "name": "Unlisted_Videos2"
+    },
+    {
+      "parameters": {
+        "content": "# GyaanManch",
+        "height": 240,
+        "width": 976,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        240,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "cdf21c5b-db60-4188-9371-d9db2715ec48",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "url": "https://www.googleapis.com/youtube/v3/playlistItems",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "part",
+              "value": "snippet,status"
+            },
+            {
+              "name": "playlistId",
+              "value": "={{ $json.items[0].contentDetails.relatedPlaylists.uploads }}"
+            },
+            {
+              "name": "maxResults",
+              "value": "50"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2a4084a7-d21a-4e3e-8e39-8ac2cb2ed8c9",
+      "name": "Get Videos2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        560,
+        64
+      ],
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "e5vbfdIvggIbG7b0",
+          "name": "POST GyaanManch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -464,
+        -112
+      ],
+      "id": "a3f804ad-0d1a-4e2d-9ea1-8ffbe89faf12",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 600,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-12T09:22:08.778Z",
+      "updatedAt": "2025-10-12T09:22:08.778Z",
+      "role": "workflow:owner",
+      "workflowId": "3lbq1WEXGWm4Gugy",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-12T10:19:43.000Z",
+  "versionId": "a17d0333-83c0-4204-a211-07d0d487ef1d"
+}

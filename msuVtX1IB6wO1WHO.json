@@ -175,7 +175,8 @@
         "rule": {
           "interval": [
             {
-              "field": "hours"
+              "field": "hours",
+              "hoursInterval": 3
             }
           ]
         }
@@ -217,7 +218,9 @@
       ]
     },
     "node:Schedule Trigger1": {
-      "recurrenceRules": []
+      "recurrenceRules": [
+        21
+      ]
     }
   },
   "tags": [
@@ -229,6 +232,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-11T16:51:03.000Z",
-  "versionId": "22592ab6-98b5-46bf-b5e3-ba42957c180d"
+  "updatedAt": "2025-10-12T04:09:40.000Z",
+  "versionId": "17e9ea97-5da3-49f1-8084-1c5b5686ee85"
 }

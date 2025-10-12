@@ -86,7 +86,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "download-links",
+  "name": "DOWNLOAD_LINKS_OLD",
   "nodes": [
     {
       "parameters": {},
@@ -285,6 +285,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-10T11:20:19.000Z",
-  "versionId": "e96d298d-8343-4b8b-b4f9-928f54aced1e"
+  "updatedAt": "2025-10-12T10:53:42.000Z",
+  "versionId": "e0a022b8-8467-4e4f-ac09-67bc8608c9c8"
 }

@@ -37,7 +37,7 @@
   },
   "createdAt": "2025-09-10T07:42:20.897Z",
   "id": "V6uY4ppkwDsH0kVK",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "getuseridtikrok",
   "nodes": [
@@ -160,6 +160,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-07T12:17:05.000Z",
-  "versionId": "9c61e21d-7e7c-4b2b-9741-20aca3af51c3"
+  "updatedAt": "2025-10-12T10:58:11.000Z",
+  "versionId": "4c60e466-1d02-4efc-89d9-dd3225497e5c"
 }

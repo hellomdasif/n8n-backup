@@ -63,7 +63,7 @@
       "main": [
         [
           {
-            "node": "UPDATE PROCESS",
+            "node": "LOG",
             "type": "main",
             "index": 0
           }
@@ -92,11 +92,6 @@
         ]
       ]
     },
-    "UPDATE PROCESS": {
-      "main": [
-        []
-      ]
-    },
     "Publish": {
       "main": [
         [
@@ -112,7 +107,7 @@
       "main": [
         [
           {
-            "node": "UPDATE PROCESS",
+            "node": "LOG",
             "type": "main",
             "index": 0
           }
@@ -419,118 +414,6 @@
       ],
       "id": "0ce2db2b-0c03-4bd5-8566-225c97ca4e66",
       "name": "Check_Status"
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "18ppDuREXH5hsDgb9VBJ1xxC9ddjYXanQVXgEAsr59YQ",
-          "mode": "list",
-          "cachedResultName": "LOG",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18ppDuREXH5hsDgb9VBJ1xxC9ddjYXanQVXgEAsr59YQ/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18ppDuREXH5hsDgb9VBJ1xxC9ddjYXanQVXgEAsr59YQ/edit#gid=0"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "username": "={{ $('Loop Over Items').item.json.username }}",
-            "public": "={{ $('Loop Over Items').item.json.public }}",
-            "type": "={{ $('Loop Over Items').item.json.type }}",
-            "acc_id": "={{ $('Loop Over Items').item.json.acc_id }}",
-            "id": "={{ $('Loop Over Items').item.json.id }}",
-            "Time": "={{ new Date().toLocaleString('en-GB', { day: 'numeric', month: 'short' }) + ' [' + new Date().toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) + ']' }}\n"
-          },
-          "matchingColumns": [
-            "success"
-          ],
-          "schema": [
-            {
-              "id": "username",
-              "displayName": "username",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "public",
-              "displayName": "public",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "type",
-              "displayName": "type",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "acc_id",
-              "displayName": "acc_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "Time",
-              "displayName": "Time",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        480,
-        -2176
-      ],
-      "id": "b6dbd383-b1e9-45b5-b9de-095c18aaf480",
-      "name": "UPDATE PROCESS",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "H3U1X4hjIcv7PxVl",
-          "name": "hellomohdasif@gmail.com"
-        }
-      }
     },
     {
       "parameters": {
@@ -857,6 +740,113 @@
       ],
       "id": "dc0d2345-319a-45f0-ae99-bbdfe3e082db",
       "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "4R0Z8jKlxBbX97in",
+          "mode": "list",
+          "cachedResultName": "LOG",
+          "cachedResultUrl": "/projects/COQIBF46Vn0bg2e3/datatables/4R0Z8jKlxBbX97in"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "username": "={{ $('Loop Over Items').item.json.username }}",
+            "public": "={{ $('Loop Over Items').item.json.public }}",
+            "type": "={{ $('Loop Over Items').item.json.type }}",
+            "row_id": "={{ $('Loop Over Items').item.json.id }}",
+            "acc_id": "={{ $('Loop Over Items').item.json.acc_id }}",
+            "time": "={{ new Date().toLocaleString('en-GB', { day: 'numeric', month: 'short' }) + ' [' + new Date().toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) + ']' }}",
+            "title": "={{ $('Loop Over Items').item.json.title }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "public",
+              "displayName": "public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "acc_id",
+              "displayName": "acc_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "row_id",
+              "displayName": "row_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        528,
+        -2160
+      ],
+      "id": "6a10b515-e118-462c-bf8b-5cda2620177d",
+      "name": "LOG"
     }
   ],
   "origin": "n8n",
@@ -903,6 +893,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-07T18:50:08.000Z",
-  "versionId": "be9512e7-e80c-419b-9334-f19d89affd34"
+  "updatedAt": "2025-10-12T04:40:08.000Z",
+  "versionId": "c5bf03fa-9b51-4d2f-b1c2-4ad27d09bfb8"
 }

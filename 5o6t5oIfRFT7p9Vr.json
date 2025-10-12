@@ -53,13 +53,7 @@
             "index": 0
           }
         ],
-        [
-          {
-            "node": "FactsMind_99",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "GyaanManch": {
@@ -89,59 +83,33 @@
         []
       ]
     },
-    "Execute a SQL query1": {
-      "main": [
-        []
-      ]
-    },
     "FactsMind99": {
       "main": [
         [
           {
-            "node": "Execute a SQL query1",
+            "node": "Execute a SQL query",
             "type": "main",
             "index": 0
           }
         ]
-      ]
-    },
-    "Execute a SQL query2": {
-      "main": [
-        []
       ]
     },
     "React_Roll_01": {
       "main": [
         [
           {
-            "node": "Execute a SQL query2",
+            "node": "Execute a SQL query",
             "type": "main",
             "index": 0
           }
         ]
-      ]
-    },
-    "Execute a SQL query3": {
-      "main": [
-        []
       ]
     },
     "Tanvi_Kapoor_01": {
       "main": [
         [
           {
-            "node": "Execute a SQL query3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "FactsMind_99": {
-      "main": [
-        [
-          {
-            "node": "Execute a SQL query4",
+            "node": "Execute a SQL query",
             "type": "main",
             "index": 0
           }
@@ -199,7 +167,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "position": [
         -768,
-        -480
+        -384
       ],
       "typeVersion": 4.2
     },
@@ -211,7 +179,7 @@
       "typeVersion": 1.1,
       "position": [
         -1216,
-        -480
+        -384
       ],
       "id": "e4c77fda-2bba-4d92-af65-156aef1742b2",
       "name": "start"
@@ -352,7 +320,7 @@
       "typeVersion": 3.3,
       "position": [
         -544,
-        -512
+        -432
       ],
       "id": "150357de-671d-4c06-ae82-e2837e3c7ce8",
       "name": "Switch"
@@ -376,8 +344,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -320,
-        -768
+        -304,
+        -752
       ],
       "id": "8769b9d3-05eb-4b1b-b39e-ffdf272b17a9",
       "binaryPropertyName": "data",
@@ -403,7 +371,7 @@
       "typeVersion": 1,
       "position": [
         -992,
-        -480
+        -384
       ],
       "id": "f1ea14c6-b6fa-43ba-9cdd-7cbb45ffcbd9",
       "name": "Trending"
@@ -417,32 +385,11 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        -96,
-        -768
+        384,
+        -400
       ],
       "id": "12467468-3109-48d0-9859-c42342071840",
       "name": "Execute a SQL query",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -96,
-        -576
-      ],
-      "id": "b7d1242f-f9a3-4d01-95f2-9c5c9484c678",
-      "name": "Execute a SQL query1",
       "credentials": {
         "mySql": {
           "id": "aH3xsjJBm3OWPFrR",
@@ -469,8 +416,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -320,
-        -576
+        -304,
+        -544
       ],
       "id": "b1f1c8d0-bbc4-44ab-9138-2d3b47115652",
       "binaryPropertyName": "data",
@@ -478,27 +425,6 @@
         "youTubeOAuth2Api": {
           "id": "ulnqe1qEielXQV0W",
           "name": "Facts Mind 99 - ay7261496@gmail.com"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -96,
-        -384
-      ],
-      "id": "e950d99a-eb8c-408f-93df-b820ea77df5d",
-      "name": "Execute a SQL query2",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
         }
       }
     },
@@ -521,8 +447,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -320,
-        -384
+        -304,
+        -352
       ],
       "id": "487e9736-8959-4ec6-b257-a5dfa0cfbd82",
       "binaryPropertyName": "data",
@@ -530,27 +456,6 @@
         "youTubeOAuth2Api": {
           "id": "bJrAr4Py04jWEIZT",
           "name": "React_Roll_01-rahulverma0323e@gmail.com"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -96,
-        -192
-      ],
-      "id": "08e2cfff-5d0f-43ec-a892-352fc0341b4f",
-      "name": "Execute a SQL query3",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
         }
       }
     },
@@ -573,8 +478,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -320,
-        -192
+        -304,
+        -144
       ],
       "id": "d6a37bfe-9634-420d-87cc-58980034606e",
       "binaryPropertyName": "data",
@@ -582,58 +487,6 @@
         "youTubeOAuth2Api": {
           "id": "53V5EXwtYZRfT2WN",
           "name": "hellomdasif-Tanvi_Kapoor_01"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -80,
-        32
-      ],
-      "id": "980b09af-4abc-49f6-b007-30013d70533e",
-      "name": "Execute a SQL query4",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "video",
-        "operation": "upload",
-        "title": "={{ $json.title }}",
-        "regionCode": "IN",
-        "categoryId": "24",
-        "options": {
-          "defaultLanguage": "hi",
-          "description": "={{ $('Trending').item.json.title }}",
-          "privacyStatus": "={{ $('start').item.json.privacy }}",
-          "selfDeclaredMadeForKids": false,
-          "tags": "={{ $('Trending').item.json.title }}"
-        }
-      },
-      "name": "FactsMind_99",
-      "type": "n8n-nodes-base.youTube",
-      "typeVersion": 1,
-      "position": [
-        -304,
-        32
-      ],
-      "id": "c0a5ce9e-ae66-4cb3-ac3e-138b22f0511c",
-      "binaryPropertyName": "data",
-      "credentials": {
-        "youTubeOAuth2Api": {
-          "id": "ulnqe1qEielXQV0W",
-          "name": "Facts Mind 99 - ay7261496@gmail.com"
         }
       }
     }
@@ -666,6 +519,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-09T10:06:46.000Z",
-  "versionId": "727f8195-7ec7-4d58-aa72-f2e3cc7e9dec"
+  "updatedAt": "2025-10-12T10:57:33.000Z",
+  "versionId": "fe50f674-e5c3-49e5-9246-7e7df4c677c5"
 }

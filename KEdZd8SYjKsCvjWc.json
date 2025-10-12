@@ -1,0 +1,292 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Random Bollywood Movies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Random Bollywood Movies": {
+      "main": [
+        [
+          {
+            "node": "Select Random Movie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Random Movie": {
+      "main": [
+        [
+          {
+            "node": "Get Movie Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Movie Images": {
+      "main": [
+        [
+          {
+            "node": "Select Random Scene",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Random Scene": {
+      "main": [
+        [
+          {
+            "node": "Download Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Post Data": {
+      "main": [
+        [
+          {
+            "node": "Post to Social Media",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save to File (Optional)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-12T11:22:13.484Z",
+  "id": "KEdZd8SYjKsCvjWc",
+  "isArchived": false,
+  "meta": null,
+  "name": "Bollywood Movie Quiz Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -32
+      ],
+      "id": "755e007e-209d-4b9d-b3c1-7a6ebb67e361"
+    },
+    {
+      "parameters": {
+        "url": "https://api.themoviedb.org/3/discover/movie",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"parameters\": [\n    {\n      \"name\": \"api_key\",\n      \"value\": \"6a14b0ec2509980d786c922c25cc468e\"\n    },\n    {\n      \"name\": \"with_original_language\",\n      \"value\": \"hi\"\n    },\n    {\n      \"name\": \"sort_by\",\n      \"value\": \"popularity.desc\"\n    },\n    {\n      \"name\": \"page\",\n      \"value\": \"={{ Math.floor(Math.random() * 50) + 1 }}\"\n    },\n    {\n      \"name\": \"vote_count.gte\",\n      \"value\": \"50\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "name": "Get Random Bollywood Movies",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        368,
+        -32
+      ],
+      "id": "2871ea51-cf83-456e-9bb3-4b028511f471",
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "lqFG0mL9JV1QjL73",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all movies from the response\nconst movies = $input.item.json.results;\n\n// Filter movies that have backdrop images\nconst moviesWithBackdrops = movies.filter(movie => movie.backdrop_path);\n\nif (moviesWithBackdrops.length === 0) {\n  throw new Error('No movies with backdrop images found');\n}\n\n// Select a random movie\nconst randomMovie = moviesWithBackdrops[Math.floor(Math.random() * moviesWithBackdrops.length)];\n\n// Return the selected movie\nreturn {\n  json: {\n    id: randomMovie.id,\n    title: randomMovie.title,\n    original_title: randomMovie.original_title,\n    overview: randomMovie.overview,\n    release_date: randomMovie.release_date,\n    backdrop_path: randomMovie.backdrop_path,\n    poster_path: randomMovie.poster_path,\n    vote_average: randomMovie.vote_average\n  }\n};"
+      },
+      "name": "Select Random Movie",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        -32
+      ],
+      "id": "746919f0-e2c3-444c-8041-f6614a4c2d85"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.themoviedb.org/3/movie/{{ $json.id }}/images",
+        "options": {}
+      },
+      "name": "Get Movie Images",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        768,
+        -32
+      ],
+      "id": "2409a38f-8376-499b-bd2c-b9382edc0276"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get movie data from previous node\nconst movieData = $('Select Random Movie').item.json;\nconst imagesData = $input.item.json;\n\n// Get all backdrops (movie stills/scenes)\nconst backdrops = imagesData.backdrops || [];\n\nif (backdrops.length === 0) {\n  // Fallback to backdrop_path from movie data\n  const imageUrl = `https://image.tmdb.org/t/p/original${movieData.backdrop_path}`;\n  return {\n    json: {\n      imageUrl: imageUrl,\n      movieTitle: movieData.original_title || movieData.title,\n      movieId: movieData.id,\n      releaseDate: movieData.release_date,\n      overview: movieData.overview\n    }\n  };\n}\n\n// Select a random backdrop\nconst randomBackdrop = backdrops[Math.floor(Math.random() * backdrops.length)];\nconst imageUrl = `https://image.tmdb.org/t/p/original${randomBackdrop.file_path}`;\n\nreturn {\n  json: {\n    imageUrl: imageUrl,\n    movieTitle: movieData.original_title || movieData.title,\n    movieId: movieData.id,\n    releaseDate: movieData.release_date,\n    overview: movieData.overview,\n    imageWidth: randomBackdrop.width,\n    imageHeight: randomBackdrop.height\n  }\n};"
+      },
+      "name": "Select Random Scene",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        -32
+      ],
+      "id": "aaf36c23-6c57-446a-ad06-743f0b846972"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.imageUrl }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "name": "Download Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1168,
+        -32
+      ],
+      "id": "ebeca4c5-0518-4b33-8b97-09b90c944a51"
+    },
+    {
+      "parameters": {},
+      "name": "Add Quiz Text",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1.1,
+      "position": [
+        1360,
+        -32
+      ],
+      "id": "be8e97a0-1df0-4324-930b-3a307040eed9"
+    },
+    {
+      "parameters": {},
+      "name": "Add Question Text",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1.1,
+      "position": [
+        1568,
+        -32
+      ],
+      "id": "8bbc2e53-23d7-4ab2-89df-28b463783e44"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the movie data\nconst movieData = $('Select Random Scene').item.json;\nconst imageBinary = $input.item.binary;\n\n// Create the quiz post caption\nconst caption = `🎬 Bollywood Movie Quiz! 🎬\\n\\nCan you guess which movie this scene is from?\\n\\nComment your answer below! 👇\\n\\n#BollywoodQuiz #GuessTheMovie #BollywoodMovies #HindiCinema`;\n\n// Create answer for reference (you can use this internally)\nconst answer = `Answer: ${movieData.movieTitle} (${movieData.releaseDate?.substring(0, 4) || 'N/A'})`;\n\nreturn {\n  json: {\n    caption: caption,\n    answer: answer,\n    movieTitle: movieData.movieTitle,\n    movieId: movieData.movieId,\n    imageUrl: movieData.imageUrl\n  },\n  binary: imageBinary\n};"
+      },
+      "name": "Prepare Post Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        -32
+      ],
+      "id": "369fbf4a-da53-45f6-982d-0b759faa9737"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "YOUR_SOCIAL_MEDIA_API_ENDPOINT",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            },
+            {
+              "name": "image",
+              "value": "={{ $binary.data }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Post to Social Media",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1968,
+        -32
+      ],
+      "id": "15e604e8-e859-44f2-b2ae-3140444498f2",
+      "disabled": true,
+      "notes": "Configure this with your social media API (Twitter, Instagram, Facebook, etc.)"
+    },
+    {
+      "parameters": {
+        "options": {
+          "fileName": "=bollywood-quiz-{{ $json.movieId }}.jpg"
+        }
+      },
+      "name": "Save to File (Optional)",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1968,
+        176
+      ],
+      "id": "7fb4052c-3850-42ad-b47c-71f69817b161",
+      "notes": "Enable this to save images locally for testing"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-12T11:22:13.490Z",
+      "updatedAt": "2025-10-12T11:22:13.490Z",
+      "role": "workflow:owner",
+      "workflowId": "KEdZd8SYjKsCvjWc",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-12T11:22:13.484Z",
+  "versionId": "31b916c3-0fbb-47a4-a861-08f2f8d618e8"
+}

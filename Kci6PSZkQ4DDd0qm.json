@@ -1480,7 +1480,7 @@
     },
     {
       "parameters": {
-        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 2 \\\n--hold-frames 2 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png\" \\\n--background \"files/lol.jpeg\" \\\n--output-path \"outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\" \\\n2>&1 | sed -n \"1,500p\"'"
+        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 2 \\\n--hold-frames 15 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png\" \\\n--background \"files/lol.jpeg\" \\\n--output-path \"outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\" \\\n2>&1 | sed -n \"1,500p\"'"
       },
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -1540,6 +1540,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-11T16:15:21.000Z",
-  "versionId": "94e9ccde-472e-4e45-8fd3-513080da8a7a"
+  "updatedAt": "2025-10-13T07:15:59.000Z",
+  "versionId": "d139a2d5-4a23-4156-9d1b-3b3562daf754"
 }

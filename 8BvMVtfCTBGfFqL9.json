@@ -1,0 +1,133 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-13T04:46:05.389Z",
+  "id": "8BvMVtfCTBGfFqL9",
+  "isArchived": false,
+  "meta": null,
+  "name": "WORKING WITH PCLOUD",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bcf2fecf-ed11-4f5c-a44c-526884c7184b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://eapi.pcloud.com/createfolder",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "path",
+              "value": "/Public Folder/asif"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "bdb60ad3-4ed4-47d0-b536-6094f1d78136",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "Waazn67l08VEMzzE",
+          "name": "PCLOUD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://eapi.pcloud.com/getfilelink",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "path",
+              "value": "/Public Folder/asif/asif.mp4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        0
+      ],
+      "id": "5ea3e084-182e-408a-8c1e-4dfb3a71d01a",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "Waazn67l08VEMzzE",
+          "name": "PCLOUD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "https://filedn.eu/lxLhN9YWBv6mOlDMkTgxAC5/asif/overlay.mp4",
+        "width": 224
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        272,
+        -112
+      ],
+      "typeVersion": 1,
+      "id": "9f6aacef-ee80-4695-9ff5-2c97c2f276fd",
+      "name": "Sticky Note"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-13T04:46:05.398Z",
+      "updatedAt": "2025-10-13T04:46:05.398Z",
+      "role": "workflow:owner",
+      "workflowId": "8BvMVtfCTBGfFqL9",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-13T06:02:54.000Z",
+  "versionId": "3909feb0-829f-4c22-a3e7-c2dc9249849a"
+}

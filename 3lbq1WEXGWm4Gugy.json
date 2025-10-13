@@ -220,7 +220,9 @@
         -448
       ],
       "id": "74e09628-ce6c-42c4-85aa-71310c76f739",
-      "name": "Unlisted_Videos"
+      "name": "Unlisted_Videos",
+      "retryOnFail": false,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -248,7 +250,8 @@
           "id": "53V5EXwtYZRfT2WN",
           "name": "hellomdasif-Tanvi_Kapoor_01"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -311,7 +314,8 @@
           "id": "ulnqe1qEielXQV0W",
           "name": "Facts Mind 99 - ay7261496@gmail.com"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -324,7 +328,8 @@
         -208
       ],
       "id": "0b9f69fe-1f44-4c4c-8e33-04aea7523db7",
-      "name": "Unlisted_Videos1"
+      "name": "Unlisted_Videos1",
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -457,7 +462,8 @@
           "id": "e5vbfdIvggIbG7b0",
           "name": "POST GyaanManch"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -470,7 +476,8 @@
         64
       ],
       "id": "ea9a7842-9be2-44a3-aa91-36967e6ddff1",
-      "name": "Unlisted_Videos2"
+      "name": "Unlisted_Videos2",
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -481,7 +488,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        240,
+        224,
         0
       ],
       "typeVersion": 1,
@@ -532,7 +539,8 @@
         "rule": {
           "interval": [
             {
-              "daysInterval": 2
+              "field": "hours",
+              "hoursInterval": 2
             }
           ]
         }
@@ -570,11 +578,13 @@
   ],
   "staticData": {
     "node:Schedule Trigger": {
-      "recurrenceRules": []
+      "recurrenceRules": [
+        0
+      ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-10-12T10:19:43.000Z",
-  "versionId": "a17d0333-83c0-4204-a211-07d0d487ef1d"
+  "updatedAt": "2025-10-13T06:08:56.000Z",
+  "versionId": "e580dfc0-e411-4ac1-b749-984dd780aef8"
 }

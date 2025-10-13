@@ -52,8 +52,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     },
     "GyaanManch": {
@@ -224,7 +223,7 @@
                   {
                     "id": "b099fdb1-1eae-4535-b853-3fab70e1cc2f",
                     "leftValue": "={{ $('start').item.json.username }}",
-                    "rightValue": "FactsMind99",
+                    "rightValue": "FactsMind_99",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -286,31 +285,6 @@
               },
               "renameOutput": true,
               "outputKey": "Tanvi_Kapoor_01"
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "59cf16af-f79e-486b-9cd5-600e3a21112d",
-                    "leftValue": "={{ $('start').item.json.username }}",
-                    "rightValue": "FactsMind_99",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              },
-              "renameOutput": true,
-              "outputKey": "FactsMind_99"
             }
           ]
         },
@@ -344,8 +318,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -304,
-        -752
+        -240,
+        -736
       ],
       "id": "8769b9d3-05eb-4b1b-b39e-ffdf272b17a9",
       "binaryPropertyName": "data",
@@ -416,8 +390,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -304,
-        -544
+        -224,
+        -560
       ],
       "id": "b1f1c8d0-bbc4-44ab-9138-2d3b47115652",
       "binaryPropertyName": "data",
@@ -447,8 +421,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -304,
-        -352
+        -224,
+        -400
       ],
       "id": "487e9736-8959-4ec6-b257-a5dfa0cfbd82",
       "binaryPropertyName": "data",
@@ -478,8 +452,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -304,
-        -144
+        -224,
+        -256
       ],
       "id": "d6a37bfe-9634-420d-87cc-58980034606e",
       "binaryPropertyName": "data",
@@ -519,6 +493,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-12T10:57:33.000Z",
-  "versionId": "fe50f674-e5c3-49e5-9246-7e7df4c677c5"
+  "updatedAt": "2025-10-13T10:38:29.000Z",
+  "versionId": "41e1770f-1a1a-416e-8db4-fa8f8c8a11d4"
 }

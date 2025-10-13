@@ -1,17 +1,6 @@
 {
   "active": true,
   "connections": {
-    "Schedule Trigger": {
-      "main": [
-        [
-          {
-            "node": "config",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "config": {
       "main": [
         [
@@ -27,6 +16,17 @@
       "main": [
         []
       ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-10-09T10:59:13.582Z",
@@ -35,26 +35,6 @@
   "meta": null,
   "name": "knowsparkz-fb",
   "nodes": [
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "hours",
-              "hoursInterval": 4
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -400,
-        -192
-      ],
-      "id": "cdca1c54-e3e0-4117-81a3-9cea7b237218",
-      "name": "Schedule Trigger"
-    },
     {
       "parameters": {
         "assignments": {
@@ -84,7 +64,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -176,
+        -208,
         -192
       ],
       "id": "620e0777-efc9-47a0-8c52-a0df13e597ae",
@@ -108,11 +88,48 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        48,
+        16,
         -192
       ],
       "id": "b20e274e-96d3-4608-bc89-dba8677f1eba",
       "name": "BUILD"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 22,
+              "triggerAtMinute": 30
+            },
+            {
+              "triggerAtHour": 11,
+              "triggerAtMinute": 30
+            },
+            {
+              "triggerAtHour": 14,
+              "triggerAtMinute": 30
+            },
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": 30
+            },
+            {
+              "daysInterval": 30,
+              "triggerAtHour": 20,
+              "triggerAtMinute": 30
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -432,
+        -192
+      ],
+      "id": "4b0c0572-b723-4cc9-9fe2-e619e44d01d6",
+      "name": "Schedule Trigger1"
     }
   ],
   "origin": "n8n",
@@ -138,8 +155,11 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": [
-        20
+        12
       ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
     }
   },
   "tags": [
@@ -151,6 +171,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-10T04:00:29.000Z",
-  "versionId": "803cb4dc-7903-419c-9c6d-553f61983497"
+  "updatedAt": "2025-10-13T10:27:59.000Z",
+  "versionId": "387a87ca-49a4-4c9d-a302-df57da53a258"
 }

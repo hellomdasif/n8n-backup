@@ -99,9 +99,21 @@
         "rule": {
           "interval": [
             {
-              "field": "hours",
-              "hoursInterval": 4,
+              "triggerAtHour": 22,
               "triggerAtMinute": 1
+            },
+            {
+              "triggerAtHour": 11,
+              "triggerAtMinute": 1
+            },
+            {
+              "triggerAtHour": 14
+            },
+            {
+              "triggerAtHour": 19
+            },
+            {
+              "triggerAtHour": 20
             }
           ]
         }
@@ -144,7 +156,7 @@
     },
     "node:Schedule Trigger1": {
       "recurrenceRules": [
-        20
+        12
       ]
     }
   },
@@ -157,6 +169,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-10T14:27:07.000Z",
-  "versionId": "c16296c0-f295-42d4-8d7d-cb9f519a3a1b"
+  "updatedAt": "2025-10-13T10:23:33.000Z",
+  "versionId": "ffdbface-0f7a-4aae-a766-39937289a614"
 }

@@ -75,7 +75,7 @@
   },
   "createdAt": "2025-10-12T11:22:13.484Z",
   "id": "KEdZd8SYjKsCvjWc",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "Bollywood Movie Quiz Generator",
   "nodes": [
@@ -287,6 +287,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-12T11:22:13.484Z",
-  "versionId": "31b916c3-0fbb-47a4-a861-08f2f8d618e8"
+  "updatedAt": "2025-10-13T06:03:11.000Z",
+  "versionId": "35957e6f-b2da-4919-be0f-e07f36356271"
 }

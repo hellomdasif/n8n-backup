@@ -5,128 +5,40 @@
       "main": [
         [
           {
-            "node": "Get Last 10 Posts",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get Last 10 Posts": {
-      "main": [
-        [
-          {
-            "node": "Prepare Unique Variables",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Hugging Face - Generate Image": {
-      "main": [
-        [
-          {
-            "node": "Add Hindi Text on Image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Add Hindi Text on Image": {
-      "main": [
-        [
-          {
-            "node": "Save Final Image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Prepare Unique Variables": {
-      "main": [
-        [
-          {
-            "node": "Generate Hindi Message Chain",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Ollama Model 1": {
+    "Ask Ollama About Image": {
       "ai_languageModel": [
         [
           {
-            "node": "Generate Hindi Message Chain",
+            "node": "AI Agent",
             "type": "ai_languageModel",
             "index": 0
           }
         ]
       ]
     },
-    "Generate Hindi Message Chain": {
-      "main": [
+    "Structured Output Parser": {
+      "ai_outputParser": [
         [
           {
-            "node": "Add CTA to Message",
-            "type": "main",
+            "node": "AI Agent",
+            "type": "ai_outputParser",
             "index": 0
           }
         ]
       ]
     },
-    "Add CTA to Message": {
+    "Edit Fields": {
       "main": [
         [
           {
-            "node": "Generate Image Prompt Chain",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Ollama Model 2": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Generate Image Prompt Chain",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Generate Image Prompt Chain": {
-      "main": [
-        [
-          {
-            "node": "Hugging Face - Generate Image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Prepare Database Data": {
-      "main": [
-        [
-          {
-            "node": "Save to Database",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Save Final Image": {
-      "main": [
-        [
-          {
-            "node": "Prepare Database Data",
+            "node": "AI Agent",
             "type": "main",
             "index": 0
           }
@@ -137,7 +49,9 @@
   "createdAt": "2025-10-12T11:57:49.587Z",
   "id": "IOJFr7hqSUxXp8uN",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Emotional Hindi Posts with AI Images",
   "nodes": [
     {
@@ -155,160 +69,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -112,
+        -848,
         -64
       ],
-      "id": "eeb8ea84-6011-4a28-8bf7-942073c1eb44"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT hindi_message FROM posts ORDER BY created_at DESC LIMIT 10",
-        "options": {
-          "queryBatching": "independently"
-        }
-      },
-      "name": "Get Last 10 Posts",
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        112,
-        -64
-      ],
-      "id": "6525600a-d598-4d2d-9d12-0dabd5219f2f",
-      "retryOnFail": true,
-      "maxTries": 3,
-      "alwaysOutputData": true,
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      },
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Random themes for variety\nconst themes = [\n  'broken heart and deep betrayal',\n  'lost love and painful memories',\n  'silent emotional suffering',\n  'loneliness in crowded places',\n  'trust broken by loved ones',\n  'moving on after heartbreak',\n  'fake smile hiding pain',\n  'unfulfilled love stories',\n  'regret and what ifs',\n  'tears hidden from world'\n];\n\n// Random writing styles\nconst styles = [\n  'poetic shayari style',\n  'simple conversational Hindi',\n  'philosophical deep thought',\n  'emotional direct statement',\n  'metaphor-rich imagery',\n  'modern Hinglish mix'\n];\n\n// Random CTAs\nconst ctas = [\n  'क्या आप भी यही महसूस करते हो? Comment करें 👇',\n  'आपका भी दिल टूटा है? 💔 = Yes, ❤️ = No',\n  'कितनी बार टूटा है दिल? Number लिखें...',\n  'क्या आप relate कर पा रहे हो? YES/NO लिखें',\n  'उस शख्स को टैग करो... जिसकी यादें तड़पाती हैं',\n  'अपनी कहानी share करो comment में 💭',\n  '1-10 में, आपका दर्द कितना है? 👇',\n  'क्या आप आगे बढ़ पाए? MOVED ON या STUCK?'\n];\n\n// Get previous messages to avoid repetition\nconst previousPosts = $input.all();\nconst previousMessages = previousPosts\n  .map(post => post.json.hindi_message || '')\n  .filter(msg => msg.length > 0)\n  .join('\\n');\n\n// Select random elements\nconst selectedTheme = themes[Math.floor(Math.random() * themes.length)];\nconst selectedStyle = styles[Math.floor(Math.random() * styles.length)];\nconst selectedCTA = ctas[Math.floor(Math.random() * ctas.length)];\n\n// Create unique seed\nconst uniqueSeed = Date.now() + Math.floor(Math.random() * 10000);\n\nreturn {\n  json: {\n    theme: selectedTheme,\n    style: selectedStyle,\n    cta: selectedCTA,\n    seed: uniqueSeed,\n    previousMessages: previousMessages || 'No previous messages',\n    hasPreviousData: previousMessages.length > 0\n  }\n};"
-      },
-      "name": "Prepare Unique Variables",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        336,
-        -64
-      ],
-      "id": "03f3a1b8-ce9a-41a6-a287-2125e906c4a9"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Get generated Hindi message from the AI chain output\nconst hindiMessage = $input.item.json.text || $input.item.json.response || $input.item.json.output;\n\n// Get CTA from previous node\nconst cta = $('Prepare Unique Variables').item.json.cta;\n\n// Combine message with CTA\nconst finalMessage = `${hindiMessage}\\n\\n${cta}`;\n\nreturn {\n  json: {\n    hindiMessage: hindiMessage,\n    finalMessage: finalMessage,\n    cta: cta\n  }\n};"
-      },
-      "name": "Add CTA to Message",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        912,
-        -64
-      ],
-      "id": "c44731f1-9e23-43dd-b5f0-386509665037"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "inputs",
-              "value": "={{ $json.response || $json.output || $json.text }}"
-            }
-          ]
-        },
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "file"
-            }
-          }
-        }
-      },
-      "name": "Hugging Face - Generate Image",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1488,
-        -64
-      ],
-      "id": "e0c75590-e274-4dd8-8446-1506f35d5f7c",
-      "retryOnFail": true,
-      "maxTries": 3,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {},
-      "name": "Add Hindi Text on Image",
-      "type": "n8n-nodes-base.editImage",
-      "typeVersion": 1.1,
-      "position": [
-        1712,
-        -64
-      ],
-      "id": "ba940d49-1def-4b6c-ac64-80707766ce4e"
-    },
-    {
-      "parameters": {
-        "table": {
-          "__rl": true,
-          "value": "posts",
-          "mode": "name"
-        },
-        "options": {}
-      },
-      "name": "Save to Database",
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        1968,
-        288
-      ],
-      "id": "50343257-3fa6-463e-81da-4c97415594c2",
-      "retryOnFail": true,
-      "maxTries": 3,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "options": {
-          "fileName": "=emotional-post-{{ $now.format('yyyy-MM-dd-HHmmss') }}.jpg"
-        }
-      },
-      "name": "Save Final Image",
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        1936,
-        -64
-      ],
-      "id": "4104cdd4-6de8-4421-990c-c3e13f6d7e03"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "=i am sad , what to do",
-        "batching": {}
-      },
-      "id": "a032f892-bfb4-4d87-b1b6-ae379ec339c7",
-      "name": "Generate Hindi Message Chain",
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.7,
-      "position": [
-        544,
-        -64
-      ]
+      "id": "8cae8ba2-9ea5-457c-a947-ee35762a8930"
     },
     {
       "parameters": {
@@ -319,13 +83,13 @@
           "topP": 0.9
         }
       },
-      "id": "14e68fb9-5c9a-4ba8-95d2-2a2590cdedd2",
-      "name": "Ollama Model 1",
+      "id": "6d1e77d3-4c4e-42b7-91b7-d46cea12db95",
+      "name": "Ask Ollama About Image",
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        544,
-        160
+        -400,
+        144
       ],
       "credentials": {
         "ollamaApi": {
@@ -336,51 +100,53 @@
     },
     {
       "parameters": {
-        "batching": {}
+        "promptType": "define",
+        "text": "={{ $json.data }}",
+        "hasOutputParser": true,
+        "options": {}
       },
-      "id": "50099f8f-9a1f-44c4-b69e-3e0e91165c20",
-      "name": "Generate Image Prompt Chain",
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.7,
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
       "position": [
-        1136,
+        -400,
         -64
-      ]
+      ],
+      "id": "a3d16d36-4396-4322-ac09-8199c09ca70d",
+      "name": "AI Agent"
     },
     {
-      "parameters": {
-        "model": "llava-phi3:latest",
-        "options": {
-          "temperature": 0.7
-        }
-      },
-      "id": "d25954b3-440b-4d45-80b8-1c56ae42c98c",
-      "name": "Ollama Model 2",
-      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
-      "typeVersion": 1,
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
       "position": [
-        1152,
+        -256,
         160
       ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "DF35v2kgNma2Iwd8",
-          "name": "Ollama account 2"
-        }
-      }
+      "id": "cec3e441-17dd-4c33-add7-cc59e376fdd7",
+      "name": "Structured Output Parser"
     },
     {
       "parameters": {
-        "jsCode": "// Get input data\nconst inputData = $input.item.json;\n\n// Get the final message from Add CTA to Message node\nconst finalMessage = $('Add CTA to Message').item.json.finalMessage;\n\n// Create timestamp for unique image filename\nconst timestamp = new Date().toISOString().replace(/:/g, '-').split('.')[0];\nconst imagePath = '/images/emotional-posts/' + timestamp + '.jpg';\n\nreturn {\n  json: {\n    hindi_message: finalMessage,\n    image_path: imagePath,\n    created_at: new Date().toISOString()\n  }\n};"
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9cd27757-d557-4115-a4ca-3905124b4221",
+              "name": "data",
+              "value": "genearte caption like देखते हैं कौन-कौन चैलेंज पूरा कर पाता है 🔥💪",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
       },
-      "id": "b17228ed-1f2f-4f58-b60f-e3c679228d5c",
-      "name": "Prepare Database Data",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
       "position": [
-        1744,
-        288
-      ]
+        -608,
+        -64
+      ],
+      "id": "d0f28e53-9f6f-4deb-b15c-b1733a928cff",
+      "name": "Edit Fields"
     }
   ],
   "origin": "n8n",
@@ -404,6 +170,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-12T18:16:05.000Z",
-  "versionId": "49390327-8481-4709-add3-1761a452df5a"
+  "updatedAt": "2025-10-12T19:03:39.000Z",
+  "versionId": "6134f75e-7308-46f1-8aa8-4dba2fcb8231"
 }

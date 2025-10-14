@@ -1,0 +1,201 @@
+{
+  "active": false,
+  "connections": {
+    "CheckTime": {
+      "main": [
+        [
+          {
+            "node": "Set Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Variables": {
+      "main": [
+        [
+          {
+            "node": "Read Video File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Video File": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-14T07:42:20.734Z",
+  "id": "WgFLZ9IJwHoL7uq2",
+  "isArchived": true,
+  "meta": {
+    "templateId": "1599",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Telegram Video Upload with Status Tracking",
+  "nodes": [
+    {
+      "parameters": {
+        "interval": 30,
+        "unit": "minutes"
+      },
+      "name": "CheckTime",
+      "type": "n8n-nodes-base.interval",
+      "position": [
+        144,
+        -16
+      ],
+      "typeVersion": 1,
+      "id": "0e8b25b3-930e-400a-8616-a42b939aef4c"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "video_id_{{$now.toFormat('yyyyMMddHHmmss')}}",
+              "name": "content_id",
+              "type": "string",
+              "value": "={{ $now.toFormat('yyyyMMddHHmmss') }}"
+            },
+            {
+              "name": "video_path",
+              "type": "string",
+              "value": "/home/node/shared//YOUTUBE/KnowSparkz/output/UPjjz0jF_MA.mp4"
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "value": "Amazing Video Title"
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "value": "Check out this amazing content!"
+            },
+            {
+              "name": "channel_name",
+              "type": "string",
+              "value": "KnowSparkz"
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "value": "Pending"
+            },
+            {
+              "name": "chat_id",
+              "type": "string",
+              "value": "-1003013552191"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        368,
+        -16
+      ],
+      "id": "6dd760a0-98e6-437a-9061-d0bf4e251a3e",
+      "name": "Set Variables"
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $json.video_path }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        592,
+        -16
+      ],
+      "id": "fe320b52-4c30-43f0-8104-0f3dc721fc38",
+      "name": "Read Video File"
+    },
+    {
+      "parameters": {
+        "operation": "sendDocument",
+        "chatId": "-1003013552191",
+        "binaryData": true,
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Mark Done",
+                    "additionalFields": {
+                      "callback_data": "=status_done_{{ $json.content_id }}"
+                    }
+                  },
+                  {
+                    "text": "🟡 Mark Pending",
+                    "additionalFields": {
+                      "callback_data": "=status_pending_{{ $json.content_id }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "caption": "hello",
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        816,
+        -16
+      ],
+      "id": "5f20cadd-f333-4560-baa1-8a7e4570e8c8",
+      "name": "Send Telegram Video",
+      "webhookId": "17ba38f6-2cd2-4698-ab0d-22bea4db8ed6",
+      "credentials": {
+        "telegramApi": {
+          "id": "MKWHBWBE6qCBEPNb",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-14T07:42:20.737Z",
+      "updatedAt": "2025-10-14T07:42:20.737Z",
+      "role": "workflow:owner",
+      "workflowId": "WgFLZ9IJwHoL7uq2",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-14T12:52:39.000Z",
+  "versionId": "ac630706-819c-422f-a908-2677073304bc"
+}

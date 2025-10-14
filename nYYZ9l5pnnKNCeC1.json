@@ -1,0 +1,182 @@
+{
+  "active": false,
+  "connections": {
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "UPDATE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-14T09:55:50.776Z",
+  "id": "nYYZ9l5pnnKNCeC1",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "SEND-TO-TELEGRAM",
+  "nodes": [
+    {
+      "parameters": {
+        "fileSelector": "={{ $env.BASE_DIR + $json.public.replace('https://files.mohdasif.net', '') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        192,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "53297eb0-2ad3-494d-b347-db10ba262d69",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "sendDocument",
+        "chatId": "=-1003013552191",
+        "binaryData": true,
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Mark Done",
+                    "additionalFields": {
+                      "callback_data": "=status_done"
+                    }
+                  },
+                  {
+                    "text": "🟡 Mark Pending",
+                    "additionalFields": {
+                      "callback_data": "=status_pending"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "caption": "=📹 <b>Title</b> <code>{{ $('start').item.json.title }}</code>\n🎬 <b>Username:</b> <code>{{ $('start').item.json.username }}</code>\n📊 <b>Status:</b> {{ $('start').item.json.status }}\n🆔 <b>ID:</b> <code>{{ $('start').item.json.id }}</code>\n💾 <b>DATABASE:</b> <code>{{ $('start').item.json.database_name }}</code>\n🔗 <b>Link:</b> <code>{{ $('start').item.json.public }}</code>\n",
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        464,
+        -80
+      ],
+      "typeVersion": 1.2,
+      "id": "71572fe2-6032-49b2-acd2-70acc92e6c81",
+      "name": "Telegram",
+      "webhookId": "c3376669-07a2-4633-a04b-866f5eaf2148",
+      "credentials": {
+        "telegramApi": {
+          "id": "MKWHBWBE6qCBEPNb",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -32,
+        -80
+      ],
+      "id": "8f5440b9-4309-4a8c-99c6-252053b6cd00",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "={{ $('start').item.json.database_name }}",
+          "mode": "name"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('start').item.json.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "youtube",
+              "value": "=Processing"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        640,
+        -80
+      ],
+      "id": "64ebacb5-d82d-4a55-a98a-f2bbddc75a08",
+      "name": "UPDATE",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-14T09:55:50.779Z",
+      "updatedAt": "2025-10-14T09:55:50.779Z",
+      "role": "workflow:owner",
+      "workflowId": "nYYZ9l5pnnKNCeC1",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-14T13:08:17.000Z",
+  "versionId": "a2985457-c14e-49a8-bd87-b3b7f765b291"
+}

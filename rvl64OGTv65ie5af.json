@@ -1,0 +1,130 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-10-14T09:31:13.014Z",
+  "id": "rvl64OGTv65ie5af",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 35",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -128,
+        -48
+      ],
+      "id": "dc354417-ec54-4491-9fdf-1f7e6c097f6a",
+      "name": "Telegram Trigger",
+      "webhookId": "b2e3ab1a-5d10-4abe-9782-d00fb3a07f8e",
+      "credentials": {
+        "telegramApi": {
+          "id": "MKWHBWBE6qCBEPNb",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {
+    "Telegram Trigger": [
+      {
+        "json": {
+          "update_id": 579746511,
+          "callback_query": {
+            "id": "442811279447610791",
+            "from": {
+              "id": 6545550979,
+              "is_bot": false,
+              "first_name": "Aaryan",
+              "username": "aryan_connect",
+              "language_code": "en"
+            },
+            "message": {
+              "message_id": 89,
+              "sender_chat": {
+                "id": -1003013552191,
+                "title": "ERROR",
+                "username": "n8nerrror",
+                "type": "channel"
+              },
+              "chat": {
+                "id": -1003013552191,
+                "title": "ERROR",
+                "username": "n8nerrror",
+                "type": "channel"
+              },
+              "date": 1760434193,
+              "video": {
+                "duration": 23,
+                "width": 1080,
+                "height": 1920,
+                "file_name": "UPjjz0jF_MA.mp4",
+                "mime_type": "video/mp4",
+                "thumbnail": {
+                  "file_id": "AAMCBQADIQYABLOfKD8AA1lo7hgQOKGLCdHkAUnecBIETj1EgAACeRsAAvBfcVdU_xzqhwjuGAEAB20AAzYE",
+                  "file_unique_id": "AQADeRsAAvBfcVdy",
+                  "file_size": 18036,
+                  "width": 180,
+                  "height": 320
+                },
+                "thumb": {
+                  "file_id": "AAMCBQADIQYABLOfKD8AA1lo7hgQOKGLCdHkAUnecBIETj1EgAACeRsAAvBfcVdU_xzqhwjuGAEAB20AAzYE",
+                  "file_unique_id": "AQADeRsAAvBfcVdy",
+                  "file_size": 18036,
+                  "width": 180,
+                  "height": 320
+                },
+                "file_id": "BAACAgUAAyEGAASznyg_AANZaO4YEDihiwnR5AFJ3nASBE49RIAAAnkbAALwX3FXVP8c6ocI7hg2BA",
+                "file_unique_id": "AgADeRsAAvBfcVc",
+                "file_size": 7667684
+              },
+              "caption": "hello",
+              "reply_markup": {
+                "inline_keyboard": [
+                  [
+                    {
+                      "text": "✅ Mark Done",
+                      "callback_data": "status_done_"
+                    }
+                  ]
+                ]
+              }
+            },
+            "chat_instance": "7010742184681821679",
+            "data": "status_done_"
+          }
+        }
+      }
+    ]
+  },
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-14T09:31:13.018Z",
+      "updatedAt": "2025-10-14T09:31:13.018Z",
+      "role": "workflow:owner",
+      "workflowId": "rvl64OGTv65ie5af",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-14T12:52:46.000Z",
+  "versionId": "c432228b-2a58-4c99-8b69-c074e2f9c12a"
+}

@@ -5,7 +5,23 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        []
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
             "type": "main",
             "index": 0
           }
@@ -24,87 +40,83 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        0,
-        0
+        -224,
+        -16
       ],
       "id": "bcf2fecf-ed11-4f5c-a44c-526884c7184b",
       "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
-        "url": "https://eapi.pcloud.com/createfolder",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpQueryAuth",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "path",
-              "value": "/Public Folder/asif"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        208,
-        0
-      ],
-      "id": "bdb60ad3-4ed4-47d0-b536-6094f1d78136",
-      "name": "HTTP Request",
-      "credentials": {
-        "httpQueryAuth": {
-          "id": "Waazn67l08VEMzzE",
-          "name": "PCLOUD"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "https://eapi.pcloud.com/getfilelink",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpQueryAuth",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "path",
-              "value": "/Public Folder/asif/asif.mp4"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        544,
-        0
-      ],
-      "id": "5ea3e084-182e-408a-8c1e-4dfb3a71d01a",
-      "name": "HTTP Request1",
-      "credentials": {
-        "httpQueryAuth": {
-          "id": "Waazn67l08VEMzzE",
-          "name": "PCLOUD"
-        }
-      }
-    },
-    {
-      "parameters": {
         "content": "https://filedn.eu/lxLhN9YWBv6mOlDMkTgxAC5/asif/overlay.mp4",
-        "width": 224
+        "height": 80,
+        "width": 720
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         272,
-        -112
+        -240
       ],
       "typeVersion": 1,
       "id": "9f6aacef-ee80-4695-9ff5-2c97c2f276fd",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://eapi.pcloud.com/uploadfile",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "path",
+              "value": "/public/ne"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        192,
+        -16
+      ],
+      "id": "b3b2cff0-657f-4b81-98d1-c9503e4d2786",
+      "name": "HTTP Request2",
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "Waazn67l08VEMzzE",
+          "name": "PCLOUD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fileSelector": "/home/node/shared//YOUTUBE/KnowSparkz/output/UPjjz0jF_MA.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -16
+      ],
+      "id": "f59a8023-4dd2-4f50-b279-31f50c7461e9",
+      "name": "Read/Write Files from Disk"
     }
   ],
   "origin": "n8n",
@@ -128,6 +140,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-13T06:02:54.000Z",
-  "versionId": "3909feb0-829f-4c22-a3e7-c2dc9249849a"
+  "updatedAt": "2025-10-14T06:12:29.000Z",
+  "versionId": "de22a36e-aed7-40ae-9b5e-d01106173dcd"
 }

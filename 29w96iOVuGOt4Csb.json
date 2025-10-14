@@ -40,7 +40,8 @@
         "rule": {
           "interval": [
             {
-              "field": "hours"
+              "field": "cronExpression",
+              "expression": "30 10-23 * * *"
             }
           ]
         }
@@ -150,6 +151,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-10T06:40:15.000Z",
-  "versionId": "f088af9e-0d75-4f12-8244-dc974d082318"
+  "updatedAt": "2025-10-14T03:27:31.000Z",
+  "versionId": "f9b2129b-6607-493d-9a6c-2014084c7d19"
 }

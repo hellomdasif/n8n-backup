@@ -175,8 +175,8 @@
         "rule": {
           "interval": [
             {
-              "field": "hours",
-              "hoursInterval": 3
+              "field": "cronExpression",
+              "expression": "30 10-22/2 * * *"
             }
           ]
         }
@@ -189,6 +189,21 @@
       ],
       "id": "477452ab-71cc-4de6-b28f-1bba1b57c49e",
       "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "content": "## 10:30, 12:30, 14:30, 16:30, 18:30, 20:30, 22:30\n\n",
+        "height": 80,
+        "width": 720
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -368,
+        -432
+      ],
+      "typeVersion": 1,
+      "id": "cf7532e6-1185-41e1-87eb-aba0c149069c",
+      "name": "Sticky Note"
     }
   ],
   "origin": "n8n",
@@ -219,7 +234,7 @@
     },
     "node:Schedule Trigger1": {
       "recurrenceRules": [
-        0
+        9
       ]
     }
   },
@@ -232,6 +247,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-12T04:09:40.000Z",
-  "versionId": "17e9ea97-5da3-49f1-8084-1c5b5686ee85"
+  "updatedAt": "2025-10-14T05:21:28.000Z",
+  "versionId": "750394cb-a677-45d2-a8ec-3f832ec93191"
 }

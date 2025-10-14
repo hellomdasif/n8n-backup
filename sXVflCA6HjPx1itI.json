@@ -1,0 +1,164 @@
+{
+  "active": false,
+  "connections": {
+    "Trigger": {
+      "main": [
+        [
+          {
+            "node": "start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-10-14T10:51:00.220Z",
+  "id": "sXVflCA6HjPx1itI",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "UPDATE-STATUS-TELEGRAM",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8411240761:AAEZJp25RFhPpe6iK5AVHVxoV8XHrJclQQQ/editMessageCaption",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Trigger').item.json.callback_query.message.sender_chat.id }}"
+            },
+            {
+              "name": "message_id",
+              "value": "={{ $('Trigger').item.json.callback_query.message.message_id }}"
+            },
+            {
+              "name": "caption",
+              "value": "=📹 <b>Title</b> <code>{{ $('start').item.json.title }} </code>  \n🎬 <b>Username:</b> <code>{{ $('start').item.json.username }}</code>  \n📊 <b>Status:</b> {{ $('Trigger').item.json.callback_query.data.includes('pending') ? '❌ PENDING' : '✅ DONE ' }}\n🆔 <b>ID:</b> <code>{{ $('start').item.json.id }}</code>\n💾 <b>DATABASE:</b> <code>{{ $('start').item.json.database }}</code>\n🔗 <b>Link:</b> <code>{{ $('start').item.json.link }}</code>"
+            },
+            {
+              "name": "parse_mode",
+              "value": "HTML"
+            },
+            {
+              "name": "reply_markup",
+              "value": "={{ JSON.stringify({ inline_keyboard: [[ { text: \"✅ Mark Done\", callback_data: \"status_done\" }, { text: \"🟡 Mark Pending\", callback_data: \"status_pending\" } ]] }) }}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -96,
+        32
+      ],
+      "id": "736c578f-f3f8-4127-a255-cae4e64caad6",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [
+        -528,
+        32
+      ],
+      "typeVersion": 1.2,
+      "id": "d7f985c0-9dba-42e6-83af-7068481d38fa",
+      "name": "Trigger",
+      "webhookId": "176735ac-766f-4bb9-bdd3-a36bda7cc74a",
+      "credentials": {
+        "telegramApi": {
+          "id": "MKWHBWBE6qCBEPNb",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Input caption (replace this line with your real source, e.g. $('Trigger').item.json.callback_query.message.caption)\nconst caption = $input.first().json.callback_query.message.caption || \"\";\n\n// Initialize empty defaults\nlet title = \"\";\nlet username = \"\";\nlet status = \"\";\nlet id = \"\";\nlet database = \"\";\nlet link = \"\";\n\n// Extract values using regex (tolerant of optional <b> and <code> tags)\nconst titleMatch = caption.match(/📹\\s*(?:<b>)?([^<\\n]+?)(?:<\\/b>)?(?=\\n|$)/i);\nconst usernameMatch = caption.match(/🎬\\s*(?:<b>)?Username:?\\s*(?:<\\/b>)?\\s*(?:<code>)?([^<\\n]+?)(?:<\\/code>)?(?=\\n|$)/i);\nconst statusMatch = caption.match(/📊\\s*(?:<b>)?Status:?\\s*(?:<\\/b>)?\\s*(?:<code>)?([^<\\n]+?)(?:<\\/code>)?(?=\\n|$)/i);\nconst idMatch = caption.match(/🆔\\s*(?:<b>)?ID:?\\s*(?:<\\/b>)?\\s*(?:<code>)?([^<\\n]+?)(?:<\\/code>)?(?=\\n|$)/i);\n\n// New: DATABASE (handles alphanumeric, underscores, dots, etc.)\nconst databaseMatch = caption.match(/💾\\s*(?:<b>)?DATABASE:?\\s*(?:<\\/b>)?\\s*(?:<code>)?([^<\\n]+?)(?:<\\/code>)?(?=\\n|$)/i);\n\n// New: Link (capture a URL; stops at whitespace or HTML tag/newline)\nconst linkMatch = caption.match(/🔗\\s*(?:<b>)?Link:?\\s*(?:<\\/b>)?\\s*(?:<code>)?([^\\s<\\n]+)(?:<\\/code>)?(?=\\n|$)/i);\n\n// Assign safely (trim whitespace)\nif (titleMatch) title = titleMatch[1].trim();\nif (usernameMatch) username = usernameMatch[1].trim();\nif (statusMatch) status = statusMatch[1].trim();\nif (idMatch) id = idMatch[1].trim();\nif (databaseMatch) database = databaseMatch[1].trim();\nif (linkMatch) link = linkMatch[1].trim();\n\n// Output result\nreturn [\n  {\n    json: {\n      title,\n      username,\n      status,\n      id,\n      database,\n      link,\n      original_caption: caption\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        32
+      ],
+      "id": "00d6587b-04b9-4a8d-819e-5d63f6867201",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "mode": "name",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        176,
+        16
+      ],
+      "id": "3534b24d-2439-4a7d-be33-cfc2c3e2215e",
+      "name": "UPDATE",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-14T10:51:00.223Z",
+      "updatedAt": "2025-10-14T10:51:00.223Z",
+      "role": "workflow:owner",
+      "workflowId": "sXVflCA6HjPx1itI",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-14T12:51:17.000Z",
+  "versionId": "24e8215d-4d93-436b-9a08-c8089cedec3e"
+}

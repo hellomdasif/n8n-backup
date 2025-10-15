@@ -12,7 +12,7 @@
         ]
       ]
     },
-    "Schedule Trigger": {
+    "Schedule Trigger1": {
       "main": [
         [
           {
@@ -76,11 +76,7 @@
         "rule": {
           "interval": [
             {
-              "triggerAtHour": 8,
-              "triggerAtMinute": 15
-            },
-            {
-              "triggerAtHour": 21,
+              "triggerAtHour": 7,
               "triggerAtMinute": 15
             },
             {
@@ -93,11 +89,11 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -2256,
+        -2224,
         -752
       ],
-      "id": "08971296-1e19-418b-8a6c-ad503668870a",
-      "name": "Schedule Trigger",
+      "id": "a36aa384-dd2b-431a-9442-0a687ccf1573",
+      "name": "Schedule Trigger1",
       "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
     }
   ],
@@ -139,6 +135,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-14T13:09:49.000Z",
-  "versionId": "d2d28de4-faad-4e65-b54f-60a4c7c0b0ff"
+  "updatedAt": "2025-10-15T04:29:17.000Z",
+  "versionId": "3a626baa-168d-4497-83c5-e30d69699fac"
 }

@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "command",
+            "node": "select_bg",
             "type": "main",
             "index": 0
           }
@@ -279,11 +279,6 @@
         ]
       ]
     },
-    "SAMPLE": {
-      "main": [
-        []
-      ]
-    },
     "MILLION_VIEWS": {
       "main": [
         [
@@ -380,6 +375,55 @@
       "main": [
         [
           {
+            "node": "select_bg2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Background": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk1": {
+      "main": [
+        [
+          {
+            "node": "command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "select_bg": {
+      "main": [
+        [
+          {
+            "node": "Download Background",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'POST FACEBOOK - PARALLEL'": {
+      "main": [
+        []
+      ]
+    },
+    "select_bg2": {
+      "main": [
+        [
+          {
             "node": "public",
             "type": "main",
             "index": 0
@@ -405,8 +449,8 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -1136,
-        -2144
+        -1232,
+        -2128
       ],
       "id": "a1f3a58b-740a-4614-9592-4e47a19cf36c",
       "name": "Read/Write Files from Disk"
@@ -462,8 +506,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1344,
-        -2144
+        -1392,
+        -2128
       ],
       "id": "741df578-beba-44d7-9cd1-8a5dd096817f",
       "name": "download"
@@ -477,8 +521,8 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        -736,
-        -2144
+        -672,
+        -2112
       ],
       "id": "669e43df-929b-4c79-9d18-e18d12775e4f",
       "name": "public",
@@ -725,8 +769,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1488,
-        -2144
+        -1552,
+        -2128
       ],
       "id": "fe5a91a7-1a44-4bf2-a401-4ff954e99c9f",
       "name": "config2"
@@ -914,7 +958,7 @@
       "typeVersion": 3.3,
       "position": [
         -2032,
-        -1568
+        -1600
       ],
       "id": "a5201cff-3225-40c6-bcc4-8dd094d7ba18",
       "name": "Switch"
@@ -1210,30 +1254,6 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "d953bafc-ff06-43b9-a2be-f1fd341bef57",
-              "name": "stdout",
-              "value": "d5_lgmSVRtQ.mp4",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        208,
-        -2352
-      ],
-      "id": "7fcac101-1d27-4321-a6d7-f69f642f3a3b",
-      "name": "SAMPLE",
-      "disabled": true
-    },
-    {
-      "parameters": {
         "url": "https://n8n.mohdasif.net/webhook/views",
         "sendBody": true,
         "specifyBody": "json",
@@ -1286,8 +1306,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1712,
-        -2128
+        -1776,
+        -2112
       ],
       "id": "725ccdf8-baea-4903-8a63-c16cae7e35b3",
       "name": "IF FINAL EMPTY1"
@@ -1386,8 +1406,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1760,
-        -2176
+        -1872,
+        -2208
       ],
       "typeVersion": 1,
       "id": "235fb084-2ec7-4e27-98b5-0bf2378f79b5",
@@ -1472,38 +1492,133 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        -928,
-        -2432
+        -464,
+        -2672
       ],
       "id": "76b69049-13df-427f-80e2-fae6b37813ab",
       "name": "command_t"
     },
     {
       "parameters": {
-        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 2 \\\n--hold-frames 15 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png\" \\\n--background \"files/lol.jpeg\" \\\n--output-path \"outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\" \\\n2>&1 | sed -n \"1,500p\"'"
+        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 3 \\\n--hold-frames 15 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png\" \\\n--background \"{{ $('accounts').item.json.root_dir }}/python/games/temp.mp4\" \\\n--output-path \"{{ $('accounts').item.json.root_dir }}/python/games/outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\" \\\n--bg-video-mode \"full\" \\\n2>&1 | sed -n \"1,500p\"'"
       },
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        -912,
-        -2144
+        -1024,
+        -2112
       ],
       "id": "94fbe188-9772-4f63-a809-2809e1f3db37",
       "name": "command"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.bg_video }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -928,
+        -2448
+      ],
+      "id": "2552b100-7531-4711-9182-bdf4e076889c",
+      "name": "Download Background"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('accounts').item.json.root_dir }}/python/games/temp.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        -2448
+      ],
+      "id": "f5d7759d-0b33-487c-b4d2-cfba39eab84d",
+      "name": "Read/Write Files from Disk1"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "background",
+          "mode": "list",
+          "cachedResultName": "background"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "puzzle"
+            },
+            {
+              "column": "puzzle",
+              "condition": "IS NULL"
+            }
+          ]
+        },
+        "combineConditions": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -1088,
+        -2448
+      ],
+      "id": "e745ee11-6f65-41cb-85ae-b4e37c20e10c",
+      "name": "select_bg",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "background",
+          "mode": "list",
+          "cachedResultName": "background"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('select_bg').item.json.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "puzzle",
+              "value": "D0NE"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -832,
+        -2112
+      ],
+      "id": "041ff60b-40a7-4fb6-8e6a-74e27743b86f",
+      "name": "select_bg2",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
     }
   ],
   "origin": "n8n",
-  "pinData": {
-    "start": [
-      {
-        "json": {
-          "username": "urban__raja",
-          "type": "insta",
-          "title": false
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -1540,6 +1655,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-13T07:15:59.000Z",
-  "versionId": "d139a2d5-4a23-4156-9d1b-3b3562daf754"
+  "updatedAt": "2025-10-15T12:22:59.000Z",
+  "versionId": "7de5eeeb-6311-4f96-b581-51ffa0fe9f01"
 }

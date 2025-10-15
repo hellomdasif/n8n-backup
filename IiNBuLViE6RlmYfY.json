@@ -17,7 +17,7 @@
         []
       ]
     },
-    "Schedule Trigger1": {
+    "Schedule Trigger": {
       "main": [
         [
           {
@@ -65,7 +65,7 @@
       "typeVersion": 3.4,
       "position": [
         -176,
-        -16
+        -160
       ],
       "id": "08a22e99-ebf6-41a6-baf2-b2582493b317",
       "name": "config"
@@ -89,7 +89,7 @@
       "typeVersion": 1.3,
       "position": [
         48,
-        -16
+        -160
       ],
       "id": "27163399-b616-4abd-8f46-702614d17baa",
       "name": "BUILD"
@@ -99,9 +99,22 @@
         "rule": {
           "interval": [
             {
-              "field": "hours",
-              "hoursInterval": 4,
-              "triggerAtMinute": 1
+              "triggerAtHour": 8
+            },
+            {
+              "triggerAtHour": 11
+            },
+            {
+              "triggerAtHour": 14
+            },
+            {
+              "triggerAtHour": 17
+            },
+            {
+              "triggerAtHour": 20
+            },
+            {
+              "triggerAtHour": 23
             }
           ]
         }
@@ -109,11 +122,11 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -464,
-        -16
+        -432,
+        -160
       ],
-      "id": "90ad0929-301b-4569-afa8-51143e11b439",
-      "name": "Schedule Trigger1"
+      "id": "696ccb53-8fb2-482f-8699-3b53a31a713b",
+      "name": "Schedule Trigger"
     }
   ],
   "origin": "n8n",
@@ -144,7 +157,7 @@
     },
     "node:Schedule Trigger1": {
       "recurrenceRules": [
-        20
+        8
       ]
     }
   },
@@ -157,6 +170,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-08T16:36:37.000Z",
-  "versionId": "696b853e-5adf-404f-87fa-1388153c5389"
+  "updatedAt": "2025-10-15T04:39:36.000Z",
+  "versionId": "b87778d3-bd31-4f8d-9234-879d58ae5dfd"
 }

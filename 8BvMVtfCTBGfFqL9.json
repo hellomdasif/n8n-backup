@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "Read/Write Files from Disk",
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -27,12 +27,41 @@
           }
         ]
       ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Insert or update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert or update rows in a table": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2025-10-13T04:46:05.389Z",
   "id": "8BvMVtfCTBGfFqL9",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "WORKING WITH PCLOUD",
   "nodes": [
     {
@@ -41,7 +70,7 @@
       "typeVersion": 1,
       "position": [
         -224,
-        -16
+        0
       ],
       "id": "bcf2fecf-ed11-4f5c-a44c-526884c7184b",
       "name": "When clicking ‘Execute workflow’"
@@ -54,8 +83,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        272,
-        -240
+        320,
+        -336
       ],
       "typeVersion": 1,
       "id": "9f6aacef-ee80-4695-9ff5-2c97c2f276fd",
@@ -92,8 +121,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        192,
-        -16
+        0,
+        -224
       ],
       "id": "b3b2cff0-657f-4b81-98d1-c9503e4d2786",
       "name": "HTTP Request2",
@@ -102,7 +131,8 @@
           "id": "Waazn67l08VEMzzE",
           "name": "PCLOUD"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -112,11 +142,100 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        16,
-        -16
+        -224,
+        -224
       ],
       "id": "f59a8023-4dd2-4f50-b279-31f50c7461e9",
-      "name": "Read/Write Files from Disk"
+      "name": "Read/Write Files from Disk",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://eapi.pcloud.com/listfolder",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "path",
+              "value": "/public/n8n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "71e4ae31-cdfc-4290-afd9-945e2beca0f9",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "Waazn67l08VEMzzE",
+          "name": "PCLOUD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "metadata.contents",
+        "options": {
+          "destinationFieldName": "name"
+        }
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "1a0e0b9b-1a89-4817-adb8-6dc09342651f",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "table": {
+          "__rl": true,
+          "value": "background",
+          "mode": "list",
+          "cachedResultName": "background"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "filename",
+        "valueToMatchOn": "={{ $json.name.name }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "bg_video",
+              "value": "=https://filedn.eu/lxLhN9YWBv6mOlDMkTgxAC5/n8n/{{ $json.name.name }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "3388706e-2186-4b55-9376-114865e18744",
+      "name": "Insert or update rows in a table",
+      "executeOnce": false,
+      "alwaysOutputData": false,
+      "retryOnFail": false,
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
     }
   ],
   "origin": "n8n",
@@ -140,6 +259,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-14T06:12:29.000Z",
-  "versionId": "de22a36e-aed7-40ae-9b5e-d01106173dcd"
+  "updatedAt": "2025-10-15T11:38:15.000Z",
+  "versionId": "f1a7174d-9d94-4f81-932b-a970e52a6cfe"
 }

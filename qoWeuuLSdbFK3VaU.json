@@ -1,22 +1,22 @@
 {
   "active": true,
   "connections": {
-    "Schedule Trigger1": {
+    "config": {
       "main": [
         [
           {
-            "node": "config",
+            "node": "Call 'YOUTUBE - DATA HANDLER'",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "config": {
+    "Schedule Trigger": {
       "main": [
         [
           {
-            "node": "Call 'YOUTUBE - DATA HANDLER'",
+            "node": "config",
             "type": "main",
             "index": 0
           }
@@ -32,32 +32,6 @@
   },
   "name": "Youtube-FactsMind_99",
   "nodes": [
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "triggerAtHour": 8
-            },
-            {
-              "triggerAtHour": 21
-            },
-            {
-              "triggerAtHour": 19
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -2176,
-        -752
-      ],
-      "id": "e2a9e3e8-cdee-4d9e-9cb0-2331a2b80809",
-      "name": "Schedule Trigger1",
-      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
-    },
     {
       "parameters": {
         "workflowId": {
@@ -96,6 +70,31 @@
       ],
       "id": "ab3389e2-3eb2-439e-8283-078701e642ba",
       "name": "config"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7,
+              "triggerAtMinute": 45
+            },
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": 45
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2192,
+        -752
+      ],
+      "id": "33ce6b23-8fa9-45cf-a6d9-49a394eac2a5",
+      "name": "Schedule Trigger",
+      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
     }
   ],
   "origin": "n8n",
@@ -136,6 +135,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-14T13:08:26.000Z",
-  "versionId": "616d0355-abf6-40dd-a2a5-449d443fe96f"
+  "updatedAt": "2025-10-15T04:29:51.000Z",
+  "versionId": "9674c938-2599-470d-aa7e-0296887ecb43"
 }

@@ -60,7 +60,7 @@
     {
       "parameters": {
         "operation": "sendDocument",
-        "chatId": "=-1003013552191",
+        "chatId": "=-1003164691365",
         "binaryData": true,
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -101,8 +101,8 @@
       "webhookId": "c3376669-07a2-4633-a04b-866f5eaf2148",
       "credentials": {
         "telegramApi": {
-          "id": "MKWHBWBE6qCBEPNb",
-          "name": "Telegram account"
+          "id": "v6E8o9RCPVZgGRMN",
+          "name": "YubePosts_bot"
         }
       }
     },
@@ -177,6 +177,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-14T13:08:17.000Z",
-  "versionId": "a2985457-c14e-49a8-bd87-b3b7f765b291"
+  "updatedAt": "2025-10-15T05:12:57.000Z",
+  "versionId": "e7e8e979-b6b0-4b00-8bbb-a3b8f87dd415"
 }

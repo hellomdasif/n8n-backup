@@ -44,13 +44,13 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://api.telegram.org/bot8411240761:AAEZJp25RFhPpe6iK5AVHVxoV8XHrJclQQQ/editMessageCaption",
+        "url": "https://api.telegram.org/bot8203320315:AAHChV4LMocldLcQLcfKcILmMtsanpEOpg8/editMessageCaption",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
             {
               "name": "chat_id",
-              "value": "={{ $('Trigger').item.json.callback_query.message.sender_chat.id }}"
+              "value": "={{ $('Trigger').item.json.callback_query.message.chat.id }}"
             },
             {
               "name": "message_id",
@@ -99,8 +99,8 @@
       "webhookId": "176735ac-766f-4bb9-bdd3-a36bda7cc74a",
       "credentials": {
         "telegramApi": {
-          "id": "MKWHBWBE6qCBEPNb",
-          "name": "Telegram account"
+          "id": "v6E8o9RCPVZgGRMN",
+          "name": "YubePosts_bot"
         }
       }
     },
@@ -175,6 +175,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-10-14T13:08:18.000Z",
-  "versionId": "956f33cf-7275-4af5-a294-8cd4e0252c82"
+  "updatedAt": "2025-10-15T16:24:09.000Z",
+  "versionId": "46649fe2-9090-434b-b70e-dee9cf4ba3fa"
 }

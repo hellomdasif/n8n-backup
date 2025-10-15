@@ -54,7 +54,7 @@
             {
               "id": "f3b742bf-cfaa-4b33-89df-ece73bd2cb28",
               "name": "title",
-              "value": true,
+              "value": false,
               "type": "boolean"
             }
           ]
@@ -169,6 +169,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-13T10:23:33.000Z",
-  "versionId": "ffdbface-0f7a-4aae-a766-39937289a614"
+  "updatedAt": "2025-10-15T12:37:13.000Z",
+  "versionId": "355ccba6-7278-44b6-8ebf-8c9d52340acb"
 }

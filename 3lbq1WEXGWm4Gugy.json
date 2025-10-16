@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Get Uploads Playlist ID": {
       "main": [
@@ -579,12 +579,12 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": [
-        0
+        8
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-10-13T06:08:56.000Z",
+  "updatedAt": "2025-10-16T02:33:51.000Z",
   "versionId": "e580dfc0-e411-4ac1-b749-984dd780aef8"
 }

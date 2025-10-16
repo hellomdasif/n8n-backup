@@ -375,6 +375,11 @@
             "node": "Call 'SEND-TO-TELEGRAM'",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Call YOUTUBE-MAX",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1280,7 +1285,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -848,
+        -832,
         32
       ],
       "id": "852d704e-9d25-4416-8e95-66f182e5136f",
@@ -1336,11 +1341,39 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        -624,
-        32
+        -576,
+        -64
       ],
       "id": "118b7815-e0ee-4b62-9250-3e772eae40bd",
       "name": "Call 'SEND-TO-TELEGRAM'"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "5o6t5oIfRFT7p9Vr",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/5o6t5oIfRFT7p9Vr",
+          "cachedResultName": "YOUTUBE-MAX"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -576,
+        128
+      ],
+      "id": "d7213592-235d-4eb7-afb0-443e1207da2a",
+      "name": "Call YOUTUBE-MAX"
     }
   ],
   "origin": "n8n",
@@ -1375,6 +1408,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-14T11:03:18.000Z",
-  "versionId": "51d70bbe-00ff-4482-ba23-11ff49e2f9b5"
+  "updatedAt": "2025-10-16T02:33:40.000Z",
+  "versionId": "c3738ca5-2f14-4680-8c31-48a52af1774d"
 }

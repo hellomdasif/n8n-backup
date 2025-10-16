@@ -850,7 +850,24 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "Loop Over Items": [
+      {
+        "json": {
+          "acc_id": "102723221205773",
+          "username": "knowsparkz",
+          "public": "NEEDS MODIFICATION",
+          "access_token": "EAAZAD11ycW5IBPq0B14m9pLjFhI7A2cevfVH5XEYJ85dZATwMc0MFpIZCIagWYZA86R5xIcfAcSoAlwWVaOATf4ERgjMOkPScPAqag31h6nSZCa66e033wUKa3zgu08zI76ccfshLzuhbxlqDJrUD20nYkNoivDYEwxr9ZCkANumsXaIS8ZCg5yeIT1Bwcm8LdGoCUaL14ZD",
+          "database_name": "knowsparkz",
+          "status": "Pending",
+          "title": "#trendingreel #facebookviral #tvshowinspired #visualcontent #facts",
+          "description": "#trendingreel #facebookviral #tvshowinspired #visualcontent #facts",
+          "type": "fb",
+          "id": "50"
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -893,6 +910,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-12T04:40:08.000Z",
-  "versionId": "c5bf03fa-9b51-4d2f-b1c2-4ad27d09bfb8"
+  "updatedAt": "2025-10-16T09:09:18.000Z",
+  "versionId": "27e77b50-ebd7-4b7c-b38e-71d0f912cf20"
 }

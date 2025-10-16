@@ -141,7 +141,7 @@
         ],
         [
           {
-            "node": "IF FINAL EMPTY",
+            "node": "IF FINAL EMPTY2",
             "type": "main",
             "index": 0
           }
@@ -204,13 +204,7 @@
             "index": 0
           }
         ],
-        [
-          {
-            "node": "MILLION_VIEWS",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "build_final_url_mohd_asif": {
@@ -698,7 +692,7 @@
       "typeVersion": 2.5,
       "position": [
         -480,
-        -1584
+        -1552
       ],
       "id": "cc6a44de-3b5b-4163-88eb-a09e4bfd33cf",
       "name": "Prepared",
@@ -991,7 +985,7 @@
       "typeVersion": 2.2,
       "position": [
         -304,
-        -1584
+        -1552
       ],
       "id": "424b0d66-ed2f-4b57-99a8-74454a9851b9",
       "name": "If1"
@@ -1349,8 +1343,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1568,
-        -1344
+        -1552,
+        -1440
       ],
       "id": "99da09c0-4791-4ea2-a64d-d6e992c8d867",
       "name": "IF FINAL EMPTY2"
@@ -1655,6 +1649,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-15T12:22:59.000Z",
-  "versionId": "7de5eeeb-6311-4f96-b581-51ffa0fe9f01"
+  "updatedAt": "2025-10-16T09:13:36.000Z",
+  "versionId": "ac5fa378-56b2-4715-8901-64f1fe5cb714"
 }

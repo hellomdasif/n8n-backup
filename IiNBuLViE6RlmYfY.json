@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "config": {
       "main": [
@@ -170,6 +170,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-15T04:39:36.000Z",
+  "updatedAt": "2025-10-16T12:39:56.000Z",
   "versionId": "b87778d3-bd31-4f8d-9234-879d58ae5dfd"
 }

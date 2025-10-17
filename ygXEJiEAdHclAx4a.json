@@ -1,0 +1,563 @@
+{
+  "active": false,
+  "connections": {
+    "start": {
+      "main": [
+        [
+          {
+            "node": "accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "accounts": {
+      "main": [
+        [
+          {
+            "node": "pending_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pending_url": {
+      "main": [
+        [
+          {
+            "node": "isPublicEmpty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isPublicEmpty": {
+      "main": [
+        [
+          {
+            "node": "insert_public_url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "isMod",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insert_public_url": {
+      "main": [
+        [
+          {
+            "node": "isMod",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isMod": {
+      "main": [
+        [
+          {
+            "node": "MODIFY_VIDEO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "modified",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Call Youtube Poster1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Call 'POST FACEBOOK - PARALLEL'1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "last_data_mod": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "modified": {
+      "main": [
+        [
+          {
+            "node": "last_data_mod",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MODIFY_VIDEO": {
+      "main": [
+        [
+          {
+            "node": "last_data_mod",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "final_pending_url_check": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-10-17T07:04:29.916Z",
+  "id": "ygXEJiEAdHclAx4a",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "GOD-MOD",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3008,
+        -2160
+      ],
+      "id": "b641d6a5-0cf1-4f18-a314-c950f2a0e04e",
+      "name": "start"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3008,
+        -1968
+      ],
+      "id": "f80290cf-e3d6-4ea2-8471-9d714a2034d7",
+      "name": "When clicking ‘Execute workflow’",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM accounts\nWHERE username = '{{ $json.username }}'\n  AND type = '{{ $json.type }}'\nLIMIT 1;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2784,
+        -2064
+      ],
+      "id": "57550a74-47e4-42ff-85da-e4a23dce16c2",
+      "name": "accounts",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2560,
+        -2064
+      ],
+      "id": "ffc534b0-ac34-4cb3-84ca-e6dd3ea04c78",
+      "name": "pending_url",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $('pending_url').item.json.public }}",
+              "rightValue": "NULL",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "c6d77762-53c7-484a-845c-b5f966a55a94",
+              "leftValue": "={{ $('pending_url').item.json.public }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "77e77d0e-2901-4509-a300-882da8af1cf5",
+              "leftValue": "={{ $('pending_url').item.json.public }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2336,
+        -2064
+      ],
+      "id": "9e75f044-93ee-4cf9-8112-6d235558693f",
+      "name": "isPublicEmpty"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET public = 'https://files.mohdasif.net/{{ $('accounts').item.json.folder }}{{ $('pending_url').item.json.filename }}'\nWHERE id = {{ $('isPublicEmpty').item.json.id }};",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2112,
+        -2144
+      ],
+      "id": "534de84c-119a-416d-a2f7-0a8534405411",
+      "name": "insert_public_url",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
+              "leftValue": "={{ $('start').item.json.mod }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1888,
+        -2048
+      ],
+      "id": "0be62d91-bbd4-465c-8f31-cea8c283d496",
+      "name": "isMod"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "8s68NCy6GF9p0u8T",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/8s68NCy6GF9p0u8T",
+          "cachedResultName": "POST FACEBOOK - PARALLEL"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -992,
+        -1968
+      ],
+      "id": "871fd995-e7f5-4db0-a780-031e48546dc9",
+      "name": "Call 'POST FACEBOOK - PARALLEL'1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7f8f923f-2327-498b-8c92-e632ee2050cf",
+              "leftValue": "={{ $json.type }}",
+              "rightValue": "youtube",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1216,
+        -2064
+      ],
+      "id": "516ac0da-2836-4f7b-af50-f4440b8268ac",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "5o6t5oIfRFT7p9Vr",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/5o6t5oIfRFT7p9Vr",
+          "cachedResultName": "YOUTUBE-MAX"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -992,
+        -2160
+      ],
+      "id": "70bd3f4e-a52a-479e-b740-eab173d37b32",
+      "name": "Call Youtube Poster1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"acc_id\": \"{{ String($('accounts').item.json.acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('accounts').item.json.username || '').trim() }}\",\n  \"public\": \"https://files.mohdasif.net/{{ $json.modified }}\",\n  \"access_token\": \"{{ String($('accounts').item.json.token || '').trim() }}\",\n  \"database_name\": \"{{ String($('accounts').item.json.database_name || '').trim() }}\",\n  \"status\": \"Pending\",\n  \"title\": {{ \n  JSON.stringify(\n    String(\n      $('start').item.json.title === 'false'\n        ? $('accounts').item.json.default_title\n        : ($('start').item.json.title === 'true'\n            ? $('pending_url').item.json.title\n            : $('start').item.json.title)\n    ).trim()\n  )\n}},\n  \"description\": {{ JSON.stringify(String($('start').item.json.description || $('accounts').item.json.default_des || '').trim()) }},\n  \"type\": \"{{ String($('start').item.json.type || '').trim() }}\",\n  \"id\": \"{{ $('pending_url').item.json.id }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1440,
+        -2064
+      ],
+      "id": "4b36c60b-b922-4cfb-bcf6-16054d028cef",
+      "name": "last_data_mod",
+      "notes": "{\n  \"acc_id\": \"{{ String($('accounts').item.json.acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('accounts').item.json.username || '').trim() }}\",\n  \"public\": \"https://files.mohdasif.net/{{ $json.modified }}\",\n  \"access_token\": \"{{ String($('accounts').item.json.token || '').trim() }}\",\n  \"database_name\": \"{{ String($('accounts').item.json.database_name || '').trim() }}\",\n  \"status\": \"Pending\",\n  \"title\": \"{{ $('start').item.json.title === 'false' ? $('accounts').item.json.default_title : $('start').item.json.title }}\",\n  \"description\": {{ JSON.stringify(String($('start').item.json.description || $('accounts').item.json.default_des || '').trim()) }},\n  \"type\": \"{{ String($('start').item.json.type || '').trim() }}\",\n  \"id\": \"{{ $('pending_url').item.json.id }}\"\n}"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8c7c46ad-6c07-497c-8f43-fac750490942",
+              "name": "modified",
+              "value": "={{ $('accounts').item.json.folder }}{{ $('pending_url').item.json.filename }}",
+              "type": "string"
+            },
+            {
+              "id": "5196f5a0-1cd6-4db5-b281-41ccefd0e2f8",
+              "name": "fullpath",
+              "value": "={{ $('accounts').item.json.root_dir }}{{ $('accounts').item.json.folder }}{{ $('pending_url').item.json.filename }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1664,
+        -1968
+      ],
+      "id": "fb4604fb-13cf-485a-9a45-98b11ecf1907",
+      "name": "modified"
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/modify",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $('accounts').item.json.folder }}\",\n  \"filename\": \"{{ $('pending_url').item.json.filename }}\",\n  \"root_dir\": \"{{ $('accounts').item.json.root_dir }}\",\n  \"type\":  \"{{ $('start').item.json.type }}\",\n  \"username\":  \"{{ $('accounts').item.json.username }}\",\n  \"modtype\":  \"{{ $('start').item.json.modtype }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1664,
+        -2160
+      ],
+      "id": "630cc078-32cd-4f2d-9c00-2190503144fc",
+      "name": "MODIFY_VIDEO"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('start').item.json.type }} IS NULL\n   OR {{ $('start').item.json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -3008,
+        -2384
+      ],
+      "id": "51fe51fb-f217-488d-a486-62891752fd7b",
+      "name": "final_pending_url_check",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "username": "urban__raja",
+          "type": "insta",
+          "title": "false",
+          "mod": "true",
+          "modtype": "puzzle"
+        }
+      }
+    ]
+  },
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK",
+    "executionTimeout": 600
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-17T07:04:29.924Z",
+      "updatedAt": "2025-10-17T07:04:29.924Z",
+      "role": "workflow:owner",
+      "workflowId": "ygXEJiEAdHclAx4a",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        18
+      ]
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:13:49.553Z",
+      "updatedAt": "2025-10-07T12:13:49.553Z",
+      "id": "RDHUqhF8fggE5BPq",
+      "name": "FACEBOOK-INSTA"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-17T13:19:02.000Z",
+  "versionId": "9eab274d-4ea8-4ae5-826f-26347873881e"
+}

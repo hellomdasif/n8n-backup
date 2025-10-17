@@ -1,16 +1,22 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Webhook": {
       "main": [
-        []
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "When clicking ‘Execute workflow’": {
       "main": [
         [
           {
-            "node": "Select rows from a table",
+            "node": "Switch",
             "type": "main",
             "index": 0
           }
@@ -21,18 +27,92 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook",
+            "node": "get_unpublished_questions1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Select rows from a table": {
+    "get_unpublished_questions": {
       "main": [
         [
           {
             "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "get_unpublished_questions1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "get_unpublished_questions",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "random_num",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "random_num": {
+      "main": [
+        [
+          {
+            "node": "Execute Command1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
             "type": "main",
             "index": 0
           }
@@ -50,20 +130,20 @@
   "nodes": [
     {
       "parameters": {
-        "command": "=/bin/bash -lc \"cd /home/node/shared/python/quiz && mkdir -p outputs && \\\n/usr/bin/python3 kbc.py \\\n  --question 'ताजमहल कहाँ स्थित है?' \\\n  --options 'दिल्ली' 'आगरा' 'जयपुर' 'लखनऊ' \\\n  --answer 'आगरा' \\\n  --show-number false \\\n  --show-number-bg true \\\n  --remove-black true \\\n  --bg-blur 4\"\n"
+        "command": "=/bin/bash -lc 'cd /home/node/shared/python/quiz && mkdir -p outputs && /usr/bin/python3 kbc.py --question \"{{ $json.question.replace(/\"/g, '\\\\\"') }}\" --options \"{{ $json.option_a }}\" \"{{ $json.option_b }}\" \"{{ $json.option_c }}\" \"{{ $json.option_d }}\" --show-number false --show-number-bg true --remove-black true --bg-blur 3 --output \"outputs/image.png\"'"
       },
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        144,
-        -96
+        368,
+        -224
       ],
       "id": "51b66f97-fa6f-44d4-b56c-de1f826215bd",
       "name": "Execute Command"
     },
     {
       "parameters": {
-        "path": "bd5a424b-6cd7-4f68-a5cf-10bdf20dce2e",
+        "path": "kbc",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -71,7 +151,7 @@
       "typeVersion": 2.1,
       "position": [
         -304,
-        128
+        -32
       ],
       "id": "918cd053-d15f-4ec4-9e28-60429b35849f",
       "name": "Webhook",
@@ -83,7 +163,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        -96
+        -224
       ],
       "id": "2df249ef-4031-4e1e-9a9b-582875e0c311",
       "name": "When clicking ‘Execute workflow’"
@@ -95,8 +175,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        368,
-        -96
+        1040,
+        -128
       ],
       "id": "5f69d0d7-276a-4d6f-88b7-aa5f604e9860",
       "name": "Respond to Webhook"
@@ -114,7 +194,7 @@
         "where": {
           "values": [
             {
-              "column": "target_audience",
+              "column": "status",
               "condition": "IS NULL"
             },
             {
@@ -128,17 +208,233 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        -80,
-        -96
+        144,
+        -224
       ],
       "id": "c12676db-67c8-4c6f-8675-22cfbb748cab",
-      "name": "Select rows from a table",
+      "name": "get_unpublished_questions",
       "credentials": {
         "mySql": {
           "id": "aH3xsjJBm3OWPFrR",
           "name": "MySQL account"
         }
       }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ed4fc3f2-f690-42e0-82b5-16302612864b",
+              "name": "imagelink",
+              "value": "https://files.mohdasif.net/python/quiz/outputs/image.png",
+              "type": "string"
+            },
+            {
+              "id": "a20541ad-cb0f-481c-8a9e-3b3f4052ed08",
+              "name": "title",
+              "value": "={{ $('get_unpublished_questions').item.json.question }}",
+              "type": "string"
+            },
+            {
+              "id": "86706d4c-191d-4a16-8a79-5cd1e2045940",
+              "name": "imagelink2",
+              "value": "https://files.mohdasif.net/python/quiz/kbc_quiz_final.png",
+              "type": "string"
+            },
+            {
+              "id": "4297d980-94b6-4851-9dfd-9a8e4d0441e8",
+              "name": "title2",
+              "value": "={{ $('random_num').item.json.title2 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        800,
+        -192
+      ],
+      "id": "d02f0bb6-1fc6-434c-a215-a67716aea0ff",
+      "name": "Edit Fields",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "questions",
+          "mode": "list",
+          "cachedResultName": "questions"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('get_unpublished_questions').item.json.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "status",
+              "value": "DONE"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        592,
+        -224
+      ],
+      "id": "91d42640-44d9-4ac7-adc2-f61ba26d4236",
+      "name": "get_unpublished_questions1",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "command": "=/bin/bash -lc 'cd /home/node/shared/python/quiz && \\\nmkdir -p outputs && \\\n/usr/bin/python3 kbc.py \\\n  --random \\\n  --question \"{{ $json.title2 }}\" \\\n  --show-number true \\\n  --show-number-bg true \\\n  --use-bg-image true \\\n  --bg-image \"bg.png\" \\\n  --number-opacity 50'"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -32
+      ],
+      "id": "ec098800-e65b-467f-ab05-c24e71f2502e",
+      "name": "Execute Command1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('When clicking ‘Execute workflow’').item.json.username }}",
+                    "rightValue": "ReelSense",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "127502ad-56b2-4f6a-a0cd-519d7b2aef1c"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ReelSense"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "14774683-b411-4f1a-a42f-52cb3ee1f234",
+                    "leftValue": "={{ $('When clicking ‘Execute workflow’').item.json.username }}",
+                    "rightValue": "urban__raja",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "urban__raja"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -80,
+        -128
+      ],
+      "id": "cffc4101-073c-4ec8-bc27-4299ced65ca7",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4297d980-94b6-4851-9dfd-9a8e4d0441e8",
+              "name": "title2",
+              "value": "={{ Math.floor(Math.random() * 90) + 1 }} लाख का सवाल - ये छुपा हुआ नंबर क्या है?",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        -32
+      ],
+      "id": "e41448f4-569d-4188-b4dc-1552f6188d9a",
+      "name": "random_num"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ed4fc3f2-f690-42e0-82b5-16302612864b",
+              "name": "imagelink",
+              "value": "https://files.mohdasif.net/python/quiz/outputs/image.png",
+              "type": "string"
+            },
+            {
+              "id": "86706d4c-191d-4a16-8a79-5cd1e2045940",
+              "name": "imagelink2",
+              "value": "https://files.mohdasif.net/python/quiz/kbc_quiz_final.png",
+              "type": "string"
+            },
+            {
+              "id": "4297d980-94b6-4851-9dfd-9a8e4d0441e8",
+              "name": "title2",
+              "value": "={{ $('random_num').item.json.title2 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        768,
+        -32
+      ],
+      "id": "66975da7-d3b1-498e-8085-d0d4ad40bc3b",
+      "name": "Edit Fields1"
     }
   ],
   "origin": "n8n",
@@ -162,6 +458,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-10-16T18:17:07.000Z",
-  "versionId": "c007291e-562d-46c5-b959-35e6f6fbb46b"
+  "updatedAt": "2025-10-17T12:30:45.000Z",
+  "versionId": "53345dae-40ad-47b3-95f5-d133573c5d86"
 }

@@ -1,22 +1,22 @@
 {
   "active": true,
   "connections": {
-    "config": {
+    "Schedule Trigger1": {
       "main": [
         [
           {
-            "node": "Call 'YOUTUBE - DATA HANDLER'",
+            "node": "config1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Schedule Trigger1": {
+    "config1": {
       "main": [
         [
           {
-            "node": "config",
+            "node": "Call 'test'",
             "type": "main",
             "index": 0
           }
@@ -32,45 +32,6 @@
   },
   "name": "Youtube-Tanvi_Kapoor_01",
   "nodes": [
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "hEQfyUpyNikRFnBA",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/hEQfyUpyNikRFnBA",
-          "cachedResultName": "YOUTUBE - DATA HANDLER"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        -1712,
-        -752
-      ],
-      "id": "90ff9999-d345-4596-a852-b11b5737bd8b",
-      "name": "Call 'YOUTUBE - DATA HANDLER'"
-    },
-    {
-      "parameters": {
-        "mode": "raw",
-        "jsonOutput": "{\n  \"username\": \"Tanvi_Kapoor_01\",\n  \"type\": \"youtube\",\n  \"title\":\"false\"\n}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -1936,
-        -752
-      ],
-      "id": "813439b1-9388-46ef-8fbb-7277494f4e11",
-      "name": "config"
-    },
     {
       "parameters": {
         "rule": {
@@ -95,6 +56,45 @@
       "id": "a36aa384-dd2b-431a-9442-0a687ccf1573",
       "name": "Schedule Trigger1",
       "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "ygXEJiEAdHclAx4a",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
+          "cachedResultName": "test"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -1776,
+        -752
+      ],
+      "id": "aa778bd9-27a4-46af-9544-0ea0dcae5c7e",
+      "name": "Call 'test'"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"username\": \"Tanvi_Kapoor_01\",\n  \"type\": \"youtube\",\n  \"title\":\"false\",\n  \"mod\":\"false\",\n  \"modtype\":\"Views\"\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2000,
+        -752
+      ],
+      "id": "21f52703-bb53-4d53-bba2-2c74cd7a521a",
+      "name": "config1"
     }
   ],
   "origin": "n8n",
@@ -135,6 +135,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-15T04:29:17.000Z",
-  "versionId": "3a626baa-168d-4497-83c5-e30d69699fac"
+  "updatedAt": "2025-10-17T16:35:47.000Z",
+  "versionId": "16bf8f28-4cf5-4bf3-b3d3-6a1d6847056d"
 }

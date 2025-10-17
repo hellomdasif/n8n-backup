@@ -77,11 +77,6 @@
         ]
       ]
     },
-    "Execute a SQL query": {
-      "main": [
-        []
-      ]
-    },
     "FactsMind99": {
       "main": [
         [
@@ -309,7 +304,7 @@
         "options": {
           "defaultLanguage": "hi",
           "description": "={{ $('Trending').item.json.title }}",
-          "privacyStatus": "={{ $('start').item.json.privacy }}",
+          "privacyStatus": "=Unlisted",
           "selfDeclaredMadeForKids": false,
           "tags": "={{ $('Trending').item.json.title }}"
         }
@@ -318,7 +313,7 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -240,
+        -224,
         -736
       ],
       "id": "8769b9d3-05eb-4b1b-b39e-ffdf272b17a9",
@@ -352,27 +347,6 @@
     },
     {
       "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        384,
-        -400
-      ],
-      "id": "12467468-3109-48d0-9859-c42342071840",
-      "name": "Execute a SQL query",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "video",
         "operation": "upload",
         "title": "={{ $json.title }}",
@@ -381,7 +355,7 @@
         "options": {
           "defaultLanguage": "hi",
           "description": "={{ $('Trending').item.json.title }}",
-          "privacyStatus": "={{ $('start').item.json.privacy }}",
+          "privacyStatus": "=Unlisted",
           "selfDeclaredMadeForKids": false,
           "tags": "={{ $('Trending').item.json.title }}"
         }
@@ -412,7 +386,7 @@
         "options": {
           "defaultLanguage": "hi",
           "description": "={{ $('Trending').item.json.title }}",
-          "privacyStatus": "={{ $('start').item.json.privacy }}",
+          "privacyStatus": "=Unlisted",
           "selfDeclaredMadeForKids": false,
           "tags": "={{ $('Trending').item.json.title }}"
         }
@@ -443,7 +417,7 @@
         "options": {
           "defaultLanguage": "hi",
           "description": "={{ $('Trending').item.json.title }}",
-          "privacyStatus": "={{ $('start').item.json.privacy }}",
+          "privacyStatus": "=Unlisted",
           "selfDeclaredMadeForKids": false,
           "tags": "={{ $('Trending').item.json.title }}"
         }
@@ -461,6 +435,27 @@
         "youTubeOAuth2Api": {
           "id": "53V5EXwtYZRfT2WN",
           "name": "hellomdasif-Tanvi_Kapoor_01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('start').item.json.database_name }}\nSET {{ $('start').item.json.type }} = 'DONE'\nWHERE id = {{ $('start').item.json.id }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        272,
+        -496
+      ],
+      "id": "9601c123-18b8-4a41-b46f-2511d595bfc8",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
         }
       }
     }
@@ -493,6 +488,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-13T10:38:29.000Z",
-  "versionId": "41e1770f-1a1a-416e-8db4-fa8f8c8a11d4"
+  "updatedAt": "2025-10-17T06:25:12.000Z",
+  "versionId": "242a3901-5650-4e7f-98ba-daf48cd4a439"
 }

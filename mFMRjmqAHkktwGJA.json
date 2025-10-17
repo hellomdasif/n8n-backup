@@ -1,0 +1,241 @@
+{
+  "active": false,
+  "connections": {
+    "config": {
+      "main": [
+        [
+          {
+            "node": "BUILD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUILD": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "POST_IMAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-16T20:45:07.717Z",
+  "id": "mFMRjmqAHkktwGJA",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Urban_Raja-fbpage-PHOTO-POST",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "638acc1e-78f9-49fb-9988-2fbc39c24bcf",
+              "name": "username",
+              "value": "urban__raja",
+              "type": "string"
+            },
+            {
+              "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
+              "name": "type",
+              "value": "fb",
+              "type": "string"
+            },
+            {
+              "id": "f3b742bf-cfaa-4b33-89df-ece73bd2cb28",
+              "name": "title",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -208,
+        -160
+      ],
+      "id": "8927246a-832d-400e-8c9b-728ced29716f",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "TLgkBdxPd0cfp8nI",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/TLgkBdxPd0cfp8nI",
+          "cachedResultName": "KBC-QUIZ"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        -160
+      ],
+      "id": "06cdc134-9b56-424a-9f64-e5bda4d0a1c0",
+      "name": "BUILD"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -432,
+        -160
+      ],
+      "id": "21ae28bb-cc50-47a9-a484-39a30ac43b37",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Loop Over Items').item.json.acc_id }}/photos",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"url\": \"{{ $('BUILD').item.json.imagelink2 }}\",\n  \"caption\": \"{{ $('BUILD').item.json.title2 }}\",\n  \"access_token\": \"{{ $json.token }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        576,
+        -160
+      ],
+      "id": "e8b01688-41d8-4c04-9079-663121956ec7",
+      "name": "POST_IMAGE"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "accounts",
+          "mode": "list",
+          "cachedResultName": "accounts"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "type",
+              "value": "={{ $('config').item.json.type }}"
+            },
+            {
+              "column": "username",
+              "value": "={{ $('config').item.json.username }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        336,
+        -160
+      ],
+      "id": "81f81d94-3909-4d17-8222-0e0a812b1d15",
+      "name": "Loop Over Items",
+      "credentials": {
+        "mySql": {
+          "id": "aH3xsjJBm3OWPFrR",
+          "name": "MySQL account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-16T20:45:07.721Z",
+      "updatedAt": "2025-10-16T20:45:07.721Z",
+      "role": "workflow:owner",
+      "workflowId": "mFMRjmqAHkktwGJA",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        12
+      ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": [
+        8
+      ]
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:13:49.553Z",
+      "updatedAt": "2025-10-07T12:13:49.553Z",
+      "id": "RDHUqhF8fggE5BPq",
+      "name": "FACEBOOK-INSTA"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-17T16:40:49.000Z",
+  "versionId": "38f1694b-36ce-40e1-909f-5d89a58aa8ce"
+}

@@ -12,55 +12,11 @@
         ]
       ]
     },
-    "pending_url": {
-      "main": [
-        [
-          {
-            "node": "Switch",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "accounts": {
-      "main": [
-        [
-          {
-            "node": "pending_url",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "download": {
       "main": [
         [
           {
             "node": "Read/Write Files from Disk",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "public": {
-      "main": [
-        [
-          {
-            "node": "Prepared",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Prepared": {
-      "main": [
-        [
-          {
-            "node": "If1",
             "type": "main",
             "index": 0
           }
@@ -152,6 +108,20 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "IF FINAL EMPTY2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF FINAL EMPTY2",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -167,17 +137,6 @@
         [
           {
             "node": "final_url",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "INSERT_PUBLIC": {
-      "main": [
-        [
-          {
-            "node": "Prepared",
             "type": "main",
             "index": 0
           }
@@ -218,55 +177,11 @@
         ]
       ]
     },
-    "INSERT_FINAL_MOHD_ASIF": {
-      "main": [
-        [
-          {
-            "node": "After_mod_Prepared",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "After_mod_Prepared": {
-      "main": [
-        [
-          {
-            "node": "Execute",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "final_url": {
-      "main": [
-        [
-          {
-            "node": "After_mod_Prepared",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "build_public_url1": {
       "main": [
         [
           {
             "node": "INSERT_PUBLIC_ReelSense",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "INSERT_PUBLIC_ReelSense": {
-      "main": [
-        [
-          {
-            "node": "Prepared",
             "type": "main",
             "index": 0
           }
@@ -342,7 +257,7 @@
       "main": [
         [
           {
-            "node": "Call 'POST FACEBOOK - PARALLEL'",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -369,7 +284,7 @@
       "main": [
         [
           {
-            "node": "select_bg2",
+            "node": "update_backgroubd_status",
             "type": "main",
             "index": 0
           }
@@ -398,6 +313,33 @@
         ]
       ]
     },
+    "Call 'POST FACEBOOK - PARALLEL'": {
+      "main": [
+        []
+      ]
+    },
+    "accounts": {
+      "main": [
+        [
+          {
+            "node": "pending_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pending_url": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "select_bg": {
       "main": [
         [
@@ -409,16 +351,106 @@
         ]
       ]
     },
-    "Call 'POST FACEBOOK - PARALLEL'": {
-      "main": [
-        []
-      ]
-    },
-    "select_bg2": {
+    "update_backgroubd_status": {
       "main": [
         [
           {
-            "node": "public",
+            "node": "set_public_link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set_public_link": {
+      "main": [
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepared": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT_PUBLIC_ReelSense": {
+      "main": [
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT_PUBLIC": {
+      "main": [
+        [
+          {
+            "node": "Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "final_url": {
+      "main": [
+        [
+          {
+            "node": "After_mod_Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT_FINAL_MOHD_ASIF": {
+      "main": [
+        [
+          {
+            "node": "After_mod_Prepared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "After_mod_Prepared": {
+      "main": [
+        [
+          {
+            "node": "Execute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Call Youtube Poster",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Call 'POST FACEBOOK - PARALLEL'",
             "type": "main",
             "index": 0
           }
@@ -451,49 +483,6 @@
     },
     {
       "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nLIMIT 1;\n\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -2336,
-        -1536
-      ],
-      "id": "432d3597-51a3-4ab4-827e-548a6332f300",
-      "name": "pending_url",
-      "executeOnce": false,
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM accounts\nWHERE username = '{{ $json.username }}'\n  AND type = '{{ $json.type }}'\nLIMIT 1;",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -2560,
-        -1536
-      ],
-      "id": "0d30938f-0432-472c-99ba-f797feb051e6",
-      "name": "accounts",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "url": "={{ $('pending_url').item.json.image }}",
         "options": {}
       },
@@ -505,27 +494,6 @@
       ],
       "id": "741df578-beba-44d7-9cd1-8a5dd096817f",
       "name": "download"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"https://files.mohdasif.net/python/games/outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\"\nWHERE id = {{ $('pending_url').item.json.id }};",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -672,
-        -2112
-      ],
-      "id": "669e43df-929b-4c79-9d18-e18d12775e4f",
-      "name": "public",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
     },
     {
       "parameters": {
@@ -681,27 +649,6 @@
         }
       },
       "disabled": true
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('config').item.json.type }} IS NULL\n   OR {{ $('config').item.json.type }} = ''\nLIMIT 1;\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -480,
-        -1552
-      ],
-      "id": "cc6a44de-3b5b-4163-88eb-a09e4bfd33cf",
-      "name": "Prepared",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
     },
     {
       "parameters": {
@@ -943,6 +890,56 @@
               },
               "renameOutput": true,
               "outputKey": "Tanvi_Kapoor_01"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "504ea99e-3b5c-4193-92c4-9fde431ebf9c",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "FactsMind_99",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FactsMind_99 - Youtube"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "09dc5665-30c4-4258-96f5-cb42da82dde3",
+                    "leftValue": "={{ $('config').item.json.username }}",
+                    "rightValue": "GyaanManch",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "GyaanManch Same as knowsparkz [utube]"
             }
           ]
         },
@@ -951,8 +948,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        -2032,
-        -1600
+        -2048,
+        -1552
       ],
       "id": "a5201cff-3225-40c6-bcc4-8dd094d7ba18",
       "name": "Switch"
@@ -984,32 +981,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -304,
-        -1552
+        -272,
+        -1568
       ],
       "id": "424b0d66-ed2f-4b57-99a8-74454a9851b9",
       "name": "If1"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $json.public }}\",\n  final =  \"NEEDS MODIFICATION\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -928,
-        -1600
-      ],
-      "id": "00b44975-eaf1-4ae9-934f-9fe6703c0a02",
-      "name": "INSERT_PUBLIC",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
     },
     {
       "parameters": {
@@ -1103,27 +1079,6 @@
     },
     {
       "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  final =  \"{{ $('build_final_url_mohd_asif').item.json.final }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        768,
-        -2000
-      ],
-      "id": "495fcb90-b2e5-494e-b004-1ee16a79386a",
-      "name": "INSERT_FINAL_MOHD_ASIF",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -1147,48 +1102,6 @@
     },
     {
       "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('config').item.json.type }} IS NULL\n   OR {{ $('config').item.json.type }} = ''\nLIMIT 1;\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        992,
-        -1504
-      ],
-      "id": "cde61bca-f5d6-443e-ac4d-3e683fc268c9",
-      "name": "After_mod_Prepared",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  final = \"{{ $('Prepared').item.json.public }}\"\nWHERE \n  id = {{ $('pending_url').item.json.id }}\n  AND (final IS NULL OR final = '');\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        224,
-        -1504
-      ],
-      "id": "35d4856f-13f4-4c5e-99bc-6675609c93de",
-      "name": "final_url",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -1209,27 +1122,6 @@
       ],
       "id": "f73418e9-b043-4b93-a692-cbf5f36c9b55",
       "name": "build_public_url1"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = \"{{ $json.public }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        -944,
-        -1360
-      ],
-      "id": "21c6a69d-91a3-4206-ad31-4bc0c2812cdf",
-      "name": "INSERT_PUBLIC_ReelSense",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
     },
     {
       "parameters": {
@@ -1310,7 +1202,7 @@
       "parameters": {
         "conditions": {
           "options": {
-            "caseSensitive": true,
+            "caseSensitive": false,
             "leftValue": "",
             "typeValidation": "strict",
             "version": 2
@@ -1319,7 +1211,7 @@
             {
               "id": "4e754235-9b9f-4f02-85b2-a52409c1e5e5",
               "leftValue": "={{ $('pending_url').item.json.final }}",
-              "rightValue": "",
+              "rightValue": "NULL",
               "operator": {
                 "type": "string",
                 "operation": "equals"
@@ -1334,17 +1226,29 @@
                 "operation": "empty",
                 "singleValue": true
               }
+            },
+            {
+              "id": "77e77d0e-2901-4509-a300-882da8af1cf5",
+              "leftValue": "={{ $('pending_url').item.json.final }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
           "combinator": "or"
         },
-        "options": {}
+        "options": {
+          "ignoreCase": true
+        }
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
         -1552,
-        -1440
+        -1424
       ],
       "id": "99da09c0-4791-4ea2-a64d-d6e992c8d867",
       "name": "IF FINAL EMPTY2"
@@ -1387,7 +1291,7 @@
       "typeVersion": 2.2,
       "position": [
         -1600,
-        -1616
+        -1584
       ],
       "id": "a77a1caa-04f7-4187-ae50-1f4585b11281",
       "name": "IF FINAL EMPTY"
@@ -1425,7 +1329,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={\n  \"acc_id\": \"{{ (String($('accounts').item.json.acc_id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"username\": \"{{ (String($('accounts').item.json.username || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"public\": \"{{ (String($json.final || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"access_token\": \"{{ (String($('accounts').item.json.token || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"database_name\": \"{{ (String($('accounts').item.json.database_name || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"status\": \"{{ (String('Pending').trim()) }}\",\n  \"title\": \"{{ (() => {\n  const cfgTitle = $('config').item.json.title;\n  const isTrue = cfgTitle === true || String(cfgTitle).toLowerCase() === 'true';\n  if (isTrue) {\n    return String($('pending_url').item.json.title || '')\n      .trim()\n      .replace(/\\r?\\n/g, '')\n      .replace(/^\\\"+|\\\"+$/g, '');\n  }\n  return String($('config').item.json.title || $('accounts').item.json.default_title || '')\n    .trim()\n    .replace(/\\r?\\n/g, '')\n    .replace(/^\\\"+|\\\"+$/g, '');\n})() }}\",\n\"description\": \"{{ (String($('config').item.json.description || $('accounts').item.json.default_des || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"type\": \"{{ (String($('config').item.json.type || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\",\n  \"id\": \"{{ (String($json.id || '').trim().replace(/\\r?\\n/g, '').replace(/^\\\"+|\\\"+$/g, '')) }}\"\n}\n",
+        "jsonOutput": "={\n  \"acc_id\": \"{{ String($('accounts').item.json.acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('accounts').item.json.username || '').trim() }}\",\n  \"public\": \"{{ String($json.final || '').trim().replace(/\\\"/g, '') }}\",\n  \"access_token\": \"{{ String($('accounts').item.json.token || '').trim() }}\",\n  \"database_name\": \"{{ String($('accounts').item.json.database_name || '').trim() }}\",\n  \"status\": \"Pending\",\n  \"title\": {{ JSON.stringify(String($('config').item.json.title === true ? ($('pending_url').item.json.title || '') : ($('config').item.json.title || $('accounts').item.json.default_title || '')).trim()) }},\n  \"description\": {{ JSON.stringify(String($('config').item.json.description || $('accounts').item.json.default_des || '').trim()) }},\n  \"type\": \"{{ String($('config').item.json.type || '').trim() }}\",\n  \"id\": \"{{ String($json.id || '').trim() }}\"\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -1455,8 +1359,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        1344,
-        -1504
+        1680,
+        -1408
       ],
       "id": "bf794d56-b5a9-4a52-a291-d0c7989f2b78",
       "name": "Call 'POST FACEBOOK - PARALLEL'"
@@ -1536,83 +1440,312 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "table": {
-          "__rl": true,
-          "value": "background",
-          "mode": "list",
-          "cachedResultName": "background"
-        },
-        "limit": 1,
-        "where": {
-          "values": [
-            {
-              "column": "puzzle"
-            },
-            {
-              "column": "puzzle",
-              "condition": "IS NULL"
-            }
-          ]
-        },
-        "combineConditions": "OR",
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM accounts\nWHERE username = '{{ $json.username }}'\n  AND type = '{{ $json.type }}'\nLIMIT 1;",
         "options": {}
       },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
       "position": [
-        -1088,
-        -2448
+        -2560,
+        -1536
       ],
-      "id": "e745ee11-6f65-41cb-85ae-b4e37c20e10c",
-      "name": "select_bg",
+      "id": "ac57d5bf-39e5-46e7-95a1-7cdab8e73760",
+      "name": "accounts",
       "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
         }
       }
     },
     {
       "parameters": {
-        "operation": "update",
-        "table": {
-          "__rl": true,
-          "value": "background",
-          "mode": "list",
-          "cachedResultName": "background"
-        },
-        "dataMode": "defineBelow",
-        "columnToMatchOn": "id",
-        "valueToMatchOn": "={{ $('select_bg').item.json.id }}",
-        "valuesToSend": {
-          "values": [
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2336,
+        -1536
+      ],
+      "id": "252f31d7-6e2d-4778-bc97-c06d4840b608",
+      "name": "pending_url",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM background\nWHERE puzzle = '' OR puzzle IS NULL\nLIMIT 1;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1120,
+        -2448
+      ],
+      "id": "3136bfd8-a370-47f8-bdc7-c3c43e192847",
+      "name": "select_bg",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE \"background\"\nSET \"puzzle\" = 'DONE'\nWHERE \"id\" = {{ $node[\"select_bg\"].json[\"id\"] }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -864,
+        -2112
+      ],
+      "id": "d70da784-36a9-4ecd-bba3-c9ff818831df",
+      "name": "update_backgroubd_status",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET public = '{{ (\n  \"https://files.mohdasif.net/python/games/outputs/\" +\n  (( $('pending_url').item.json.image.match(/id=([^&]+)/) || [null, \"NEEDS_MODIFICATION\"])[1]) +\n  \".mp4\"\n).replace(/'/g, \"''\") }}'\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -672,
+        -2112
+      ],
+      "id": "4a369b7b-e2d9-4ba0-8427-21d8bee2ada6",
+      "name": "set_public_link",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('config').item.json.type }} IS NULL\n   OR {{ $('config').item.json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -448,
+        -1568
+      ],
+      "id": "8c737af7-2eb2-49b1-b08c-c03e977eea83",
+      "name": "Prepared",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET public = '{{ $json.public }}'\nWHERE id = {{ $('pending_url').item.json.id }};",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -976,
+        -1360
+      ],
+      "id": "5302fcc3-37fd-440a-bc6e-4c916cd18e19",
+      "name": "INSERT_PUBLIC_ReelSense",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  public = '{{ $json.public }}',\n  final = 'NEEDS MODIFICATION'\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1008,
+        -1632
+      ],
+      "id": "d77f6aab-395e-48a0-9fcb-f0b915d56db8",
+      "name": "INSERT_PUBLIC",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  final = '{{ $('Prepared').item.json.public }}'\nWHERE \n  id = {{ $('pending_url').item.json.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        528,
+        -1504
+      ],
+      "id": "ea6b4ea1-fdb1-4802-bb25-3024eedaf65f",
+      "name": "final_url",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET \n  final =  \"{{ $('build_final_url_mohd_asif').item.json.final }}\"\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        768,
+        -2000
+      ],
+      "id": "3d49fbd7-c84a-4691-9639-79f351d36ff0",
+      "name": "INSERT_FINAL_MOHD_ASIF",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE {{ $('config').item.json.type }} IS NULL\n   OR {{ $('config').item.json.type }} = ''\nORDER BY id ASC\n\nLIMIT 1;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        976,
+        -1504
+      ],
+      "id": "b88f0e55-f1b4-4216-97f8-bacbf34f2587",
+      "name": "After_mod_Prepared",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
             {
-              "column": "puzzle",
-              "value": "D0NE"
+              "id": "7f8f923f-2327-498b-8c92-e632ee2050cf",
+              "leftValue": "={{ $json.type }}",
+              "rightValue": "youtube",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
-          ]
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1376,
+        -1520
+      ],
+      "id": "eeecc214-a21d-4e82-92b7-19d661c29e52",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "5o6t5oIfRFT7p9Vr",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/5o6t5oIfRFT7p9Vr",
+          "cachedResultName": "YOUTUBE-MAX"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
       "position": [
-        -832,
-        -2112
+        1680,
+        -1632
       ],
-      "id": "041ff60b-40a7-4fb6-8e6a-74e27743b86f",
-      "name": "select_bg2",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
+      "id": "aaaa6965-118f-44ba-b10e-392754e04409",
+      "name": "Call Youtube Poster"
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "username": "knowsparkz",
+          "type": "fb",
+          "title": false
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -1649,6 +1782,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-16T09:13:36.000Z",
-  "versionId": "ac5fa378-56b2-4715-8901-64f1fe5cb714"
+  "updatedAt": "2025-10-17T09:13:47.000Z",
+  "versionId": "f67936d7-697c-4ae2-a569-23369e816ff6"
 }

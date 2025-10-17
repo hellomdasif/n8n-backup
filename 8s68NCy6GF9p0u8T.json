@@ -59,17 +59,6 @@
         ]
       ]
     },
-    "update_sucess": {
-      "main": [
-        [
-          {
-            "node": "LOG",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "upload": {
       "main": [
         [
@@ -97,17 +86,6 @@
         [
           {
             "node": "update_sucess",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "update_error": {
-      "main": [
-        [
-          {
-            "node": "LOG",
             "type": "main",
             "index": 0
           }
@@ -210,6 +188,28 @@
         [
           {
             "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_sucess": {
+      "main": [
+        [
+          {
+            "node": "LOG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_error": {
+      "main": [
+        [
+          {
+            "node": "LOG",
             "type": "main",
             "index": 0
           }
@@ -336,27 +336,6 @@
     },
     {
       "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('Loop Over Items').item.json.database_name }}\nSET  {{ $('Loop Over Items').item.json.type }}= 'DONE'\nWHERE id = '{{ $('Loop Over Items').item.json.id }}';\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        256,
-        -2272
-      ],
-      "id": "34820bec-5de2-4ae7-b392-47a1b33fbe0c",
-      "name": "update_sucess",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "method": "POST",
         "url": "={{ $('get_container_id_fb').item.json.upload_url }}",
         "sendQuery": true,
@@ -441,27 +420,6 @@
       ],
       "id": "ec28c8a2-9c9b-4760-bd75-ae275a3b3815",
       "name": "Publish"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('check_process_list').item.json.database_name }}\nSET fb = 'ERROR'\nWHERE public = '{{ $('check_process_list').item.json.public }}';\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.mySql",
-      "typeVersion": 2.5,
-      "position": [
-        32,
-        -1984
-      ],
-      "id": "5b76939c-b52d-4b55-9f3a-fe6b2f02a500",
-      "name": "update_error",
-      "credentials": {
-        "mySql": {
-          "id": "aH3xsjJBm3OWPFrR",
-          "name": "MySQL account"
-        }
-      }
     },
     {
       "parameters": {
@@ -847,27 +805,52 @@
       ],
       "id": "6a10b515-e118-462c-bf8b-5cda2620177d",
       "name": "LOG"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('Loop Over Items').item.json.database_name }}\nSET  {{ $('Loop Over Items').item.json.type }}= 'DONE'\nWHERE id = '{{ $('Loop Over Items').item.json.id }}';\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        256,
+        -2256
+      ],
+      "id": "43147722-3e99-4808-beeb-748d56454dc0",
+      "name": "update_sucess",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('check_process_list').item.json.database_name }}\nSET fb = 'ERROR'\nWHERE public = '{{ $('check_process_list').item.json.public }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        256,
+        -2032
+      ],
+      "id": "efdd6c9d-0eb2-495c-95eb-68079f90b52f",
+      "name": "update_error",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
     }
   ],
   "origin": "n8n",
-  "pinData": {
-    "Loop Over Items": [
-      {
-        "json": {
-          "acc_id": "102723221205773",
-          "username": "knowsparkz",
-          "public": "NEEDS MODIFICATION",
-          "access_token": "EAAZAD11ycW5IBPq0B14m9pLjFhI7A2cevfVH5XEYJ85dZATwMc0MFpIZCIagWYZA86R5xIcfAcSoAlwWVaOATf4ERgjMOkPScPAqag31h6nSZCa66e033wUKa3zgu08zI76ccfshLzuhbxlqDJrUD20nYkNoivDYEwxr9ZCkANumsXaIS8ZCg5yeIT1Bwcm8LdGoCUaL14ZD",
-          "database_name": "knowsparkz",
-          "status": "Pending",
-          "title": "#trendingreel #facebookviral #tvshowinspired #visualcontent #facts",
-          "description": "#trendingreel #facebookviral #tvshowinspired #visualcontent #facts",
-          "type": "fb",
-          "id": "50"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -910,6 +893,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-16T09:09:18.000Z",
-  "versionId": "27e77b50-ebd7-4b7c-b38e-71d0f912cf20"
+  "updatedAt": "2025-10-17T05:20:03.000Z",
+  "versionId": "7d854a51-b913-4d28-824a-d0516822d981"
 }

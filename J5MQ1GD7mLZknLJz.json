@@ -1,0 +1,181 @@
+{
+  "active": false,
+  "connections": {
+    "Switch": {
+      "main": [
+        [],
+        [
+          {
+            "node": "get_container_id_fb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_container_id_fb": {
+      "main": [
+        []
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-16T19:14:15.711Z",
+  "id": "J5MQ1GD7mLZknLJz",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "POST-IMAGES-FACEBOOK-INSTA",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Loop Over Items').item.json.type }}",
+                    "rightValue": "insta",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "d67cc145-9ea5-401d-b37f-ec122bbb5696"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1deeb985-1ac3-422e-92e1-4e8b406b88b8",
+                    "leftValue": "={{ $('Loop Over Items').item.json.type }}",
+                    "rightValue": "fb",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -1712,
+        -2048
+      ],
+      "id": "dcbcc84d-754a-4c6a-903c-d6718d712d63",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Loop Over Items').item.json.acc_id }}/photos",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"url\": \"https://files.mohdasif.net/python/quiz/outputs/image.png\",\n  \"caption\": \"Dekhte hai Kaun Kaun Sahi Answer deta hai\",\n  \"access_token\": \"{{ $json.token }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1488,
+        -2048
+      ],
+      "id": "107e13fd-c90b-4715-8f7c-d8c50175a97e",
+      "name": "get_container_id_fb"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1936,
+        -2048
+      ],
+      "id": "1edc739b-031b-44ac-839c-e29df4b03944",
+      "name": "Loop Over Items"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK",
+    "executionTimeout": 600
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-16T19:14:15.719Z",
+      "updatedAt": "2025-10-16T19:14:15.719Z",
+      "role": "workflow:owner",
+      "workflowId": "J5MQ1GD7mLZknLJz",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        18
+      ]
+    },
+    "node:Google Sheets Trigger": {
+      "documentId": "1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k",
+      "sheetId": 0,
+      "lastRevision": 69,
+      "lastRevisionLink": "https://docs.google.com/spreadsheets/export?id=1xiPfhzJCG69yDe8NUAykc9W4sT4AazIo3GGep4oXv0k&revision=69&exportFormat=xlsx"
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:13:49.553Z",
+      "updatedAt": "2025-10-07T12:13:49.553Z",
+      "id": "RDHUqhF8fggE5BPq",
+      "name": "FACEBOOK-INSTA"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-17T16:39:34.000Z",
+  "versionId": "67868a62-9f46-4c3f-a72c-bb026d27265b"
+}

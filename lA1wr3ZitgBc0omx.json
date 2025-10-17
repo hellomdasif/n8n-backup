@@ -1,0 +1,91 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-17T03:35:37.918Z",
+  "id": "lA1wr3ZitgBc0omx",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 36",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b9949eaa-62e4-44d5-99e6-2373b8e8e7fd",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "background",
+          "mode": "list",
+          "cachedResultName": "background"
+        },
+        "limit": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        416,
+        0
+      ],
+      "id": "e15877c1-215b-434e-a209-4ec4e4543997",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-17T03:35:37.924Z",
+      "updatedAt": "2025-10-17T03:35:37.924Z",
+      "role": "workflow:owner",
+      "workflowId": "lA1wr3ZitgBc0omx",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-17T16:38:44.000Z",
+  "versionId": "e0bebea4-e7be-4e51-869a-5608dad2766e"
+}

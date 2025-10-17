@@ -1,33 +1,11 @@
 {
   "active": true,
   "connections": {
-    "config": {
+    "config2": {
       "main": [
         [
           {
-            "node": "BUILD",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "config1": {
-      "main": [
-        [
-          {
-            "node": "BUILD1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "BUILD": {
-      "main": [
-        [
-          {
-            "node": "config1",
+            "node": "Call 'test'",
             "type": "main",
             "index": 0
           }
@@ -35,6 +13,28 @@
       ]
     },
     "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "config2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "Call 'test'1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'test'": {
       "main": [
         [
           {
@@ -54,47 +54,12 @@
   "nodes": [
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "638acc1e-78f9-49fb-9988-2fbc39c24bcf",
-              "name": "username",
-              "value": "urban__raja",
-              "type": "string"
-            },
-            {
-              "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
-              "name": "type",
-              "value": "fb",
-              "type": "string"
-            },
-            {
-              "id": "a73f80e4-ba88-4960-b644-93d8e984d890",
-              "name": "title",
-              "value": false,
-              "type": "boolean"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -240,
-        -768
-      ],
-      "id": "6486d745-4a26-4684-b199-fc1b20fac24e",
-      "name": "config"
-    },
-    {
-      "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "Kci6PSZkQ4DDd0qm",
+          "value": "ygXEJiEAdHclAx4a",
           "mode": "list",
-          "cachedResultUrl": "/workflow/Kci6PSZkQ4DDd0qm",
-          "cachedResultName": "build_data_fb_insta (GOD MOD)"
+          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
+          "cachedResultName": "GOD-MOD"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -105,70 +70,26 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        -16,
-        -768
+        -112,
+        -1024
       ],
-      "id": "b6a23f5a-99fd-46ff-b3ab-47e24721286f",
-      "name": "BUILD"
+      "id": "e17e9ab0-5d80-4ea2-868d-73d4d6a7e14b",
+      "name": "Call 'test'"
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "638acc1e-78f9-49fb-9988-2fbc39c24bcf",
-              "name": "username",
-              "value": "urban__raja",
-              "type": "string"
-            },
-            {
-              "id": "35ae89a7-f63e-4873-9943-48a0353553d1",
-              "name": "type",
-              "value": "insta",
-              "type": "string"
-            },
-            {
-              "id": "7c81a8de-742b-4d6a-a99f-bdf7c6bf146d",
-              "name": "title",
-              "value": false,
-              "type": "boolean"
-            }
-          ]
-        },
+        "mode": "raw",
+        "jsonOutput": "{\n  \"username\": \"urban__raja\",\n  \"type\": \"insta\",\n  \"title\":\"false\",\n  \"mod\":\"true\",\n  \"modtype\":\"puzzle\"\n\n}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        192,
-        -640
+        -336,
+        -1024
       ],
-      "id": "f05faacf-d605-4c55-a3e9-34438a281d97",
-      "name": "config1"
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "Kci6PSZkQ4DDd0qm",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/Kci6PSZkQ4DDd0qm",
-          "cachedResultName": "build_data_fb_insta (GOD MOD)"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        416,
-        -640
-      ],
-      "id": "a5d2ef2f-a1e2-4314-b5da-096847d1f7aa",
-      "name": "BUILD1"
+      "id": "4e6d0025-02d3-496d-b3ac-536cc78c9233",
+      "name": "config2"
     },
     {
       "parameters": {
@@ -195,11 +116,50 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -480,
-        -640
+        -560,
+        -1024
       ],
       "id": "477452ab-71cc-4de6-b28f-1bba1b57c49e",
       "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "ygXEJiEAdHclAx4a",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
+          "cachedResultName": "GOD-MOD"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        336,
+        -1024
+      ],
+      "id": "5c6e0688-921c-4065-913d-19122745b35e",
+      "name": "Call 'test'1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"username\": \"urban__raja\",\n  \"type\": \"fb\",\n  \"title\":\"false\",\n  \"mod\":\"true\",\n  \"modtype\":\"puzzle\"\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        112,
+        -1024
+      ],
+      "id": "2bbe4afe-56b3-4a80-93d8-7e6f4b66314b",
+      "name": "config"
     }
   ],
   "origin": "n8n",
@@ -243,6 +203,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-15T12:25:32.000Z",
-  "versionId": "000fbbf1-04ab-489f-9d55-7cf53564ba2e"
+  "updatedAt": "2025-10-17T13:44:25.000Z",
+  "versionId": "21f9fe5a-e48d-4b9a-a0e2-99f3b3c20ac4"
 }

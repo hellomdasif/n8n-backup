@@ -1,0 +1,763 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "modified": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "username_check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "puzzle_type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "username_check": {
+      "main": [
+        [
+          {
+            "node": "without_screen_overlay",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Million Views",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "without_screen_overlay": {
+      "main": [
+        [
+          {
+            "node": "modified",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Million Views": {
+      "main": [
+        [
+          {
+            "node": "modified",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "select_bg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "command": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Background": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk1": {
+      "main": [
+        [
+          {
+            "node": "command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "select_bg": {
+      "main": [
+        [
+          {
+            "node": "Download Background",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_backgroubd_status": {
+      "main": [
+        [
+          {
+            "node": "set_public_link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "accounts": {
+      "main": [
+        [
+          {
+            "node": "pending_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pending_url": {
+      "main": [
+        [
+          {
+            "node": "download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "puzzle_type": {
+      "main": [
+        [
+          {
+            "node": "SwitchPuzzle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SwitchPuzzle": {
+      "main": [
+        [
+          {
+            "node": "accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set_public_link": {
+      "main": [
+        [
+          {
+            "node": "command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "modified",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-17T10:42:40.289Z",
+  "id": "3xsUSVxkYvsH7w2i",
+  "isArchived": false,
+  "meta": null,
+  "name": "all-in-one-modify",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "modify",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -288,
+        -832
+      ],
+      "id": "fa647c75-b9a9-4a7b-adda-34e87d591c9c",
+      "name": "Webhook",
+      "webhookId": "df26a640-8e37-4602-abd2-bad4edc5ae0d"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        -1024
+      ],
+      "id": "5ebf5aeb-b727-43ce-bf4c-bea87e47d0bb",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        832,
+        -1056
+      ],
+      "id": "a6c7426a-effe-46ac-b350-908e82cfc15c",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8c7c46ad-6c07-497c-8f43-fac750490942",
+              "name": "modified",
+              "value": "={{ $json.stdout.replace('/home/node/shared','') }}",
+              "type": "string"
+            },
+            {
+              "id": "5196f5a0-1cd6-4db5-b281-41ccefd0e2f8",
+              "name": "fullpath",
+              "value": "={{ $json.stdout }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        608,
+        -1056
+      ],
+      "id": "c4a9bd6a-7706-4c27-9bfc-50111ca67df3",
+      "name": "modified"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.modtype }}",
+                    "rightValue": "Views",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e5028f49-1f95-4050-934d-a43f376c4543"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Views"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5e7db562-4847-4e41-809f-fde144e57c37",
+                    "leftValue": "={{ $json.body.modtype }}",
+                    "rightValue": "puzzle",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "puzzle"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -64,
+        -928
+      ],
+      "id": "599658aa-0f7b-4231-b45c-a2d12412e67f",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.username }}",
+                    "rightValue": "GyaanManch",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e5028f49-1f95-4050-934d-a43f376c4543"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "GyaanManch"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5e7db562-4847-4e41-809f-fde144e57c37",
+                    "leftValue": "knowsparkz",
+                    "rightValue": "knowsparkz",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "knowsparkz"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        160,
+        -1152
+      ],
+      "id": "66b7b5f3-92b1-469d-8ace-4fd5dfcde1e6",
+      "name": "username_check"
+    },
+    {
+      "parameters": {
+        "command": "=ROOT=\"{{ $json.body.root_dir }}\"; \\\n$ROOT/script/views/views.sh \\\n  --output-dir $ROOT/script/views/output \\\n  --rand-min 10 \\\n  --rand-max 50 \\\n  --no-screenshot \\\n  $ROOT{{ $json.body.folder }}/{{ $json.body.filename }} \\\n  {{ $json.body.filename }} \\\n  2>&1 | grep -E \"^/.*\\.mp4$\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -1248
+      ],
+      "id": "0c1040f0-639b-4464-9009-4fc65afe7a97",
+      "name": "without_screen_overlay",
+      "notes": "{{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }} 2>&1 | grep -E \"^/.*\\.mp4$\"\n"
+    },
+    {
+      "parameters": {
+        "command": "=ROOT=\"{{ $json.body.root_dir }}\"; \\\n$ROOT/script/views/views.sh \\\n  --output-dir $ROOT/script/views/output \\\n  --rand-min 10 \\\n  --rand-max 50 \\\n  $ROOT{{ $json.body.folder }}/{{ $json.body.filename }} \\\n  {{ $json.body.filename }} \\\n  2>&1 | grep -E \"^/.*\\.mp4$\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -1056
+      ],
+      "id": "f364fd87-2bec-40e2-8c1a-98ffde6a9f32",
+      "name": "Million Views",
+      "notes": "{{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }} 2>&1 | grep -E \"^/.*\\.mp4$\"\n"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        -736
+      ],
+      "id": "31dd5c2a-48a4-4451-97f1-1e24858312fb",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('pending_url').item.json.image }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1056,
+        -736
+      ],
+      "id": "da5b11d8-0460-4d4f-9195-2b44fe652fc9",
+      "name": "download"
+    },
+    {
+      "parameters": {
+        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 3 \\\n--hold-frames 15 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png\" \\\n--background \"{{ $('accounts').item.json.root_dir }}/python/games/temp.mp4\" \\\n--output-path \"{{ $('accounts').item.json.root_dir }}/python/games/outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\" \\\n--bg-video-mode \"full\" \\\n2>&1 | sed -n \"1,500p\"'"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        -432
+      ],
+      "id": "0d7a4be0-972a-4693-925e-007becac5fb9",
+      "name": "command"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.bg_video }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        -432
+      ],
+      "id": "1ec6e2b1-0a93-4036-a411-2b09fdde85c6",
+      "name": "Download Background"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('accounts').item.json.root_dir }}/python/games/temp.mp4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -432
+      ],
+      "id": "a2376775-f084-4ee6-b6f8-944d5c0bc172",
+      "name": "Read/Write Files from Disk1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM background\nWHERE puzzle = '' OR puzzle IS NULL\nORDER BY id ASC\nLIMIT 1;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1504,
+        -736
+      ],
+      "id": "69ab100d-ae28-4315-a93b-8ce8a7d4d821",
+      "name": "select_bg",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE \"background\"\nSET \"puzzle\" = 'DONE'\nWHERE \"id\" = {{ $node[\"select_bg\"].json[\"id\"] }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        624,
+        -432
+      ],
+      "id": "2946a2df-d11b-4b0f-86d7-8d7984df5c41",
+      "name": "update_backgroubd_status",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET public = '{{ (\n  \"https://files.mohdasif.net/python/games/outputs/\" +\n  (( $('pending_url').item.json.image.match(/id=([^&]+)/) || [null, \"NEEDS_MODIFICATION\"])[1]) +\n  \".mp4\"\n).replace(/'/g, \"''\") }}'\nWHERE id = {{ $('pending_url').item.json.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        848,
+        -432
+      ],
+      "id": "ef10e85a-94ce-4d7e-93bd-03fdc6317dee",
+      "name": "set_public_link",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM accounts\nWHERE username = '{{ $('Webhook').item.json.body.username }}'\n  AND type = '{{ $('Webhook').item.json.body.type }}'\nLIMIT 1;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        608,
+        -736
+      ],
+      "id": "e7949419-e5ba-418c-862d-3995bdce72ba",
+      "name": "accounts",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        832,
+        -736
+      ],
+      "id": "aa21ffad-5976-4bc9-a427-a875ebfeb2be",
+      "name": "pending_url",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "830c33ec-4c07-4432-9a82-06fdd496f082",
+              "name": "type",
+              "value": "puzzle1",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        160,
+        -736
+      ],
+      "id": "aadf9297-5c71-4415-aaf5-09188a4c23b2",
+      "name": "puzzle_type"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "puzzle1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "d418d2f3-a339-4fee-b03d-8b6d244da687"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "puzzle1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        384,
+        -736
+      ],
+      "id": "14e8f0d6-c16c-4388-b1ff-5e666cfce512",
+      "name": "SwitchPuzzle"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract final output video path from stdout logs\n\nreturn items.map(item => {\n  const stdout = item.json.stdout || \"\";\n  \n  // Match the video saved path line\n  const match = stdout.match(/Video saved:\\s*(\\/[^\\s]+)/);\n  \n  return {\n    json: {\n      stdout: match ? match[1].trim() : null\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        -432
+      ],
+      "id": "798b5e08-9bb5-4850-b3e9-c367da6b19a2",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-17T10:42:40.295Z",
+      "updatedAt": "2025-10-17T10:42:40.295Z",
+      "role": "workflow:owner",
+      "workflowId": "3xsUSVxkYvsH7w2i",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-10-07T12:15:31.199Z",
+      "updatedAt": "2025-10-07T12:15:31.199Z",
+      "id": "FPKsDlaKRbVBVjZv",
+      "name": "EXECUTE FILES"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-17T13:38:48.000Z",
+  "versionId": "22701113-cba6-4f42-a053-b0adceef4e27"
+}

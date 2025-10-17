@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Webhook": {
       "main": [
@@ -23,11 +23,27 @@
         ]
       ]
     },
-    "Execute Command": {
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "modified": {
       "main": [
         [
           {
             "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "modified",
             "type": "main",
             "index": 0
           }
@@ -41,19 +57,6 @@
   "meta": null,
   "name": "OVERLAY REEL WITH MILLION VIEWS",
   "nodes": [
-    {
-      "parameters": {
-        "command": "={{ $json.body.root_dir }}/sh/overlay_with_views.sh \\\n  --assets-dir {{ $json.body.root_dir }}/extra \\\n  --output-dir {{ $json.body.root_dir }}{{$json.body.folder }}output \\\n  \"{{$json.body.root_dir}}{{$json.body.folder}}{{$json.body.filename}}\" \\\n  \"{{ $json.body.filename }}\"\n"
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        -32,
-        -96
-      ],
-      "id": "336b12fe-43b9-4fa7-ab54-335a0e37553f",
-      "name": "Execute Command"
-    },
     {
       "parameters": {
         "path": "views",
@@ -75,8 +78,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -240,
-        -192
+        -272,
+        -288
       ],
       "id": "de3f5185-fefb-40fd-8d83-06211aba50bb",
       "name": "When clicking ‘Execute workflow’"
@@ -88,11 +91,54 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        144,
-        -96
+        352,
+        -176
       ],
       "id": "944c314e-a0bd-4037-9e08-bbb0d4b16993",
       "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8c7c46ad-6c07-497c-8f43-fac750490942",
+              "name": "modified",
+              "value": "={{ $json.stdout.replace('/home/node/shared','') }}",
+              "type": "string"
+            },
+            {
+              "id": "5196f5a0-1cd6-4db5-b281-41ccefd0e2f8",
+              "name": "fullpath",
+              "value": "={{ $json.stdout }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        160,
+        -176
+      ],
+      "id": "c51945c3-7598-4188-b971-614d8a98b375",
+      "name": "modified"
+    },
+    {
+      "parameters": {
+        "command": "={{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }} 2>&1 | grep -E \"^/.*\\.mp4$\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -176
+      ],
+      "id": "36cdd4ec-c83e-47be-a95c-26580382e106",
+      "name": "Execute Command",
+      "notes": "{{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }}\n\n\n{{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }} 2>&1 | grep -E \"^/.*\\.mp4$\"\n"
     }
   ],
   "origin": "n8n",
@@ -123,6 +169,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-07T12:15:36.000Z",
-  "versionId": "8ab59b74-a0cf-4160-a98b-06cf48e5367d"
+  "updatedAt": "2025-10-17T12:30:43.000Z",
+  "versionId": "868e4d5b-f623-4e0c-add0-ac5f831d4112"
 }

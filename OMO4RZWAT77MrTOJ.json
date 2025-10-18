@@ -5,18 +5,51 @@
       "main": [
         [
           {
-            "node": "config1",
+            "node": "config_json",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "config1": {
+    "MODIFY": {
       "main": [
         [
           {
-            "node": "Call 'test'",
+            "node": "Publish_youtube",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'getData'": {
+      "main": [
+        [
+          {
+            "node": "MODIFY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config_json": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "Call 'getData'",
             "type": "main",
             "index": 0
           }
@@ -50,8 +83,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -2224,
-        -752
+        -2208,
+        -528
       ],
       "id": "a36aa384-dd2b-431a-9442-0a687ccf1573",
       "name": "Schedule Trigger1",
@@ -59,12 +92,29 @@
     },
     {
       "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/modify",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $json.accounts[0].folder }}\",\n  \"filename\": \"{{ $json.pending_url[0].filename }}\",\n  \"root_dir\": \"{{ $json.accounts[0].root_dir }}\",\n  \"username\": \"{{ $json.accounts[0].username }}\",\n  \"database_name\": \"{{ $json.accounts[0].database_name }}\",\n   \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"id\": \"{{ $json.pending_url[0].id }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1312,
+        -528
+      ],
+      "id": "3e5c4b7b-3474-4e06-ab96-38a2caf6e9fa",
+      "name": "MODIFY"
+    },
+    {
+      "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "ygXEJiEAdHclAx4a",
+          "value": "BsyOPmLgdOcI8rtZ",
           "mode": "list",
-          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
-          "cachedResultName": "test"
+          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
+          "cachedResultName": "getData"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -75,26 +125,67 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        -1776,
-        -752
+        -1536,
+        -528
       ],
-      "id": "aa778bd9-27a4-46af-9544-0ea0dcae5c7e",
-      "name": "Call 'test'"
+      "id": "e9d5b00f-d284-4b34-b48f-55e5ffb5b3a4",
+      "name": "Call 'getData'"
+    },
+    {
+      "parameters": {
+        "jsCode": "return{\n  \"username\": \"Tanvi_Kapoor_01\",\n  \"type\": \"youtube\",\n  \"title\": \"false\"\n}\n;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1984,
+        -528
+      ],
+      "id": "de3a53e0-5a7b-4684-abf3-397dd6c7b0d6",
+      "name": "config_json"
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "{\n  \"username\": \"Tanvi_Kapoor_01\",\n  \"type\": \"youtube\",\n  \"title\":\"false\",\n  \"mod\":\"false\",\n  \"modtype\":\"Views\"\n\n}\n",
+        "jsonOutput": "={\n  \"username\": \"{{ $('config_json').item.json.username }}\",\n  \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2000,
-        -752
+        -1760,
+        -528
       ],
-      "id": "21f52703-bb53-4d53-bba2-2c74cd7a521a",
-      "name": "config1"
+      "id": "665f21df-8520-464b-970c-1e13b95c4006",
+      "name": "config"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "5o6t5oIfRFT7p9Vr",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/5o6t5oIfRFT7p9Vr",
+          "cachedResultName": "YOUTUBE-MAX"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -1088,
+        -528
+      ],
+      "id": "12245fa7-df4e-46c9-aaa3-bbf0684dfd5d",
+      "name": "Publish_youtube"
     }
   ],
   "origin": "n8n",
@@ -135,6 +226,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T16:35:47.000Z",
-  "versionId": "16bf8f28-4cf5-4bf3-b3d3-6a1d6847056d"
+  "updatedAt": "2025-10-18T12:52:57.000Z",
+  "versionId": "b4c165a2-d03a-4c4e-89a1-72c907f042ab"
 }

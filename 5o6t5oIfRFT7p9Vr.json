@@ -161,7 +161,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "position": [
         -768,
-        -384
+        -448
       ],
       "typeVersion": 4.2
     },
@@ -173,7 +173,7 @@
       "typeVersion": 1.1,
       "position": [
         -1216,
-        -384
+        -448
       ],
       "id": "e4c77fda-2bba-4d92-af65-156aef1742b2",
       "name": "start"
@@ -289,7 +289,7 @@
       "typeVersion": 3.3,
       "position": [
         -544,
-        -432
+        -480
       ],
       "id": "150357de-671d-4c06-ae82-e2837e3c7ce8",
       "name": "Switch"
@@ -313,7 +313,7 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -224,
+        -320,
         -736
       ],
       "id": "8769b9d3-05eb-4b1b-b39e-ffdf272b17a9",
@@ -340,7 +340,7 @@
       "typeVersion": 1,
       "position": [
         -992,
-        -384
+        -448
       ],
       "id": "f1ea14c6-b6fa-43ba-9cdd-7cbb45ffcbd9",
       "name": "Trending"
@@ -364,8 +364,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -224,
-        -560
+        -320,
+        -544
       ],
       "id": "b1f1c8d0-bbc4-44ab-9138-2d3b47115652",
       "binaryPropertyName": "data",
@@ -395,8 +395,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -224,
-        -400
+        -320,
+        -352
       ],
       "id": "487e9736-8959-4ec6-b257-a5dfa0cfbd82",
       "binaryPropertyName": "data",
@@ -426,8 +426,8 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        -224,
-        -256
+        -320,
+        -160
       ],
       "id": "d6a37bfe-9634-420d-87cc-58980034606e",
       "binaryPropertyName": "data",
@@ -447,8 +447,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        272,
-        -496
+        -96,
+        -448
       ],
       "id": "9601c123-18b8-4a41-b46f-2511d595bfc8",
       "name": "Execute a SQL query",
@@ -488,6 +488,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-17T06:25:12.000Z",
-  "versionId": "242a3901-5650-4e7f-98ba-daf48cd4a439"
+  "updatedAt": "2025-10-18T12:51:43.000Z",
+  "versionId": "4f4e0718-444d-4aa6-9bdc-6096a8ec2357"
 }

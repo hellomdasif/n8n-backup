@@ -1,22 +1,55 @@
 {
   "active": true,
   "connections": {
-    "config1": {
+    "Schedule Trigger1": {
       "main": [
         [
           {
-            "node": "Call 'test'",
+            "node": "config_json",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Schedule Trigger1": {
+    "MODIFY": {
       "main": [
         [
           {
-            "node": "config1",
+            "node": "FINAL_POST",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'getData'": {
+      "main": [
+        [
+          {
+            "node": "MODIFY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config_json": {
+      "main": [
+        [
+          {
+            "node": "config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config": {
+      "main": [
+        [
+          {
+            "node": "Call 'getData'",
             "type": "main",
             "index": 0
           }
@@ -32,45 +65,6 @@
   "nodes": [
     {
       "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "ygXEJiEAdHclAx4a",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
-          "cachedResultName": "GOD-MOD"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        80,
-        -160
-      ],
-      "id": "f01d59f6-9c84-4df4-91eb-f72b9cb99ba5",
-      "name": "Call 'test'"
-    },
-    {
-      "parameters": {
-        "mode": "raw",
-        "jsonOutput": "{\n  \"username\": \"knowsparkz\",\n  \"type\": \"fb\",\n  \"title\":\"false\",\n  \"mod\":\"true\",\n  \"modtype\":\"Views\"\n\n}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -144,
-        -160
-      ],
-      "id": "973ee650-d4aa-4970-bf99-6b0efef5464e",
-      "name": "config1"
-    },
-    {
-      "parameters": {
         "rule": {
           "interval": [
             {
@@ -83,11 +77,104 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -368,
-        -160
+        -880,
+        -688
       ],
       "id": "9c10b3d4-0467-4ef5-8034-830639ebe321",
       "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/modify",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $json.accounts[0].folder }}\",\n  \"filename\": \"{{ $json.pending_url[0].filename }}\",\n  \"root_dir\": \"{{ $json.accounts[0].root_dir }}\",\n  \"username\": \"{{ $json.accounts[0].username }}\",\n  \"database_name\": \"{{ $json.accounts[0].database_name }}\",\n   \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"id\": \"{{ $json.pending_url[0].id }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        16,
+        -688
+      ],
+      "id": "71cc6e14-ae0e-4a24-9b9e-ef652bde5d06",
+      "name": "MODIFY"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "BsyOPmLgdOcI8rtZ",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
+          "cachedResultName": "getData"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -208,
+        -688
+      ],
+      "id": "f7b5f215-4781-45ad-99d4-ea139a3e4459",
+      "name": "Call 'getData'"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "8s68NCy6GF9p0u8T",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/8s68NCy6GF9p0u8T",
+          "cachedResultName": "POST FACEBOOK - PARALLEL"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        240,
+        -688
+      ],
+      "id": "c48b2426-9d6a-4b22-9da9-af38c565d1fa",
+      "name": "FINAL_POST"
+    },
+    {
+      "parameters": {
+        "jsCode": "return{\n  \"username\": \"knowsparkz\",\n  \"type\": \"fb\",\n  \"title\": \"false\"\n}\n;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        -688
+      ],
+      "id": "1121e1e2-b488-40b2-b139-6f1c62063802",
+      "name": "config_json"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"username\": \"{{ $('config_json').item.json.username }}\",\n  \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -432,
+        -688
+      ],
+      "id": "72db58df-5ab9-4d40-a886-b6719148fac8",
+      "name": "config"
     }
   ],
   "origin": "n8n",
@@ -118,7 +205,7 @@
     },
     "node:Schedule Trigger1": {
       "recurrenceRules": [
-        20
+        0
       ]
     }
   },
@@ -131,6 +218,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T11:49:43.000Z",
-  "versionId": "eacc1af9-772c-4400-b2b5-b292b7b6ede0"
+  "updatedAt": "2025-10-18T12:02:59.000Z",
+  "versionId": "07c57382-ba29-4c5e-a5b1-dc5e275a68c2"
 }

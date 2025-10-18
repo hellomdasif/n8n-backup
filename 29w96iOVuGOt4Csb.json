@@ -1,7 +1,40 @@
 {
   "active": true,
   "connections": {
-    "Schedule Trigger": {
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "config_json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MODIFY": {
+      "main": [
+        [
+          {
+            "node": "FINAL_POST",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'getData'": {
+      "main": [
+        [
+          {
+            "node": "MODIFY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config_json": {
       "main": [
         [
           {
@@ -16,7 +49,7 @@
       "main": [
         [
           {
-            "node": "Call 'test'",
+            "node": "Call 'getData'",
             "type": "main",
             "index": 0
           }
@@ -35,8 +68,7 @@
         "rule": {
           "interval": [
             {
-              "field": "cronExpression",
-              "expression": "30 10-23 * * *"
+              "field": "hours"
             }
           ]
         }
@@ -44,35 +76,37 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -400,
-        -192
+        -16,
+        -144
       ],
-      "id": "e6ca7492-7fc2-4625-a76a-9890c1b30a9b",
-      "name": "Schedule Trigger"
+      "id": "8b79e3fe-50a3-4916-905c-5353c5bf7508",
+      "name": "Schedule Trigger1"
     },
     {
       "parameters": {
-        "mode": "raw",
-        "jsonOutput": "{\n  \"username\": \"knowsparkz\",\n  \"type\": \"insta\",\n  \"title\":\"false\",\n  \"mod\":\"true\",\n  \"modtype\":\"Views\"\n\n}\n",
+        "url": "https://n8n.mohdasif.net/webhook/modify",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $json.accounts[0].folder }}\",\n  \"filename\": \"{{ $json.pending_url[0].filename }}\",\n  \"root_dir\": \"{{ $json.accounts[0].root_dir }}\",\n  \"username\": \"{{ $json.accounts[0].username }}\",\n  \"database_name\": \"{{ $json.accounts[0].database_name }}\",\n   \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"id\": \"{{ $json.pending_url[0].id }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n\n\n}\n",
         "options": {}
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        -176,
-        -192
+        880,
+        -144
       ],
-      "id": "8d6a4897-f75f-451f-a8e3-3c11b4c55269",
-      "name": "config"
+      "id": "ca53adf5-0a91-4c92-b30e-e94e4e4f74f5",
+      "name": "MODIFY"
     },
     {
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "ygXEJiEAdHclAx4a",
+          "value": "BsyOPmLgdOcI8rtZ",
           "mode": "list",
-          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
-          "cachedResultName": "GOD-MOD"
+          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
+          "cachedResultName": "getData"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -83,11 +117,63 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        64,
-        -192
+        656,
+        -144
       ],
-      "id": "e4ef3207-917a-432d-9d14-9bcab7232d21",
-      "name": "Call 'test'"
+      "id": "3e2dd0c6-b283-4db0-b431-f2148c28818e",
+      "name": "Call 'getData'"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "8s68NCy6GF9p0u8T",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/8s68NCy6GF9p0u8T",
+          "cachedResultName": "POST FACEBOOK - PARALLEL"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1104,
+        -144
+      ],
+      "id": "51bf0dff-8290-4ee8-9a64-e44646d818c6",
+      "name": "FINAL_POST"
+    },
+    {
+      "parameters": {
+        "jsCode": "return{\n  \"username\": \"knowsparkz\",\n  \"type\": \"insta\",\n  \"title\": \"false\"\n}\n;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        -144
+      ],
+      "id": "7a53cca4-b453-4b07-8823-992fdea92aa1",
+      "name": "config_json"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"username\": \"{{ $('config_json').item.json.username }}\",\n  \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        432,
+        -144
+      ],
+      "id": "e94bb646-e03c-40cf-9bc9-0ac6063890f8",
+      "name": "config"
     }
   ],
   "origin": "n8n",
@@ -115,6 +201,9 @@
       "recurrenceRules": [
         16
       ]
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
     }
   },
   "tags": [
@@ -126,6 +215,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T11:48:29.000Z",
-  "versionId": "d5c4e037-00d7-4d7f-8226-8e4d416074dc"
+  "updatedAt": "2025-10-18T12:02:35.000Z",
+  "versionId": "5494e36e-a2a0-4d1c-a383-ac36e07a926b"
 }

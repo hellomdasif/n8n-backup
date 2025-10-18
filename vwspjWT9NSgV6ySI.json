@@ -1,22 +1,55 @@
 {
   "active": true,
   "connections": {
-    "config": {
+    "MODIFY": {
       "main": [
         [
           {
-            "node": "Call 'test'",
+            "node": "Publish_youtube",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Schedule Trigger1": {
+    "Call 'getData'": {
       "main": [
         [
           {
-            "node": "config",
+            "node": "MODIFY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config_json": {
+      "main": [
+        [
+          {
+            "node": "config1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "config_json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config1": {
+      "main": [
+        [
+          {
+            "node": "Call 'getData'",
             "type": "main",
             "index": 0
           }
@@ -34,52 +67,29 @@
   "nodes": [
     {
       "parameters": {
-        "mode": "raw",
-        "jsonOutput": "{\n  \"username\": \"GyaanManch\",\n  \"type\": \"youtube\",\n  \"title\":\"false\",\n  \"mod\":\"true\",\n  \"modtype\":\"Views\"\n\n}\n",
+        "url": "https://n8n.mohdasif.net/webhook/modify",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $json.accounts[0].folder }}\",\n  \"filename\": \"{{ $json.pending_url[0].filename }}\",\n  \"root_dir\": \"{{ $json.accounts[0].root_dir }}\",\n  \"username\": \"{{ $json.accounts[0].username }}\",\n  \"database_name\": \"{{ $json.accounts[0].database_name }}\",\n   \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"id\": \"{{ $json.pending_url[0].id }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n\n\n}\n",
         "options": {}
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        -2032,
-        -896
+        -1168,
+        -480
       ],
-      "id": "3897cf37-8e5f-4c00-9c80-b8a0bba96419",
-      "name": "config"
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "triggerAtHour": 7,
-              "triggerAtMinute": 30
-            },
-            {
-              "triggerAtHour": 19,
-              "triggerAtMinute": 30
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -2256,
-        -896
-      ],
-      "id": "57fbf46f-753e-474a-9ab8-aa130c691cc8",
-      "name": "Schedule Trigger1",
-      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
+      "id": "da721f8e-2240-4880-bd0c-3b43ce1ceb59",
+      "name": "MODIFY"
     },
     {
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "ygXEJiEAdHclAx4a",
+          "value": "BsyOPmLgdOcI8rtZ",
           "mode": "list",
-          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
-          "cachedResultName": "test"
+          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
+          "cachedResultName": "getData"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -90,11 +100,92 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        -1808,
-        -896
+        -1392,
+        -480
       ],
-      "id": "99428251-ae44-4d55-95eb-c1a2d4c7eec0",
-      "name": "Call 'test'"
+      "id": "def0dcfa-9340-45da-a30f-b498dbd1e01e",
+      "name": "Call 'getData'"
+    },
+    {
+      "parameters": {
+        "jsCode": "return{\n  \"username\": \"GyaanManch\",\n  \"type\": \"youtube\",\n  \"title\": \"false\"\n}\n;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1840,
+        -480
+      ],
+      "id": "e0b28e5d-6abd-4bab-bf2e-c1382ff57838",
+      "name": "config_json"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "5o6t5oIfRFT7p9Vr",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/5o6t5oIfRFT7p9Vr",
+          "cachedResultName": "YOUTUBE-MAX"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -944,
+        -480
+      ],
+      "id": "b95c7316-f274-48d5-b1d1-deb07fa62c36",
+      "name": "Publish_youtube"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7,
+              "triggerAtMinute": 45
+            },
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": 45
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2064,
+        -480
+      ],
+      "id": "9ebdb750-3b19-49eb-b4f4-8c6bc11b243b",
+      "name": "Schedule Trigger",
+      "notes": "Rule 1 →\n0 0 5 * * *\n(Triggers at 05:00 IST)\nRule 2 →\n0 30 17 * * *\n(Triggers at 17:30 IST)"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"username\": \"{{ $('config_json').item.json.username }}\",\n  \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1616,
+        -480
+      ],
+      "id": "6cbfada0-1101-4401-bf17-4486217c8fad",
+      "name": "config1"
     }
   ],
   "origin": "n8n",
@@ -135,6 +226,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T15:24:32.000Z",
-  "versionId": "7bc92b6e-e17f-46da-8cef-010985c1de42"
+  "updatedAt": "2025-10-18T12:57:36.000Z",
+  "versionId": "1e99a587-8588-4050-8d58-d25cb9ff0e45"
 }

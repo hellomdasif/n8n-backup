@@ -1,22 +1,33 @@
 {
   "active": true,
   "connections": {
-    "config2": {
+    "Schedule Trigger1": {
       "main": [
         [
           {
-            "node": "Call 'test'",
+            "node": "config_json",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Schedule Trigger1": {
+    "Call 'getData'": {
       "main": [
         [
           {
-            "node": "config2",
+            "node": "BuildPuzzle2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config_json": {
+      "main": [
+        [
+          {
+            "node": "config",
             "type": "main",
             "index": 0
           }
@@ -27,18 +38,73 @@
       "main": [
         [
           {
-            "node": "Call 'test'1",
+            "node": "Call 'getData'",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Call 'test'": {
+    "BuildPuzzle2": {
       "main": [
         [
           {
-            "node": "config",
+            "node": "FINAL_POST",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'getData'1": {
+      "main": [
+        [
+          {
+            "node": "BuildPuzzle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config_json1": {
+      "main": [
+        [
+          {
+            "node": "config1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "config1": {
+      "main": [
+        [
+          {
+            "node": "Call 'getData'1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BuildPuzzle": {
+      "main": [
+        [
+          {
+            "node": "FINAL_POST1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FINAL_POST": {
+      "main": [
+        [
+          {
+            "node": "config_json1",
             "type": "main",
             "index": 0
           }
@@ -50,47 +116,8 @@
   "id": "msuVtX1IB6wO1WHO",
   "isArchived": false,
   "meta": null,
-  "name": "urban__raja-fb-insta-start",
+  "name": "urban__raja-fb-insta-[QUIZ]",
   "nodes": [
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "ygXEJiEAdHclAx4a",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
-          "cachedResultName": "GOD-MOD"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        -112,
-        -1024
-      ],
-      "id": "e17e9ab0-5d80-4ea2-868d-73d4d6a7e14b",
-      "name": "Call 'test'"
-    },
-    {
-      "parameters": {
-        "mode": "raw",
-        "jsonOutput": "{\n  \"username\": \"urban__raja\",\n  \"type\": \"insta\",\n  \"title\":\"false\",\n  \"mod\":\"true\",\n  \"modtype\":\"puzzle\"\n\n}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -336,
-        -1024
-      ],
-      "id": "4e6d0025-02d3-496d-b3ac-536cc78c9233",
-      "name": "config2"
-    },
     {
       "parameters": {
         "rule": {
@@ -116,8 +143,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -560,
-        -1024
+        -416,
+        -816
       ],
       "id": "477452ab-71cc-4de6-b28f-1bba1b57c49e",
       "name": "Schedule Trigger1"
@@ -126,10 +153,10 @@
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "ygXEJiEAdHclAx4a",
+          "value": "BsyOPmLgdOcI8rtZ",
           "mode": "list",
-          "cachedResultUrl": "/workflow/ygXEJiEAdHclAx4a",
-          "cachedResultName": "GOD-MOD"
+          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
+          "cachedResultName": "getData"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -140,26 +167,173 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        336,
-        -1024
+        256,
+        -816
       ],
-      "id": "5c6e0688-921c-4065-913d-19122745b35e",
-      "name": "Call 'test'1"
+      "id": "ec41519b-8052-491e-b214-1e6dbee22db6",
+      "name": "Call 'getData'"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "8s68NCy6GF9p0u8T",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/8s68NCy6GF9p0u8T",
+          "cachedResultName": "POST FACEBOOK - PARALLEL"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        704,
+        -816
+      ],
+      "id": "6861aad0-35b7-433e-8962-5a58ff2fc517",
+      "name": "FINAL_POST"
+    },
+    {
+      "parameters": {
+        "jsCode": "return{\n  \"username\": \"urban__raja\",\n  \"type\": \"fb\",\n  \"title\": \"false\"\n}\n;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        -816
+      ],
+      "id": "21d6e65d-73f4-436a-9dd3-d613c30ba744",
+      "name": "config_json"
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "{\n  \"username\": \"urban__raja\",\n  \"type\": \"fb\",\n  \"title\":\"false\",\n  \"mod\":\"true\",\n  \"modtype\":\"puzzle\"\n\n}\n",
+        "jsonOutput": "={\n  \"username\": \"{{ $('config_json').item.json.username }}\",\n  \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        112,
-        -1024
+        32,
+        -816
       ],
-      "id": "2bbe4afe-56b3-4a80-93d8-7e6f4b66314b",
+      "id": "c94d7906-fa5c-4544-8865-0064ee745631",
       "name": "config"
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/puzzle",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $json.accounts[0].folder }}\",\n  \"filename\": \"{{ $json.pending_url[0].filename }}\",\n  \"root_dir\": \"{{ $json.accounts[0].root_dir }}\",\n  \"username\": \"{{ $json.accounts[0].username }}\",\n  \"database_name\": \"{{ $json.accounts[0].database_name }}\",\n   \"type\": \"{{ $('config_json').item.json.type }}\",\n  \"id\": \"{{ $json.pending_url[0].id }}\",\n  \"title\":\"{{ $('config_json').item.json.title }}\"\n\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        -816
+      ],
+      "id": "dc3c157b-7eb5-4ef4-baf0-d59162b453fe",
+      "name": "BuildPuzzle2"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "BsyOPmLgdOcI8rtZ",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
+          "cachedResultName": "getData"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        -592
+      ],
+      "id": "5945d5c2-9221-49ce-a7ff-a532b776059c",
+      "name": "Call 'getData'1"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "8s68NCy6GF9p0u8T",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/8s68NCy6GF9p0u8T",
+          "cachedResultName": "POST FACEBOOK - PARALLEL"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        704,
+        -592
+      ],
+      "id": "35476f4d-1848-4451-9634-980f0406df6b",
+      "name": "FINAL_POST1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return{\n  \"username\": \"urban__raja\",\n  \"type\": \"insta\",\n  \"title\": \"false\"\n}\n;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        -592
+      ],
+      "id": "1b4b9c54-ca86-460d-8c66-b99e08d32b72",
+      "name": "config_json1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"username\": \"{{ $('config_json1').item.json.username }}\",\n  \"type\": \"{{ $('config_json1').item.json.type }}\",\n  \"title\":\"{{ $('config_json1').item.json.title }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        -592
+      ],
+      "id": "622e73a4-743c-431f-94ed-c20839dae76a",
+      "name": "config1"
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.mohdasif.net/webhook/puzzle",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"folder\": \"{{ $json.accounts[0].folder }}\",\n  \"filename\": \"{{ $json.pending_url[0].filename }}\",\n  \"root_dir\": \"{{ $json.accounts[0].root_dir }}\",\n  \"username\": \"{{ $json.accounts[0].username }}\",\n  \"database_name\": \"{{ $json.accounts[0].database_name }}\",\n   \"type\": \"{{ $('config_json1').item.json.type }}\",\n  \"id\": \"{{ $json.pending_url[0].id }}\",\n  \"title\":\"{{ $('config_json1').item.json.title }}\"\n\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        -592
+      ],
+      "id": "7bdf0d40-f8e6-4d6e-a88d-07050a61052c",
+      "name": "BuildPuzzle"
     }
   ],
   "origin": "n8n",
@@ -203,6 +377,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T13:44:25.000Z",
-  "versionId": "21f9fe5a-e48d-4b9a-a0e2-99f3b3c20ac4"
+  "updatedAt": "2025-10-18T12:42:42.000Z",
+  "versionId": "6aea35a8-0c08-4051-9db7-dc373c11d1f0"
 }

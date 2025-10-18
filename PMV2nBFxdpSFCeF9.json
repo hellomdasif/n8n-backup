@@ -37,7 +37,7 @@
   },
   "createdAt": "2025-09-28T11:25:17.099Z",
   "id": "PMV2nBFxdpSFCeF9",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "TWEAK",
   "nodes": [
@@ -123,6 +123,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T12:30:48.000Z",
-  "versionId": "3e412e3d-2ddc-499c-a2a9-df7c344bc1a6"
+  "updatedAt": "2025-10-18T05:57:38.000Z",
+  "versionId": "d183e9d8-acbb-4b34-9534-97d9a5ecccc7"
 }

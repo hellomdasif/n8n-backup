@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "Switch",
+            "node": "username_check",
             "type": "main",
             "index": 0
           }
@@ -14,47 +14,12 @@
     },
     "When clicking ‘Execute workflow’": {
       "main": [
-        [
-          {
-            "node": "Switch",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Respond to Webhook": {
       "main": [
         []
-      ]
-    },
-    "modified": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Switch": {
-      "main": [
-        [
-          {
-            "node": "username_check",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "puzzle_type",
-            "type": "main",
-            "index": 0
-          }
-        ]
       ]
     },
     "username_check": {
@@ -72,98 +37,31 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "set_public_link1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "set_public_link1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Million Views",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
     "without_screen_overlay": {
-      "main": [
-        [
-          {
-            "node": "modified",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Million Views": {
-      "main": [
-        [
-          {
-            "node": "modified",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Read/Write Files from Disk": {
-      "main": [
-        [
-          {
-            "node": "select_bg",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "download": {
-      "main": [
-        [
-          {
-            "node": "Read/Write Files from Disk",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "command": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Download Background": {
-      "main": [
-        [
-          {
-            "node": "Read/Write Files from Disk1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Read/Write Files from Disk1": {
-      "main": [
-        [
-          {
-            "node": "command",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "select_bg": {
-      "main": [
-        [
-          {
-            "node": "Download Background",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "update_backgroubd_status": {
       "main": [
         [
           {
@@ -174,44 +72,11 @@
         ]
       ]
     },
-    "accounts": {
+    "Million Views": {
       "main": [
         [
           {
-            "node": "pending_url",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "pending_url": {
-      "main": [
-        [
-          {
-            "node": "download",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "puzzle_type": {
-      "main": [
-        [
-          {
-            "node": "SwitchPuzzle",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "SwitchPuzzle": {
-      "main": [
-        [
-          {
-            "node": "accounts",
+            "node": "set_public_link",
             "type": "main",
             "index": 0
           }
@@ -222,18 +87,51 @@
       "main": [
         [
           {
-            "node": "command",
+            "node": "pre",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Code in JavaScript": {
+    "data": {
       "main": [
         [
           {
-            "node": "modified",
+            "node": "final_data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pre": {
+      "main": [
+        [
+          {
+            "node": "data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "final_data": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set_public_link1": {
+      "main": [
+        [
+          {
+            "node": "pre",
             "type": "main",
             "index": 0
           }
@@ -256,8 +154,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -288,
-        -832
+        -3024,
+        -848
       ],
       "id": "fa647c75-b9a9-4a7b-adda-34e87d591c9c",
       "name": "Webhook",
@@ -268,119 +166,25 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -288,
-        -1024
+        -1904,
+        -1184
       ],
       "id": "5ebf5aeb-b727-43ce-bf4c-bea87e47d0bb",
       "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
+        "respondWith": "allIncomingItems",
         "options": {}
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        832,
-        -1056
+        -1456,
+        -848
       ],
       "id": "a6c7426a-effe-46ac-b350-908e82cfc15c",
       "name": "Respond to Webhook"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "8c7c46ad-6c07-497c-8f43-fac750490942",
-              "name": "modified",
-              "value": "={{ $json.stdout.replace('/home/node/shared','') }}",
-              "type": "string"
-            },
-            {
-              "id": "5196f5a0-1cd6-4db5-b281-41ccefd0e2f8",
-              "name": "fullpath",
-              "value": "={{ $json.stdout }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        608,
-        -1056
-      ],
-      "id": "c4a9bd6a-7706-4c27-9bfc-50111ca67df3",
-      "name": "modified"
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.body.modtype }}",
-                    "rightValue": "Views",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    },
-                    "id": "e5028f49-1f95-4050-934d-a43f376c4543"
-                  }
-                ],
-                "combinator": "and"
-              },
-              "renameOutput": true,
-              "outputKey": "Views"
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "5e7db562-4847-4e41-809f-fde144e57c37",
-                    "leftValue": "={{ $json.body.modtype }}",
-                    "rightValue": "puzzle",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              },
-              "renameOutput": true,
-              "outputKey": "puzzle"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.3,
-      "position": [
-        -64,
-        -928
-      ],
-      "id": "599658aa-0f7b-4231-b45c-a2d12412e67f",
-      "name": "Switch"
     },
     {
       "parameters": {
@@ -421,7 +225,7 @@
                 "conditions": [
                   {
                     "id": "5e7db562-4847-4e41-809f-fde144e57c37",
-                    "leftValue": "knowsparkz",
+                    "leftValue": "={{ $json.body.username }}",
                     "rightValue": "knowsparkz",
                     "operator": {
                       "type": "string",
@@ -434,251 +238,7 @@
               },
               "renameOutput": true,
               "outputKey": "knowsparkz"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.3,
-      "position": [
-        160,
-        -1152
-      ],
-      "id": "66b7b5f3-92b1-469d-8ace-4fd5dfcde1e6",
-      "name": "username_check"
-    },
-    {
-      "parameters": {
-        "command": "=ROOT=\"{{ $json.body.root_dir }}\"; \\\n$ROOT/script/views/views.sh \\\n  --output-dir $ROOT/script/views/output \\\n  --rand-min 10 \\\n  --rand-max 50 \\\n  --no-screenshot \\\n  $ROOT{{ $json.body.folder }}/{{ $json.body.filename }} \\\n  {{ $json.body.filename }} \\\n  2>&1 | grep -E \"^/.*\\.mp4$\""
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        384,
-        -1248
-      ],
-      "id": "0c1040f0-639b-4464-9009-4fc65afe7a97",
-      "name": "without_screen_overlay",
-      "notes": "{{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }} 2>&1 | grep -E \"^/.*\\.mp4$\"\n"
-    },
-    {
-      "parameters": {
-        "command": "=ROOT=\"{{ $json.body.root_dir }}\"; \\\n$ROOT/script/views/views.sh \\\n  --output-dir $ROOT/script/views/output \\\n  --rand-min 10 \\\n  --rand-max 50 \\\n  $ROOT{{ $json.body.folder }}/{{ $json.body.filename }} \\\n  {{ $json.body.filename }} \\\n  2>&1 | grep -E \"^/.*\\.mp4$\""
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        384,
-        -1056
-      ],
-      "id": "f364fd87-2bec-40e2-8c1a-98ffde6a9f32",
-      "name": "Million Views",
-      "notes": "{{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }} 2>&1 | grep -E \"^/.*\\.mp4$\"\n"
-    },
-    {
-      "parameters": {
-        "operation": "write",
-        "fileName": "={{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.readWriteFile",
-      "typeVersion": 1,
-      "position": [
-        1280,
-        -736
-      ],
-      "id": "31dd5c2a-48a4-4451-97f1-1e24858312fb",
-      "name": "Read/Write Files from Disk"
-    },
-    {
-      "parameters": {
-        "url": "={{ $('pending_url').item.json.image }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1056,
-        -736
-      ],
-      "id": "da5b11d8-0460-4d4f-9195-2b44fe652fc9",
-      "name": "download"
-    },
-    {
-      "parameters": {
-        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 3 \\\n--hold-frames 15 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png\" \\\n--background \"{{ $('accounts').item.json.root_dir }}/python/games/temp.mp4\" \\\n--output-path \"{{ $('accounts').item.json.root_dir }}/python/games/outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\" \\\n--bg-video-mode \"full\" \\\n2>&1 | sed -n \"1,500p\"'"
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        1072,
-        -432
-      ],
-      "id": "0d7a4be0-972a-4693-925e-007becac5fb9",
-      "name": "command"
-    },
-    {
-      "parameters": {
-        "url": "={{ $json.bg_video }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        176,
-        -432
-      ],
-      "id": "1ec6e2b1-0a93-4036-a411-2b09fdde85c6",
-      "name": "Download Background"
-    },
-    {
-      "parameters": {
-        "operation": "write",
-        "fileName": "={{ $('accounts').item.json.root_dir }}/python/games/temp.mp4",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.readWriteFile",
-      "typeVersion": 1,
-      "position": [
-        400,
-        -432
-      ],
-      "id": "a2376775-f084-4ee6-b6f8-944d5c0bc172",
-      "name": "Read/Write Files from Disk1"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM background\nWHERE puzzle = '' OR puzzle IS NULL\nORDER BY id ASC\nLIMIT 1;\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        1504,
-        -736
-      ],
-      "id": "69ab100d-ae28-4315-a93b-8ce8a7d4d821",
-      "name": "select_bg",
-      "credentials": {
-        "postgres": {
-          "id": "NTm0aBQ2ka4qBTqV",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE \"background\"\nSET \"puzzle\" = 'DONE'\nWHERE \"id\" = {{ $node[\"select_bg\"].json[\"id\"] }};\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        624,
-        -432
-      ],
-      "id": "2946a2df-d11b-4b0f-86d7-8d7984df5c41",
-      "name": "update_backgroubd_status",
-      "credentials": {
-        "postgres": {
-          "id": "NTm0aBQ2ka4qBTqV",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET public = '{{ (\n  \"https://files.mohdasif.net/python/games/outputs/\" +\n  (( $('pending_url').item.json.image.match(/id=([^&]+)/) || [null, \"NEEDS_MODIFICATION\"])[1]) +\n  \".mp4\"\n).replace(/'/g, \"''\") }}'\nWHERE id = {{ $('pending_url').item.json.id }};\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        848,
-        -432
-      ],
-      "id": "ef10e85a-94ce-4d7e-93bd-03fdc6317dee",
-      "name": "set_public_link",
-      "credentials": {
-        "postgres": {
-          "id": "NTm0aBQ2ka4qBTqV",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM accounts\nWHERE username = '{{ $('Webhook').item.json.body.username }}'\n  AND type = '{{ $('Webhook').item.json.body.type }}'\nLIMIT 1;",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        608,
-        -736
-      ],
-      "id": "e7949419-e5ba-418c-862d-3995bdce72ba",
-      "name": "accounts",
-      "credentials": {
-        "postgres": {
-          "id": "NTm0aBQ2ka4qBTqV",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        832,
-        -736
-      ],
-      "id": "aa21ffad-5976-4bc9-a427-a875ebfeb2be",
-      "name": "pending_url",
-      "credentials": {
-        "postgres": {
-          "id": "NTm0aBQ2ka4qBTqV",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "830c33ec-4c07-4432-9a82-06fdd496f082",
-              "name": "type",
-              "value": "puzzle1",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        160,
-        -736
-      ],
-      "id": "aadf9297-5c71-4415-aaf5-09188a4c23b2",
-      "name": "puzzle_type"
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
+            },
             {
               "conditions": {
                 "options": {
@@ -689,19 +249,70 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.type }}",
-                    "rightValue": "puzzle1",
+                    "id": "4d310438-a820-4d69-a1fc-6b9c06463c7e",
+                    "leftValue": "={{ $json.body.username }}",
+                    "rightValue": "ReelSense",
                     "operator": {
                       "type": "string",
-                      "operation": "equals"
-                    },
-                    "id": "d418d2f3-a339-4fee-b03d-8b6d244da687"
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "puzzle1"
+              "outputKey": "ReelSense"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6e397b7a-8758-4b53-ba15-ba4fe09841dd",
+                    "leftValue": "={{ $json.body.username }}",
+                    "rightValue": "Tanvi_Kapoor_01",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Tanvi_Kapoor_01"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2f0b374e-a4d3-4fd9-a79f-e09b3881bcf0",
+                    "leftValue": "={{ $json.body.username }}",
+                    "rightValue": "FactsMind_99",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FactsMind_99"
             }
           ]
         },
@@ -710,24 +321,177 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        384,
-        -736
+        -2800,
+        -896
       ],
-      "id": "14e8f0d6-c16c-4388-b1ff-5e666cfce512",
-      "name": "SwitchPuzzle"
+      "id": "66b7b5f3-92b1-469d-8ace-4fd5dfcde1e6",
+      "name": "username_check"
     },
     {
       "parameters": {
-        "jsCode": "// Extract final output video path from stdout logs\n\nreturn items.map(item => {\n  const stdout = item.json.stdout || \"\";\n  \n  // Match the video saved path line\n  const match = stdout.match(/Video saved:\\s*(\\/[^\\s]+)/);\n  \n  return {\n    json: {\n      stdout: match ? match[1].trim() : null\n    }\n  };\n});\n"
+        "command": "=ROOT=\"{{ $json.body.root_dir }}\"; \\\n$ROOT/script/views/views.sh \\\n  --output-dir $ROOT{{ $('Webhook').item.json.body.folder }}/output/ \\\n  --rand-min 10 \\\n  --rand-max 50 \\\n  --no-screenshot \\\n  $ROOT{{ $json.body.folder }}/{{ $json.body.filename }} \\\n  {{ $json.body.filename }} \\\n  2>&1 | grep -E \"^/.*\\.mp4$\""
       },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
       "position": [
-        1296,
-        -432
+        -2576,
+        -1040
       ],
-      "id": "798b5e08-9bb5-4850-b3e9-c367da6b19a2",
-      "name": "Code in JavaScript"
+      "id": "0c1040f0-639b-4464-9009-4fc65afe7a97",
+      "name": "without_screen_overlay",
+      "notes": "{{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }} 2>&1 | grep -E \"^/.*\\.mp4$\"\n"
+    },
+    {
+      "parameters": {
+        "command": "=ROOT=\"{{ $json.body.root_dir }}\"; \\\n$ROOT/script/views/views.sh \\\n  --output-dir $ROOT{{ $('Webhook').item.json.body.folder }}/output/ \\\n  --rand-min 10 \\\n  --rand-max 50 \\\n  $ROOT{{ $json.body.folder }}/{{ $json.body.filename }} \\\n  {{ $json.body.filename }} \\\n  2>&1 | grep -E \"^/.*\\.mp4$\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2576,
+        -848
+      ],
+      "id": "f364fd87-2bec-40e2-8c1a-98ffde6a9f32",
+      "name": "Million Views",
+      "notes": "{{ $json.body.root_dir }}script/views/views.sh --output-dir {{ $json.body.root_dir }}script/views/output --rand-min 10 --rand-max 50 --no-screenshot --no-caption --no-emoji {{ $json.body.root_dir }}{{ $json.body.folder }}/{{ $json.body.filename }} {{ $json.body.filename }} 2>&1 | grep -E \"^/.*\\.mp4$\"\n"
+    },
+    {
+      "parameters": {
+        "command": "=#!/bin/sh\nset -eu\n\n# Enhanced video composition with audio handling and fixed output path.\n# Final output is always: /files/output/output.mp4\n# Features: SPEED_FACTOR (video+main audio), BRIGHTNESS, TARGET_FPS=30\n\n# ---------------- CONFIG ----------------\nINPUT_URL=\"{{ $node[\"Webhook\"].json.body.root_dir }}{{$node[\"Webhook\"].json.body.folder}}{{$node[\"Webhook\"].json.body.filename}}\"\nOVERLAY_FILE=\"{{$node[\"Webhook\"].json.body.OVERLAY_FILE}}\"\nOVERLAY_2=\"\"\nOVERLAY_2_LENGTH_SECONDS=\"\"\nOVERLAY_2_START_SEC=\"0\"\nOVERLAY_TRANSITION_DURATION=\"0.6\"\n\nTRIM_DURATION=\"60\" # leave empty for no trim, or number of seconds\nOUTRO_FILE=\"\"\nOUTRO_TRANSITION_DURATION=\"0.5\"\n\n# RANDOM INSERT with AUDIO support (leave empty to disable)\nRANDOM_INSERT_FILE=\"\"\nRANDOM_INSERT_TRANSITION=\"0.2\"\n\nCROP_POSITION=\"bottom\"\nCROP_PERCENT=70\nCROP_ENABLE=true\n\n# Mirror/flip main video horizontally\nMIRROR_ENABLE=false\n\n# Speed factor (applies to composed main video + main audio)\n# <1.0 slows down (e.g., 0.8), 1.0 normal, >1.0 speeds up (e.g., 1.2)\nSPEED_FACTOR=\"0.9\"\n\n# Brightness adjustment for final output (-1.0 .. 1.0)\nBRIGHTNESS=\"0.1\"\n\n# Force Instagram-friendly fps\nTARGET_FPS=30\n\nCAPTION_ENABLE=true\nCAPTION_FONT_PATH=\"/files/fonts/ARIALBD.TTF\"\nCAPTION_POS_X_PERCENT=50\nCAPTION_POS_Y_PERCENT=35\nCAPTION_TEXT=\"WAIT FOR END ...\"\nCAPTION_FONT_SIZE=60\nCAPTION_FONT_COLOR=\"white\"\nTEXT_BG_ENABLE=true\nTEXT_BG_COLOR=\"black\"\nTEXT_BG_OPACITY=150\nTEXT_BG_PADDING=25\n\n# ---------------- OUTPUT (FIXED) ----------------\nOUT_FILE=\"{{ $node[\"Webhook\"].json.body.root_dir }}{{$node[\"Webhook\"].json.body.folder}}output/{{$node[\"Webhook\"].json.body.filename}}\"\nmkdir -p \"$(dirname \"$OUT_FILE\")\"\n\nOUT_DIR=\"$(dirname \"$OUT_FILE\")\"\nCAPTION_PNG=\"${OUT_DIR}/caption_image.png\"\nMERGED_OVERLAY_TMP=\"${OUT_DIR}/overlay_merged_$(date +%s)_$$.mp4\"\nCOMPOSED_MAIN_TMP=\"${OUT_DIR}/main_composed_$(date +%s)_$$.mp4\"\n\nFFMPEG_TIMEOUT=\"5m\"\n# --------------- end config --------------\n\necho \"=== Start: enhanced video composition with audio insert ===\" >&2\n\n# Resolve INPUT_FILE from INPUT_URL (same logic as before)\nINPUT_FILE=\"$INPUT_URL\"\n\n\necho \"Main background: $INPUT_FILE\" >&2\necho \"Overlay primary: $OVERLAY_FILE\" >&2\n[ -n \"$OVERLAY_2\" ] && echo \"Overlay secondary: $OVERLAY_2\" >&2\n[ -n \"$OUTRO_FILE\" ] && echo \"Outro file: $OUTRO_FILE\" >&2\n[ -n \"$RANDOM_INSERT_FILE\" ] && echo \"Random insert file: $RANDOM_INSERT_FILE\" >&2\n[ -n \"$TRIM_DURATION\" ] && echo \"Trim duration: $TRIM_DURATION seconds\" >&2\necho \"SPEED_FACTOR: $SPEED_FACTOR, BRIGHTNESS: $BRIGHTNESS, TARGET_FPS: $TARGET_FPS\" >&2\n\n# Helper functions\nprobe_duration() { ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"$1\" 2>/dev/null || printf \"\"; }\nprobe_resolution() { ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0:s=x \"$1\" 2>/dev/null || printf \"\"; }\nprobe_framerate() { ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of default=nw=1:nk=1 \"$1\" 2>/dev/null || printf \"\"; }\n\n# Validate files\nif [ ! -f \"$INPUT_FILE\" ]; then echo \"ERR: main input missing: $INPUT_FILE\" >&2; exit 1; fi\nif [ ! -f \"$OVERLAY_FILE\" ]; then echo \"ERR: overlay primary missing: $OVERLAY_FILE\" >&2; exit 1; fi\nif [ -n \"$OVERLAY_2\" ] && [ ! -f \"$OVERLAY_2\" ]; then echo \"ERR: overlay secondary missing: $OVERLAY_2\" >&2; exit 1; fi\n\n# If an outro path was supplied but file missing — warn and treat as empty\nif [ -n \"$OUTRO_FILE\" ] && [ ! -f \"$OUTRO_FILE\" ]; then\n  echo \"WARN: outro path provided but file not found: $OUTRO_FILE — skipping outro.\" >&2\n  OUTRO_FILE=\"\"\nfi\n\nif [ -n \"$RANDOM_INSERT_FILE\" ] && [ ! -f \"$RANDOM_INSERT_FILE\" ]; then\n  echo \"ERR: random insert file missing: $RANDOM_INSERT_FILE\" >&2; exit 1;\nfi\n\n# If outro is empty or invalid, explicitly clear it and skip outro processing\nif [ -z \"${OUTRO_FILE:-}\" ]; then\n  OUTRO_FILE=\"\"\n  OUTRO_INDEX=\"\"\n  echo \"No valid outro — outro processing disabled.\" >&2\nfi\n\n# Probe overlay durations\nOV1_DUR=$(probe_duration \"$OVERLAY_FILE\"); OV1_DUR=${OV1_DUR:-0}; OV1_DUR=$(awk -v v=\"$OV1_DUR\" 'BEGIN{printf(\"%.3f\", v+0)}')\necho \"Overlay1 duration: $OV1_DUR\" >&2\nif [ -n \"$OVERLAY_2\" ]; then\n  OV2_DUR=$(probe_duration \"$OVERLAY_2\"); OV2_DUR=${OV2_DUR:-0}; OV2_DUR=$(awk -v v=\"$OV2_DUR\" 'BEGIN{printf(\"%.3f\", v+0)}')\n  echo \"Overlay2 duration: $OV2_DUR\" >&2\nfi\n\n# Determine overlay resolution and FPS (we'll still force TARGET_FPS)\nIN_RES=$(probe_resolution \"$OVERLAY_FILE\" || true)\nif [ -n \"$IN_RES\" ]; then\n  O_W=$(printf \"%s\" \"$IN_RES\" | awk -Fx '{print $1}')\n  O_H=$(printf \"%s\" \"$IN_RES\" | awk -Fx '{print $2}')\nelse\n  O_W=720; O_H=1280\nfi\nFPS_RAW=$(probe_framerate \"$OVERLAY_FILE\" || true)\necho \"Overlay native resolution: ${O_W}x${O_H} native-fps:${FPS_RAW} -> using TARGET_FPS=${TARGET_FPS}\" >&2\n\n# Merge overlays if needed\nif [ -z \"$OVERLAY_2\" ]; then\n  echo \"No overlay2 provided — using overlay primary as-is.\" >&2\n  MERGED_OVERLAY=\"$OVERLAY_FILE\"\nelse\n  if [ -n \"$OVERLAY_2_LENGTH_SECONDS\" ]; then\n    OVERLAY_2_LENGTH_SECONDS=$(awk -v v=\"$OVERLAY_2_LENGTH_SECONDS\" 'BEGIN{printf(\"%.3f\", v+0)}')\n    FIRST_END_SEC=$(awk -v d=\"$OV1_DUR\" -v s=\"$OVERLAY_2_LENGTH_SECONDS\" 'BEGIN{printf(\"%.3f\", d - s)}')\n  else\n    FIRST_END_SEC=$(awk -v d=\"$OV1_DUR\" 'BEGIN{printf(\"%.3f\", d*0.70)}')\n  fi\n\n  TRANS=$(awk -v v=\"$OVERLAY_TRANSITION_DURATION\" 'BEGIN{printf(\"%.3f\", v+0)}')\n  OFFSET=$(awk -v f=\"$FIRST_END_SEC\" -v t=\"$TRANS\" 'BEGIN{printf(\"%.3f\", f - t)}')\n\n  ffmpeg -y -hide_banner -loglevel error \\\n    -i \"$OVERLAY_FILE\" -i \"$OVERLAY_2\" \\\n    -filter_complex \"\\\n[0:v]trim=start=0:end=${FIRST_END_SEC},setpts=PTS-STARTPTS,scale=${O_W}:${O_H},fps=${TARGET_FPS},setsar=1,format=yuv420p[v0]; \\\n[1:v]trim=start=${OVERLAY_2_START_SEC},setpts=PTS-STARTPTS,scale=${O_W}:${O_H},fps=${TARGET_FPS},setsar=1,format=yuv420p[v1]; \\\n[v0][v1]xfade=transition=fade:duration=${TRANS}:offset=${OFFSET}[vxf]\" \\\n    -map \"[vxf]\" -c:v libx264 -crf 18 -preset veryfast -an -movflags +faststart \\\n    \"$MERGED_OVERLAY_TMP\"\n\n  MERGED_OVERLAY=\"$MERGED_OVERLAY_TMP\"\nfi\n\n# Generate caption if enabled\nif [ \"$CAPTION_ENABLE\" = \"true\" ]; then\n  rm -f \"${CAPTION_PNG}\" || true\n  export CAPTION_PNG CAPTION_TEXT CAPTION_FONT_PATH CAPTION_FONT_SIZE CAPTION_FONT_COLOR CAPTION_POS_X_PERCENT CAPTION_POS_Y_PERCENT TEXT_BG_ENABLE TEXT_BG_COLOR TEXT_BG_OPACITY TEXT_BG_PADDING\n  python3 - <<'PY' 1>&2\nimport os\nfrom PIL import Image, ImageDraw, ImageFont\n\nout_path = os.environ[\"CAPTION_PNG\"]\ntext = os.environ.get(\"CAPTION_TEXT\", \"\")\nfont_path = os.environ.get(\"CAPTION_FONT_PATH\", \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\")\ntry:\n    font_size = int(os.environ.get(\"CAPTION_FONT_SIZE\", \"64\"))\nexcept Exception:\n    font_size = 64\nfont_color = os.environ.get(\"CAPTION_FONT_COLOR\", \"white\")\ntry:\n    pos_x_pct = int(os.environ.get(\"CAPTION_POS_X_PERCENT\", \"50\"))\nexcept Exception:\n    pos_x_pct = 50\ntry:\n    pos_y_pct = int(os.environ.get(\"CAPTION_POS_Y_PERCENT\", \"50\"))\nexcept Exception:\n    pos_y_pct = 50\nbg_enable = os.environ.get(\"TEXT_BG_ENABLE\", \"true\").lower() == 'true'\ntry:\n    bg_opacity = int(os.environ.get(\"TEXT_BG_OPACITY\", \"150\"))\nexcept Exception:\n    bg_opacity = 150\ntry:\n    bg_padding = int(os.environ.get(\"TEXT_BG_PADDING\", \"20\"))\nexcept Exception:\n    bg_padding = 20\n\ncanvas_w, canvas_h = 1080, 1920\ncanvas = Image.new(\"RGBA\", (canvas_w, canvas_h), (0, 0, 0, 0))\ndraw = ImageDraw.Draw(canvas)\nfont = None\ntry:\n    font = ImageFont.truetype(font_path, font_size)\nexcept Exception:\n    candidates = [\n        \"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\",\n        \"/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\"\n    ]\n    for p in candidates:\n        if os.path.isfile(p):\n            try:\n                font = ImageFont.truetype(p, font_size)\n                break\n            except Exception:\n                pass\nif font is None:\n    font = ImageFont.load_default()\n\ntext = text or \" \"\nlines = text.splitlines() if \"\\n\" in text else [text]\nline_heights = []\nmax_w = 0\ntemp_draw = ImageDraw.Draw(canvas)\nfor ln in lines:\n    bbox = temp_draw.textbbox((0,0), ln, font=font)\n    w = bbox[2] - bbox[0]\n    h = bbox[3] - bbox[1]\n    line_heights.append(h)\n    if w > max_w:\n        max_w = w\ntotal_h = sum(line_heights) + (len(lines)-1) * int(font_size * 0.2)\n\nx = (canvas_w * pos_x_pct / 100.0) - (max_w / 2.0)\ny = (canvas_h * pos_y_pct / 100.0) - (total_h / 2.0)\n\nif bg_enable:\n    bg_layer = Image.new(\"RGBA\", (canvas_w, canvas_h), (0,0,0,0))\n    bg_draw = ImageDraw.Draw(bg_layer)\n    left = int(x - bg_padding); top = int(y - bg_padding)\n    right = int(x + max_w + bg_padding); bottom = int(y + total_h + bg_padding)\n    bg_draw.rectangle([left, top, right, bottom], fill=(0,0,0,bg_opacity))\n    canvas = Image.alpha_composite(canvas, bg_layer)\n\ndraw = ImageDraw.Draw(canvas)\ncur_y = y\nfor idx, ln in enumerate(lines):\n    draw.text((x, cur_y), ln, font=font, fill=font_color)\n    cur_y += line_heights[idx] + int(font_size * 0.2)\n\nos.makedirs(os.path.dirname(out_path), exist_ok=True)\ncanvas.save(out_path)\nPY\n  if [ ! -f \"$CAPTION_PNG\" ]; then echo \"ERR: caption generation failed.\" >&2; exit 1; fi\nfi\n\n# Probe main duration\nMAIN_VID_DURATION=$(probe_duration \"$INPUT_FILE\" || printf \"\")\nMAIN_VID_DURATION=${MAIN_VID_DURATION:-10}\nMAIN_VID_DURATION=$(awk -v v=\"$MAIN_VID_DURATION\" 'BEGIN{ if(v==0) v=10; printf(\"%.3f\", v+0)}')\necho \"Main video duration (original): $MAIN_VID_DURATION\" >&2\n\n# Calculate proper INPUT_READ_DURATION based on SPEED_FACTOR\nSPEED_FACTOR_N=$(awk -v s=\"$SPEED_FACTOR\" 'BEGIN{ if(s<=0) s=1.0; printf(\"%.6f\", s+0) }')\n\n# Apply trim with speed factor consideration\nINPUT_READ_DURATION=\"\"\nif [ -n \"$TRIM_DURATION\" ]; then\n    # For output X seconds at speed S, we need X*S seconds input\n    INPUT_READ_DURATION=$(awk -v t=\"$TRIM_DURATION\" -v s=\"$SPEED_FACTOR_N\" 'BEGIN{ printf(\"%.3f\", t*s) }')\n    # Ensure we don't exceed main duration\n    if [ \"$(awk -v i=\"$INPUT_READ_DURATION\" -v m=\"$MAIN_VID_DURATION\" 'BEGIN{ if(i>m) print 1; else print 0 }')\" = \"1\" ]; then\n        echo \"WARNING: Requested duration exceeds available. Adjusting...\" >&2\n        INPUT_READ_DURATION=\"$MAIN_VID_DURATION\"\n        EFFECTIVE_DURATION=$(awk -v i=\"$INPUT_READ_DURATION\" -v s=\"$SPEED_FACTOR_N\" 'BEGIN{ printf(\"%.3f\", i/s) }')\n    else\n        EFFECTIVE_DURATION=\"$TRIM_DURATION\"\n    fi\nelse\n    INPUT_READ_DURATION=\"$MAIN_VID_DURATION\"\n    EFFECTIVE_DURATION=$(awk -v m=\"$MAIN_VID_DURATION\" -v s=\"$SPEED_FACTOR_N\" 'BEGIN{ printf(\"%.3f\", m/s) }')\nfi\n\necho \"SPEED_FACTOR: $SPEED_FACTOR_N\" >&2\necho \"INPUT_READ_DURATION: $INPUT_READ_DURATION (amount to read from files)\" >&2\necho \"EFFECTIVE_DURATION: $EFFECTIVE_DURATION (output duration after speed change)\" >&2\n\n# Rotation and crop filters\nROTATE_TAG=$(ffprobe -v error -select_streams v:0 -show_entries stream_tags=rotate -of default=nw=1:nk=1 \"$INPUT_FILE\" 2>/dev/null || printf \"0\")\nROTATION_FILTER=\"\"\ncase \"$ROTATE_TAG\" in\n  90) ROTATION_FILTER=\"transpose=1,\" ;;\n  270) ROTATION_FILTER=\"transpose=2,\" ;;\nesac\n\nCROP_FILTER=\"\"\nif [ \"$CROP_ENABLE\" = \"true\" ]; then\n  if [ \"$CROP_POSITION\" = \"bottom\" ]; then\n    CROP_FILTER=\"crop=in_w:in_h*${CROP_PERCENT}/100:0:0,\"\n  else\n    CROP_FILTER=\"crop=in_w:in_h*${CROP_PERCENT}/100:0:in_h*(100-${CROP_PERCENT})/100,\"\n  fi\nfi\n\n# Mirror filter\nMIRROR_FILTER=\"\"\nif [ \"$MIRROR_ENABLE\" = \"true\" ]; then\n  MIRROR_FILTER=\"hflip,\"\nfi\n\n# Calculate input indices (after validating existence of optional files)\nINPUT_INDEX=0\nOVERLAY_INDEX=1\nCAPTION_INDEX=\"\"\nRANDOM_INSERT_INDEX=\"\"\nOUTRO_INDEX=\"\"\n\nif [ \"$CAPTION_ENABLE\" = \"true\" ]; then\n  CAPTION_INDEX=2\n  NEXT_INDEX=3\nelse\n  NEXT_INDEX=2\nfi\n\nif [ -n \"$RANDOM_INSERT_FILE\" ]; then\n  RANDOM_INSERT_INDEX=$NEXT_INDEX\n  NEXT_INDEX=$((NEXT_INDEX + 1))\nfi\n\nif [ -n \"$OUTRO_FILE\" ]; then\n  OUTRO_INDEX=$NEXT_INDEX\nfi\n\n# Build main composition base (use INPUT_READ_DURATION for trims, EFFECTIVE_DURATION for canvas)\nif [ \"$CAPTION_ENABLE\" = \"true\" ]; then\n  BASE_FILTER=\"color=c=black:s=1080x1920:d=${EFFECTIVE_DURATION}[canvas]; \\\n[${OVERLAY_INDEX}:v]trim=duration=${INPUT_READ_DURATION},setpts=PTS-STARTPTS,scale=1080:-1,crop=1080:ih[top_video]; \\\n[${INPUT_INDEX}:v]trim=duration=${INPUT_READ_DURATION},setpts=PTS-STARTPTS,${ROTATION_FILTER}${CROP_FILTER}scale=1080:-1,${MIRROR_FILTER}format=yuv420p[bottom_video]; \\\n[canvas][top_video]overlay=0:0[bg_with_top]; \\\n[bg_with_top][bottom_video]overlay=(W-w)/2:H-h[layout_complete]; \\\n[layout_complete][${CAPTION_INDEX}:v]overlay=0:0,setsar=1,format=yuv420p,fps=${TARGET_FPS},setpts=PTS/${SPEED_FACTOR_N}[composed_main]\"\nelse\n  BASE_FILTER=\"color=c=black:s=1080x1920:d=${EFFECTIVE_DURATION}[canvas]; \\\n[${OVERLAY_INDEX}:v]trim=duration=${INPUT_READ_DURATION},setpts=PTS-STARTPTS,scale=1080:-1,crop=1080:ih[top_video]; \\\n[${INPUT_INDEX}:v]trim=duration=${INPUT_READ_DURATION},setpts=PTS-STARTPTS,${ROTATION_FILTER}${CROP_FILTER}scale=1080:-1,${MIRROR_FILTER}format=yuv420p[bottom_video]; \\\n[canvas][top_video]overlay=0:0[bg_with_top]; \\\n[bg_with_top][bottom_video]overlay=(W-w)/2:H-h,setsar=1,format=yuv420p,fps=${TARGET_FPS},setpts=PTS/${SPEED_FACTOR_N}[composed_main]\"\nfi\n\n# Assemble filter complex incrementally\nFILTER_LINES=\"\"\nappend_filter() {\n  if [ -z \"$FILTER_LINES\" ]; then\n    FILTER_LINES=\"$1\"\n  else\n    FILTER_LINES=\"${FILTER_LINES}; ${1}\"\n  fi\n}\n\nappend_filter \"$BASE_FILTER\"\n\n# Build the audio tempo chain for main audio (only if SPEED_FACTOR != 1)\nAUDIO_TEMPO_CHAIN=\"\"\nif [ \"$SPEED_FACTOR_N\" != \"1.000000\" ]; then\n  export SPEED_FACTOR_N\n  AUDIO_TEMPO_CHAIN=$(python3 - <<'PY'\nimport os\ns = float(os.environ.get('SPEED_FACTOR_N','1'))\nif s <= 0:\n    print(\"atempo=1.0\")\nelse:\n    factors = []\n    tmp = s\n    while tmp > 2.0000001:\n        factors.append(2.0)\n        tmp = tmp / 2.0\n    while tmp < 0.5 - 1e-12:\n        factors.append(0.5)\n        tmp = tmp / 0.5\n    factors.append(round(tmp, 6))\n    out = \",\".join(f\"atempo={f:.6f}\" for f in factors)\n    print(out)\nPY\n)\n  echo \"AUDIO_TEMPO_CHAIN: $AUDIO_TEMPO_CHAIN\" >&2\nfi\n\n# ========== RANDOM INSERT (video + audio) ==========\nAUDIO_FILTER=\"\"\nAUDIO_MAP=\"0:a?\" # default\nif [ -n \"$RANDOM_INSERT_FILE\" ]; then\n  INSERT_DURATION=$(probe_duration \"$RANDOM_INSERT_FILE\" || printf \"2\")\n  INSERT_DURATION=$(awk -v v=\"$INSERT_DURATION\" 'BEGIN{ printf(\"%.3f\", v+0)}')\n  echo \"Random insert duration (insert file): $INSERT_DURATION seconds\" >&2\n\n  export EFFECTIVE_DURATION INSERT_DURATION\n  RANDOM_POS=$(python3 - <<'PY'\nimport os, struct\nefd = float(os.environ.get('EFFECTIVE_DURATION','0'))\nidur = float(os.environ.get('INSERT_DURATION','0'))\nminpos = 3.0\nmaxpos = efd - idur - 1.0\nif maxpos < minpos:\n    maxpos = minpos\nr = struct.unpack(\">I\", os.urandom(4))[0] / 4294967295.0\nv = minpos + r * (maxpos - minpos)\nprint(f\"{v:.3f}\")\nPY\n)\n  echo \"Random insert at: ${RANDOM_POS}s\" >&2\n\n  BEFORE_INSERT=$(awk -v p=\"$RANDOM_POS\" 'BEGIN{ printf(\"%.3f\", p) }')\n  NEW_DURATION=$(awk -v e=\"$EFFECTIVE_DURATION\" -v i=\"$INSERT_DURATION\" 'BEGIN{ printf(\"%.3f\", e+i) }')\n\n  VIDEO_INSERT_BLOCK=\"[composed_main]fps=${TARGET_FPS},split=2[main1][main2]; \\\n[main1]trim=start=0:end=${BEFORE_INSERT},setpts=PTS-STARTPTS[seg1]; \\\n[main2]trim=start=${BEFORE_INSERT},setpts=PTS-STARTPTS[seg3]; \\\n[${RANDOM_INSERT_INDEX}:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=${TARGET_FPS},setpts=PTS-STARTPTS[insert_scaled]; \\\n[seg1][insert_scaled][seg3]concat=n=3:v=1:a=0[concat_v]; \\\n[concat_v]fps=${TARGET_FPS}[final_v]\"\n\n  append_filter \"$VIDEO_INSERT_BLOCK\"\n\n  BEFORE_INSERT_AUDIO=$(awk -v b=\"$BEFORE_INSERT\" -v s=\"$SPEED_FACTOR_N\" 'BEGIN{ printf(\"%.3f\", b*s) }')\n\n  if [ -n \"$AUDIO_TEMPO_CHAIN\" ]; then\n    AUDIO_FILTER=\"[0:a]atrim=start=0:end=${BEFORE_INSERT_AUDIO},asetpts=PTS-STARTPTS,${AUDIO_TEMPO_CHAIN}[a1]; \\\n[0:a]atrim=start=${BEFORE_INSERT_AUDIO},asetpts=PTS-STARTPTS,${AUDIO_TEMPO_CHAIN}[a3]; \\\n[${RANDOM_INSERT_INDEX}:a]asetpts=PTS-STARTPTS[insert_audio]; \\\n[a1][insert_audio][a3]concat=n=3:v=0:a=1[final_audio]\"\n  else\n    AUDIO_FILTER=\"[0:a]atrim=start=0:end=${BEFORE_INSERT_AUDIO},asetpts=PTS-STARTPTS[a1]; \\\n[0:a]atrim=start=${BEFORE_INSERT_AUDIO},asetpts=PTS-STARTPTS[a3]; \\\n[${RANDOM_INSERT_INDEX}:a]asetpts=PTS-STARTPTS[insert_audio]; \\\n[a1][insert_audio][a3]concat=n=3:v=0:a=1[final_audio]\"\n  fi\n\n  if [ -n \"$OUTRO_FILE\" ] && [ -n \"$OUTRO_INDEX\" ]; then\n    AUDIO_FILTER=\"${AUDIO_FILTER}; [${OUTRO_INDEX}:a]asetpts=PTS-STARTPTS[outro_a]; [final_audio][outro_a]concat=n=2:v=0:a=1[final_audio]\"\n  fi\n\n  EFFECTIVE_DURATION=\"$NEW_DURATION\"\n  AUDIO_MAP=\"[final_audio]\"\nfi\n\n# If no random insert, handle main audio +/- outro\nif [ -z \"$RANDOM_INSERT_FILE\" ]; then\n  if [ -n \"$OUTRO_FILE\" ] && [ -n \"$OUTRO_INDEX\" ]; then\n    if [ -n \"$AUDIO_TEMPO_CHAIN\" ]; then\n      AUDIO_FILTER=\"[0:a]atrim=duration=${INPUT_READ_DURATION},asetpts=PTS-STARTPTS,${AUDIO_TEMPO_CHAIN}[main_a]; \\\n[${OUTRO_INDEX}:a]asetpts=PTS-STARTPTS[outro_a]; \\\n[main_a][outro_a]concat=n=2:v=0:a=1[final_audio]\"\n    else\n      AUDIO_FILTER=\"[0:a]atrim=duration=${INPUT_READ_DURATION},asetpts=PTS-STARTPTS[main_a]; \\\n[${OUTRO_INDEX}:a]asetpts=PTS-STARTPTS[outro_a]; \\\n[main_a][outro_a]concat=n=2:v=0:a=1[final_audio]\"\n    fi\n    AUDIO_MAP=\"[final_audio]\"\n  else\n    if [ -n \"$AUDIO_TEMPO_CHAIN\" ]; then\n      AUDIO_FILTER=\"[0:a]atrim=duration=${INPUT_READ_DURATION},asetpts=PTS-STARTPTS,${AUDIO_TEMPO_CHAIN}[final_audio]\"\n      AUDIO_MAP=\"[final_audio]\"\n    else\n      AUDIO_FILTER=\"${AUDIO_FILTER:-}\"\n      AUDIO_MAP=\"${AUDIO_MAP:-0:a?}\"\n    fi\n  fi\nfi\n\n# Handle outro video if provided\nif [ -n \"$OUTRO_FILE\" ] && [ -n \"$OUTRO_INDEX\" ]; then\n  OUTRO_START=$(awk -v d=\"$EFFECTIVE_DURATION\" -v t=\"$OUTRO_TRANSITION_DURATION\" 'BEGIN{ printf(\"%.3f\", d-t) }')\n\n  if [ -n \"$RANDOM_INSERT_FILE\" ]; then\n    OUTRO_VIDEO_BLOCK=\"[${OUTRO_INDEX}:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,setsar=1,setpts=PTS-STARTPTS[outro_scaled]; \\\n[final_v]fps=${TARGET_FPS},setsar=1,setpts=PTS-STARTPTS[main_normalized]; \\\n[main_normalized]fps=${TARGET_FPS}[main_normalized_fps]; \\\n[outro_scaled]fps=${TARGET_FPS}[outro_scaled_fps]; \\\n[main_normalized_fps][outro_scaled_fps]xfade=transition=fade:duration=${OUTRO_TRANSITION_DURATION}:offset=${OUTRO_START}[final_v]\"\n    append_filter \"$OUTRO_VIDEO_BLOCK\"\n    OUTPUT_LABEL=\"[final_v]\"\n  else\n    OUTRO_VIDEO_BLOCK=\"[${OUTRO_INDEX}:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,setsar=1,setpts=PTS-STARTPTS[outro_scaled]; \\\n[composed_main]fps=${TARGET_FPS},setsar=1,setpts=PTS-STARTPTS[main_normalized]; \\\n[main_normalized]fps=${TARGET_FPS}[main_normalized_fps]; \\\n[outro_scaled]fps=${TARGET_FPS}[outro_scaled_fps]; \\\n[main_normalized_fps][outro_scaled_fps]xfade=transition=fade:duration=${OUTRO_TRANSITION_DURATION}:offset=${OUTRO_START}[final_v]\"\n    append_filter \"$OUTRO_VIDEO_BLOCK\"\n    OUTPUT_LABEL=\"[final_v]\"\n  fi\nelse\n  if [ -n \"$RANDOM_INSERT_FILE\" ]; then\n    OUTPUT_LABEL=\"[final_v]\"\n  else\n    append_filter \"[composed_main]fps=${TARGET_FPS}[final_v]\"\n    OUTPUT_LABEL=\"[final_v]\"\n  fi\nfi\n\n# Final brightness application\nif [ \"$(awk -v b=\"$BRIGHTNESS\" 'BEGIN{ if (b==0) print \"0\"; else print \"1\" }')\" = \"1\" ]; then\n  append_filter \"[final_v]eq=brightness=${BRIGHTNESS}[final_v_out]\"\n  FINAL_OUTPUT_LABEL=\"[final_v_out]\"\nelse\n  FINAL_OUTPUT_LABEL=\"${OUTPUT_LABEL}\"\nfi\n\n# Combine audio filters if present\nif [ -n \"$AUDIO_FILTER\" ]; then\n  COMPLETE_FILTER=\"${FILTER_LINES}; ${AUDIO_FILTER}\"\nelse\n  COMPLETE_FILTER=\"${FILTER_LINES}\"\nfi\n\n# Build input args\nINPUT_ARGS=\"\"\nif [ -n \"$TRIM_DURATION\" ]; then\n  INPUT_ARGS=\"-t ${INPUT_READ_DURATION} -i \\\"$INPUT_FILE\\\" -t ${INPUT_READ_DURATION} -i \\\"$MERGED_OVERLAY\\\"\"\nelse\n  INPUT_ARGS=\"-i \\\"$INPUT_FILE\\\" -i \\\"$MERGED_OVERLAY\\\"\"\nfi\n\nif [ \"$CAPTION_ENABLE\" = \"true\" ]; then\n  INPUT_ARGS=\"$INPUT_ARGS -i \\\"$CAPTION_PNG\\\"\"\nfi\n\nif [ -n \"$RANDOM_INSERT_FILE\" ]; then\n  INPUT_ARGS=\"$INPUT_ARGS -i \\\"$RANDOM_INSERT_FILE\\\"\"\nfi\n\nif [ -n \"$OUTRO_FILE\" ]; then\n  INPUT_ARGS=\"$INPUT_ARGS -i \\\"$OUTRO_FILE\\\"\"\nfi\n\n# Build final ffmpeg command\nCMD=\"ffmpeg -hide_banner -y -progress pipe:2 -loglevel warning $INPUT_ARGS -filter_complex \\\"${COMPLETE_FILTER}\\\" -map \\\"${FINAL_OUTPUT_LABEL}\\\"\"\n\nif [ -n \"$AUDIO_FILTER\" ]; then\n  CMD=\"$CMD -map \\\"${AUDIO_MAP}\\\"\"\nelse\n  CMD=\"$CMD -map ${AUDIO_MAP}\"\nfi\n\nCMD=\"$CMD -c:v libx264 -crf 23 -preset veryfast -c:a aac -b:a 192k -r ${TARGET_FPS} -aspect 9:16\"\n\n# Apply final -t using EFFECTIVE_DURATION (if trim requested and no outro)\nif [ -n \"$TRIM_DURATION\" ] && [ -z \"$OUTRO_FILE\" ]; then\n  CMD=\"$CMD -t ${EFFECTIVE_DURATION}\"\nfi\n\nCMD=\"$CMD \\\"$OUT_FILE\\\"\"\n\n# Debug output\necho \"=== DEBUG: filter_complex ===\" >&2\necho \"$COMPLETE_FILTER\" >&2\necho \"=== DEBUG: ffmpeg cmd ===\" >&2\necho \"$CMD\" >&2\n\n# Execute\necho \"Executing final render with audio handling...\" >&2\necho \"Progress will be shown below:\" >&2\n\nif timeout \"$FFMPEG_TIMEOUT\" sh -c \"$CMD\" < /dev/null; then\n  [ \"$CAPTION_ENABLE\" = \"true\" ] && rm -f \"$CAPTION_PNG\" || true\n  [ -n \"$MERGED_OVERLAY_TMP\" ] && [ -f \"$MERGED_OVERLAY_TMP\" ] && rm -f \"$MERGED_OVERLAY_TMP\" || true\n  [ -n \"$COMPOSED_MAIN_TMP\" ] && [ -f \"$COMPOSED_MAIN_TMP\" ] && rm -f \"$COMPOSED_MAIN_TMP\" || true\n  echo \"✅ Success! Output file: $OUT_FILE\" >&2\n  printf '%s\\n' \"$(basename \"$OUT_FILE\")\"\n  exit 0\nelse\n  echo \"❌ ERR: ffmpeg failed or timed out.\" >&2\n  echo \"Check the debug output above for details.\" >&2\n  exit 1\nfi"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2112,
+        -1168
+      ],
+      "id": "34e10562-57d4-400e-8cfd-30e43acb04b9",
+      "name": "Reaction"
+    },
+    {
+      "parameters": {
+        "command": "=#!/bin/bash\nset -eu\n\n# Fast Video Enhancement Script - Optimized for Speed\n# For n8n Execute Command Node\n\n# ============== CONFIGURATION ==============\n\n# Basic Input/Output - SET YOUR PATHS HERE\nINPUT_VIDEO=\"{{ $json.body.INPUT_VIDEO }}\"\nOUTPUT_VIDEO=\"{{ $json.body.OUTPUT_VIDEO }}\"\n\n# Speed Control (0.5 = half speed, 1.0 = normal, 2.0 = double speed)\nSPEED_FACTOR=\"1.1\"        # Slightly faster for engagement\n\n# Brightness (-1.0 to 1.0, where 0 = normal, positive = brighter, negative = darker)\nBRIGHTNESS=\"0.08\"          # Slightly brighter for pop\n\n# Contrast (0.0 to 4.0, where 1.0 = normal, >1.0 = more contrast, <1.0 = less contrast)\nCONTRAST=\"1.12\"            # Enhanced contrast for depth\n\n# Saturation (0.0 to 3.0, where 1.0 = normal, >1.0 = more saturated, <1.0 = less saturated)\nSATURATION=\"1.18\"          # More vibrant colors\n\n# Border Settings\nBORDER_ENABLE=true\nBORDER_SIZE=20            # 4px border as requested\nBORDER_COLOR=\"white\"       # Clean white border\n\n# Quality Settings - OPTIMIZED FOR SPEED\nCRF=\"25\"                   # Faster encoding (good quality)\nPRESET=\"ultrafast\"         # Fastest possible encoding\n\n# FFmpeg timeout\nFFMPEG_TIMEOUT=\"2m\"        # Short timeout for fast processing\n\n# ============== END CONFIGURATION ==============\n\necho \"=== Fast Video Enhancement ===\" >&2\necho \"Input: $INPUT_VIDEO\" >&2\necho \"Output: $OUTPUT_VIDEO\" >&2\n\n# Create output directory if it doesn't exist\nOUTPUT_DIR=$(dirname \"$OUTPUT_VIDEO\")\nmkdir -p \"$OUTPUT_DIR\"\n\n# Validate input file\nif [ ! -f \"$INPUT_VIDEO\" ]; then\n    echo \"ERROR: Input video file not found: $INPUT_VIDEO\" >&2\n    exit 1\nfi\n\n# Get video resolution for border calculation\nRESOLUTION=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0:s=x \"$INPUT_VIDEO\" 2>/dev/null || echo \"1920x1080\")\nWIDTH=$(echo \"$RESOLUTION\" | cut -d'x' -f1)\nHEIGHT=$(echo \"$RESOLUTION\" | cut -d'x' -f2)\n\necho \"Resolution: ${RESOLUTION}\" >&2\necho \"Starting fast video processing...\" >&2\n\n# Build filter chain - SIMPLIFIED FOR SPEED\nFILTERS=\"\"\n\n# Speed adjustment\nif [ \"$SPEED_FACTOR\" != \"1.0\" ]; then\n    FILTERS=\"${FILTERS}setpts=PTS/${SPEED_FACTOR},\"\n    echo \"Applying speed: ${SPEED_FACTOR}x\" >&2\nfi\n\n# Color adjustments - COMBINED FOR EFFICIENCY\nFILTERS=\"${FILTERS}eq=brightness=${BRIGHTNESS}:contrast=${CONTRAST}:saturation=${SATURATION},\"\necho \"Applying color enhancements\" >&2\n\n# Border (if enabled)\nif [ \"$BORDER_ENABLE\" = true ] && [ \"$BORDER_SIZE\" != \"0\" ]; then\n    NEW_WIDTH=$((WIDTH + 2 * BORDER_SIZE))\n    NEW_HEIGHT=$((HEIGHT + 2 * BORDER_SIZE))\n    FILTERS=\"${FILTERS}pad=${NEW_WIDTH}:${NEW_HEIGHT}:${BORDER_SIZE}:${BORDER_SIZE}:${BORDER_COLOR},\"\n    echo \"Applying border: ${BORDER_SIZE}px ${BORDER_COLOR}\" >&2\nfi\n\n# Remove trailing comma\nFILTERS=$(echo \"$FILTERS\" | sed 's/,$//')\n\n# Audio processing\nAUDIO_FILTERS=\"\"\nif [ \"$SPEED_FACTOR\" != \"1.0\" ]; then\n    AUDIO_FILTERS=\"atempo=${SPEED_FACTOR}\"\nfi\n\n# Build and execute FFmpeg command - OPTIMIZED FOR SPEED\necho \"Processing with ultrafast settings...\" >&2\n\nif [ -n \"$AUDIO_FILTERS\" ]; then\n    # With audio speed adjustment\n    timeout \"$FFMPEG_TIMEOUT\" ffmpeg -y -hide_banner -loglevel error \\\n        -i \"$INPUT_VIDEO\" \\\n        -vf \"$FILTERS\" \\\n        -af \"$AUDIO_FILTERS\" \\\n        -c:v libx264 -crf \"$CRF\" -preset \"$PRESET\" -threads 0 \\\n        -c:a aac -b:a 128k \\\n        -movflags +faststart \\\n        \"$OUTPUT_VIDEO\"\nelse\n    # No audio adjustment needed\n    timeout \"$FFMPEG_TIMEOUT\" ffmpeg -y -hide_banner -loglevel error \\\n        -i \"$INPUT_VIDEO\" \\\n        -vf \"$FILTERS\" \\\n        -c:v libx264 -crf \"$CRF\" -preset \"$PRESET\" -threads 0 \\\n        -c:a copy \\\n        -movflags +faststart \\\n        \"$OUTPUT_VIDEO\"\nfi\n\nif [ $? -eq 0 ]; then\n    echo \"✅ Video enhanced successfully!\" >&2\n    echo \"Output: $OUTPUT_VIDEO\" >&2\n    \n    # Show file sizes\n    INPUT_SIZE=$(du -h \"$INPUT_VIDEO\" | cut -f1)\n    OUTPUT_SIZE=$(du -h \"$OUTPUT_VIDEO\" | cut -f1)\n    echo \"Size - Input: $INPUT_SIZE, Output: $OUTPUT_SIZE\" >&2\n    \n    echo \"$(basename \"$OUTPUT_VIDEO\")\"\n\nelse\n    echo \"❌ Error: Video processing failed\" >&2\n    exit 1\nfi"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1680,
+        -1184
+      ],
+      "id": "2980c8dd-eeb9-47e1-b54d-738699bfb0bd",
+      "name": "Tweak"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ String($('Webhook').item.json.body.database_name).toLowerCase() }}\nSET public = 'https://files.mohdasif.net/{{ $('Webhook').item.json.body.folder }}/output/{{ $('Webhook').item.json.body.filename }}'\nWHERE id = {{ $('Webhook').item.json.body.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2352,
+        -944
+      ],
+      "id": "59d78f68-407f-40f9-826d-dde18a3c3a91",
+      "name": "set_public_link",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# MODIFY SCRIPTS",
+        "height": 256,
+        "width": 896
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2256,
+        -1264
+      ],
+      "typeVersion": 1,
+      "id": "499240bb-fe26-48d2-ab29-03edc72343d0",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "BsyOPmLgdOcI8rtZ",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
+          "cachedResultName": "getData"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -1904,
+        -848
+      ],
+      "id": "03a636ca-4534-4cf4-b866-e5b2843e1f97",
+      "name": "data"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"username\": \"{{ $('Webhook').item.json.body.username }}\",\n  \"type\": \"{{ $('Webhook').item.json.body.type }}\",\n  \"title\":\"{{ $('Webhook').item.json.body.title }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2128,
+        -848
+      ],
+      "id": "c0e1fbff-4ca0-4534-84b1-9c143cc03d71",
+      "name": "pre"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"acc_id\": \"{{ String($('data').item.json.accounts[0].acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('data').item.json.accounts[0].username || '').trim() }}\",\n  \"public\": \"{{ String($('data').item.json.pending_url[0].public || '').trim() }}\",\n  \"access_token\": \"{{ String($('data').item.json.accounts[0].token || '').trim() }}\",\n  \"database_name\": \"{{ String($('data').item.json.accounts[0].database_name || '').trim() }}\",\n  \"title\": {{\n    JSON.stringify(\n      String(\n        $('pre').item.json.title === 'false'\n          ? $('data').item.json.accounts[0].default_title\n          : ($('pre').item.json.title === 'true'\n              ? $('data').item.json.pending_url[0].title\n              : $('pre').item.json.title)\n      ).trim()\n    )\n  }},\n  \"description\": {{\n    JSON.stringify(\n      String(\n        $('pre').item.json.description\n          || $('data').item.json.accounts[0].default_des\n          || ''\n      ).trim()\n    )\n  }},\n  \"type\": \"{{ String($('pre').item.json.type || '').trim() }}\",\n  \"id\": \"{{ $('data').item.json.pending_url[0].id }}\",\n  \"folder\": \"{{ String($('data').item.json.accounts[0].folder || '').trim() }}\",\n  \"filename\": \"{{ String($('data').item.json.pending_url[0].filename || '').trim() }}\",\n  \"root_dir\": \"{{ String($('data').item.json.accounts[0].root_dir || '').trim() }}\",\n  \"files_url\": \"{{ String($('data').item.json.accounts[0].files_url || '').trim() }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1680,
+        -848
+      ],
+      "id": "2638dfe2-0f6b-46bc-a3ec-4dee5d8af018",
+      "name": "final_data",
+      "notes": "{\n  \"acc_id\": \"{{ String($('accounts').item.json.acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('accounts').item.json.username || '').trim() }}\",\n  \"public\": \"https://files.mohdasif.net/{{ $json.modified }}\",\n  \"access_token\": \"{{ String($('accounts').item.json.token || '').trim() }}\",\n  \"database_name\": \"{{ String($('accounts').item.json.database_name || '').trim() }}\",\n  \"status\": \"Pending\",\n  \"title\": \"{{ $('start').item.json.title === 'false' ? $('accounts').item.json.default_title : $('start').item.json.title }}\",\n  \"description\": {{ JSON.stringify(String($('start').item.json.description || $('accounts').item.json.default_des || '').trim()) }},\n  \"type\": \"{{ String($('start').item.json.type || '').trim() }}\",\n  \"id\": \"{{ $('pending_url').item.json.id }}\"\n}"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE {{ String($('Webhook').item.json.body.database_name).toLowerCase() }}\nSET public = 'https://files.mohdasif.net/{{ $('Webhook').item.json.body.folder }}/{{ $('Webhook').item.json.body.filename }}'\nWHERE id = {{ $('Webhook').item.json.body.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2352,
+        -688
+      ],
+      "id": "ca58fb49-375a-40e1-8457-ff4e16c87ce7",
+      "name": "set_public_link1",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
     }
   ],
   "origin": "n8n",
@@ -737,7 +501,10 @@
     "name": "n8n-backup"
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "o9ORuJvZYNmMmFfK"
   },
   "shared": [
     {
@@ -758,6 +525,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T13:38:48.000Z",
-  "versionId": "22701113-cba6-4f42-a053-b0adceef4e27"
+  "updatedAt": "2025-10-18T13:03:25.000Z",
+  "versionId": "6ee70577-d9e0-4646-b012-a7da7b3aec62"
 }

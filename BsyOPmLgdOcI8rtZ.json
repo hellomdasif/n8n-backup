@@ -1,0 +1,136 @@
+{
+  "active": false,
+  "connections": {
+    "accounts": {
+      "main": [
+        [
+          {
+            "node": "pending_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pending_url": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-18T10:46:39.257Z",
+  "id": "BsyOPmLgdOcI8rtZ",
+  "isArchived": false,
+  "meta": null,
+  "name": "getData",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM accounts\nWHERE username = '{{ $json.username }}'\n  AND type = '{{ $json.type }}'\nLIMIT 1;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        32,
+        112
+      ],
+      "id": "3c0e5f2e-796f-4764-87fa-e8f8af28d8f7",
+      "name": "accounts",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        224,
+        112
+      ],
+      "id": "c3d4e947-303e-497f-81cd-eaca0d72b8e5",
+      "name": "pending_url",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -160,
+        112
+      ],
+      "id": "06f8533b-dc1e-4bb3-9a73-89438b21dba2",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all items safely\nconst accountsItems = $items(\"accounts\");\nconst pendingItems = $items(\"pending_url\");\n\n// Extract their JSON data\nconst accounts = accountsItems.map(item => item.json);\nconst pending = pendingItems.map(item => item.json);\n\n// Return combined result\nreturn [\n  {\n    json: {\n      accounts,\n      pending_url: pending\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        112
+      ],
+      "id": "abebfba0-bd80-4601-8766-48e101cdae51",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-18T10:46:39.262Z",
+      "updatedAt": "2025-10-18T10:46:39.262Z",
+      "role": "workflow:owner",
+      "workflowId": "BsyOPmLgdOcI8rtZ",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-18T10:52:39.000Z",
+  "versionId": "fa43395f-11ce-41fc-9254-4017af43b7b2"
+}

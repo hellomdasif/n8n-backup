@@ -1,0 +1,70 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-18T19:06:58.555Z",
+  "id": "tJiAsyBpRZcsqW7O",
+  "isArchived": false,
+  "meta": null,
+  "name": "random-files",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "11958082-b6e8-4b60-a570-ca089bb4a569",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "bash -eu <<'BASH'\n# ===== CONFIG =====\nDIR=\"/home/node/shared/YOUTUBE/KnowSparkz\"    # main folder\nPROCDIR=\"$DIR/processed\"                      # processed/ (locked files live here)\nEXT=\"jpg|png|mp4\"                             # allowed extensions (regex, e.g. \"jpg|png|mp4\")\n# ===================\n\nmkdir -p \"$DIR\" \"$PROCDIR\"\n\n# helper to list matching files (top-level only), returns null-separated array\nlist_files() {\n  local arr\n  # Use posix-extended regex type for clearer grouping\n  mapfile -d '' -t arr < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\n  printf \"%s\\n\" \"${arr[@]-}\"\n}\n\n# helper to list processed files\nlist_processed() {\n  local p_arr\n  mapfile -d '' -t p_arr < <(find \"$PROCDIR\" -maxdepth 1 -type f -print0)\n  printf \"%s\\n\" \"${p_arr[@]-}\"\n}\n\n# 1) If no files in DIR matching EXT, move everything from processed back to DIR (reset)\nmapfile -d '' -t all < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\nif [ ${#all[@]} -eq 0 ]; then\n  # check processed folder\n  shopt -s nullglob\n  files=( \"$PROCDIR\"/* )\n  if [ ${#files[@]} -gt 0 ]; then\n    for f in \"${files[@]}\"; do\n      # move back; if any mv fails, report and exit non-zero\n      mv -- \"$f\" \"$DIR/\" || { echo \"__RESET_PARTIAL_FAIL__:$(basename \"$f\")\"; exit 2; }\n    done\n    # refresh list after reset\n    mapfile -d '' -t all < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\n    echo \"RESET_DONE\"\n    # continue to picking below (we intentionally do not exit)\n  else\n    # nothing anywhere\n    echo \"__NO_FILES_ANYWHERE__\"\n    exit 0\n  fi\nfi\n\n# At this point 'all' should contain candidate files in DIR\nif [ ${#all[@]} -eq 0 ]; then\n  # defensive - if still empty after attempted reset\n  echo \"__NO_FILES_AFTER_RESET__\"\n  exit 0\nfi\n\n# 2) pick a random file\nif command -v shuf >/dev/null 2>&1; then\n  selected=\"$(printf \"%s\\n\" \"${all[@]}\" | shuf -n1)\"\nelse\n  idx=$(( RANDOM % ${#all[@]} ))\n  selected=\"${all[$idx]}\"\nfi\n\nfilename=\"$(basename -- \"$selected\")\"\nsrcpath=\"$selected\"\nlockpath=\"$PROCDIR/$filename\"\n\n# 3) atomic move to processed (acts as a lock). If mv fails -> race/perm error\nif ! mv -- \"$srcpath\" \"$lockpath\"; then\n  echo \"__MV_FAILED__:$filename\"\n  exit 2\nfi\n\n# 4) ensure rollback on any processing error — move file back to DIR\nrollback() {\n  if [ -e \"$lockpath\" ]; then\n    mv -- \"$lockpath\" \"$DIR/\" || echo \"__ROLLBACK_FAILED__:$filename\"\n  fi\n}\ntrap 'rollback; exit 2' ERR\n\n# ====== YOUR PROCESSING COMMANDS START HERE ======\n# Replace the example below with your real commands (ffmpeg, convert, upload, etc.)\n# Example placeholders:\n#  - For video (mp4): ffmpeg -y -i \"$lockpath\" -vf \"scale=1280:-1\" \"/home/node/shared/YOUTUBE/output/${filename%.*}_resized.mp4\"\n#  - For image (jpg/png): convert \"$lockpath\" -resize 1080x1080 \"/home/node/shared/YOUTUBE/output/${filename%.*}_thumb.jpg\"\n\n# ---- BEGIN PROCESS (REPLACE THIS BLOCK) ----\n# Simulate processing; replace 'true' with your commands.\n# If any command returns non-zero, trap will run rollback and exit non-zero.\ntrue\n# ---- END PROCESS (REPLACE THIS BLOCK) ----\n# ===============================================\n\n# on success, remove trap and report OK\ntrap - ERR\necho \"OK:$filename\"\nexit 0\nBASH\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "5b3e4dae-5d6e-412a-b6e2-3d62d2c936a2",
+      "name": "Execute Command"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-18T19:06:58.558Z",
+      "updatedAt": "2025-10-18T19:06:58.558Z",
+      "role": "workflow:owner",
+      "workflowId": "tJiAsyBpRZcsqW7O",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-18T19:48:20.000Z",
+  "versionId": "25bfb313-9ce1-4b01-8e1d-8559572e0035"
+}

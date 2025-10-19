@@ -69,7 +69,8 @@
           "interval": [
             {
               "field": "hours",
-              "hoursInterval": 4
+              "hoursInterval": 2,
+              "triggerAtMinute": 40
             }
           ]
         }
@@ -150,7 +151,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return{\n  \"username\": \"ReelSense\",\n  \"type\": \"fb\",\n  \"title\": \"false\"\n}\n;\n"
+        "jsCode": "return{\n  \"username\": \"ReelSense\",\n  \"type\": \"fb\",\n  \"title\": \"true\"\n}\n;\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -218,6 +219,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-18T12:13:56.000Z",
-  "versionId": "f6f6ef58-5cff-4a22-8ab1-6f1c8c43c9fc"
+  "updatedAt": "2025-10-19T12:36:41.000Z",
+  "versionId": "a6fdc22e-3666-438c-b567-105fc7a53bfc"
 }

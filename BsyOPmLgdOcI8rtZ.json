@@ -65,7 +65,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n\n",
+        "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
@@ -81,7 +81,8 @@
           "id": "NTm0aBQ2ka4qBTqV",
           "name": "Postgres account"
         }
-      }
+      },
+      "notes": "INSERT INTO \"{{ $('accounts').item.json.database_name }}\" (id, fb, insta, youtube)\nSELECT g AS id, NULL AS fb, NULL AS insta, NULL AS youtube\nFROM generate_series(1, 1000) AS g\nON CONFLICT (id) DO NOTHING;\n\n-- Then sync the sequence so future inserts auto-increment correctly\nSELECT setval(\n  pg_get_serial_sequence('{{ $('accounts').item.json.database_name }}', 'id'),\n  (SELECT MAX(id) FROM \"{{ $('accounts').item.json.database_name }}\")\n);\n"
     },
     {
       "parameters": {
@@ -111,7 +112,17 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "username": "paheli",
+          "type": "fb",
+          "title": "false"
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -131,6 +142,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-18T10:52:39.000Z",
-  "versionId": "fa43395f-11ce-41fc-9254-4017af43b7b2"
+  "updatedAt": "2025-10-19T03:57:22.000Z",
+  "versionId": "0c8b70ea-ac9d-46c9-b69b-f4610c0c72fc"
 }

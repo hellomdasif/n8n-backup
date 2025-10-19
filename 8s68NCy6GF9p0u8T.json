@@ -850,7 +850,27 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "Loop Over Items": [
+      {
+        "json": {
+          "acc_id": "860847497109592",
+          "username": "paheli",
+          "public": "https://files.mohdasif.net/files/output/644155552992139801.mp4",
+          "access_token": "EAAZAD11ycW5IBPoamiZAYz0JT7Lc9j21aZCmZAyWZCHZBgzDZCRLHx86dOO16Ju2VWs8EzZCthC6htDkZASmQNPWa43KQ6VuGjL8mHGLmNmBZBkyXHj5bKJZB2pPz7dLvG9J5kjWa3uCe9i28lodDcoRZAeHiiggS4TY4MORqgDWqLFeD2ZAVpF55vM6WBaESBJldEKCQ1lbX",
+          "database_name": "pendulum",
+          "title": "#trendingreel #facebookviral #tvshowinspired #visualcontent #facts",
+          "description": "#trendingreel #facebookviral #tvshowinspired #visualcontent #facts",
+          "type": "fb",
+          "id": "7",
+          "folder": "/FACEBOOK/paheli/",
+          "filename": "",
+          "root_dir": "/home/node/shared/",
+          "files_url": "https://files.mohdasif.net/"
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -893,6 +913,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-17T05:20:03.000Z",
-  "versionId": "7d854a51-b913-4d28-824a-d0516822d981"
+  "updatedAt": "2025-10-19T17:38:01.000Z",
+  "versionId": "98efb65a-19dd-44e2-b8b8-554a64251911"
 }

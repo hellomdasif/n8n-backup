@@ -1,0 +1,168 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "pending_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pending_url": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-19T03:08:14.538Z",
+  "id": "Bs9ucSLXgyPaXpZ0",
+  "isArchived": false,
+  "meta": null,
+  "name": "image-downloader",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        72
+      ],
+      "id": "f816133e-5cde-4aa1-a7b7-d77d8561b6ff",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.image }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        672,
+        0
+      ],
+      "id": "af2d2969-15af-4c5b-8fec-08fedd40293c",
+      "name": "download",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM game_data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        224,
+        72
+      ],
+      "id": "278586a5-2d4e-4c3f-aceb-a2892f02fc8f",
+      "name": "pending_url",
+      "credentials": {
+        "postgres": {
+          "id": "NTm0aBQ2ka4qBTqV",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/node/shared/files/icons/{{ $('Loop Over Items').item.json.image.match(/id=([^&]+)/)[1] }}.png",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        896,
+        72
+      ],
+      "id": "d4b667b4-d995-4baa-ad24-29945c053f5a",
+      "name": "Read/Write Files from Disk",
+      "onError": "continueRegularOutput",
+      "notes": "/home/node/shared/files/bgimages/{{ $('Loop Over Items').item.json.image.match(/id=([^&]+)/)[1] }}.png\n\n/home/node/shared/files/icons/{{ $('Loop Over Items').item.json.image.match(/\\/([^\\/?#]+)$/)[1].replace('.jpg', '.png') }}"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        448,
+        72
+      ],
+      "id": "de5ecdb7-8e78-4573-83db-a457198170c7",
+      "name": "Loop Over Items"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-19T03:08:14.541Z",
+      "updatedAt": "2025-10-19T03:08:14.541Z",
+      "role": "workflow:owner",
+      "workflowId": "Bs9ucSLXgyPaXpZ0",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-19T03:08:16.000Z",
+  "versionId": "586f6e4e-fe7c-41c1-8e30-d2bc64731c02"
+}

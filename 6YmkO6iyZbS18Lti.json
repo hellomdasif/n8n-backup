@@ -1,111 +1,12 @@
 {
   "active": true,
   "connections": {
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "accounts",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Respond to Webhook": {
       "main": [
         []
       ]
     },
-    "Read/Write Files from Disk": {
-      "main": [
-        [
-          {
-            "node": "select_bg",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "download": {
-      "main": [
-        [
-          {
-            "node": "Read/Write Files from Disk",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "command": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Download Background": {
-      "main": [
-        [
-          {
-            "node": "Read/Write Files from Disk1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Read/Write Files from Disk1": {
-      "main": [
-        [
-          {
-            "node": "update_backgroubd_status",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "select_bg": {
-      "main": [
-        [
-          {
-            "node": "Download Background",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "update_backgroubd_status": {
-      "main": [
-        [
-          {
-            "node": "set_public_link",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "set_public_link": {
-      "main": [
-        [
-          {
-            "node": "command",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript": {
       "main": [
         [
           {
@@ -118,13 +19,7 @@
     },
     "Switch1": {
       "main": [
-        [
-          {
-            "node": "pending_url",
-            "type": "main",
-            "index": 0
-          }
-        ],
+        [],
         []
       ]
     },
@@ -132,36 +27,7 @@
       "main": [
         [
           {
-            "node": "Switch1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "pending_url": {
-      "main": [
-        [
-          {
-            "node": "If",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "download",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "pre",
+            "node": "pending_url",
             "type": "main",
             "index": 0
           }
@@ -211,6 +77,123 @@
           }
         ]
       ]
+    },
+    "Random_objects1": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random_videos1": {
+      "main": [
+        [
+          {
+            "node": "Random_objects1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "command1": {
+      "main": [
+        []
+      ]
+    },
+    "config": {
+      "main": [
+        []
+      ]
+    },
+    "pending_url": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "dir",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "pre",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pendulum": {
+      "main": [
+        [
+          {
+            "node": "set_public_link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dir": {
+      "main": [
+        [
+          {
+            "node": "Random_videos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "pendulum1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "pendulum",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random_objects": {
+      "main": [
+        []
+      ]
+    },
+    "pendulum1": {
+      "main": [
+        [
+          {
+            "node": "set_public_link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-10-18T06:55:39.163Z",
@@ -220,153 +203,29 @@
   "name": "puzzle",
   "nodes": [
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -464,
-        -1104
-      ],
-      "id": "dcce57c3-25a4-426b-b2fb-0c763b6815fb",
-      "name": "When clicking ‘Execute workflow’"
-    },
-    {
       "parameters": {
         "options": {}
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        3344,
-        -1008
+        1776,
+        -2064
       ],
       "id": "eafd07cc-ad04-482d-8579-bb1fef17a915",
       "name": "Respond to Webhook"
     },
     {
       "parameters": {
-        "operation": "write",
-        "fileName": "={{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png",
+        "operation": "executeQuery",
+        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET public ='https://files.mohdasif.net/files/output/{{ $('Random_videos1').item.json.stdout }}'\nWHERE id = {{ $('Webhook').item.json.body.id }};\n",
         "options": {}
       },
-      "type": "n8n-nodes-base.readWriteFile",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
       "position": [
         880,
-        -1080
-      ],
-      "id": "c4195359-46d2-4485-8d99-b2c506442e56",
-      "name": "Read/Write Files from Disk"
-    },
-    {
-      "parameters": {
-        "url": "={{ $('pending_url').item.json.image }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        656,
-        -1080
-      ],
-      "id": "da07de72-2e11-4018-9a14-e92005889d04",
-      "name": "download"
-    },
-    {
-      "parameters": {
-        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 3 \\\n--hold-frames 15 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('accounts').item.json.root_dir }}/python/games/icons/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.png\" \\\n--background \"{{ $('accounts').item.json.root_dir }}/python/games/bg/{{ $('Download Background').item.json.filename }}\" \\\n--output-path \"{{ $('accounts').item.json.root_dir }}/python/games/outputs/{{ $('pending_url').item.json.image.match(/id=([^&]+)/)[1] }}.mp4\" \\\n--bg-video-mode \"full\" \\\n2>&1 | sed -n \"1,500p\"'"
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        2224,
-        -1080
-      ],
-      "id": "14521564-78c1-4357-87a7-077831c56798",
-      "name": "command"
-    },
-    {
-      "parameters": {
-        "url": "={{ $json.bg_video }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1328,
-        -1080
-      ],
-      "id": "f31ca029-e524-4651-83d4-e43c9c0ceb84",
-      "name": "Download Background"
-    },
-    {
-      "parameters": {
-        "operation": "write",
-        "fileName": "={{ $('accounts').item.json.root_dir }}/python/games/bg/{{ $json.filename }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.readWriteFile",
-      "typeVersion": 1,
-      "position": [
-        1552,
-        -1080
-      ],
-      "id": "e415d318-e7f4-469a-bdbc-39fcffbcd301",
-      "name": "Read/Write Files from Disk1"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM background\nWHERE puzzle = '' OR puzzle IS NULL\nORDER BY id ASC\nLIMIT 1;\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        1104,
-        -1080
-      ],
-      "id": "c0e600ef-9919-4a96-8e99-3fc824d032ff",
-      "name": "select_bg",
-      "credentials": {
-        "postgres": {
-          "id": "NTm0aBQ2ka4qBTqV",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE \"background\"\nSET \"puzzle\" = 'DONE'\nWHERE \"id\" = {{ $node[\"select_bg\"].json[\"id\"] }};\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        1776,
-        -1080
-      ],
-      "id": "691c8271-e700-44c3-8f29-88e614d60bbe",
-      "name": "update_backgroubd_status",
-      "credentials": {
-        "postgres": {
-          "id": "NTm0aBQ2ka4qBTqV",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "UPDATE {{ $('accounts').item.json.database_name }}\nSET public = '{{ (\n  \"https://files.mohdasif.net/python/games/outputs/\" +\n  (( $('pending_url').item.json.image.match(/id=([^&]+)/) || [null, \"NEEDS_MODIFICATION\"])[1]) +\n  \".mp4\"\n).replace(/'/g, \"''\") }}'\nWHERE id = {{ $('pending_url').item.json.id }};\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        2000,
-        -1080
+        -2128
       ],
       "id": "d53787f8-4692-4cc8-af61-b576f40cdf3e",
       "name": "set_public_link",
@@ -376,19 +235,6 @@
           "name": "Postgres account"
         }
       }
-    },
-    {
-      "parameters": {
-        "jsCode": "// Extract final output video path from stdout logs\n\nreturn items.map(item => {\n  const stdout = item.json.stdout || \"\";\n  \n  // Match the video saved path line\n  const match = stdout.match(/Video saved:\\s*(\\/[^\\s]+)/);\n  \n  return {\n    json: {\n      stdout: match ? match[1].trim() : null\n    }\n  };\n});\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        2448,
-        -1080
-      ],
-      "id": "7d18cb8c-17c4-4e0e-bfcc-c99793fefb49",
-      "name": "Code in JavaScript"
     },
     {
       "parameters": {
@@ -405,8 +251,8 @@
                 "conditions": [
                   {
                     "id": "15ad7f17-1811-4222-9556-231659b5fefe",
-                    "leftValue": "Urban_Raja",
-                    "rightValue": "Urban_Raja",
+                    "leftValue": "={{ $('accounts').item.json.username }}",
+                    "rightValue": "urban__raja",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -417,7 +263,7 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "Urban_Raja"
+              "outputKey": "urban__raja"
             },
             {
               "conditions": {
@@ -430,8 +276,8 @@
                 "conditions": [
                   {
                     "id": "d1b641c3-b392-4897-9dc1-2ba8e74eb03d",
-                    "leftValue": "Paheli",
-                    "rightValue": "Paheli",
+                    "leftValue": "={{ $('accounts').item.json.username }}",
+                    "rightValue": "paheli",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -451,11 +297,12 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        -16,
-        -1008
+        -1136,
+        -2672
       ],
       "id": "38131dab-1292-4c39-92bb-39c0a553feaf",
-      "name": "Switch1"
+      "name": "Switch1",
+      "disabled": true
     },
     {
       "parameters": {
@@ -466,8 +313,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -240,
-        -1008
+        -912,
+        -2064
       ],
       "id": "0a17713a-7b0c-4d51-875e-8e4afe0f630a",
       "name": "accounts",
@@ -480,6 +327,133 @@
     },
     {
       "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "BsyOPmLgdOcI8rtZ",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
+          "cachedResultName": "getData"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1328,
+        -2064
+      ],
+      "id": "d2e717ca-ecd7-402d-a5a6-b530efc54c55",
+      "name": "data"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"username\": \"{{ $('Webhook').item.json.body.username }}\",\n  \"type\": \"{{ $('Webhook').item.json.body.type }}\",\n  \"title\":\"{{ $('Webhook').item.json.body.title }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1104,
+        -2064
+      ],
+      "id": "985e34c1-9f0d-437b-8182-a4a507a2fab3",
+      "name": "pre"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"acc_id\": \"{{ String($('data').item.json.accounts[0].acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('data').item.json.accounts[0].username || '').trim() }}\",\n  \"public\": \"{{ String($('data').item.json.pending_url[0].public || '').trim() }}\",\n  \"access_token\": \"{{ String($('data').item.json.accounts[0].token || '').trim() }}\",\n  \"database_name\": \"{{ String($('data').item.json.accounts[0].database_name || '').trim() }}\",\n  \"title\": {{\n    JSON.stringify(\n      String(\n        $('pre').item.json.title === 'false'\n          ? $('data').item.json.accounts[0].default_title\n          : ($('pre').item.json.title === 'true'\n              ? $('data').item.json.pending_url[0].title\n              : $('pre').item.json.title)\n      ).trim()\n    )\n  }},\n  \"description\": {{\n    JSON.stringify(\n      String(\n        $('pre').item.json.description\n          || $('data').item.json.accounts[0].default_des\n          || ''\n      ).trim()\n    )\n  }},\n  \"type\": \"{{ String($('pre').item.json.type || '').trim() }}\",\n  \"id\": \"{{ $('data').item.json.pending_url[0].id }}\",\n  \"folder\": \"{{ String($('data').item.json.accounts[0].folder || '').trim() }}\",\n  \"filename\": \"{{ String($('data').item.json.pending_url[0].filename || '').trim() }}\",\n  \"root_dir\": \"{{ String($('data').item.json.accounts[0].root_dir || '').trim() }}\",\n  \"files_url\": \"{{ String($('data').item.json.accounts[0].files_url || '').trim() }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1552,
+        -2064
+      ],
+      "id": "36400107-b8b1-43b5-9424-d2849aeff0ce",
+      "name": "final_data",
+      "notes": "{\n  \"acc_id\": \"{{ String($('accounts').item.json.acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('accounts').item.json.username || '').trim() }}\",\n  \"public\": \"https://files.mohdasif.net/{{ $json.modified }}\",\n  \"access_token\": \"{{ String($('accounts').item.json.token || '').trim() }}\",\n  \"database_name\": \"{{ String($('accounts').item.json.database_name || '').trim() }}\",\n  \"status\": \"Pending\",\n  \"title\": \"{{ $('start').item.json.title === 'false' ? $('accounts').item.json.default_title : $('start').item.json.title }}\",\n  \"description\": {{ JSON.stringify(String($('start').item.json.description || $('accounts').item.json.default_des || '').trim()) }},\n  \"type\": \"{{ String($('start').item.json.type || '').trim() }}\",\n  \"id\": \"{{ $('pending_url').item.json.id }}\"\n}"
+    },
+    {
+      "parameters": {
+        "path": "puzzle",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1120,
+        -2064
+      ],
+      "id": "2c76931a-0ad6-4cdc-8ba9-12048766c6c0",
+      "name": "Webhook",
+      "webhookId": "76a11a5b-03bf-4a8e-b79b-2bf1e53c1579"
+    },
+    {
+      "parameters": {
+        "command": "=bash -eu <<'BASH'\n# ===== CONFIG =====\nDIR=\"{{ $('dir').item.json.dir_obj }}\"    # main folder\nPROCDIR=\"$DIR/processed\"                      # processed/ (locked files live here)\nEXT=\"jpg|png|mp4\"                             # allowed extensions (regex, e.g. \"jpg|png|mp4\")\n# ===================\n\nmkdir -p \"$DIR\" \"$PROCDIR\"\n\n# helper to list matching files (top-level only), returns null-separated array\nlist_files() {\n  local arr\n  # Use posix-extended regex type for clearer grouping\n  mapfile -d '' -t arr < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\n  printf \"%s\\n\" \"${arr[@]-}\"\n}\n\n# helper to list processed files\nlist_processed() {\n  local p_arr\n  mapfile -d '' -t p_arr < <(find \"$PROCDIR\" -maxdepth 1 -type f -print0)\n  printf \"%s\\n\" \"${p_arr[@]-}\"\n}\n\n# 1) If no files in DIR matching EXT, move everything from processed back to DIR (reset)\nmapfile -d '' -t all < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\nif [ ${#all[@]} -eq 0 ]; then\n  # check processed folder\n  shopt -s nullglob\n  files=( \"$PROCDIR\"/* )\n  if [ ${#files[@]} -gt 0 ]; then\n    for f in \"${files[@]}\"; do\n      # move back; if any mv fails, report and exit non-zero\n      mv -- \"$f\" \"$DIR/\" || { echo \"__RESET_PARTIAL_FAIL__:$(basename \"$f\")\"; exit 2; }\n    done\n    # refresh list after reset\n    mapfile -d '' -t all < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\n    echo \"RESET_DONE\"\n    # continue to picking below (we intentionally do not exit)\n  else\n    # nothing anywhere\n    echo \"__NO_FILES_ANYWHERE__\"\n    exit 0\n  fi\nfi\n\n# At this point 'all' should contain candidate files in DIR\nif [ ${#all[@]} -eq 0 ]; then\n  # defensive - if still empty after attempted reset\n  echo \"__NO_FILES_AFTER_RESET__\"\n  exit 0\nfi\n\n# 2) pick a random file\nif command -v shuf >/dev/null 2>&1; then\n  selected=\"$(printf \"%s\\n\" \"${all[@]}\" | shuf -n1)\"\nelse\n  idx=$(( RANDOM % ${#all[@]} ))\n  selected=\"${all[$idx]}\"\nfi\n\nfilename=\"$(basename -- \"$selected\")\"\nsrcpath=\"$selected\"\nlockpath=\"$PROCDIR/$filename\"\n\n# 3) atomic move to processed (acts as a lock). If mv fails -> race/perm error\nif ! mv -- \"$srcpath\" \"$lockpath\"; then\n  echo \"__MV_FAILED__:$filename\"\n  exit 2\nfi\n\n# 4) ensure rollback on any processing error — move file back to DIR\nrollback() {\n  if [ -e \"$lockpath\" ]; then\n    mv -- \"$lockpath\" \"$DIR/\" || echo \"__ROLLBACK_FAILED__:$filename\"\n  fi\n}\ntrap 'rollback; exit 2' ERR\n\n# ====== YOUR PROCESSING COMMANDS START HERE ======\n# Replace the example below with your real commands (ffmpeg, convert, upload, etc.)\n# Example placeholders:\n#  - For video (mp4): ffmpeg -y -i \"$lockpath\" -vf \"scale=1280:-1\" \"/home/node/shared/YOUTUBE/output/${filename%.*}_resized.mp4\"\n#  - For image (jpg/png): convert \"$lockpath\" -resize 1080x1080 \"/home/node/shared/YOUTUBE/output/${filename%.*}_thumb.jpg\"\n\n# ---- BEGIN PROCESS (REPLACE THIS BLOCK) ----\n# Simulate processing; replace 'true' with your commands.\n# If any command returns non-zero, trap will run rollback and exit non-zero.\ntrue\n# ---- END PROCESS (REPLACE THIS BLOCK) ----\n# ===============================================\n\n# on success, remove trap and report OK\ntrap - ERR\necho \"$filename\"\nexit 0\nBASH"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        -2128
+      ],
+      "id": "31d88180-c0db-4140-998f-3e7c7584085c",
+      "name": "Random_objects1"
+    },
+    {
+      "parameters": {
+        "command": "=bash -eu <<'BASH'\n# ===== CONFIG =====\nDIR=\"{{ $json.dir_video }}\"    # main folder\nPROCDIR=\"$DIR/processed\"                      # processed/ (locked files live here)\nEXT=\"jpg|png|mp4\"                             # allowed extensions (regex, e.g. \"jpg|png|mp4\")\n# ===================\n\nmkdir -p \"$DIR\" \"$PROCDIR\"\n\n# helper to list matching files (top-level only), returns null-separated array\nlist_files() {\n  local arr\n  # Use posix-extended regex type for clearer grouping\n  mapfile -d '' -t arr < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\n  printf \"%s\\n\" \"${arr[@]-}\"\n}\n\n# helper to list processed files\nlist_processed() {\n  local p_arr\n  mapfile -d '' -t p_arr < <(find \"$PROCDIR\" -maxdepth 1 -type f -print0)\n  printf \"%s\\n\" \"${p_arr[@]-}\"\n}\n\n# 1) If no files in DIR matching EXT, move everything from processed back to DIR (reset)\nmapfile -d '' -t all < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\nif [ ${#all[@]} -eq 0 ]; then\n  # check processed folder\n  shopt -s nullglob\n  files=( \"$PROCDIR\"/* )\n  if [ ${#files[@]} -gt 0 ]; then\n    for f in \"${files[@]}\"; do\n      # move back; if any mv fails, report and exit non-zero\n      mv -- \"$f\" \"$DIR/\" || { echo \"__RESET_PARTIAL_FAIL__:$(basename \"$f\")\"; exit 2; }\n    done\n    # refresh list after reset\n    mapfile -d '' -t all < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\n    echo \"RESET_DONE\"\n    # continue to picking below (we intentionally do not exit)\n  else\n    # nothing anywhere\n    echo \"__NO_FILES_ANYWHERE__\"\n    exit 0\n  fi\nfi\n\n# At this point 'all' should contain candidate files in DIR\nif [ ${#all[@]} -eq 0 ]; then\n  # defensive - if still empty after attempted reset\n  echo \"__NO_FILES_AFTER_RESET__\"\n  exit 0\nfi\n\n# 2) pick a random file\nif command -v shuf >/dev/null 2>&1; then\n  selected=\"$(printf \"%s\\n\" \"${all[@]}\" | shuf -n1)\"\nelse\n  idx=$(( RANDOM % ${#all[@]} ))\n  selected=\"${all[$idx]}\"\nfi\n\nfilename=\"$(basename -- \"$selected\")\"\nsrcpath=\"$selected\"\nlockpath=\"$PROCDIR/$filename\"\n\n# 3) atomic move to processed (acts as a lock). If mv fails -> race/perm error\nif ! mv -- \"$srcpath\" \"$lockpath\"; then\n  echo \"__MV_FAILED__:$filename\"\n  exit 2\nfi\n\n# 4) ensure rollback on any processing error — move file back to DIR\nrollback() {\n  if [ -e \"$lockpath\" ]; then\n    mv -- \"$lockpath\" \"$DIR/\" || echo \"__ROLLBACK_FAILED__:$filename\"\n  fi\n}\ntrap 'rollback; exit 2' ERR\n\n# ====== YOUR PROCESSING COMMANDS START HERE ======\n# Replace the example below with your real commands (ffmpeg, convert, upload, etc.)\n# Example placeholders:\n#  - For video (mp4): ffmpeg -y -i \"$lockpath\" -vf \"scale=1280:-1\" \"/home/node/shared/YOUTUBE/output/${filename%.*}_resized.mp4\"\n#  - For image (jpg/png): convert \"$lockpath\" -resize 1080x1080 \"/home/node/shared/YOUTUBE/output/${filename%.*}_thumb.jpg\"\n\n# ---- BEGIN PROCESS (REPLACE THIS BLOCK) ----\n# Simulate processing; replace 'true' with your commands.\n# If any command returns non-zero, trap will run rollback and exit non-zero.\ntrue\n# ---- END PROCESS (REPLACE THIS BLOCK) ----\n# ===============================================\n\n# on success, remove trap and report OK\ntrap - ERR\necho \"$filename\"\nexit 0\nBASH"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        -2128
+      ],
+      "id": "069db847-278a-4cc4-845d-f35a5fc77a65",
+      "name": "Random_videos1"
+    },
+    {
+      "parameters": {
+        "command": "=/bin/bash -lc 'cd /home/node/shared/python/games && mkdir -p outputs && /usr/bin/python3 game.py \\\n--falls 3 \\\n--hold-frames 15 \\\n--audio-bg \"files/audio.mp3\" \\\n--audio-bg-volume 0.8 \\\n--icon \"{{ $('config').item.json.dir_obj }}/processed/{{ $json.stdout }}\" \\\n--background \"{{ $('config').item.json.dir_video }}/processed/{{ $('Random_videos1').item.json.stdout }}\" \\\n--output-path \"{{ $('config').item.json.dir_output }}/{{ $('Random_videos1').item.json.stdout }}\" \\\n--bg-video-mode \"full\" \\\n2>&1 | sed -n \"1,500p\"'"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -848,
+        -2640
+      ],
+      "id": "3705781e-3a3f-441d-8985-4320b822413d",
+      "name": "command1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"dir_video\": \"/home/node/shared/files/bgvideo\",\n  \"dir_obj\": \"/home/node/shared/files/icons\",\n  \"dir_output\": \"/home/node/shared/files/output\"\n\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1136,
+        -2448
+      ],
+      "id": "e5fe957f-ff1b-41fb-ba76-35b767aa4170",
+      "name": "config",
+      "disabled": true
+    },
+    {
+      "parameters": {
         "operation": "executeQuery",
         "query": "SELECT *\nFROM {{ $('accounts').item.json.database_name }}\nWHERE  {{ $json.type }} IS NULL\n   OR {{ $json.type }} = ''\nORDER BY id ASC\nLIMIT 1;\n\n",
         "options": {}
@@ -487,10 +461,10 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        208,
-        -1008
+        -688,
+        -2064
       ],
-      "id": "875aa3c5-6b51-42fc-9a3c-5356df08d857",
+      "id": "264168ca-aa2f-4125-b6fc-d4ab338437dd",
       "name": "pending_url",
       "credentials": {
         "postgres": {
@@ -537,86 +511,177 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        432,
-        -1008
+        -464,
+        -2064
       ],
-      "id": "38097cc8-e33a-4693-aa24-135bbe1d1c7d",
+      "id": "e9d69f72-531f-4ed8-97ba-2c59d1016c6d",
       "name": "If"
     },
     {
       "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "BsyOPmLgdOcI8rtZ",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/BsyOPmLgdOcI8rtZ",
-          "cachedResultName": "getData"
+        "command": "=cd /home/node/shared/python/pendulum && python3 generate.py --object \"{{ $('dir').item.json.dir_obj }}/processed/{{ $('Random_objects1').item.json.stdout }}\" --background assets/bg.mp4 --shape \"{{ (() => { const s = ['triangle','square','pentagon','hexagon','heptagon','octagon','nonagon','decagon','circle','star','diamond']; return s[Math.floor(Math.random()*s.length)]; })() }}\" --output \"/home/node/shared/files/output/{{ $('Random_videos1').item.json.stdout }}\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        672,
+        -1984
+      ],
+      "id": "92477bff-3e94-4c54-904e-6c6ae0ed9ae2",
+      "name": "pendulum",
+      "notes": "cd /home/node/shared/python/pendulum && python3 generate.py --object \"/home/node/shared/files/icons/processed/{{ $('Random_objects1').item.json.stdout }}\" --background assets/bg.mp4 --shape \"{{ (() => { const s = ['triangle','square','pentagon','hexagon','heptagon','octagon','nonagon','decagon','circle','star','diamond']; return s[Math.floor(Math.random()*s.length)]; })() }}\" --output \"/home/node/shared/files/icons/output/puzzle2.mp4\" --dim-amount 0.8\n\nworking =>\n\ncd /home/node/shared/python/pendulum && python3 generate.py --object \"/home/node/shared/files/icons/processed/{{ $('Random_objects1').item.json.stdout }}\" --background assets/bg.mp4 --shape \"{{ (() => { const s = ['triangle','square','pentagon','hexagon','heptagon','octagon','nonagon','decagon','circle','star','diamond']; return s[Math.floor(Math.random()*s.length)]; })() }}\" --output \"/home/node/shared/files/output/{{ $('Random_videos1').item.json.stdout }}\" --dim-amount 0.9"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Example: Access data from previous node\nconst input = $('accounts').first().json.username; // Or $('PreviousNodeName').item.json if you prefer explicit reference\n\n// Initialize directory variables\nlet dir_video = \"\";\nlet dir_obj = \"\";\nlet dir_output = \"\";\n\n// Apply multiple conditional branches\nif (input === \"paheli\") {\n  dir_video = \"/home/node/shared/files/bgvideo\";\n  dir_obj = \"/home/node/shared/files/diwali\";\n  // dir_output = \"/home/node/shared/FACEBOOK/output\";\n} \nelse if (input === \"urban__raja\") {\n  dir_video = \"/home/node/shared/files/bgvideo\";\n  dir_obj = \"/home/node/shared/files/diwali\";\n  // dir_output = \"/home/node/shared/FACEBOOK/output\";\n}\nelse if (input.category === \"instagram\") {\n  dir_video = \"/home/node/shared/INSTAGRAM/bgvideo\";\n  dir_obj = \"/home/node/shared/INSTAGRAM/icons\";\n  dir_output = \"/home/node/shared/INSTAGRAM/output\";\n} \n\nelse {\n  // For any unexpected or custom case\n  dir_video = `/home/node/shared/files/${input.category}/bgvideo`;\n  dir_obj = `/home/node/shared/files/${input.category}/icons`;\n  dir_output = `/home/node/shared/files/${input.category}/output`;\n}\n\n// Return directories as output for next node\nreturn [\n  {\n    json: {\n      dir_video,\n      dir_obj,\n      dir_output\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        -2128
+      ],
+      "id": "c1771875-3e1e-4bd2-9829-156bffef4fda",
+      "name": "dir"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "15ad7f17-1811-4222-9556-231659b5fefe",
+                    "leftValue": "={{ $('accounts').item.json.username }}",
+                    "rightValue": "urban__raja",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "urban__raja"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d1b641c3-b392-4897-9dc1-2ba8e74eb03d",
+                    "leftValue": "={{ $('accounts').item.json.username }}",
+                    "rightValue": "paheli",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "अम्माजी की पहेली "
+            }
+          ]
         },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
         "options": {}
       },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
       "position": [
-        2896,
-        -1008
+        432,
+        -2128
       ],
-      "id": "d2e717ca-ecd7-402d-a5a6-b530efc54c55",
-      "name": "data"
+      "id": "46163499-e578-45b2-9dc3-48e3a3fa9c23",
+      "name": "Switch"
     },
     {
       "parameters": {
-        "mode": "raw",
-        "jsonOutput": "={\n  \"username\": \"{{ $('Webhook').item.json.body.username }}\",\n  \"type\": \"{{ $('Webhook').item.json.body.type }}\",\n  \"title\":\"{{ $('Webhook').item.json.body.title }}\"\n}",
-        "options": {}
+        "command": "=bash -eu <<'BASH'\n# ===== CONFIG =====\nDIR=\"{{ $('dir').item.json.dir_obj }}\"    # main folder\nPROCDIR=\"$DIR/processed\"                      # processed/ (locked files live here)\nEXT=\"jpg|png|mp4\"                             # allowed extensions (regex, e.g. \"jpg|png|mp4\")\n# ===================\n\nmkdir -p \"$DIR\" \"$PROCDIR\"\n\n# helper to list matching files (top-level only), returns null-separated array\nlist_files() {\n  local arr\n  # Use posix-extended regex type for clearer grouping\n  mapfile -d '' -t arr < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\n  printf \"%s\\n\" \"${arr[@]-}\"\n}\n\n# helper to list processed files\nlist_processed() {\n  local p_arr\n  mapfile -d '' -t p_arr < <(find \"$PROCDIR\" -maxdepth 1 -type f -print0)\n  printf \"%s\\n\" \"${p_arr[@]-}\"\n}\n\n# 1) If no files in DIR matching EXT, move everything from processed back to DIR (reset)\nmapfile -d '' -t all < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\nif [ ${#all[@]} -eq 0 ]; then\n  # check processed folder\n  shopt -s nullglob\n  files=( \"$PROCDIR\"/* )\n  if [ ${#files[@]} -gt 0 ]; then\n    for f in \"${files[@]}\"; do\n      # move back; if any mv fails, report and exit non-zero\n      mv -- \"$f\" \"$DIR/\" || { echo \"__RESET_PARTIAL_FAIL__:$(basename \"$f\")\"; exit 2; }\n    done\n    # refresh list after reset\n    mapfile -d '' -t all < <(find \"$DIR\" -maxdepth 1 -type f -regextype posix-extended -iregex \".*\\.($EXT)$\" -print0)\n    echo \"RESET_DONE\"\n    # continue to picking below (we intentionally do not exit)\n  else\n    # nothing anywhere\n    echo \"__NO_FILES_ANYWHERE__\"\n    exit 0\n  fi\nfi\n\n# At this point 'all' should contain candidate files in DIR\nif [ ${#all[@]} -eq 0 ]; then\n  # defensive - if still empty after attempted reset\n  echo \"__NO_FILES_AFTER_RESET__\"\n  exit 0\nfi\n\n# 2) pick a random file\nif command -v shuf >/dev/null 2>&1; then\n  selected=\"$(printf \"%s\\n\" \"${all[@]}\" | shuf -n1)\"\nelse\n  idx=$(( RANDOM % ${#all[@]} ))\n  selected=\"${all[$idx]}\"\nfi\n\nfilename=\"$(basename -- \"$selected\")\"\nsrcpath=\"$selected\"\nlockpath=\"$PROCDIR/$filename\"\n\n# 3) atomic move to processed (acts as a lock). If mv fails -> race/perm error\nif ! mv -- \"$srcpath\" \"$lockpath\"; then\n  echo \"__MV_FAILED__:$filename\"\n  exit 2\nfi\n\n# 4) ensure rollback on any processing error — move file back to DIR\nrollback() {\n  if [ -e \"$lockpath\" ]; then\n    mv -- \"$lockpath\" \"$DIR/\" || echo \"__ROLLBACK_FAILED__:$filename\"\n  fi\n}\ntrap 'rollback; exit 2' ERR\n\n# ====== YOUR PROCESSING COMMANDS START HERE ======\n# Replace the example below with your real commands (ffmpeg, convert, upload, etc.)\n# Example placeholders:\n#  - For video (mp4): ffmpeg -y -i \"$lockpath\" -vf \"scale=1280:-1\" \"/home/node/shared/YOUTUBE/output/${filename%.*}_resized.mp4\"\n#  - For image (jpg/png): convert \"$lockpath\" -resize 1080x1080 \"/home/node/shared/YOUTUBE/output/${filename%.*}_thumb.jpg\"\n\n# ---- BEGIN PROCESS (REPLACE THIS BLOCK) ----\n# Simulate processing; replace 'true' with your commands.\n# If any command returns non-zero, trap will run rollback and exit non-zero.\ntrue\n# ---- END PROCESS (REPLACE THIS BLOCK) ----\n# ===============================================\n\n# on success, remove trap and report OK\ntrap - ERR\necho \"$filename\"\nexit 0\nBASH"
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
       "position": [
-        2672,
-        -1008
+        -1136,
+        -1808
       ],
-      "id": "985e34c1-9f0d-437b-8182-a4a507a2fab3",
-      "name": "pre"
+      "id": "e784a891-51b1-4db0-b951-91d794cc1b24",
+      "name": "Random_objects",
+      "disabled": true
     },
     {
       "parameters": {
-        "mode": "raw",
-        "jsonOutput": "={\n  \"acc_id\": \"{{ String($('data').item.json.accounts[0].acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('data').item.json.accounts[0].username || '').trim() }}\",\n  \"public\": \"{{ String($('data').item.json.pending_url[0].public || '').trim() }}\",\n  \"access_token\": \"{{ String($('data').item.json.accounts[0].token || '').trim() }}\",\n  \"database_name\": \"{{ String($('data').item.json.accounts[0].database_name || '').trim() }}\",\n  \"title\": {{\n    JSON.stringify(\n      String(\n        $('pre').item.json.title === 'false'\n          ? $('data').item.json.accounts[0].default_title\n          : ($('pre').item.json.title === 'true'\n              ? $('data').item.json.pending_url[0].title\n              : $('pre').item.json.title)\n      ).trim()\n    )\n  }},\n  \"description\": {{\n    JSON.stringify(\n      String(\n        $('pre').item.json.description\n          || $('data').item.json.accounts[0].default_des\n          || ''\n      ).trim()\n    )\n  }},\n  \"type\": \"{{ String($('pre').item.json.type || '').trim() }}\",\n  \"id\": \"{{ $('data').item.json.pending_url[0].id }}\",\n  \"folder\": \"{{ String($('data').item.json.accounts[0].folder || '').trim() }}\",\n  \"filename\": \"{{ String($('data').item.json.pending_url[0].filename || '').trim() }}\",\n  \"root_dir\": \"{{ String($('data').item.json.accounts[0].root_dir || '').trim() }}\",\n  \"files_url\": \"{{ String($('data').item.json.accounts[0].files_url || '').trim() }}\"\n}\n",
-        "options": {}
+        "command": "=cd /home/node/shared/python/pendulum && python3 generate.py --object \"{{ $('dir').item.json.dir_obj }}/processed/{{ $('Random_objects1').item.json.stdout }}\" --background {{ $('dir').item.json.dir_video }}/processed/{{ $('Random_videos1').item.json.stdout }} --shape \"{{ (() => { const s = ['triangle','square','pentagon','hexagon','heptagon','octagon','nonagon','decagon','circle','star','diamond']; return s[Math.floor(Math.random()*s.length)]; })() }}\" --output \"/home/node/shared/files/output/{{ $('Random_videos1').item.json.stdout }}\""
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
       "position": [
-        3120,
-        -1008
+        672,
+        -2384
       ],
-      "id": "36400107-b8b1-43b5-9424-d2849aeff0ce",
-      "name": "final_data",
-      "notes": "{\n  \"acc_id\": \"{{ String($('accounts').item.json.acc_id || '').trim() }}\",\n  \"username\": \"{{ String($('accounts').item.json.username || '').trim() }}\",\n  \"public\": \"https://files.mohdasif.net/{{ $json.modified }}\",\n  \"access_token\": \"{{ String($('accounts').item.json.token || '').trim() }}\",\n  \"database_name\": \"{{ String($('accounts').item.json.database_name || '').trim() }}\",\n  \"status\": \"Pending\",\n  \"title\": \"{{ $('start').item.json.title === 'false' ? $('accounts').item.json.default_title : $('start').item.json.title }}\",\n  \"description\": {{ JSON.stringify(String($('start').item.json.description || $('accounts').item.json.default_des || '').trim()) }},\n  \"type\": \"{{ String($('start').item.json.type || '').trim() }}\",\n  \"id\": \"{{ $('pending_url').item.json.id }}\"\n}"
-    },
-    {
-      "parameters": {
-        "path": "puzzle",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        -464,
-        -912
-      ],
-      "id": "2c76931a-0ad6-4cdc-8ba9-12048766c6c0",
-      "name": "Webhook",
-      "webhookId": "76a11a5b-03bf-4a8e-b79b-2bf1e53c1579"
+      "id": "3c15db9e-36ab-4703-aab0-98f9a8867f2b",
+      "name": "pendulum1",
+      "notes": "cd /home/node/shared/python/pendulum && python3 generate.py --object \"/home/node/shared/files/icons/processed/{{ $('Random_objects1').item.json.stdout }}\" --background assets/bg.mp4 --shape \"{{ (() => { const s = ['triangle','square','pentagon','hexagon','heptagon','octagon','nonagon','decagon','circle','star','diamond']; return s[Math.floor(Math.random()*s.length)]; })() }}\" --output \"/home/node/shared/files/icons/output/puzzle2.mp4\" --dim-amount 0.8\n\nworking =>\n\ncd /home/node/shared/python/pendulum && python3 generate.py --object \"/home/node/shared/files/icons/processed/{{ $('Random_objects1').item.json.stdout }}\" --background assets/bg.mp4 --shape \"{{ (() => { const s = ['triangle','square','pentagon','hexagon','heptagon','octagon','nonagon','decagon','circle','star','diamond']; return s[Math.floor(Math.random()*s.length)]; })() }}\" --output \"/home/node/shared/files/output/{{ $('Random_videos1').item.json.stdout }}\" --dim-amount 0.9"
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "Switch1": [
+      {
+        "json": {
+          "id": 2,
+          "username": "urban__raja",
+          "type": "fb",
+          "acc_id": "103261274477681",
+          "database_name": "game_data",
+          "token": "EAAZAD11ycW5IBPuMaaa1aWzRrFe5k2dfO0z4s1emkc5QBVzCzJEg8sIS7J1DhyCWXkZAM2kyRnzuhqM0ZBT7A2wHBzZCmtU7dlIzinIQRXmz2eZBY2lRzUNrToAdvZAf4B7MTr0LW9STepqqB735OSFimYw1C6O0W9QiYsVAICXqH0PwfpDZAxU8zQIHQ9nXuTAl1MYBZAoZD",
+          "folder": "/FACEBOOK/ShadowKhan/",
+          "default_des": "देखते हैं कौन-कौन चैलेंज पूरा कर पाता है 🔥💪\n.#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送🌍微信、支付寶收款 國外配送約2週左右 因天氣、不可控因素可能延誤 能接受再下單🗳️可詢問客服配送進度.",
+          "default_title": "99% Fail😳❎⏸️ #fblifestyle",
+          "tags": null,
+          "privacy": null,
+          "root_dir": "/home/node/shared/",
+          "created_at": "2025-10-02T23:09:56.000Z",
+          "updated_at": "2025-10-15T18:03:17.000Z",
+          "files_url": "https://files.mohdasif.net/"
+        }
+      }
+    ],
+    "command1": [
+      {
+        "json": {
+          "exitCode": 0,
+          "stderr": "",
+          "stdout": "📹  Using full video as animated background.\n  🎯 Empty box at: Row 3, Column 2\n\n🎬 Generating video 1 with 3 falls\n  ⚙️  Total frames: 180, Hold frames: 15\n  ⏳ Pre-rendering static elements...\n  ✅ Static cached.\n  ... Generated 30 / 180 frames\n  ... Generated 60 / 180 frames\n  ... Generated 90 / 180 frames\n  ... Generated 120 / 180 frames\n  ... Generated 150 / 180 frames\n  ... Generated 180 / 180 frames\n  ✓ Generated frames: 180\nRunning FFmpeg command:\nffmpeg -y -stream_loop -1 -i /home/node/shared/files/bgvideo/processed/47921183528594702.mp4 -framerate 30 -i temp/frames/frame_%04d.png -stream_loop -1 -i files/audio.mp3 -filter_complex [0:v]scale=1080:1920,setsar=1[bgv];[bgv][1:v]overlay=x=0:y=0[vout];[2:a]volume=0.8[bg_loop_formatted];[bg_loop_formatted]anull[aout] -map [vout] -map [aout] -c:a aac -b:a 192k -c:v libx264 -preset medium -crf 23 -pix_fmt yuv420p -t 6.0 -movflags +faststart /home/node/shared/files/output/47921183528594702.mp4\n✅ Video saved: /home/node/shared/files/output/47921183528594702.mp4"
+        }
+      }
+    ],
+    "config": [
+      {
+        "json": {
+          "dir_video": "/home/node/shared/files/bgvideo",
+          "dir_obj": "/home/node/shared/files/icons",
+          "dir_output": "/home/node/shared/files/output"
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -646,6 +711,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-18T12:37:02.000Z",
-  "versionId": "65ead478-f3f0-48fe-a7a0-1ba03bf0e67d"
+  "updatedAt": "2025-10-19T12:30:59.000Z",
+  "versionId": "3f8dbc8e-5f8d-4967-be7e-a7a56a8d3755"
 }

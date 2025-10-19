@@ -334,7 +334,7 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        -2576,
+        -2560,
         -1040
       ],
       "id": "0c1040f0-639b-4464-9009-4fc65afe7a97",
@@ -525,6 +525,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-18T13:03:25.000Z",
-  "versionId": "6ee70577-d9e0-4646-b012-a7da7b3aec62"
+  "updatedAt": "2025-10-19T02:26:16.000Z",
+  "versionId": "9e892451-dfd4-4b96-8d48-fcd061ac38c5"
 }

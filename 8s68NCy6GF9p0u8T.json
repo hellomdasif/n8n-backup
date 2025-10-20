@@ -263,10 +263,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -416,
-        -2128
+        -896,
+        16
       ],
-      "id": "75d61b7d-bcac-417e-bd05-c1b32d796682",
+      "id": "c9502c07-df66-4b4d-bfe4-8220a84e7bc7",
       "name": "✅ Is Container Ready?"
     },
     {
@@ -276,10 +276,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -864,
-        -2064
+        -1344,
+        80
       ],
-      "id": "060be128-be2b-4ad5-81fa-d6a529dd502d",
+      "id": "1c39728c-7129-4763-800c-9448be94362f",
       "name": "⏰ Initial Processing Wait",
       "webhookId": "1c31a965-a646-4247-8591-bdbfdfd44f56"
     },
@@ -291,10 +291,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        32,
-        -1776
+        -448,
+        368
       ],
-      "id": "c3a9e782-374e-4e36-8b93-07f91ee52e39",
+      "id": "5dc4d6c3-1110-4611-8df1-ef96959c7666",
       "name": "⏰ Retry Wait Loop",
       "webhookId": "ec9f9eba-de1d-4683-b6b7-bfddeb111ca3"
     },
@@ -328,10 +328,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -192,
-        -1936
+        -672,
+        208
       ],
-      "id": "a0db73cb-3992-4802-9451-c58531e5a374",
+      "id": "ba359b20-ba01-4a7e-98f7-3d5d4be6c80d",
       "name": "anyError"
     },
     {
@@ -352,7 +352,7 @@
           "parameters": [
             {
               "name": "file_url",
-              "value": "={{ $('Loop Over Items').item.json.public }}"
+              "value": "={{ $('Loop Over Items').item.json.public.replace(/^https:\\/\\//, 'http://') }}"
             }
           ]
         },
@@ -361,10 +361,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1312,
-        -1968
+        -1792,
+        176
       ],
-      "id": "caae9922-2157-4e58-bf1c-7323c215c02c",
+      "id": "81fcb20f-d67c-41b7-b4f9-25ee6eddc0aa",
       "name": "upload"
     },
     {
@@ -388,10 +388,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -640,
-        -2064
+        -1120,
+        80
       ],
-      "id": "0ce2db2b-0c03-4bd5-8566-225c97ca4e66",
+      "id": "e80ff224-ab11-42ed-9b4b-deb056f53c5f",
       "name": "Check_Status"
     },
     {
@@ -415,10 +415,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        32,
-        -2176
+        -448,
+        -32
       ],
-      "id": "ec28c8a2-9c9b-4760-bd75-ae275a3b3815",
+      "id": "20ecf1b1-a43c-4f1f-ba1d-a1ab47967942",
       "name": "Publish"
     },
     {
@@ -443,10 +443,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        32,
-        -2368
+        -448,
+        -224
       ],
-      "id": "11ebdbcb-745a-4be8-80f0-8ac6fcdcbeb8",
+      "id": "108726b5-f98e-45ad-a6ac-67f98ea29ec2",
       "name": "📤 Publish via HTTP API"
     },
     {
@@ -505,10 +505,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        -1760,
-        -2048
+        -2240,
+        96
       ],
-      "id": "cc038230-f314-43cc-9d1c-9aaa15455770",
+      "id": "dcd9bdc5-acfe-4348-b89b-f9d70c8c818a",
       "name": "Switch"
     },
     {
@@ -567,10 +567,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        -192,
-        -2272
+        -672,
+        -128
       ],
-      "id": "53bdabe2-78e9-49cc-bc99-e9644dfcfdd2",
+      "id": "a1856d3d-d791-47aa-a390-3b0f3a1ed2e1",
       "name": "Switch1"
     },
     {
@@ -594,10 +594,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1536,
-        -1968
+        -2016,
+        176
       ],
-      "id": "68e33588-69e0-4bd6-91d5-387e8a25ddaf",
+      "id": "fc81df12-7cc4-403a-94d3-3e99b3fae22e",
       "name": "get_container_id_fb"
     },
     {
@@ -634,10 +634,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1312,
-        -2160
+        -1792,
+        -16
       ],
-      "id": "18aae23d-9e8b-4145-a78b-6c590f6cb4ef",
+      "id": "4519fd8f-23c5-48a0-8ac9-fde1ef7225bf",
       "name": "get_container_id_insta"
     },
     {
@@ -657,10 +657,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1088,
-        -1968
+        -1568,
+        176
       ],
-      "id": "ccfcbb3e-5a50-4e8f-be05-c65e782657cb",
+      "id": "05d92d06-23d3-42f3-8925-867223eb0c35",
       "name": "set2"
     },
     {
@@ -680,10 +680,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1088,
-        -2160
+        -1568,
+        -16
       ],
-      "id": "91884857-ffaf-4557-afe3-7f7957748840",
+      "id": "da818e19-7f27-42b0-910c-0ba52026c813",
       "name": "set1"
     },
     {
@@ -693,10 +693,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1936,
-        -2048
+        -2416,
+        96
       ],
-      "id": "dc0d2345-319a-45f0-ae99-bbdfe3e082db",
+      "id": "cf8435ac-84f2-4fb8-becd-c2adaf23e80a",
       "name": "Loop Over Items"
     },
     {
@@ -800,10 +800,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        528,
-        -2160
+        -224,
+        192
       ],
-      "id": "6a10b515-e118-462c-bf8b-5cda2620177d",
+      "id": "47543339-6feb-4d04-8ecb-6a2c855cb68e",
       "name": "LOG"
     },
     {
@@ -815,10 +815,10 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        256,
-        -2256
+        -224,
+        -112
       ],
-      "id": "43147722-3e99-4808-beeb-748d56454dc0",
+      "id": "56ce3a95-ce32-41c8-8bb6-93f64fb35510",
       "name": "update_sucess",
       "credentials": {
         "postgres": {
@@ -836,10 +836,10 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        256,
-        -2032
+        -448,
+        192
       ],
-      "id": "efdd6c9d-0eb2-495c-95eb-68079f90b52f",
+      "id": "d2de859a-a8a0-4ba6-b9aa-70d5886af7d5",
       "name": "update_error",
       "credentials": {
         "postgres": {
@@ -854,16 +854,16 @@
     "Loop Over Items": [
       {
         "json": {
-          "acc_id": "860847497109592",
-          "username": "paheli",
-          "public": "https://files.mohdasif.net/files/output/644155552992139801.mp4",
-          "access_token": "EAAZAD11ycW5IBPoamiZAYz0JT7Lc9j21aZCmZAyWZCHZBgzDZCRLHx86dOO16Ju2VWs8EzZCthC6htDkZASmQNPWa43KQ6VuGjL8mHGLmNmBZBkyXHj5bKJZB2pPz7dLvG9J5kjWa3uCe9i28lodDcoRZAeHiiggS4TY4MORqgDWqLFeD2ZAVpF55vM6WBaESBJldEKCQ1lbX",
-          "database_name": "pendulum",
-          "title": "#trendingreel #facebookviral #tvshowinspired #visualcontent #facts",
-          "description": "#trendingreel #facebookviral #tvshowinspired #visualcontent #facts",
+          "acc_id": "103261274477681",
+          "username": "urban__raja",
+          "public": "https://files.mohdasif.net/files/output/368310075797613776.mp4",
+          "access_token": "EAAZAD11ycW5IBPuMaaa1aWzRrFe5k2dfO0z4s1emkc5QBVzCzJEg8sIS7J1DhyCWXkZAM2kyRnzuhqM0ZBT7A2wHBzZCmtU7dlIzinIQRXmz2eZBY2lRzUNrToAdvZAf4B7MTr0LW9STepqqB735OSFimYw1C6O0W9QiYsVAICXqH0PwfpDZAxU8zQIHQ9nXuTAl1MYBZAoZD",
+          "database_name": "game_data",
+          "title": "99% Fail😳❎⏸️ #fblifestyle",
+          "description": "देखते हैं कौन-कौन चैलेंज पूरा कर पाता है 🔥💪\n.#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送🌍微信、支付寶收款 國外配送約2週左右 因天氣、不可控因素可能延誤 能接受再下單🗳️可詢問客服配送進度.",
           "type": "fb",
-          "id": "7",
-          "folder": "/FACEBOOK/paheli/",
+          "id": "96",
+          "folder": "/FACEBOOK/ShadowKhan/",
           "filename": "",
           "root_dir": "/home/node/shared/",
           "files_url": "https://files.mohdasif.net/"
@@ -913,6 +913,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-19T17:38:01.000Z",
-  "versionId": "98efb65a-19dd-44e2-b8b8-554a64251911"
+  "updatedAt": "2025-10-20T08:44:23.000Z",
+  "versionId": "25dd2189-b840-4269-bbc8-9eaf3596da7a"
 }

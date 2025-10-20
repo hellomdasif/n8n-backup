@@ -74,6 +74,7 @@
           "interval": [
             {
               "field": "hours",
+              "hoursInterval": 3,
               "triggerAtMinute": 5
             }
           ]
@@ -210,7 +211,7 @@
     },
     "node:Schedule Trigger1": {
       "recurrenceRules": [
-        15
+        21
       ]
     }
   },
@@ -223,6 +224,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-19T16:03:25.000Z",
-  "versionId": "48034b44-6c3d-4c30-93ed-46997f290c03"
+  "updatedAt": "2025-10-20T05:17:52.000Z",
+  "versionId": "8df1f0c4-d545-402b-9c4e-7e320d8e8d33"
 }

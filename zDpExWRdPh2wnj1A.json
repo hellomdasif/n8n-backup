@@ -1,0 +1,70 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-22T08:16:00.623Z",
+  "id": "zDpExWRdPh2wnj1A",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 37",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d7d3664a-c53f-4ba1-9e1a-929797ea33fe",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "ls /home/node/shared/script"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "ae1a46b1-2677-4df8-b036-e93bdfcf2181",
+      "name": "Execute Command"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-22T08:16:00.627Z",
+      "updatedAt": "2025-10-22T08:16:00.627Z",
+      "role": "workflow:owner",
+      "workflowId": "zDpExWRdPh2wnj1A",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-22T08:20:41.000Z",
+  "versionId": "620a3e2c-8b51-46ff-b42c-188cba715552"
+}

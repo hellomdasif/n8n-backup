@@ -61,7 +61,7 @@
   "id": "IiNBuLViE6RlmYfY",
   "isArchived": false,
   "meta": null,
-  "name": "ReelSense-fbpage-start",
+  "name": "ReelSense-fbpage-start[MOVIE]",
   "nodes": [
     {
       "parameters": {
@@ -219,6 +219,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-20T16:17:36.000Z",
-  "versionId": "eba9e580-f270-4f54-b3c4-26e354c4c69b"
+  "updatedAt": "2025-10-22T16:38:00.000Z",
+  "versionId": "09c45cbb-fb32-4eaa-abb9-f3d545715918"
 }

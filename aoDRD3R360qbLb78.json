@@ -77,7 +77,7 @@
   },
   "createdAt": "2025-10-01T09:53:34.630Z",
   "id": "aoDRD3R360qbLb78",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "REACTION2",
   "nodes": [
@@ -240,6 +240,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T12:30:54.000Z",
-  "versionId": "e0e96ca5-a0f7-4ead-9871-42fbe3e303e0"
+  "updatedAt": "2025-10-22T16:09:26.000Z",
+  "versionId": "2047c452-0c4a-4cdb-93f7-140026f01d3a"
 }

@@ -850,27 +850,7 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {
-    "Loop Over Items": [
-      {
-        "json": {
-          "acc_id": "103261274477681",
-          "username": "urban__raja",
-          "public": "https://files.mohdasif.net/files/output/368310075797613776.mp4",
-          "access_token": "EAAZAD11ycW5IBPuMaaa1aWzRrFe5k2dfO0z4s1emkc5QBVzCzJEg8sIS7J1DhyCWXkZAM2kyRnzuhqM0ZBT7A2wHBzZCmtU7dlIzinIQRXmz2eZBY2lRzUNrToAdvZAf4B7MTr0LW9STepqqB735OSFimYw1C6O0W9QiYsVAICXqH0PwfpDZAxU8zQIHQ9nXuTAl1MYBZAoZD",
-          "database_name": "game_data",
-          "title": "99% Fail😳❎⏸️ #fblifestyle",
-          "description": "देखते हैं कौन-कौन चैलेंज पूरा कर पाता है 🔥💪\n.#🎂要怎麼不經意的讓另一一半看到這篇文👀 儀式感滿滿🈵🔜蛋糕小熊蠟燭旋轉褸盒🕯️ 嘿~閉上眼睛～許個願吧✨ 希望你的願望會實現 （偷偷按下機關）有我幫你準備的小驚喜唷 ⚠️ 商品是蛋糕小熊機關盒 沒有附戒指💍禮物要自己準備唷 流行周邊好物推薦搜尋 ✨ 玩具公仔搜尋🔍 寵物周邊搜尋 🔍 勗新商品資訊請看限時動態精選💭 下單方式🛒 🔜留言”+1；小編火速回覆你下單資訊 🔜留言”+1； 小編火速回覆你下單資訊 可自行截圖商品私訊購買‼️ 付款方式 台灣地📦匯款、ATM轉帳（可無摺）、街口支付 支持全球順豐配送🌍微信、支付寶收款 國外配送約2週左右 因天氣、不可控因素可能延誤 能接受再下單🗳️可詢問客服配送進度.",
-          "type": "fb",
-          "id": "96",
-          "folder": "/FACEBOOK/ShadowKhan/",
-          "filename": "",
-          "root_dir": "/home/node/shared/",
-          "files_url": "https://files.mohdasif.net/"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo": {
     "owner": "hellomdasif",
     "name": "n8n-backup"
@@ -913,6 +893,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-10-20T08:44:23.000Z",
-  "versionId": "25dd2189-b840-4269-bbc8-9eaf3596da7a"
+  "updatedAt": "2025-10-22T16:25:05.000Z",
+  "versionId": "5f31610f-a035-4cbe-ba5c-9eed15d0147d"
 }

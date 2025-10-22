@@ -26,7 +26,7 @@
   },
   "createdAt": "2025-10-01T07:34:02.341Z",
   "id": "shBQFBxMNHLTZ5j1",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "webhook-FactsMind_99",
   "nodes": [
@@ -155,6 +155,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T03:28:57.000Z",
-  "versionId": "056122ca-0acf-475a-9d57-2cc18a7c309a"
+  "updatedAt": "2025-10-22T16:02:47.000Z",
+  "versionId": "5df6fc1e-1c2e-4302-b32d-135ec7780024"
 }

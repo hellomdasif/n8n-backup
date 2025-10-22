@@ -66,7 +66,7 @@
   "id": "t3uWTowjq8iTmGGv",
   "isArchived": false,
   "meta": null,
-  "name": "paheli-Dadi-facebook",
+  "name": "paheli-Dadi-facebook[PUZZLE]",
   "nodes": [
     {
       "parameters": {
@@ -75,7 +75,7 @@
             {
               "field": "hours",
               "hoursInterval": 3,
-              "triggerAtMinute": 5
+              "triggerAtMinute": 55
             }
           ]
         }
@@ -224,6 +224,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-20T05:17:52.000Z",
-  "versionId": "8df1f0c4-d545-402b-9c4e-7e320d8e8d33"
+  "updatedAt": "2025-10-22T16:37:38.000Z",
+  "versionId": "638e2479-b2e0-44db-bbbf-3b177bafabfc"
 }

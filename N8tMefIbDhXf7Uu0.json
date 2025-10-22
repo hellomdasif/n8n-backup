@@ -26,7 +26,7 @@
   },
   "createdAt": "2025-09-27T12:16:20.407Z",
   "id": "N8tMefIbDhXf7Uu0",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "webhook-amazingrahul2407",
   "nodes": [
@@ -155,6 +155,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T03:29:02.000Z",
-  "versionId": "38fd4bda-d178-42f1-a1a3-6b06c4c28f8a"
+  "updatedAt": "2025-10-22T16:02:47.000Z",
+  "versionId": "5c9719b7-f63c-4f7b-91db-59caae538b30"
 }

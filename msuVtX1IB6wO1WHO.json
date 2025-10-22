@@ -116,7 +116,7 @@
   "id": "msuVtX1IB6wO1WHO",
   "isArchived": false,
   "meta": null,
-  "name": "urban__raja-fb-insta-[QUIZ]",
+  "name": "urban__raja-fb-insta-[PUZZLE]",
   "nodes": [
     {
       "parameters": {
@@ -366,6 +366,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-19T12:34:03.000Z",
-  "versionId": "85f39362-7d3a-4188-871f-14a10a806089"
+  "updatedAt": "2025-10-22T16:37:46.000Z",
+  "versionId": "fe32aba6-aa9c-4928-a256-f0b5824960f1"
 }

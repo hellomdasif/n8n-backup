@@ -53,7 +53,7 @@
   },
   "createdAt": "2025-09-28T09:52:25.128Z",
   "id": "Td2JhCw4yzSz7uvH",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "OVERLAY REEL WITH MILLION VIEWS",
   "nodes": [
@@ -169,6 +169,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-17T12:30:43.000Z",
-  "versionId": "868e4d5b-f623-4e0c-add0-ac5f831d4112"
+  "updatedAt": "2025-10-22T16:00:03.000Z",
+  "versionId": "28c00634-c6cd-47fc-9d07-bf61780c1aba"
 }

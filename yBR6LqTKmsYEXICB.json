@@ -1,0 +1,110 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-23T13:50:32.576Z",
+  "id": "yBR6LqTKmsYEXICB",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 38",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "ola",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        0
+      ],
+      "id": "38286c58-5b54-4b9f-a2e6-0cddade8958f",
+      "name": "Webhook",
+      "webhookId": "0ac39de3-0320-4365-addb-803e1ca6f4ab"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7d31d6bd-5a01-4848-91e7-d77f06bbbfe7",
+              "name": "message",
+              "value": "hello my name is lol",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        160,
+        0
+      ],
+      "id": "474b18e6-8c13-401c-a8ef-5929c82cc973",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        352,
+        0
+      ],
+      "id": "54f4a274-7077-47d2-ab66-4a9138434c7e",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-23T13:50:32.581Z",
+      "updatedAt": "2025-10-23T13:50:32.581Z",
+      "role": "workflow:owner",
+      "workflowId": "yBR6LqTKmsYEXICB",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-23T14:03:12.000Z",
+  "versionId": "bdf288c0-79b4-4996-8806-3a1ce872e48e"
+}

@@ -1,0 +1,74 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-31T20:09:45.247Z",
+  "id": "pBst7UoZHmjIpMO9",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 39",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "15df2050-acb5-411d-bf49-795061958e96",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -96,
+        0
+      ],
+      "id": "69eb72a8-d1ff-475b-8f80-1b5318b21217",
+      "name": "Webhook",
+      "webhookId": "15df2050-acb5-411d-bf49-795061958e96"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "76e50385-a087-494d-9a4f-b24906c6ae48",
+      "name": "Edit Fields"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-31T20:09:45.256Z",
+      "updatedAt": "2025-10-31T20:09:45.256Z",
+      "role": "workflow:owner",
+      "workflowId": "pBst7UoZHmjIpMO9",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-31T20:09:51.000Z",
+  "versionId": "29a929b2-a0f4-4532-b488-9dfb2db5e995"
+}

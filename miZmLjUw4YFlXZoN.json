@@ -1,0 +1,70 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-22T18:11:44.195Z",
+  "id": "miZmLjUw4YFlXZoN",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 42",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b217d045-c510-43be-9e7a-633fcd082283",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "command": "ls cd /home/node/shared/python/games"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "324c2ed1-d421-4e8a-b6fa-1070716c250f",
+      "name": "Execute Command"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "hellomdasif",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-11-22T18:11:44.197Z",
+      "updatedAt": "2025-11-22T18:11:44.197Z",
+      "role": "workflow:owner",
+      "workflowId": "miZmLjUw4YFlXZoN",
+      "projectId": "COQIBF46Vn0bg2e3"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-22T18:11:44.195Z",
+  "versionId": "4cc1e51a-a3c7-4266-afa4-95f6571e0666"
+}
